@@ -1,21 +1,28 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { DM_Sans, Literata } from "next/font/google";
+import { SiteFooter } from "@/components/SiteFooter";
+import { SiteHeader } from "@/components/SiteHeader";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const literata = Literata({
+  variable: "--font-literata",
   subsets: ["latin"],
+  weight: ["600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "CRECO PBO Act Knowledge Assistant",
+  title: {
+    default: "CRECO PBO Act Platform",
+    template: "%s | CRECO PBO Act Platform",
+  },
   description:
-    "RAG-powered assistant for Kenya's Public Benefit Organizations Act — answers from approved sources with citations.",
+    "Civic access and guidance on Kenya's Public Benefit Organizations Act, 2013 — for PBOs, community organisations, and partners.",
 };
 
 export default function RootLayout({
@@ -24,11 +31,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col bg-white text-slate-900">{children}</body>
+    <html lang="en" className={`${literata.variable} ${dmSans.variable} h-full`}>
+      <body className="flex min-h-full flex-col bg-white text-creco-text antialiased">
+        <div className="bg-creco-surface-alt px-4 py-2.5 text-center text-xs text-creco-muted">
+          Prototype · Informational guidance only, not legal advice ·{" "}
+          <span className="font-medium text-creco-primary">CRECO Kenya</span> in partnership with{" "}
+          <span className="font-medium text-creco-primary">ICNL</span>
+        </div>
+        <SiteHeader />
+        <main className="flex-1">{children}</main>
+        <SiteFooter />
+      </body>
     </html>
   );
 }

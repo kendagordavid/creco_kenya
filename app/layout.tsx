@@ -33,11 +33,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${literata.variable} ${dmSans.variable} h-full`}>
       <body className="flex min-h-full flex-col bg-white text-creco-text antialiased">
-        <div className="bg-creco-surface-alt px-4 py-2.5 text-center text-xs text-creco-muted">
-          Prototype · Informational guidance only, not legal advice ·{" "}
-          <span className="font-medium text-creco-primary">CRECO Kenya</span> in partnership with{" "}
-          <span className="font-medium text-creco-primary">ICNL</span>
-        </div>
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />

@@ -10,6 +10,7 @@ const STARTER_QUESTIONS = [
 ];
 
 const MAX_LENGTH = 500;
+const SINGLE_LINE_MAX_PX = 52;
 
 type Props = {
   value: string;
@@ -18,11 +19,15 @@ type Props = {
   loading: boolean;
   autoOpen?: boolean;
   initialQuestion?: string;
-  /** Keep form open and allow editing after an answer is shown */
   pinned?: boolean;
   submitLabel?: string;
   questionDirty?: boolean;
 };
+
+function countLines(text: string): number {
+  if (!text) return 1;
+  return text.split(/\n/).length;
+}
 
 export function QuestionComposer({
   value,
@@ -37,29 +42,35 @@ export function QuestionComposer({
 }: Props) {
   const textareaId = useId();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [expanded, setExpanded] = useState(autoOpen || Boolean(initialQuestion));
-  const [hasInteracted, setHasInteracted] = useState(false);
+  const [expanded, setExpanded] = useState(autoOpen || Boolean(initialQuestion) || pinned);
+  const [showExamples, setShowExamples] = useState(false);
+  const [multiLine, setMultiLine] = useState(() => countLines(initialQuestion) > 1);
 
   const openComposer = useCallback(() => {
     setExpanded(true);
-    setHasInteracted(true);
-    requestAnimationFrame(() => {
-      textareaRef.current?.focus();
-    });
+    requestAnimationFrame(() => textareaRef.current?.focus());
   }, []);
 
   useEffect(() => {
     if (autoOpen || initialQuestion || pinned) {
-      openComposer();
+      setExpanded(true);
     }
-  }, [autoOpen, initialQuestion, pinned, openComposer]);
+  }, [autoOpen, initialQuestion, pinned]);
+
+  useEffect(() => {
+    const lines = countLines(value);
+    const textarea = textareaRef.current;
+    const tall = textarea ? textarea.scrollHeight > SINGLE_LINE_MAX_PX : lines > 1;
+    setMultiLine(lines > 1 || tall || value.length > 120);
+  }, [value, expanded]);
 
   useEffect(() => {
     const textarea = textareaRef.current;
     if (!textarea || !expanded) return;
     textarea.style.height = "auto";
-    textarea.style.height = `${Math.min(textarea.scrollHeight, 220)}px`;
-  }, [value, expanded]);
+    const max = multiLine ? 200 : SINGLE_LINE_MAX_PX;
+    textarea.style.height = `${Math.min(textarea.scrollHeight, max)}px`;
+  }, [value, expanded, multiLine]);
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
@@ -68,17 +79,23 @@ export function QuestionComposer({
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
-    if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
-      event.preventDefault();
-      if (value.trim() && !loading) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      if ((event.metaKey || event.ctrlKey) && value.trim() && !loading) {
+        event.preventDefault();
         onSubmit(value);
       }
+      return;
+    }
+    if ((event.metaKey || event.ctrlKey) && event.key === "Enter") {
+      event.preventDefault();
+      if (value.trim() && !loading) onSubmit(value);
     }
   }
 
   function handleStarterClick(question: string) {
     onChange(question);
     openComposer();
+    setShowExamples(false);
   }
 
   if (!expanded && !pinned) {
@@ -87,10 +104,10 @@ export function QuestionComposer({
         <button
           type="button"
           onClick={openComposer}
-          className="group flex w-full items-start gap-4 p-6 text-left transition hover:bg-creco-surface/60"
+          className="flex w-full items-center gap-3 px-4 py-3 text-left transition hover:bg-creco-surface/60 sm:px-5"
         >
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-creco-primary text-white transition group-hover:bg-creco-primary-dark">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-creco-primary text-white">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
               <path
                 d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"
                 stroke="currentColor"
@@ -100,120 +117,128 @@ export function QuestionComposer({
               />
             </svg>
           </span>
-          <span className="flex-1">
-            <span className="block font-display text-xl font-bold text-creco-primary">
-              Ask your question
-            </span>
-            <span className="mt-1 block text-sm text-creco-muted">
-              Tap to open the question form — write in English or Kiswahili about registration,
-              compliance, or the PBO Act.
-            </span>
-            <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-creco-accent">
-              Start writing
-              <span aria-hidden className="transition group-hover:translate-x-0.5">→</span>
-            </span>
+          <span className="min-w-0 flex-1 text-sm text-creco-muted">
+            Ask about the PBO Act — registration, compliance, English or Kiswahili…
           </span>
+          <span className="shrink-0 text-xs font-semibold text-creco-accent">Ask →</span>
         </button>
       </section>
     );
   }
 
+  const showDetail = multiLine || pinned || showExamples;
+
   return (
     <section
-      className={`creco-card creco-fade-in p-5 sm:p-6 ${
-        hasInteracted ? "ring-2 ring-creco-sage/25" : ""
-      }`}
+      className={`creco-card creco-fade-in ${showDetail ? "p-4 sm:p-5" : "p-3 sm:p-4"}`}
     >
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <span className="creco-eyebrow">Your question</span>
-          <h2 className="font-display text-xl font-bold text-creco-primary sm:text-2xl">
-            What would you like to know?
+      {showDetail && !pinned && (
+        <div className="mb-3 flex items-center justify-between gap-2">
+          <h2 className="font-display text-base font-bold text-creco-primary sm:text-lg">
+            Your question
           </h2>
+          {!pinned && (
+            <button
+              type="button"
+              onClick={() => setExpanded(false)}
+              className="rounded p-1.5 text-creco-muted transition hover:bg-creco-surface hover:text-creco-primary"
+              aria-label="Minimize"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            </button>
+          )}
         </div>
-        {!pinned && (
-          <button
-            type="button"
-            onClick={() => setExpanded(false)}
-            className="rounded-md p-2 text-creco-muted transition hover:bg-creco-surface hover:text-creco-primary"
-            aria-label="Minimize question form"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
-              <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-            </svg>
-          </button>
-        )}
-      </div>
+      )}
 
-      <p className="mt-2 text-sm text-creco-muted">
-        {pinned
-          ? "Edit your question below and submit again anytime — answers update from CRECO topics and AI when configured."
-          : "Be specific for better guidance — e.g. mention registration, timelines, or required documents."}{" "}
-        Press <kbd className="rounded border border-creco-border bg-white px-1.5 py-0.5 text-xs">Ctrl</kbd>+
-        <kbd className="rounded border border-creco-border bg-white px-1.5 py-0.5 text-xs">Enter</kbd> to submit.
-      </p>
       {pinned && questionDirty && (
-        <p className="mt-2 text-sm font-medium text-creco-accent" role="status">
-          Question changed — submit to get an updated answer.
+        <p className="mb-2 text-xs font-medium text-creco-accent" role="status">
+          Question changed — submit for an updated answer.
         </p>
       )}
 
-      <form onSubmit={handleSubmit} className="mt-5">
+      <form onSubmit={handleSubmit}>
         <label htmlFor={textareaId} className="sr-only">
           Your question about the PBO Act
         </label>
-        <div className="rounded-lg border border-creco-border bg-white focus-within:border-creco-primary focus-within:ring-2 focus-within:ring-creco-sage/20">
-          <textarea
-            ref={textareaRef}
-            id={textareaId}
-            value={value}
-            onChange={(event) => onChange(event.target.value)}
-            onKeyDown={handleKeyDown}
-            onFocus={() => setHasInteracted(true)}
-            placeholder="e.g. What documents must our organisation submit when applying for PBO registration under Section 8?"
-            rows={4}
-            maxLength={MAX_LENGTH}
-            disabled={loading}
-            className="block w-full resize-none bg-transparent px-4 py-4 text-base leading-relaxed text-creco-text placeholder:text-creco-muted/70 outline-none disabled:opacity-60"
-          />
-          <div className="flex items-center justify-between gap-3 border-t border-creco-border px-4 py-3">
-            <span className="text-xs text-creco-muted">
-              {value.length}/{MAX_LENGTH} characters
-            </span>
-            <button
-              type="submit"
-              disabled={loading || !value.trim()}
-              className="creco-btn creco-btn-primary relative min-w-[140px] disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              {loading ? (
-                <span className="flex items-center justify-center gap-2">
-                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                  Working…
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-end">
+          <div className="min-w-0 flex-1 rounded-lg border border-creco-border bg-white focus-within:border-creco-primary focus-within:ring-2 focus-within:ring-creco-sage/20">
+            <textarea
+              ref={textareaRef}
+              id={textareaId}
+              value={value}
+              onChange={(event) => onChange(event.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder={
+                pinned
+                  ? "Edit your question…"
+                  : "Ask a question (Shift+Enter for a new line)"
+              }
+              rows={1}
+              maxLength={MAX_LENGTH}
+              disabled={loading}
+              className="block w-full resize-none bg-transparent px-3 py-2.5 text-sm leading-snug text-creco-text placeholder:text-creco-muted/70 outline-none disabled:opacity-60 sm:text-base sm:px-3.5 sm:py-3"
+            />
+            {showDetail && (
+              <div className="flex items-center justify-between gap-2 border-t border-creco-border px-3 py-1.5 text-xs text-creco-muted">
+                <span>
+                  {value.length}/{MAX_LENGTH}
                 </span>
-              ) : (
-                submitLabel ?? "Get answer"
-              )}
-            </button>
+                <span className="hidden sm:inline">
+                  Ctrl+Enter to submit · Shift+Enter for new line
+                </span>
+              </div>
+            )}
           </div>
+          <button
+            type="submit"
+            disabled={loading || !value.trim()}
+            className="creco-btn creco-btn-primary w-full shrink-0 px-4 py-2.5 text-sm sm:w-auto sm:min-w-[7.5rem] disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {loading ? (
+              <span className="flex items-center justify-center gap-2">
+                <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                …
+              </span>
+            ) : (
+              submitLabel ?? "Get answer"
+            )}
+          </button>
         </div>
       </form>
 
-      <div className="mt-5">
-        <p className="text-xs font-medium text-creco-muted">Common questions — tap to use</p>
-        <div className="mt-2 flex flex-wrap gap-2">
-          {STARTER_QUESTIONS.map((question) => (
-            <button
-              key={question}
-              type="button"
-              onClick={() => handleStarterClick(question)}
-              disabled={loading}
-              className="rounded-md border border-creco-border bg-creco-surface px-3 py-2 text-left text-xs font-medium text-creco-primary transition hover:border-creco-sage hover:bg-white disabled:opacity-50"
-            >
-              {question}
-            </button>
-          ))}
+      {!showDetail && !pinned && (
+        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-creco-muted">
+          <button
+            type="button"
+            onClick={() => setShowExamples(true)}
+            className="font-medium text-creco-sage hover:text-creco-primary"
+          >
+            Example questions
+          </button>
+          <span className="hidden sm:inline">Shift+Enter for a longer question</span>
         </div>
-      </div>
+      )}
+
+      {showDetail && !pinned && (
+        <div className="mt-3">
+          <p className="text-xs font-medium text-creco-muted">Tap an example</p>
+          <div className="mt-1.5 flex flex-wrap gap-1.5">
+            {STARTER_QUESTIONS.map((question) => (
+              <button
+                key={question}
+                type="button"
+                onClick={() => handleStarterClick(question)}
+                disabled={loading}
+                className="rounded border border-creco-border bg-creco-surface px-2 py-1 text-left text-[11px] font-medium leading-snug text-creco-primary transition hover:border-creco-sage hover:bg-white disabled:opacity-50 sm:text-xs sm:px-2.5 sm:py-1.5"
+              >
+                {question}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </section>
   );
 }
@@ -224,7 +249,7 @@ export function AskAnotherButton({ onClick, disabled }: { onClick: () => void; d
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="creco-btn creco-btn-secondary w-full sm:w-auto disabled:opacity-50"
+      className="creco-btn creco-btn-secondary w-full text-sm sm:w-auto disabled:opacity-50"
     >
       Ask another question
     </button>

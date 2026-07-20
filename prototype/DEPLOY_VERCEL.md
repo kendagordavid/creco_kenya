@@ -19,15 +19,41 @@ The app is in **`prototype/web`**. Vercel accepts **either** setting:
 - https://creco-kenya.vercel.app/
 - https://creco-kenya.vercel.app/api/health → `{"status":"ok",...}`
 
-## AI answers (OpenAI)
+## AI answers (OpenAI) — required for production
 
-Built-in `/api/ask` uses **`OPENAI_API_KEY`** on the server (never expose it to the browser).
+**Local `.env` / `.env.local` files are never uploaded to Vercel.**  
+If `/api/health` shows `"answer_mode":"wiki_direct"`, AI is **not** active on the live site.
 
-1. **Vercel:** Settings → Environment Variables → add `OPENAI_API_KEY` and `OPENAI_MODEL`=`gpt-4.1-mini` (recommended for grounded Q&A and instruction-following).
-2. **Local (built-in API):** in `prototype/web/.env.local`, set `OPENAI_API_KEY` and **leave `NEXT_PUBLIC_API_URL` unset**.
-3. **Local (FastAPI backend):** keep `NEXT_PUBLIC_API_URL=http://127.0.0.1:8000` and put the key in `prototype/backend/.env` instead.
+### Step-by-step (Vercel dashboard)
 
-Check mode: `/api/health` → `"answer_mode": "openai"` when the key is active.
+1. Open [vercel.com](https://vercel.com) → your **creco-kenya** project.
+2. **Settings** → **Environment Variables**.
+3. Add **`OPENAI_API_KEY`**
+   - Value: your key from [OpenAI API keys](https://platform.openai.com/account/api-keys) (starts with `sk-`).
+   - Environments: check **Production** (and **Preview** if you use preview URLs).
+4. Add **`OPENAI_MODEL`** = `gpt-4.1-mini` (same environments).
+5. **Delete** **`NEXT_PUBLIC_API_URL`** if it exists (especially `http://localhost:8000`).
+6. **Deployments** tab → ⋮ on latest deployment → **Redeploy** → enable **Clear build cache** if offered.
+7. Wait ~1–2 minutes, then open:  
+   https://creco-kenya.vercel.app/api/health  
+
+   Success looks like:
+
+   ```json
+   {
+     "status": "ok",
+     "answer_mode": "openai",
+     "ai_ready": true,
+     "setup_hint": null
+   }
+   ```
+
+8. On **Guidance**, ask a question — badges should show **AI · compiled topics** or **AI · general reference**.
+
+### Local only (optional)
+
+- **Built-in `/api`:** `prototype/web/.env.local` with `OPENAI_API_KEY` (do not commit).
+- **FastAPI backend:** `NEXT_PUBLIC_API_URL=http://127.0.0.1:8000` + key in `prototype/backend/.env`.
 
 ## Local dev
 

@@ -1,3 +1,4 @@
+import { AiSetupNotice } from "@/components/AiSetupNotice";
 import { GuidancePanel } from "@/components/GuidancePanel";
 import { PageHero } from "@/components/PageHero";
 import { SectionSubnav } from "@/components/SectionSubnav";
@@ -25,6 +26,7 @@ export default async function GuidancePage({ searchParams }: Props) {
       <SectionSubnav />
       <section className="creco-section creco-section-alt">
         <div className="creco-container">
+          <AiSetupNotice />
           <GuidancePanel initialQuestion={initialQuestion} autoOpen={autoOpen} />
         </div>
       </section>

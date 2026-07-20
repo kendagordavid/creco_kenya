@@ -1,0 +1,222 @@
+@import "tailwindcss";
+
+:root {
+  --creco-primary: #1e4d3a;
+  --creco-primary-dark: #163828;
+  --creco-accent: #c45d3e;
+  --creco-accent-hover: #a84d32;
+  --creco-sage: #5a8f7b;
+  --creco-sand: #c9b896;
+  --creco-surface: #faf8f5;
+  --creco-surface-alt: #f0ebe3;
+  --creco-text: #1f2933;
+  --creco-muted: #5f6b7a;
+  --creco-border: #ddd5c8;
+  --creco-content-max: 68rem;
+  --creco-radius: 0.5rem;
+  --creco-radius-lg: 0.75rem;
+}
+
+@theme inline {
+  --color-creco-primary: var(--creco-primary);
+  --color-creco-primary-dark: var(--creco-primary-dark);
+  --color-creco-accent: var(--creco-accent);
+  --color-creco-accent-hover: var(--creco-accent-hover);
+  --color-creco-sage: var(--creco-sage);
+  --color-creco-sand: var(--creco-sand);
+  --color-creco-surface: var(--creco-surface);
+  --color-creco-surface-alt: var(--creco-surface-alt);
+  --color-creco-text: var(--creco-text);
+  --color-creco-muted: var(--creco-muted);
+  --color-creco-border: var(--creco-border);
+  --font-display: var(--font-literata);
+  --font-body: var(--font-dm-sans);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  color: var(--creco-text);
+  background: #ffffff;
+  line-height: 1.65;
+  font-size: 1rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-display {
+  font-family: var(--font-literata), Georgia, serif;
+  color: var(--creco-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.creco-container {
+  width: 100%;
+  max-width: var(--creco-content-max);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .creco-container {
+    padding-inline: 1.75rem;
+  }
+}
+
+.creco-section {
+  padding-block: clamp(3.5rem, 7vw, 5.5rem);
+}
+
+.creco-section-alt {
+  background: var(--creco-surface);
+}
+
+.creco-eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--creco-sage);
+  margin-bottom: 0.75rem;
+}
+
+.creco-card {
+  background: #fff;
+  border: 1px solid var(--creco-border);
+  border-left: 4px solid var(--creco-primary);
+  border-radius: var(--creco-radius-lg);
+  box-shadow: 0 1px 3px rgba(30, 77, 58, 0.06);
+  transition: box-shadow 0.2s ease, border-left-color 0.2s ease;
+}
+
+.creco-card:hover {
+  box-shadow: 0 4px 12px rgba(30, 77, 58, 0.08);
+  border-left-color: var(--creco-accent);
+}
+
+.creco-card-featured {
+  border-left-color: var(--creco-accent);
+  background: linear-gradient(to bottom right, #fff, var(--creco-surface));
+}
+
+.creco-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.35rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border-radius: var(--creco-radius);
+  border: 1.5px solid transparent;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  text-decoration: none;
+}
+
+.creco-btn-primary {
+  background: var(--creco-primary);
+  color: #fff;
+  border-color: var(--creco-primary);
+}
+
+.creco-btn-primary:hover {
+  background: var(--creco-primary-dark);
+  border-color: var(--creco-primary-dark);
+}
+
+.creco-btn-secondary {
+  background: #fff;
+  color: var(--creco-primary);
+  border-color: var(--creco-border);
+}
+
+.creco-btn-secondary:hover {
+  border-color: var(--creco-primary);
+  background: var(--creco-surface);
+}
+
+.creco-btn-accent {
+  background: var(--creco-accent);
+  color: #fff;
+  border-color: var(--creco-accent);
+}
+
+.creco-btn-accent:hover {
+  background: var(--creco-accent-hover);
+  border-color: var(--creco-accent-hover);
+}
+
+.creco-prose {
+  color: var(--creco-text);
+  line-height: 1.75;
+}
+
+.creco-prose p + p {
+  margin-top: 1rem;
+}
+
+.creco-prose strong {
+  color: var(--creco-primary);
+  font-weight: 600;
+}
+
+.creco-prose ul {
+  margin-top: 0.75rem;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+.creco-prose li + li {
+  margin-top: 0.35rem;
+}
+
+.creco-hero-pattern {
+  background-color: var(--creco-surface);
+  background-image: radial-gradient(circle at 20% 30%, rgba(90, 143, 123, 0.12) 0%, transparent 45%),
+    radial-gradient(circle at 80% 70%, rgba(196, 93, 62, 0.08) 0%, transparent 40%);
+}
+
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@keyframes creco-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.creco-fade-in {
+  animation: creco-fade-in 0.4s ease forwards;
+}
+
+@keyframes creco-pulse-bar {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+.creco-loading-bar {
+  animation: creco-pulse-bar 1.2s ease-in-out infinite;
+  background: var(--creco-surface-alt);
+  border-radius: 2px;
+}

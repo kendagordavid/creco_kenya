@@ -1,29 +1,28 @@
-# Deploy on Vercel
+# Deploy on Vercel — creco-kenya.vercel.app
 
-The Next.js app is at the **repository root** (`app/`, `package.json`). Vercel should use default settings:
+The app is in **`prototype/web`**. Vercel accepts **either** setting:
 
-- **Framework:** Next.js (auto-detected)
-- **Root Directory:** leave empty / `.`
-- **Build command:** `npm run build`
-- **Install command:** `npm install`
+| Root Directory (Settings) | What happens |
+|---------------------------|--------------|
+| **`prototype/web`** (recommended) | Next.js auto-detect; builds this folder |
+| **Empty** (repo root) | Root `vercel.json` runs `npm run build --prefix prototype/web` |
 
-## After connecting GitHub
+## Fix 404 NOT_FOUND
 
-1. Import `kendagordavid/creco_kenya`
-2. Do **not** set Root Directory to `prototype/web` (outdated)
-3. Deploy — open `/`, `/guidance`, `/api/health`
+1. **Settings → General → Root Directory** → set to **`prototype/web`** (or leave empty and use root `vercel.json`).
+2. **Remove** env var `NEXT_PUBLIC_API_URL` if it is `http://localhost:8000`.
+3. **Deployments → Redeploy** → enable **Clear build cache**.
+4. Confirm GitHub **`main`** includes commit with `prototype/web/app/page.tsx`.
 
-## Built-in API (no separate backend)
+## Verify after deploy
 
-Wiki Q&A runs on Vercel via `/api/ask`, reading `prototype/wiki/`.  
-Do **not** set `NEXT_PUBLIC_API_URL` unless you host the Python API separately.
+- https://creco-kenya.vercel.app/
+- https://creco-kenya.vercel.app/api/health → `{"status":"ok",...}`
 
-## Optional external backend
+## Local dev
 
-Set `NEXT_PUBLIC_API_URL` to your FastAPI URL (Render/Railway) to use `prototype/backend` instead.
-
-## If you still see 404
-
-- Confirm latest commit includes `app/page.tsx` at repo root
-- Redeploy with **Clear build cache**
-- Remove old Root Directory override (`prototype/web`) in project settings
+```bash
+cd prototype/web
+npm install
+npm run dev
+```

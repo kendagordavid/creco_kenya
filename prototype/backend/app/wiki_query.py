@@ -1,29 +1,52 @@
-"""LLM Wiki query pipeline — search compiled wiki pages, answer from reviewed content."""
+"""LLM Wiki query pipeline — search compiled wiki pages, answer with optional OpenAI."""
 
 from __future__ import annotations
+
+import re
 
 from openai import OpenAI
 
 from app.config import openai_configured, settings
 from app.wiki_store import WikiPage, search_wiki
 
-SYSTEM_PROMPT = """You are the CRECO Kenya PBO Act assistant. You answer questions using ONLY the compiled wiki pages provided below.
+WIKI_STRONG_SCORE = 4
 
-These wiki pages were compiled from CRECO-approved PBO Act source documents. They are the authoritative knowledge base — not raw document chunks.
+WIKI_SYSTEM_PROMPT = """You are the CRECO Kenya PBO Act assistant. You answer questions using the compiled wiki pages provided below.
 
-STRICT RULES:
-1. Answer ONLY using the provided wiki page content. Do not use outside knowledge.
-2. Cite wiki pages inline using [Wiki: page-slug] markers.
-3. Reference underlying source documents when mentioned in the wiki pages.
-4. Use plain, accessible language for NGO staff who are not lawyers.
-5. Include a brief note that this is informational guidance, not legal advice.
-6. If asked in Kiswahili, respond in Kiswahili using the wiki content.
-7. If the wiki pages do not contain enough information, say so and suggest contacting CRECO Kenya."""
+These wiki pages were compiled from CRECO-approved PBO Act source documents.
+
+Rules:
+1. Ground answers in the wiki content. Cite wiki pages inline using [Wiki: page-slug] markers.
+2. Use plain, accessible language for NGO staff who are not lawyers.
+3. Include a brief note that this is informational guidance, not legal advice.
+4. If asked in Kiswahili, respond in Kiswahili using the wiki content when available."""
+
+SUPPLEMENTAL_SYSTEM_PROMPT = """You are the CRECO Kenya PBO Act assistant. The user's question did not match the compiled CRECO topic library well enough.
+
+Rules:
+1. Answer helpfully about Kenya's Public Benefit Organization Act 2013 and PBO/NGO registration in Kenya.
+2. Clearly note what should be verified with CRECO Kenya or legal counsel.
+3. Do not invent section numbers or direct quotes. If unsure, say so.
+4. End with a brief note that this is informational guidance, not legal advice."""
 
 REFUSAL_MESSAGE = (
     "I couldn't find a matching topic in the compiled PBO Act wiki for that question. "
     "Please try rephrasing, browse the wiki topics, or contact CRECO Kenya for guidance."
 )
+
+REFERENCE_CITATIONS = [
+    {
+        "index": 1,
+        "wiki_slug": "pbo-act-2013",
+        "wiki_title": "Public Benefit Organization Act, 2013 (Kenya)",
+        "excerpt": "Primary legislation for PBO registration and regulation in Kenya.",
+        "relevance": 0.85,
+        "source_id": "kenya-pbo-act",
+        "source_title": "PBO Act 2013 — ICNL resource hub",
+        "source_url": "https://www.icnl.org/resources/research/kenya-public-benefit-organizations-act",
+        "source_type": "reference",
+    },
+]
 
 
 def _pages_to_citations(pages: list[WikiPage]) -> list[dict]:
@@ -55,7 +78,6 @@ def _first_paragraph(body: str) -> str:
 
 
 def _extract_answer_body(page: WikiPage, max_chars: int = 1800) -> str:
-    """Build a readable excerpt from wiki markdown without calling OpenAI."""
     lines: list[str] = []
     for block in page.body.split("\n\n"):
         block = block.strip()
@@ -106,18 +128,32 @@ def _compose_direct_answer(pages: list[WikiPage]) -> str:
     return answer
 
 
-def generate_answer(question: str, pages: list[WikiPage]) -> str:
-    if not openai_configured():
-        return _compose_direct_answer(pages)
+def _wiki_match_score(question: str, pages: list[WikiPage]) -> int:
+    if not pages:
+        return 0
+    terms = re.findall(r"\w{3,}", question.lower())
+    primary = pages[0]
+    slug_text = primary.slug.replace("-", " ")
+    haystack = f"{primary.title} {primary.body} {' '.join(primary.tags)} {slug_text}".lower()
+    score = sum(1 for t in terms if t in haystack)
+    if any(t in slug_text or t in primary.title.lower() for t in terms):
+        score += 3
+    return score
 
+
+def _openai_client() -> OpenAI:
+    return OpenAI(api_key=settings.openai_api_key)
+
+
+def generate_wiki_answer(question: str, pages: list[WikiPage]) -> str:
     context = _format_wiki_context(pages)
-    client = OpenAI(api_key=settings.openai_api_key)
+    client = _openai_client()
     try:
         response = client.chat.completions.create(
             model=settings.openai_model,
             temperature=0.2,
             messages=[
-                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "system", "content": WIKI_SYSTEM_PROMPT},
                 {
                     "role": "user",
                     "content": (
@@ -133,6 +169,40 @@ def generate_answer(question: str, pages: list[WikiPage]) -> str:
         return _compose_direct_answer(pages)
 
 
+def generate_supplemental_answer(question: str, weak_pages: list[WikiPage]) -> str:
+    partial = ""
+    if weak_pages:
+        partial = (
+            "\n\nPartially related wiki content:\n"
+            + _format_wiki_context(weak_pages[:2])
+        )
+    client = _openai_client()
+    try:
+        response = client.chat.completions.create(
+            model=settings.openai_model,
+            temperature=0.25,
+            messages=[
+                {"role": "system", "content": SUPPLEMENTAL_SYSTEM_PROMPT},
+                {
+                    "role": "user",
+                    "content": (
+                        f"Question: {question}{partial}\n\n"
+                        "Provide a careful general answer about Kenya PBO law and practice."
+                    ),
+                },
+            ],
+        )
+        text = response.choices[0].message.content or ""
+        if text and "not legal advice" not in text.lower():
+            text += (
+                "\n\n*This draws on general PBO Act context where CRECO’s compiled library "
+                "does not fully cover your question. Verify with CRECO Kenya.*"
+            )
+        return text or REFUSAL_MESSAGE
+    except Exception:
+        return REFUSAL_MESSAGE
+
+
 def ask(question: str) -> dict:
     question = question.strip()
     if not question:
@@ -141,24 +211,59 @@ def ask(question: str) -> dict:
             "citations": [],
             "confidence": "low",
             "refused": True,
+            "answer_mode": "wiki_direct",
         }
 
     pages = search_wiki(question)
-    if not pages:
+    score = _wiki_match_score(question, pages)
+    strong = pages and score >= WIKI_STRONG_SCORE
+
+    if strong:
+        citations = _pages_to_citations(pages)
+        confidence = "high" if len(pages) >= 2 else "medium"
+        if openai_configured():
+            answer = generate_wiki_answer(question, pages)
+            return {
+                "answer": answer,
+                "citations": citations,
+                "confidence": confidence,
+                "refused": False,
+                "answer_mode": "openai_wiki",
+            }
         return {
-            "answer": REFUSAL_MESSAGE,
-            "citations": [],
-            "confidence": "low",
-            "refused": True,
+            "answer": _compose_direct_answer(pages),
+            "citations": citations,
+            "confidence": confidence,
+            "refused": False,
+            "answer_mode": "wiki_direct",
         }
 
-    citations = _pages_to_citations(pages)
-    confidence = "high" if len(pages) >= 2 else "medium"
-    answer = generate_answer(question, pages)
+    if openai_configured():
+        answer = generate_supplemental_answer(question, pages)
+        refused = answer == REFUSAL_MESSAGE
+        citations = _pages_to_citations(pages) if pages else REFERENCE_CITATIONS
+        return {
+            "answer": answer,
+            "citations": citations,
+            "confidence": "medium" if pages else "low",
+            "refused": refused,
+            "answer_mode": "openai_supplemental",
+        }
+
+    if pages:
+        citations = _pages_to_citations(pages)
+        return {
+            "answer": _compose_direct_answer(pages),
+            "citations": citations,
+            "confidence": "medium",
+            "refused": False,
+            "answer_mode": "wiki_direct",
+        }
 
     return {
-        "answer": answer,
-        "citations": citations,
-        "confidence": confidence,
-        "refused": False,
+        "answer": REFUSAL_MESSAGE,
+        "citations": [],
+        "confidence": "low",
+        "refused": True,
+        "answer_mode": "wiki_direct",
     }

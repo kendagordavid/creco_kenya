@@ -11,12 +11,21 @@ type Exchange = {
   answer: string;
   citations: Citation[];
   refused: boolean;
+  answer_mode?: AskResponse["answer_mode"];
 };
 
 type Props = {
   initialQuestion?: string;
   autoOpen?: boolean;
 };
+
+function answerBadge(mode?: AskResponse["answer_mode"], refused?: boolean) {
+  if (refused) return { label: "No answer", tone: "muted" as const };
+  if (mode === "openai_wiki") return { label: "AI · compiled topics", tone: "primary" as const };
+  if (mode === "openai_supplemental")
+    return { label: "AI · general reference", tone: "accent" as const };
+  return { label: "Compiled topics", tone: "sage" as const };
+}
 
 export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props) {
   const [input, setInput] = useState(initialQuestion);
@@ -28,6 +37,10 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
   const responseRef = useRef<HTMLDivElement>(null);
   const shouldAutoSubmit = useRef(Boolean(initialQuestion));
 
+  const questionDirty = Boolean(
+    current && input.trim() && input.trim() !== current.question.trim(),
+  );
+
   useEffect(() => {
     if (current && responseRef.current) {
       responseRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -38,9 +51,7 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
     const trimmed = question.trim();
     if (!trimmed || loading) return;
 
-    setComposerOpen(false);
     setLoading(true);
-    setCurrent(null);
 
     try {
       const result: AskResponse = await askQuestion(trimmed);
@@ -49,10 +60,12 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
         answer: result.answer,
         citations: result.citations,
         refused: result.refused,
+        answer_mode: result.answer_mode,
       };
       setCurrent(exchange);
+      setInput(trimmed);
+      setComposerOpen(true);
       setActiveCitation(result.citations[0]?.index ?? null);
-      setInput("");
       if (!result.refused) {
         setHistory((prev) => [exchange, ...prev.filter((e) => e.question !== trimmed)].slice(0, 5));
       }
@@ -62,10 +75,11 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
         answer:
           error instanceof Error
             ? error.message
-            : "We could not retrieve guidance at this time. Please try again.",
+            : "We could not retrieve an answer at this time. Please try again.",
         citations: [],
         refused: true,
       });
+      setInput(trimmed);
     } finally {
       setLoading(false);
     }
@@ -80,14 +94,19 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
   }, [initialQuestion]);
 
   function handleAskAnother() {
+    setCurrent(null);
     setInput("");
     setComposerOpen(true);
   }
 
+  const showComposer = composerOpen || !current || loading;
+  const pinnedComposer = Boolean(current && !loading);
+  const badge = current ? answerBadge(current.answer_mode, current.refused) : null;
+
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_340px]">
       <div className="space-y-6">
-        {(composerOpen || !current) && !loading && (
+        {showComposer && (
           <QuestionComposer
             value={input}
             onChange={setInput}
@@ -95,15 +114,24 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
             loading={loading}
             autoOpen={autoOpen || composerOpen}
             initialQuestion={initialQuestion}
+            pinned={pinnedComposer}
+            questionDirty={questionDirty}
+            submitLabel={
+              current
+                ? questionDirty
+                  ? "Update answer"
+                  : "Ask again"
+                : "Get answer"
+            }
           />
         )}
 
-        {loading && (
+        {loading && !current && (
           <section className="creco-card p-6" aria-live="polite" aria-busy="true">
             <div className="flex items-center gap-3">
               <span className="h-5 w-5 animate-spin rounded-full border-2 border-creco-sage/30 border-t-creco-primary" />
               <p className="text-sm font-semibold text-creco-primary">
-                Searching the topic library for your question…
+                Searching topics and generating your answer…
               </p>
             </div>
             <div className="mt-5 space-y-2">
@@ -114,28 +142,47 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
           </section>
         )}
 
-        {current && !loading && (
-          <section ref={responseRef} className="creco-fade-in space-y-4">
-            <article className="rounded-lg border border-creco-border bg-white p-5 sm:p-6">
-              <p className="text-xs font-medium text-creco-muted">Your question</p>
-              <p className="mt-2 font-display text-lg font-semibold text-creco-primary">
-                {current.question}
-              </p>
-            </article>
+        {loading && current && (
+          <p className="text-sm font-medium text-creco-primary" aria-live="polite">
+            Updating your answer…
+          </p>
+        )}
 
+        {current && (
+          <section
+            ref={responseRef}
+            className={`creco-fade-in space-y-4 ${loading ? "opacity-60" : ""}`}
+            aria-busy={loading}
+          >
             <article
               className={`creco-card p-5 sm:p-6 ${current.refused ? "!border-l-creco-sand" : "creco-card-featured"}`}
             >
-              <p className="text-xs font-medium text-creco-sage">
-                {current.refused ? "No matching guidance" : "Guidance response"}
-              </p>
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <p className="text-xs font-medium text-creco-sage">Answer</p>
+                {badge && (
+                  <span
+                    className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                      badge.tone === "accent"
+                        ? "bg-creco-accent/10 text-creco-accent"
+                        : badge.tone === "primary"
+                          ? "bg-creco-primary/10 text-creco-primary"
+                          : badge.tone === "muted"
+                            ? "bg-creco-surface-alt text-creco-muted"
+                            : "bg-creco-sage/15 text-creco-sage"
+                    }`}
+                  >
+                    {badge.label}
+                  </span>
+                )}
+              </div>
               <div className="mt-4">
                 <AnswerDisplay content={current.answer} />
               </div>
               {!current.refused && current.citations.length > 0 && (
                 <p className="mt-5 border-t border-creco-border pt-4 text-xs text-creco-muted">
-                  Based on {current.citations.length} compiled topic
-                  {current.citations.length === 1 ? "" : "s"}. See references →
+                  {current.answer_mode === "openai_supplemental"
+                    ? "References include compiled topics where relevant and general PBO Act resources."
+                    : `Grounded in ${current.citations.length} topic reference${current.citations.length === 1 ? "" : "s"}. See panel →`}
                 </p>
               )}
             </article>
@@ -152,7 +199,7 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
 
         {history.length > 0 && (
           <section>
-            <h3 className="font-display text-lg font-bold text-creco-primary">Recent lookups</h3>
+            <h3 className="font-display text-lg font-bold text-creco-primary">Recent questions</h3>
             <ul className="mt-3 divide-y divide-creco-border overflow-hidden rounded-lg border border-creco-border bg-white">
               {history.map((item) => (
                 <li key={item.question}>
@@ -160,8 +207,9 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
                     type="button"
                     onClick={() => {
                       setCurrent(item);
+                      setInput(item.question);
                       setActiveCitation(item.citations[0]?.index ?? null);
-                      setComposerOpen(false);
+                      setComposerOpen(true);
                     }}
                     className="w-full px-4 py-3 text-left text-sm transition hover:bg-creco-surface"
                   >

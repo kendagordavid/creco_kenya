@@ -26,6 +26,7 @@ export type AskResponse = {
   citations: Citation[];
   confidence: "low" | "medium" | "high";
   refused: boolean;
+  answer_mode?: "wiki_direct" | "openai_wiki" | "openai_supplemental";
 };
 
 export type Source = {

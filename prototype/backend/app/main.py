@@ -30,6 +30,7 @@ class AskResponse(BaseModel):
     citations: list[dict]
     confidence: str
     refused: bool
+    answer_mode: str = "wiki_direct"
 
 
 @app.on_event("startup")

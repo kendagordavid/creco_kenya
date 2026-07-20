@@ -38,7 +38,7 @@ export function SourceReferences({ citations, activeIndex, onSelect }: Props) {
                 >
                   <div className="flex items-start justify-between gap-2">
                     <span className="text-xs font-medium text-creco-sage">
-                      Topic {citation.index}
+                      {citation.source_type === "reference" ? "Reference" : "Topic"} {citation.index}
                     </span>
                     <span className="text-xs text-creco-muted">
                       {Math.round(citation.relevance * 100)}% match

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { askQuestionWiki } from "@/lib/wiki-server";
+import { askQuestionEngine } from "@/lib/ask-engine";
 
 export const runtime = "nodejs";
 
@@ -9,5 +9,6 @@ export async function POST(request: Request) {
   if (question.trim().length < 3) {
     return NextResponse.json({ error: "Question too short" }, { status: 400 });
   }
-  return NextResponse.json(askQuestionWiki(question));
+  const result = await askQuestionEngine(question);
+  return NextResponse.json(result);
 }

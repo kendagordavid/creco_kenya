@@ -18,6 +18,10 @@ type Props = {
   loading: boolean;
   autoOpen?: boolean;
   initialQuestion?: string;
+  /** Keep form open and allow editing after an answer is shown */
+  pinned?: boolean;
+  submitLabel?: string;
+  questionDirty?: boolean;
 };
 
 export function QuestionComposer({
@@ -27,6 +31,9 @@ export function QuestionComposer({
   loading,
   autoOpen = false,
   initialQuestion = "",
+  pinned = false,
+  submitLabel,
+  questionDirty = false,
 }: Props) {
   const textareaId = useId();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -42,10 +49,10 @@ export function QuestionComposer({
   }, []);
 
   useEffect(() => {
-    if (autoOpen || initialQuestion) {
+    if (autoOpen || initialQuestion || pinned) {
       openComposer();
     }
-  }, [autoOpen, initialQuestion, openComposer]);
+  }, [autoOpen, initialQuestion, pinned, openComposer]);
 
   useEffect(() => {
     const textarea = textareaRef.current;
@@ -74,7 +81,7 @@ export function QuestionComposer({
     openComposer();
   }
 
-  if (!expanded) {
+  if (!expanded && !pinned) {
     return (
       <section className="creco-card overflow-hidden p-0">
         <button
@@ -124,23 +131,32 @@ export function QuestionComposer({
             What would you like to know?
           </h2>
         </div>
-        <button
-          type="button"
-          onClick={() => setExpanded(false)}
-          className="rounded-md p-2 text-creco-muted transition hover:bg-creco-surface hover:text-creco-primary"
-          aria-label="Minimize question form"
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
-            <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-        </button>
+        {!pinned && (
+          <button
+            type="button"
+            onClick={() => setExpanded(false)}
+            className="rounded-md p-2 text-creco-muted transition hover:bg-creco-surface hover:text-creco-primary"
+            aria-label="Minimize question form"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          </button>
+        )}
       </div>
 
       <p className="mt-2 text-sm text-creco-muted">
-        Be specific for better guidance — e.g. mention registration, timelines, or required
-        documents. Press <kbd className="rounded border border-creco-border bg-white px-1.5 py-0.5 text-xs">Ctrl</kbd>+
+        {pinned
+          ? "Edit your question below and submit again anytime — answers update from CRECO topics and AI when configured."
+          : "Be specific for better guidance — e.g. mention registration, timelines, or required documents."}{" "}
+        Press <kbd className="rounded border border-creco-border bg-white px-1.5 py-0.5 text-xs">Ctrl</kbd>+
         <kbd className="rounded border border-creco-border bg-white px-1.5 py-0.5 text-xs">Enter</kbd> to submit.
       </p>
+      {pinned && questionDirty && (
+        <p className="mt-2 text-sm font-medium text-creco-accent" role="status">
+          Question changed — submit to get an updated answer.
+        </p>
+      )}
 
       <form onSubmit={handleSubmit} className="mt-5">
         <label htmlFor={textareaId} className="sr-only">
@@ -172,10 +188,10 @@ export function QuestionComposer({
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
                   <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                  Searching…
+                  Working…
                 </span>
               ) : (
-                "Find guidance"
+                submitLabel ?? "Get answer"
               )}
             </button>
           </div>

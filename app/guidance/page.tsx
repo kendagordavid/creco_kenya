@@ -19,8 +19,8 @@ export default async function GuidancePage({ searchParams }: Props) {
     <>
       <PageHero
         eyebrow="Guidance tool"
-        title="PBO Act guidance lookup"
-        lead="Ask about registration, compliance, or the regulatory framework. Responses are drawn from compiled topic pages with references to approved source documents."
+        title="PBO Act guidance"
+        lead="Ask a question in English or Kiswahili. Answers use CRECO’s compiled topics when they match, and AI (when configured) to synthesize guidance or fill gaps from general PBO Act context."
       />
       <SectionSubnav />
       <section className="creco-section creco-section-alt">

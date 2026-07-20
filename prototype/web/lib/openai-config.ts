@@ -11,5 +11,5 @@ export function openaiConfigured(): boolean {
 }
 
 export function openaiModel(): string {
-  return (process.env.OPENAI_MODEL ?? "gpt-4o-mini").trim() || "gpt-4o-mini";
+  return (process.env.OPENAI_MODEL ?? "gpt-4.1-mini").trim() || "gpt-4.1-mini";
 }

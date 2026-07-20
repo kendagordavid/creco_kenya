@@ -1,17 +1,11 @@
 import type { Metadata } from "next";
-import { DM_Sans, Literata } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import "./globals.css";
 
-const literata = Literata({
-  variable: "--font-literata",
-  subsets: ["latin"],
-  weight: ["600", "700"],
-});
-
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
@@ -31,8 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${literata.variable} ${dmSans.variable} h-full`}>
-      <body className="flex min-h-full flex-col bg-white text-creco-text antialiased">
+    <html lang="en" className={`${poppins.variable} h-full`}>
+      <body className="flex min-h-full flex-col bg-white font-sans text-creco-text antialiased">
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />

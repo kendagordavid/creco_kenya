@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --creco-primary: #1e4d3a;
-  --creco-primary-dark: #163828;
-  --creco-accent: #c45d3e;
-  --creco-accent-hover: #a84d32;
+  --creco-primary: #0a864d;
+  --creco-primary-dark: #086941;
+  --creco-accent: #ef9334;
+  --creco-accent-hover: #d97f28;
   --creco-sage: #5a8f7b;
   --creco-sand: #c9b896;
   --creco-surface: #faf8f5;
   --creco-surface-alt: #f0ebe3;
-  --creco-text: #1f2933;
-  --creco-muted: #5f6b7a;
+  --creco-text: #2c2c2c;
+  --creco-muted: #909090;
   --creco-border: #ddd5c8;
   --creco-content-max: 68rem;
   --creco-radius: 0.5rem;
@@ -29,8 +29,9 @@
   --color-creco-text: var(--creco-text);
   --color-creco-muted: var(--creco-muted);
   --color-creco-border: var(--creco-border);
-  --font-display: var(--font-literata);
-  --font-body: var(--font-dm-sans);
+  --font-display: var(--font-poppins);
+  --font-body: var(--font-poppins);
+  --font-sans: var(--font-poppins), system-ui, sans-serif;
 }
 
 html {
@@ -38,7 +39,7 @@ html {
 }
 
 body {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-poppins), system-ui, sans-serif;
   color: var(--creco-text);
   background: #ffffff;
   line-height: 1.65;
@@ -51,10 +52,11 @@ h2,
 h3,
 h4,
 .font-display {
-  font-family: var(--font-literata), Georgia, serif;
+  font-family: var(--font-poppins), system-ui, sans-serif;
   color: var(--creco-primary);
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
 }
 
 .creco-container {

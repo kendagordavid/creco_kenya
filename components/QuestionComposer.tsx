@@ -29,6 +29,35 @@ function countLines(text: string): number {
   return text.split(/\n/).length;
 }
 
+function ExampleQuestions({
+  onPick,
+  loading,
+  compact = false,
+}: {
+  onPick: (q: string) => void;
+  loading: boolean;
+  compact?: boolean;
+}) {
+  return (
+    <div className={compact ? "mt-2" : "mt-3"}>
+      <p className="text-xs font-medium text-creco-muted">Example questions</p>
+      <div className={`mt-1.5 flex flex-wrap ${compact ? "gap-1" : "gap-1.5"}`}>
+        {STARTER_QUESTIONS.map((question) => (
+          <button
+            key={question}
+            type="button"
+            onClick={() => onPick(question)}
+            disabled={loading}
+            className="rounded border border-creco-border bg-creco-surface px-2 py-1 text-left text-[11px] font-medium leading-snug text-creco-primary transition hover:border-creco-sage hover:bg-white disabled:opacity-50 sm:text-xs sm:px-2.5 sm:py-1.5"
+          >
+            {question}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function QuestionComposer({
   value,
   onChange,
@@ -43,7 +72,6 @@ export function QuestionComposer({
   const textareaId = useId();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [expanded, setExpanded] = useState(autoOpen || Boolean(initialQuestion) || pinned);
-  const [showExamples, setShowExamples] = useState(false);
   const [multiLine, setMultiLine] = useState(() => countLines(initialQuestion) > 1);
 
   const openComposer = useCallback(() => {
@@ -95,7 +123,6 @@ export function QuestionComposer({
   function handleStarterClick(question: string) {
     onChange(question);
     openComposer();
-    setShowExamples(false);
   }
 
   if (!expanded && !pinned) {
@@ -122,33 +149,30 @@ export function QuestionComposer({
           </span>
           <span className="shrink-0 text-xs font-semibold text-creco-accent">Ask →</span>
         </button>
+        <div className="border-t border-creco-border px-4 pb-3 pt-2 sm:px-5">
+          <ExampleQuestions onPick={handleStarterClick} loading={loading} compact />
+        </div>
       </section>
     );
   }
 
-  const showDetail = multiLine || pinned || showExamples;
+  const showMeta = multiLine || pinned;
 
   return (
-    <section
-      className={`creco-card creco-fade-in ${showDetail ? "p-4 sm:p-5" : "p-3 sm:p-4"}`}
-    >
-      {showDetail && !pinned && (
-        <div className="mb-3 flex items-center justify-between gap-2">
-          <h2 className="font-display text-base font-bold text-creco-primary sm:text-lg">
-            Your question
-          </h2>
-          {!pinned && (
-            <button
-              type="button"
-              onClick={() => setExpanded(false)}
-              className="rounded p-1.5 text-creco-muted transition hover:bg-creco-surface hover:text-creco-primary"
-              aria-label="Minimize"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-              </svg>
-            </button>
-          )}
+    <section className={`creco-card creco-fade-in ${showMeta ? "p-4 sm:p-5" : "p-3 sm:p-4"}`}>
+      {!pinned && (
+        <div className="mb-2 flex items-center justify-between gap-2">
+          <h2 className="text-base font-semibold text-creco-primary sm:text-lg">Your question</h2>
+          <button
+            type="button"
+            onClick={() => setExpanded(false)}
+            className="rounded p-1.5 text-creco-muted transition hover:bg-creco-surface hover:text-creco-primary"
+            aria-label="Minimize"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          </button>
         </div>
       )}
 
@@ -180,7 +204,7 @@ export function QuestionComposer({
               disabled={loading}
               className="block w-full resize-none bg-transparent px-3 py-2.5 text-sm leading-snug text-creco-text placeholder:text-creco-muted/70 outline-none disabled:opacity-60 sm:text-base sm:px-3.5 sm:py-3"
             />
-            {showDetail && (
+            {showMeta && (
               <div className="flex items-center justify-between gap-2 border-t border-creco-border px-3 py-1.5 text-xs text-creco-muted">
                 <span>
                   {value.length}/{MAX_LENGTH}
@@ -208,37 +232,7 @@ export function QuestionComposer({
         </div>
       </form>
 
-      {!showDetail && !pinned && (
-        <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-creco-muted">
-          <button
-            type="button"
-            onClick={() => setShowExamples(true)}
-            className="font-medium text-creco-sage hover:text-creco-primary"
-          >
-            Example questions
-          </button>
-          <span className="hidden sm:inline">Shift+Enter for a longer question</span>
-        </div>
-      )}
-
-      {showDetail && !pinned && (
-        <div className="mt-3">
-          <p className="text-xs font-medium text-creco-muted">Tap an example</p>
-          <div className="mt-1.5 flex flex-wrap gap-1.5">
-            {STARTER_QUESTIONS.map((question) => (
-              <button
-                key={question}
-                type="button"
-                onClick={() => handleStarterClick(question)}
-                disabled={loading}
-                className="rounded border border-creco-border bg-creco-surface px-2 py-1 text-left text-[11px] font-medium leading-snug text-creco-primary transition hover:border-creco-sage hover:bg-white disabled:opacity-50 sm:text-xs sm:px-2.5 sm:py-1.5"
-              >
-                {question}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+      <ExampleQuestions onPick={handleStarterClick} loading={loading} compact={pinned} />
     </section>
   );
 }

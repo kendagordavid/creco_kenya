@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
+from app.config import openai_configured
 from app.wiki_query import ask
 from app.wiki_store import list_source_documents, list_wiki_pages, rebuild_index
 
@@ -38,7 +39,11 @@ def startup():
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "engine": "llm-wiki"}
+    return {
+        "status": "ok",
+        "engine": "llm-wiki",
+        "answer_mode": "openai" if openai_configured() else "wiki_direct",
+    }
 
 
 @app.get("/sources")

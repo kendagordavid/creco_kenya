@@ -18,3 +18,15 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+
+
+def openai_configured() -> bool:
+    """True only when a real API key is set (not empty or placeholder)."""
+    key = settings.openai_api_key.strip()
+    if not key:
+        return False
+    lowered = key.lower()
+    if lowered.startswith("sk-your") or "your-key" in lowered or lowered in ("changeme", "xxx"):
+        return False
+    return key.startswith("sk-") and len(key) > 20
+

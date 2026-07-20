@@ -1,4 +1,13 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+/** Browser-safe API client (no Node.js fs). */
+export function getApiBase(): string {
+  const external = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "");
+  if (external) return external;
+  return "";
+}
+
+function useBuiltInApi(): boolean {
+  return !process.env.NEXT_PUBLIC_API_URL;
+}
 
 export type Citation = {
   index: number;
@@ -34,7 +43,9 @@ export type WikiPage = {
 };
 
 export async function askQuestion(question: string): Promise<AskResponse> {
-  const response = await fetch(`${API_URL}/ask`, {
+  const base = getApiBase();
+  const url = useBuiltInApi() ? `${base}/api/ask` : `${base}/ask`;
+  const response = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ question }),
@@ -46,26 +57,4 @@ export async function askQuestion(question: string): Promise<AskResponse> {
   }
 
   return response.json();
-}
-
-export async function fetchSources(): Promise<Source[]> {
-  try {
-    const response = await fetch(`${API_URL}/sources`, { next: { revalidate: 60 } });
-    if (!response.ok) return [];
-    const data = await response.json();
-    return data.sources ?? [];
-  } catch {
-    return [];
-  }
-}
-
-export async function fetchWikiPages(): Promise<WikiPage[]> {
-  try {
-    const response = await fetch(`${API_URL}/wiki/pages`, { next: { revalidate: 60 } });
-    if (!response.ok) return [];
-    const data = await response.json();
-    return data.pages ?? [];
-  } catch {
-    return [];
-  }
 }

@@ -1,13 +1,13 @@
 import { PageHero } from "@/components/PageHero";
 import { SectionSubnav } from "@/components/SectionSubnav";
-import { fetchSources } from "@/lib/api";
+import { listSourceDocuments } from "@/lib/wiki-server";
 
 export const metadata = {
   title: "Sources",
 };
 
 export default async function SourcesPage() {
-  const sources = await fetchSources();
+  const sources = listSourceDocuments();
 
   return (
     <>

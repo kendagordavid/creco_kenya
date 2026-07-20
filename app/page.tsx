@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { fetchWikiPages } from "@/lib/api";
+import { listWikiPageSummaries } from "@/lib/wiki-server";
 
 const MODULES = [
   {
@@ -23,7 +23,7 @@ const MODULES = [
 ];
 
 export default async function HomePage() {
-  const wikiPages = await fetchWikiPages();
+  const wikiPages = listWikiPageSummaries();
 
   return (
     <>

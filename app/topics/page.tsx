@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
 import { SectionSubnav } from "@/components/SectionSubnav";
-import { fetchWikiPages } from "@/lib/api";
+import { listWikiPageSummaries } from "@/lib/wiki-server";
 
 export const metadata = {
   title: "Topics",
 };
 
 export default async function TopicsPage() {
-  const wikiPages = await fetchWikiPages();
+  const wikiPages = listWikiPageSummaries();
 
   return (
     <>

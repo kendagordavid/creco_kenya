@@ -2,6 +2,7 @@ import "server-only";
 
 import { chatCompletion } from "./openai-client";
 import { openaiConfigured } from "./openai-config";
+import { OFF_TOPIC_REFUSAL, resolveTopicScope } from "./topic-guard";
 import {
   WikiPage,
   composeAnswer,
@@ -31,22 +32,23 @@ export type AskResult = {
 
 const WIKI_STRONG_SCORE = 4;
 
-const WIKI_SYSTEM = `You are the CRECO Kenya PBO Act assistant. Answer using the compiled wiki pages provided.
+const WIKI_SYSTEM = `You are the CRECO Kenya PBO Act assistant. Answer using ONLY the compiled wiki pages provided.
 
 Rules:
-1. Ground answers in the wiki content. Cite pages inline as [Wiki: slug].
-2. Use plain language for NGO staff who are not lawyers.
-3. End with a brief note that this is informational guidance, not legal advice.
-4. If asked in Kiswahili, respond in Kiswahili when the wiki supports it.`;
+1. Use only facts from the wiki content. Cite pages inline as [Wiki: slug].
+2. If the wiki does not contain the answer, say so — do not guess.
+3. Use plain language for NGO staff who are not lawyers.
+4. End with a brief note that this is informational guidance, not legal advice.
+5. If asked in Kiswahili, respond in Kiswahili when the wiki supports it.`;
 
-const SUPPLEMENTAL_SYSTEM = `You are the CRECO Kenya PBO Act assistant. The user's question did not match the compiled CRECO topic library well enough for a direct excerpt.
+const SUPPLEMENTAL_SYSTEM = `You are the CRECO Kenya PBO Act assistant. The question is ON TOPIC (Kenyan NGOs/PBOs/CRECO civic space) but not fully covered in the compiled library.
 
 Rules:
-1. Answer helpfully about Kenya's Public Benefit Organization Act 2013 and NGO/PBO registration practice in Kenya.
-2. Clearly separate: (a) what is general public/legal context vs (b) what they should verify with CRECO Kenya or a lawyer.
-3. Prefer referencing: the PBO Act 2013 (Kenya), the Public Benefit Organizations Regulatory Authority, and ICNL civic freedom resources when relevant.
-4. Do NOT invent section numbers or quotes. If unsure, say so.
-5. End with a brief note that this is informational guidance, not legal advice, and that CRECO's compiled materials remain authoritative for this platform.`;
+1. Answer ONLY about Kenya's PBO Act 2013, NGO/PBO registration, compliance, governance, or CRECO-relevant civic regulation in Kenya.
+2. Do NOT answer if the user question is outside that scope — say it is outside CRECO's guidance scope instead.
+3. Do NOT invent section numbers or quotes. If unsure, say so and refer to CRECO Kenya or legal counsel.
+4. Clearly mark general context vs what must be verified with CRECO or a lawyer.
+5. End with a brief note that this is informational guidance, not legal advice.`;
 
 const REFERENCE_CITATIONS: AskCitation[] = [
   {
@@ -68,7 +70,7 @@ const REFERENCE_CITATIONS: AskCitation[] = [
     relevance: 0.75,
     source_id: "creco-kenya",
     source_title: "CRECO Kenya",
-    source_url: "https://creco-kenya.vercel.app/",
+    source_url: "https://www.crecokenya.org/",
     source_type: "reference",
   },
 ];
@@ -125,13 +127,16 @@ function topicCatalog(): string {
 }
 
 async function generateWikiAnswer(question: string, pages: WikiPage[]): Promise<string | null> {
-  return chatCompletion([
-    { role: "system", content: WIKI_SYSTEM },
-    {
-      role: "user",
-      content: `Question: ${question}\n\nCompiled wiki pages:\n\n${formatWikiContext(pages)}\n\nProvide a helpful answer citing [Wiki: slug] markers.`,
-    },
-  ]);
+  return chatCompletion(
+    [
+      { role: "system", content: WIKI_SYSTEM },
+      {
+        role: "user",
+        content: `Question: ${question}\n\nCompiled wiki pages:\n\n${formatWikiContext(pages)}\n\nProvide a helpful answer citing [Wiki: slug] markers.`,
+      },
+    ],
+    0.2,
+  );
 }
 
 async function generateSupplementalAnswer(question: string, weakPages: WikiPage[]): Promise<string | null> {
@@ -140,13 +145,26 @@ async function generateSupplementalAnswer(question: string, weakPages: WikiPage[
       ? `\n\nPartially related compiled topics (use only if truly relevant):\n${formatWikiContext(weakPages.slice(0, 2))}`
       : "";
 
-  return chatCompletion([
-    { role: "system", content: SUPPLEMENTAL_SYSTEM },
-    {
-      role: "user",
-      content: `Question: ${question}\n\nTopics available in the CRECO compiled library:\n${topicCatalog()}${partial}\n\nThe question is not fully covered by those topics. Provide a careful, general answer and tell the user to confirm details with CRECO or legal counsel.`,
-    },
-  ]);
+  return chatCompletion(
+    [
+      { role: "system", content: SUPPLEMENTAL_SYSTEM },
+      {
+        role: "user",
+        content: `Question: ${question}\n\nTopics in the CRECO compiled library:\n${topicCatalog()}${partial}\n\nGive a short, careful answer only if it stays within Kenyan PBO/NGO/CRECO scope.`,
+      },
+    ],
+    0.2,
+  );
+}
+
+function offTopicResult(): AskResult {
+  return {
+    answer: OFF_TOPIC_REFUSAL,
+    citations: [],
+    confidence: "low",
+    refused: true,
+    answer_mode: "wiki_direct",
+  };
 }
 
 export async function askQuestionEngine(question: string): Promise<AskResult> {
@@ -191,11 +209,16 @@ export async function askQuestionEngine(question: string): Promise<AskResult> {
     };
   }
 
+  const scope = await resolveTopicScope(trimmed, matchScore);
+  if (scope === "off_topic") {
+    return offTopicResult();
+  }
+
   if (openaiConfigured()) {
     const ai = await generateSupplementalAnswer(trimmed, pages);
     if (ai) {
       const supplementalNote =
-        "\n\n*This response draws on general PBO Act context where your question is not fully covered in CRECO’s compiled topic library. Verify important steps with CRECO Kenya.*";
+        "\n\n*This response uses general Kenyan PBO/NGO context where CRECO’s compiled library does not fully cover your question. Verify important steps with CRECO Kenya.*";
       const answer = ai.includes("not legal advice") ? ai : `${ai}${supplementalNote}`;
       return {
         answer,
@@ -220,9 +243,7 @@ export async function askQuestionEngine(question: string): Promise<AskResult> {
 
   return {
     answer:
-      openaiConfigured()
-        ? "We couldn't generate an answer right now. Please try again, browse topics, or contact CRECO Kenya."
-        : "I couldn't find a matching topic in the compiled PBO Act wiki for that question. Add an OpenAI API key on the server for broader answers, rephrase your question, browse topics, or contact CRECO Kenya.",
+      "I couldn't find a matching topic in the compiled library. Try rephrasing with PBO, registration, or compliance terms, browse **Topics**, or contact **CRECO Kenya**.",
     citations: [],
     confidence: "low",
     refused: true,

@@ -7,6 +7,7 @@ import re
 from openai import OpenAI
 
 from app.config import openai_configured, settings
+from app.topic_guard import OFF_TOPIC_REFUSAL, resolve_topic_scope
 from app.wiki_store import WikiPage, search_wiki
 
 WIKI_STRONG_SCORE = 4
@@ -239,6 +240,22 @@ def ask(question: str) -> dict:
         }
 
     if openai_configured():
+        client = _openai_client()
+        scope = resolve_topic_scope(
+            question,
+            score,
+            openai_ok=True,
+            client=client,
+            model=settings.openai_model,
+        )
+        if scope == "off_topic":
+            return {
+                "answer": OFF_TOPIC_REFUSAL,
+                "citations": [],
+                "confidence": "low",
+                "refused": True,
+                "answer_mode": "wiki_direct",
+            }
         answer = generate_supplemental_answer(question, pages)
         refused = answer == REFUSAL_MESSAGE
         citations = _pages_to_citations(pages) if pages else REFERENCE_CITATIONS

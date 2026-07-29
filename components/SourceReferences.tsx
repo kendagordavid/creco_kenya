@@ -10,15 +10,18 @@ type Props = {
 
 export function SourceReferences({ citations, activeIndex, onSelect }: Props) {
   return (
-    <div className="creco-card p-5">
-      <span className="creco-eyebrow">References</span>
-      <h2 className="font-display text-lg font-bold text-creco-primary">Source material</h2>
-      <p className="mt-2 text-sm text-creco-muted">
+    <div className="creco-card creco-card-green overflow-hidden p-0">
+      <div className="border-b border-creco-border bg-creco-green-muted/50 px-5 py-4">
+        <span className="creco-eyebrow !mb-2">References</span>
+        <h2 className="font-display text-lg font-bold text-creco-primary">Source material</h2>
+      </div>
+      <div className="p-5">
+      <p className="text-sm text-creco-muted">
         Topic pages and approved documents used to form the guidance response.
       </p>
 
       {citations.length === 0 ? (
-        <p className="mt-5 border-t border-creco-border pt-4 text-sm text-creco-muted">
+        <p className="mt-5 rounded-lg border border-dashed border-creco-border bg-creco-surface/50 px-4 py-6 text-center text-sm text-creco-muted">
           References appear here after you submit a question.
         </p>
       ) : (
@@ -30,10 +33,10 @@ export function SourceReferences({ citations, activeIndex, onSelect }: Props) {
                 <button
                   type="button"
                   onClick={() => onSelect(citation.index)}
-                  className={`w-full rounded-md border p-4 text-left transition ${
+                  className={`w-full rounded-lg border p-4 text-left transition-all duration-200 ${
                     active
-                      ? "border-creco-sage bg-creco-surface"
-                      : "border-creco-border bg-white hover:border-creco-primary"
+                      ? "border-creco-primary bg-creco-green-muted shadow-sm"
+                      : "border-creco-border bg-white hover:border-creco-accent/50 hover:shadow-sm"
                   }`}
                 >
                   <div className="flex items-start justify-between gap-2">
@@ -67,6 +70,7 @@ export function SourceReferences({ citations, activeIndex, onSelect }: Props) {
           })}
         </ul>
       )}
+      </div>
     </div>
   );
 }

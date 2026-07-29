@@ -127,13 +127,13 @@ export function QuestionComposer({
 
   if (!expanded && !pinned) {
     return (
-      <section className="creco-card overflow-hidden p-0">
+      <section className="creco-card overflow-hidden p-0 shadow-md">
         <button
           type="button"
           onClick={openComposer}
-          className="flex w-full items-center gap-3 px-4 py-3 text-left transition hover:bg-creco-surface/60 sm:px-5"
+          className="flex w-full items-center gap-3 px-4 py-4 text-left transition hover:bg-creco-green-muted/40 sm:px-5"
         >
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-creco-primary text-white">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-creco-primary to-creco-green-light text-white shadow-md">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
               <path
                 d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"
@@ -159,10 +159,10 @@ export function QuestionComposer({
   const showMeta = multiLine || pinned;
 
   return (
-    <section className={`creco-card creco-fade-in ${showMeta ? "p-4 sm:p-5" : "p-3 sm:p-4"}`}>
+    <section className={`creco-card creco-card-green creco-fade-in ${showMeta ? "p-4 sm:p-5" : "p-3 sm:p-4"}`}>
       {!pinned && (
         <div className="mb-2 flex items-center justify-between gap-2">
-          <h2 className="text-base font-semibold text-creco-primary sm:text-lg">Your question</h2>
+          <h2 className="text-base font-bold text-creco-black sm:text-lg">Your question</h2>
           <button
             type="button"
             onClick={() => setExpanded(false)}

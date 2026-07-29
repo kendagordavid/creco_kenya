@@ -1,27 +1,60 @@
 @import "tailwindcss";
 
 :root {
-  --creco-primary: #0a864d;
-  --creco-primary-dark: #086941;
-  --creco-accent: #ef9334;
-  --creco-accent-hover: #d97f28;
-  --creco-sage: #5a8f7b;
-  --creco-sand: #c9b896;
-  --creco-surface: #faf8f5;
-  --creco-surface-alt: #f0ebe3;
-  --creco-text: #2c2c2c;
-  --creco-muted: #909090;
-  --creco-border: #ddd5c8;
-  --creco-content-max: 68rem;
-  --creco-radius: 0.5rem;
-  --creco-radius-lg: 0.75rem;
+  /* Brand — green, orange, white, black */
+  --creco-green: #0a864d;
+  --creco-green-dark: #065a34;
+  --creco-green-deep: #044028;
+  --creco-green-light: #12a362;
+  --creco-green-muted: #e8f5ee;
+  --creco-green-glow: rgba(10, 134, 77, 0.18);
+
+  --creco-orange: #ef9334;
+  --creco-orange-dark: #d97a1a;
+  --creco-orange-light: #ffb366;
+  --creco-orange-muted: #fff4e8;
+  --creco-orange-glow: rgba(239, 147, 52, 0.22);
+
+  --creco-black: #0a0a0a;
+  --creco-black-soft: #1a1a1a;
+  --creco-white: #ffffff;
+
+  /* Semantic aliases */
+  --creco-primary: var(--creco-green);
+  --creco-primary-dark: var(--creco-green-dark);
+  --creco-accent: var(--creco-orange);
+  --creco-accent-hover: var(--creco-orange-dark);
+  --creco-text: #2a2a2a;
+  --creco-muted: #5c5c5c;
+  --creco-border: #e8e8e8;
+  --creco-surface: #f7fbf9;
+  --creco-surface-alt: var(--creco-green-muted);
+  --creco-sage: #3d9970;
+  --creco-sand: var(--creco-orange-muted);
+
+  --creco-content-max: 72rem;
+  --creco-radius: 0.625rem;
+  --creco-radius-lg: 1rem;
+  --creco-radius-xl: 1.25rem;
+  --creco-radius-2xl: 1.5rem;
+  --creco-shadow-sm: 0 1px 3px rgba(10, 10, 10, 0.05);
+  --creco-shadow: 0 4px 24px rgba(10, 10, 10, 0.07);
+  --creco-shadow-lg: 0 16px 48px rgba(10, 10, 10, 0.1);
+  --creco-shadow-green: 0 8px 32px rgba(10, 134, 77, 0.2);
+  --creco-shadow-orange: 0 8px 32px rgba(239, 147, 52, 0.25);
 }
 
 @theme inline {
   --color-creco-primary: var(--creco-primary);
   --color-creco-primary-dark: var(--creco-primary-dark);
+  --color-creco-primary-light: var(--creco-green-light);
   --color-creco-accent: var(--creco-accent);
   --color-creco-accent-hover: var(--creco-accent-hover);
+  --color-creco-accent-light: var(--creco-orange-light);
+  --color-creco-black: var(--creco-black);
+  --color-creco-black-soft: var(--creco-black-soft);
+  --color-creco-green-muted: var(--creco-green-muted);
+  --color-creco-orange-muted: var(--creco-orange-muted);
   --color-creco-sage: var(--creco-sage);
   --color-creco-sand: var(--creco-sand);
   --color-creco-surface: var(--creco-surface);
@@ -41,10 +74,11 @@ html {
 body {
   font-family: var(--font-poppins), system-ui, sans-serif;
   color: var(--creco-text);
-  background: #ffffff;
+  background: var(--creco-white);
   line-height: 1.65;
   font-size: 1rem;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1,
@@ -53,10 +87,10 @@ h3,
 h4,
 .font-display {
   font-family: var(--font-poppins), system-ui, sans-serif;
-  color: var(--creco-primary);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.25;
+  color: var(--creco-black);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
 }
 
 .creco-container {
@@ -68,93 +102,351 @@ h4,
 
 @media (min-width: 640px) {
   .creco-container {
-    padding-inline: 1.75rem;
+    padding-inline: 2rem;
   }
 }
 
 .creco-section {
-  padding-block: clamp(3.5rem, 7vw, 5.5rem);
+  padding-block: clamp(4.5rem, 9vw, 7rem);
 }
 
 .creco-section-alt {
   background: var(--creco-surface);
+  position: relative;
 }
 
+.creco-section-alt::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 0% 0%, var(--creco-green-glow) 0%, transparent 35%),
+    radial-gradient(circle at 100% 100%, rgba(239, 147, 52, 0.08) 0%, transparent 35%);
+  pointer-events: none;
+}
+
+.creco-section-dark {
+  background: var(--creco-black-soft);
+  color: var(--creco-white);
+}
+
+/* Eyebrow labels */
 .creco-eyebrow {
-  display: inline-block;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: var(--creco-sage);
-  margin-bottom: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--creco-orange);
+  margin-bottom: 1rem;
 }
 
+.creco-eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 1.75rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--creco-orange), var(--creco-orange-light));
+  border-radius: 1px;
+}
+
+.creco-eyebrow-light {
+  color: var(--creco-orange-light);
+}
+
+.creco-eyebrow-light::before {
+  background: linear-gradient(90deg, var(--creco-orange-light), rgba(255, 255, 255, 0.6));
+}
+
+.creco-eyebrow-center {
+  justify-content: center;
+}
+
+/* Hero — rich green gradient with orange warmth */
+.creco-hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    155deg,
+    var(--creco-green-deep) 0%,
+    var(--creco-green-dark) 30%,
+    var(--creco-green) 65%,
+    #0b7a48 100%
+  );
+  color: var(--creco-white);
+}
+
+.creco-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 95% 5%, var(--creco-orange-glow) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 40% at 5% 95%, rgba(255, 255, 255, 0.07) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.creco-hero::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--creco-green-light) 0%,
+    var(--creco-orange) 35%,
+    var(--creco-orange-light) 65%,
+    var(--creco-orange) 100%
+  );
+}
+
+.creco-hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 20%, transparent 75%);
+  pointer-events: none;
+}
+
+.creco-hero-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.creco-hero h1,
+.creco-hero .font-display {
+  color: var(--creco-white);
+}
+
+.creco-hero-lead {
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.7;
+}
+
+.creco-hero-pattern {
+  background-color: var(--creco-surface);
+  background-image:
+    radial-gradient(circle at 10% 15%, var(--creco-green-glow) 0%, transparent 40%),
+    radial-gradient(circle at 90% 85%, rgba(239, 147, 52, 0.1) 0%, transparent 40%);
+  position: relative;
+}
+
+.creco-hero-pattern::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--creco-border), transparent);
+}
+
+/* Highlight text in hero */
+.creco-highlight {
+  background: linear-gradient(135deg, var(--creco-orange-light), var(--creco-orange));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Cards */
 .creco-card {
-  background: #fff;
+  background: var(--creco-white);
   border: 1px solid var(--creco-border);
-  border-left: 4px solid var(--creco-primary);
   border-radius: var(--creco-radius-lg);
-  box-shadow: 0 1px 3px rgba(30, 77, 58, 0.06);
-  transition: box-shadow 0.2s ease, border-left-color 0.2s ease;
+  box-shadow: var(--creco-shadow-sm);
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .creco-card:hover {
-  box-shadow: 0 4px 12px rgba(30, 77, 58, 0.08);
-  border-left-color: var(--creco-accent);
+  box-shadow: var(--creco-shadow);
+  border-color: rgba(10, 134, 77, 0.22);
+  transform: translateY(-3px);
+}
+
+.creco-card-accent {
+  border-top: 3px solid var(--creco-orange);
+}
+
+.creco-card-green {
+  border-top: 3px solid var(--creco-green);
 }
 
 .creco-card-featured {
-  border-left-color: var(--creco-accent);
-  background: linear-gradient(to bottom right, #fff, var(--creco-surface));
+  border: 1px solid rgba(10, 134, 77, 0.18);
+  border-left: 4px solid var(--creco-green);
+  background: linear-gradient(135deg, var(--creco-white) 0%, var(--creco-green-muted) 120%);
+  box-shadow: var(--creco-shadow-green);
 }
 
+.creco-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--creco-radius);
+  font-size: 1.25rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.creco-card-icon-green {
+  background: var(--creco-green-muted);
+  color: var(--creco-green);
+}
+
+.creco-card-icon-orange {
+  background: var(--creco-orange-muted);
+  color: var(--creco-orange-dark);
+}
+
+/* Buttons */
 .creco-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.7rem 1.35rem;
+  padding: 0.8125rem 1.625rem;
   font-size: 0.9375rem;
   font-weight: 600;
   border-radius: var(--creco-radius);
-  border: 1.5px solid transparent;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  border: 2px solid transparent;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
   text-decoration: none;
+  cursor: pointer;
+}
+
+.creco-btn:active {
+  transform: scale(0.98);
 }
 
 .creco-btn-primary {
-  background: var(--creco-primary);
-  color: #fff;
-  border-color: var(--creco-primary);
+  background: var(--creco-green);
+  color: var(--creco-white);
+  border-color: var(--creco-green);
+  box-shadow: 0 2px 12px rgba(10, 134, 77, 0.32);
 }
 
 .creco-btn-primary:hover {
-  background: var(--creco-primary-dark);
-  border-color: var(--creco-primary-dark);
+  background: var(--creco-green-dark);
+  border-color: var(--creco-green-dark);
+  box-shadow: 0 6px 20px rgba(10, 134, 77, 0.38);
 }
 
 .creco-btn-secondary {
-  background: #fff;
-  color: var(--creco-primary);
+  background: var(--creco-white);
+  color: var(--creco-black);
   border-color: var(--creco-border);
 }
 
 .creco-btn-secondary:hover {
-  border-color: var(--creco-primary);
-  background: var(--creco-surface);
+  border-color: var(--creco-green);
+  color: var(--creco-green);
+  background: var(--creco-green-muted);
 }
 
 .creco-btn-accent {
-  background: var(--creco-accent);
-  color: #fff;
-  border-color: var(--creco-accent);
+  background: var(--creco-orange);
+  color: var(--creco-black);
+  border-color: var(--creco-orange);
+  box-shadow: 0 2px 14px rgba(239, 147, 52, 0.38);
 }
 
 .creco-btn-accent:hover {
-  background: var(--creco-accent-hover);
-  border-color: var(--creco-accent-hover);
+  background: var(--creco-orange-dark);
+  border-color: var(--creco-orange-dark);
+  color: var(--creco-black);
+  box-shadow: var(--creco-shadow-orange);
 }
 
+.creco-btn-ghost-light {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--creco-white);
+  border-color: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(4px);
+}
+
+.creco-btn-ghost-light:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: var(--creco-white);
+}
+
+.creco-btn-white {
+  background: var(--creco-white);
+  color: var(--creco-green-dark);
+  border-color: var(--creco-white);
+  box-shadow: var(--creco-shadow);
+}
+
+.creco-btn-white:hover {
+  background: var(--creco-orange-muted);
+  color: var(--creco-black);
+}
+
+/* Stats */
+.creco-stat {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--creco-radius-lg);
+  padding: 1.125rem 0.75rem;
+  text-align: center;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.creco-stat:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.creco-stat-light {
+  background: var(--creco-white);
+  border: 1px solid var(--creco-border);
+  box-shadow: var(--creco-shadow-sm);
+}
+
+.creco-stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--creco-white);
+  letter-spacing: -0.02em;
+}
+
+.creco-stat-light .creco-stat-value {
+  color: var(--creco-green);
+}
+
+.creco-stat-label {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+  margin-top: 0.375rem;
+}
+
+.creco-stat-light .creco-stat-label {
+  color: var(--creco-muted);
+}
+
+/* Prose */
 .creco-prose {
   color: var(--creco-text);
   line-height: 1.75;
@@ -165,7 +457,7 @@ h4,
 }
 
 .creco-prose strong {
-  color: var(--creco-primary);
+  color: var(--creco-green-dark);
   font-weight: 600;
 }
 
@@ -179,10 +471,120 @@ h4,
   margin-top: 0.35rem;
 }
 
-.creco-hero-pattern {
-  background-color: var(--creco-surface);
-  background-image: radial-gradient(circle at 20% 30%, rgba(90, 143, 123, 0.12) 0%, transparent 45%),
-    radial-gradient(circle at 80% 70%, rgba(196, 93, 62, 0.08) 0%, transparent 40%);
+/* CTA band */
+.creco-cta-band {
+  background: linear-gradient(165deg, var(--creco-black) 0%, var(--creco-black-soft) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.creco-cta-band::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--creco-green), var(--creco-orange), var(--creco-green));
+}
+
+.creco-cta-band::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 80% 50%, rgba(10, 134, 77, 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(239, 147, 52, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Feature list */
+.creco-check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  padding: 1.125rem 1.375rem;
+  background: var(--creco-white);
+  border: 1px solid var(--creco-border);
+  border-radius: var(--creco-radius);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.creco-check-item:hover {
+  border-color: rgba(239, 147, 52, 0.45);
+  box-shadow: var(--creco-shadow-sm);
+  transform: translateX(4px);
+}
+
+.creco-check-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.625rem;
+  height: 1.625rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--creco-green), var(--creco-green-light));
+  color: var(--creco-white);
+  font-size: 0.625rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(10, 134, 77, 0.3);
+}
+
+/* Brand stripe */
+.creco-brand-stripe {
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--creco-green) 0%,
+    var(--creco-green-light) 25%,
+    var(--creco-orange) 50%,
+    var(--creco-orange-light) 75%,
+    var(--creco-green) 100%
+  );
+}
+
+/* Divider with dots */
+.creco-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--creco-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.creco-divider::before,
+.creco-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--creco-border), transparent);
+}
+
+/* Trust badge row */
+.creco-trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+}
+
+.creco-trust-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--creco-orange);
+  box-shadow: 0 0 8px var(--creco-orange-glow);
 }
 
 .line-clamp-4 {
@@ -195,7 +597,7 @@ h4,
 @keyframes creco-fade-in {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -204,21 +606,70 @@ h4,
 }
 
 .creco-fade-in {
-  animation: creco-fade-in 0.4s ease forwards;
+  animation: creco-fade-in 0.5s ease forwards;
+}
+
+@keyframes creco-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.creco-animate-in {
+  animation: creco-fade-in-up 0.7s ease forwards;
+}
+
+.creco-animate-in-delay-1 {
+  animation-delay: 0.1s;
+  opacity: 0;
+}
+
+.creco-animate-in-delay-2 {
+  animation-delay: 0.2s;
+  opacity: 0;
+}
+
+.creco-animate-in-delay-3 {
+  animation-delay: 0.3s;
+  opacity: 0;
 }
 
 @keyframes creco-pulse-bar {
   0%,
   100% {
-    opacity: 0.3;
+    opacity: 0.35;
   }
   50% {
-    opacity: 0.85;
+    opacity: 1;
   }
 }
 
 .creco-loading-bar {
   animation: creco-pulse-bar 1.2s ease-in-out infinite;
-  background: var(--creco-surface-alt);
+  background: linear-gradient(90deg, var(--creco-green-muted), var(--creco-orange-muted));
   border-radius: 2px;
+}
+
+@keyframes creco-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.creco-float {
+  animation: creco-float 4s ease-in-out infinite;
+}
+
+:focus-visible {
+  outline: 2px solid var(--creco-orange);
+  outline-offset: 2px;
 }

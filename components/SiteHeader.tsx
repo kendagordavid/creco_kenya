@@ -16,20 +16,22 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-creco-border/80 bg-white/95 backdrop-blur-sm">
-      <div className="creco-container flex items-center justify-between gap-6 py-4">
+    <header className="sticky top-0 z-50 border-b border-creco-border/80 bg-white/95 shadow-sm backdrop-blur-lg">
+      <div className="creco-brand-stripe" aria-hidden />
+      <div className="creco-container flex items-center justify-between gap-6 py-3.5">
         <Link href="/" className="group flex items-center gap-3 no-underline">
           <span
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-creco-primary text-sm font-bold text-white transition group-hover:bg-creco-primary-dark"
+            className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-creco-primary to-creco-green-light text-base font-bold text-white shadow-md transition-all duration-300 group-hover:shadow-lg group-hover:shadow-creco-green/25"
             aria-hidden
           >
-            C
+            <span className="relative z-10">C</span>
+            <span className="absolute inset-0 bg-gradient-to-br from-creco-accent/0 to-creco-accent/30 opacity-0 transition-opacity group-hover:opacity-100" />
           </span>
           <span>
-            <span className="block font-display text-lg font-bold leading-none text-creco-primary">
+            <span className="block text-lg font-bold leading-none tracking-tight text-creco-black">
               CRECO
             </span>
-            <span className="mt-0.5 block text-[0.7rem] font-medium tracking-wide text-creco-muted">
+            <span className="mt-0.5 block text-[0.625rem] font-bold uppercase tracking-[0.18em] text-creco-primary">
               PBO Act Platform
             </span>
           </span>
@@ -37,7 +39,7 @@ export function SiteHeader() {
 
         <button
           type="button"
-          className="rounded-md p-2 text-creco-primary lg:hidden"
+          className="rounded-lg p-2.5 text-creco-black transition hover:bg-creco-green-muted lg:hidden"
           aria-label="Toggle navigation"
           aria-expanded={open}
           onClick={() => setOpen((value) => !value)}
@@ -55,7 +57,7 @@ export function SiteHeader() {
         <nav
           className={`${
             open ? "flex" : "hidden"
-          } absolute left-0 right-0 top-full flex-col gap-1 border-b border-creco-border bg-white px-5 py-4 lg:static lg:flex lg:flex-row lg:items-center lg:border-0 lg:p-0`}
+          } absolute left-0 right-0 top-full flex-col gap-1 border-b border-creco-border bg-white px-5 py-4 shadow-xl lg:static lg:flex lg:flex-row lg:items-center lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none`}
         >
           {NAV_ITEMS.map((item) => {
             const active =
@@ -67,13 +69,18 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className={`relative px-3 py-2 text-sm font-medium no-underline transition-colors ${
-                  active ? "text-creco-primary" : "text-creco-muted hover:text-creco-primary"
+                className={`relative rounded-lg px-3.5 py-2 text-sm font-semibold no-underline transition-all duration-200 ${
+                  active
+                    ? "bg-creco-green-muted text-creco-primary"
+                    : "text-creco-black-soft/75 hover:bg-creco-surface hover:text-creco-black"
                 }`}
               >
                 {item.label}
                 {active && (
-                  <span className="absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-creco-accent lg:-bottom-1" />
+                  <span
+                    className="absolute bottom-0 left-3 right-3 h-0.5 rounded-full bg-creco-accent lg:-bottom-0.5"
+                    aria-hidden
+                  />
                 )}
               </Link>
             );
@@ -81,7 +88,7 @@ export function SiteHeader() {
           <Link
             href="/guidance?ask=1"
             onClick={() => setOpen(false)}
-            className="creco-btn creco-btn-accent mt-2 lg:ml-4 lg:mt-0"
+            className="creco-btn creco-btn-accent mt-2 text-sm lg:ml-4 lg:mt-0"
           >
             Ask a question
           </Link>

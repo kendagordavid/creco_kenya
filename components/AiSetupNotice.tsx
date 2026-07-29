@@ -24,24 +24,18 @@ export function AiSetupNotice() {
 
   return (
     <div
-      className="mb-6 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950"
+      className="mb-6 overflow-hidden rounded-xl border border-creco-accent/25 bg-creco-orange-muted text-sm text-creco-black-soft shadow-sm"
       role="status"
     >
-      <p className="font-semibold">AI answers are off on this deployment</p>
-      <p className="mt-1 text-amber-900/90">
-        You are seeing compiled topic text only (<code className="text-xs">wiki_direct</code>). Keys
-        in <code className="text-xs">.env</code> on your laptop are not sent to Vercel.
+      <div className="h-1 bg-gradient-to-r from-creco-orange to-creco-orange-light" aria-hidden />
+      <div className="px-5 py-4">
+      <p className="font-bold text-creco-black">AI answers are off on this deployment</p>
+      <p className="mt-1 text-creco-muted">
+        You are seeing compiled topic text only. Add <code className="text-xs">OPENAI_API_KEY</code>{" "}
+        in Vercel to enable AI-assisted answers.
       </p>
-      {health.setup_hint && (
-        <p className="mt-2 text-amber-900/90">{health.setup_hint}</p>
-      )}
-      <p className="mt-2 text-xs text-amber-800">
-        After adding the variable, open{" "}
-        <a href="/api/health" className="font-medium underline">
-          /api/health
-        </a>{" "}
-        — it should show <code className="text-xs">answer_mode: openai</code>.
-      </p>
+      {health.setup_hint && <p className="mt-2 text-creco-muted">{health.setup_hint}</p>}
+      </div>
     </div>
   );
 }

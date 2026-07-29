@@ -14,9 +14,12 @@ export function SectionSubnav() {
   const pathname = usePathname();
 
   return (
-    <nav aria-label="Section navigation" className="border-b border-creco-border bg-white">
+    <nav
+      aria-label="Section navigation"
+      className="border-b border-creco-border bg-white/80 backdrop-blur-sm"
+    >
       <div className="creco-container overflow-x-auto">
-        <ul className="flex min-w-max gap-6">
+        <ul className="flex min-w-max gap-1.5 py-3">
           {ITEMS.map((item) => {
             const active =
               item.href === "/"
@@ -26,14 +29,13 @@ export function SectionSubnav() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className={`relative block py-3.5 text-sm font-medium no-underline transition-colors ${
-                    active ? "text-creco-primary" : "text-creco-muted hover:text-creco-primary"
+                  className={`block rounded-full px-4 py-2 text-sm font-semibold no-underline transition-all duration-200 ${
+                    active
+                      ? "bg-creco-primary text-white shadow-md shadow-creco-green/20"
+                      : "text-creco-black-soft/70 hover:bg-creco-green-muted hover:text-creco-primary"
                   }`}
                 >
                   {item.label}
-                  {active && (
-                    <span className="absolute inset-x-0 bottom-0 h-0.5 bg-creco-accent rounded-full" />
-                  )}
                 </Link>
               </li>
             );

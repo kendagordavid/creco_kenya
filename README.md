@@ -2,11 +2,32 @@
 
 ## Live on Vercel
 
-Connect the GitHub repo with **default settings** (root = repository root). No Root Directory override needed.
+1. Push this repo to GitHub (`kendagordavid/creco_kenya`).
+2. In [Vercel](https://vercel.com/new), **Import** the repository.
+3. Use **default settings** — Framework: Next.js, Root Directory: *(empty / repo root)*.
+4. Add environment variable (optional, for AI-polished guidance answers):
+   - `OPENAI_API_KEY` — your OpenAI API key (Production + Preview)
+5. Deploy.
+
+**URLs after deploy:**
+
+| URL | What |
+|-----|------|
+| `/` | PBO Act platform (Guidance, Topics, Sources) |
+| `/guidance` | PBO Act guidance Q&A |
+| `/topics` | Topic library |
+| `/sources` | Source documents |
 
 The site includes **built-in API routes** (`/api/ask`, `/api/sources`, …) that read wiki topics from `prototype/wiki/`. You do **not** need a separate backend for demos.
 
 Optional: set `NEXT_PUBLIC_API_URL` to a deployed FastAPI server instead.
+
+CLI deploy:
+
+```bash
+npx vercel          # preview
+npx vercel --prod   # production
+```
 
 ## Local development
 
@@ -27,14 +48,7 @@ uvicorn app.main:app --reload --port 8000
 
 ## Wireframes (ToR Deliverable #2)
 
-Mid-fidelity UI/UX wireframes for CRECO sign-off — 48 screens, 6 user journeys, mobile variants.
-
-```bash
-node wireframes/build.mjs          # Regenerate HTML
-npx --yes serve wireframes -p 3456 # View at http://localhost:3456
-```
-
-See [`wireframes/README.md`](wireframes/README.md), [`docs/sitemap.md`](docs/sitemap.md), and [`docs/inception-report-wireframes.md`](docs/inception-report-wireframes.md).
+Mid-fidelity UI/UX wireframes for CRECO sign-off — deployed **separately** from this app (see [`wireframes/README.md`](wireframes/README.md)).
 
 ## Repo layout
 

@@ -158,8 +158,12 @@ export function searchWiki(question: string, limit = 3): WikiPage[] {
 export function composeAnswer(pages: WikiPage[]): string {
   const primary = pages[0];
   const body = extractAnswerBody(primary.body);
-  const related = primary.related.slice(0, 3).map((s) => `[[${s}]]`).join(", ");
-  let answer = `Based on the compiled topic **${primary.title}**:\n\n${body}\n\n*Source: [Wiki: ${primary.slug}]*`;
+  const pageBySlug = new Map(loadWikiPages().map((p) => [p.slug, p.title]));
+  const related = primary.related
+    .slice(0, 3)
+    .map((slug) => pageBySlug.get(slug) ?? slug.replace(/-/g, " "))
+    .join(", ");
+  let answer = `Based on the compiled topic **${primary.title}**:\n\n${body}`;
   if (pages.length > 1) {
     answer += `\n\n*Also see:* ${pages.slice(1, 3).map((p) => p.title).join(", ")}`;
   }

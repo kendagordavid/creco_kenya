@@ -9,6 +9,7 @@ import {
   loadWikiPages,
   searchWiki,
 } from "./wiki-server";
+import { sanitizeUserFacingAnswer } from "./sanitize-answer";
 
 export type AskCitation = {
   index: number;
@@ -32,14 +33,14 @@ export type AskResult = {
 
 const WIKI_STRONG_SCORE = 4;
 
-const WIKI_SYSTEM = `You are the CRECO Kenya PBO Act assistant. Answer using ONLY the compiled wiki pages provided.
+const WIKI_SYSTEM = `You are the CRECO Kenya PBO Act assistant. Answer using ONLY the compiled topic pages provided.
 
 Rules:
-1. Use only facts from the wiki content. Cite pages inline as [Wiki: slug].
-2. If the wiki does not contain the answer, say so — do not guess.
+1. Use only facts from the topic content. Do not include internal page IDs, slugs, or technical source markers in your answer.
+2. If the topic pages do not contain the answer, say so — do not guess.
 3. Use plain language for NGO staff who are not lawyers.
 4. End with a brief note that this is informational guidance, not legal advice.
-5. If asked in Kiswahili, respond in Kiswahili when the wiki supports it.`;
+5. If asked in Kiswahili, respond in Kiswahili when the content supports it.`;
 
 const SUPPLEMENTAL_SYSTEM = `You are the CRECO Kenya PBO Act assistant. The question is ON TOPIC (Kenyan NGOs/PBOs/CRECO civic space) but not fully covered in the compiled library.
 
@@ -132,7 +133,7 @@ async function generateWikiAnswer(question: string, pages: WikiPage[]): Promise<
       { role: "system", content: WIKI_SYSTEM },
       {
         role: "user",
-        content: `Question: ${question}\n\nCompiled wiki pages:\n\n${formatWikiContext(pages)}\n\nProvide a helpful answer citing [Wiki: slug] markers.`,
+        content: `Question: ${question}\n\nCompiled topic pages:\n\n${formatWikiContext(pages)}\n\nProvide a helpful plain-language answer for non-technical users. Do not include [Wiki: ...] markers or page slugs.`,
       },
     ],
     0.2,
@@ -155,6 +156,10 @@ async function generateSupplementalAnswer(question: string, weakPages: WikiPage[
     ],
     0.2,
   );
+}
+
+function formatAnswer(answer: string): string {
+  return sanitizeUserFacingAnswer(answer);
 }
 
 function offTopicResult(): AskResult {
@@ -191,7 +196,7 @@ export async function askQuestionEngine(question: string): Promise<AskResult> {
       const ai = await generateWikiAnswer(trimmed, pages);
       if (ai) {
         return {
-          answer: ai,
+          answer: formatAnswer(ai),
           citations,
           confidence,
           refused: false,
@@ -201,7 +206,7 @@ export async function askQuestionEngine(question: string): Promise<AskResult> {
     }
 
     return {
-      answer: composeAnswer(pages),
+      answer: formatAnswer(composeAnswer(pages)),
       citations,
       confidence,
       refused: false,
@@ -221,7 +226,7 @@ export async function askQuestionEngine(question: string): Promise<AskResult> {
         "\n\n*This response uses general Kenyan PBO/NGO context where CRECO’s compiled library does not fully cover your question. Verify important steps with CRECO Kenya.*";
       const answer = ai.includes("not legal advice") ? ai : `${ai}${supplementalNote}`;
       return {
-        answer,
+        answer: formatAnswer(answer),
         citations: pages.length ? pagesToCitations(pages) : REFERENCE_CITATIONS,
         confidence: pages.length ? "medium" : "low",
         refused: false,
@@ -233,7 +238,7 @@ export async function askQuestionEngine(question: string): Promise<AskResult> {
   if (pages.length) {
     const citations = pagesToCitations(pages);
     return {
-      answer: composeAnswer(pages),
+      answer: formatAnswer(composeAnswer(pages)),
       citations,
       confidence: "medium",
       refused: false,

@@ -64,7 +64,10 @@ const OFF_TOPIC_PATTERNS: RegExp[] = [
 ];
 
 export const OFF_TOPIC_REFUSAL =
-  "This tool only answers questions about **Kenyan Public Benefit Organizations**, the **PBO Act**, **NGO/CSO registration and compliance**, and **CRECO-related civic guidance**. Please rephrase your question in that context, browse **Topics**, or contact **CRECO Kenya**.";
+  "I'm sorry — I can't answer questions outside the **Public Benefit Organizations Act, 2013** and related PBO registration and compliance in Kenya. Please ask about the PBO Act, registration, or compliance, browse **Topics**, or contact **CRECO Kenya**.";
+
+export const NO_GUIDANCE_REFUSAL =
+  "I don't have specific guidance on that PBO Act topic yet. Try rephrasing with terms like registration, compliance, or the regulatory authority, browse **Topics**, or contact **CRECO Kenya** for help.";
 
 export function heuristicTopicScope(question: string, wikiMatchScore: number): TopicScope {
   const q = question.trim();

@@ -2,7 +2,7 @@ import "server-only";
 
 import { chatCompletion } from "./openai-client";
 import { openaiConfigured } from "./openai-config";
-import { OFF_TOPIC_REFUSAL, resolveTopicScope } from "./topic-guard";
+import { NO_GUIDANCE_REFUSAL, OFF_TOPIC_REFUSAL, resolveTopicScope } from "./topic-guard";
 import {
   WikiPage,
   composeAnswer,
@@ -36,7 +36,7 @@ const WIKI_SYSTEM = `You are the CRECO Kenya PBO Act assistant. Answer using ONL
 
 Rules:
 1. Use only facts from the wiki content. Cite pages inline as [Wiki: slug].
-2. If the wiki does not contain the answer, say so — do not guess.
+2. If the compiled material does not contain the answer, tell the user you do not have specific guidance on that detail — do not mention wikis or internal libraries.
 3. Use plain language for NGO staff who are not lawyers.
 4. End with a brief note that this is informational guidance, not legal advice.
 5. If asked in Kiswahili, respond in Kiswahili when the wiki supports it.`;
@@ -45,7 +45,7 @@ const SUPPLEMENTAL_SYSTEM = `You are the CRECO Kenya PBO Act assistant. The ques
 
 Rules:
 1. Answer ONLY about Kenya's PBO Act 2013, NGO/PBO registration, compliance, governance, or CRECO-relevant civic regulation in Kenya.
-2. Do NOT answer if the user question is outside that scope — say it is outside CRECO's guidance scope instead.
+2. Do NOT answer if the user question is outside that scope. Say clearly that you can only help with the Kenyan PBO Act and related registration or compliance — do not mention wikis or compiled libraries.
 3. Do NOT invent section numbers or quotes. If unsure, say so and refer to CRECO Kenya or legal counsel.
 4. Clearly mark general context vs what must be verified with CRECO or a lawyer.
 5. End with a brief note that this is informational guidance, not legal advice.`;
@@ -242,8 +242,7 @@ export async function askQuestionEngine(question: string): Promise<AskResult> {
   }
 
   return {
-    answer:
-      "I couldn't find a matching topic in the compiled library. Try rephrasing with PBO, registration, or compliance terms, browse **Topics**, or contact **CRECO Kenya**.",
+    answer: NO_GUIDANCE_REFUSAL,
     citations: [],
     confidence: "low",
     refused: true,

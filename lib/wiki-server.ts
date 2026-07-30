@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { NO_GUIDANCE_REFUSAL } from "./topic-guard";
 
 export type SourceDocument = {
   id: string;
@@ -182,8 +183,7 @@ export function askQuestionWiki(question: string) {
   const pages = searchWiki(trimmed);
   if (!pages.length) {
     return {
-      answer:
-        "I couldn't find a matching topic in the compiled PBO Act wiki for that question. Please try rephrasing, browse the topics page, or contact CRECO Kenya for guidance.",
+      answer: NO_GUIDANCE_REFUSAL,
       citations: [],
       confidence: "low" as const,
       refused: true,

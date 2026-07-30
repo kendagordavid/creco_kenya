@@ -21,7 +21,7 @@ export default async function GuidancePage({ searchParams }: Props) {
       <PageHero
         eyebrow="Guidance tool"
         title="PBO Act guidance"
-        lead="Ask a question in English or Kiswahili. Answers use CRECO’s compiled topics when they match, and AI (when configured) to synthesize guidance or fill gaps from general PBO Act context."
+        lead="Ask questions in English or Kiswahili. Follow-ups stay in one thread so you can scroll back to earlier answers. Responses use CRECO’s compiled topics when they match, and AI (when configured) to synthesize guidance or fill gaps from general PBO Act context."
       />
       <SectionSubnav />
       <section className="creco-section creco-section-alt">

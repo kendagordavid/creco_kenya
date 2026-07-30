@@ -1,17 +1,22 @@
+import type { Metadata } from "next";
 import { AiSetupNotice } from "@/components/AiSetupNotice";
 import { GuidancePanel } from "@/components/GuidancePanel";
 import { PageHero } from "@/components/PageHero";
 import { SectionSubnav } from "@/components/SectionSubnav";
+import { getDictionary, getLocale, getServerTranslations } from "@/lib/i18n/server";
 
-export const metadata = {
-  title: "PBO Guidance",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getLocale();
+  const t = getDictionary(locale);
+  return { title: t.guidance.metaTitle };
+}
 
 type Props = {
   searchParams: Promise<{ q?: string; ask?: string }>;
 };
 
 export default async function GuidancePage({ searchParams }: Props) {
+  const { t } = await getServerTranslations();
   const params = await searchParams;
   const initialQuestion = params.q?.trim() ?? "";
   const autoOpen = params.ask === "1" || params.ask === "true";
@@ -19,9 +24,9 @@ export default async function GuidancePage({ searchParams }: Props) {
   return (
     <>
       <PageHero
-        eyebrow="Guidance tool"
-        title="PBO Act guidance"
-        lead="Ask a question in English or Kiswahili. Answers use CRECO’s compiled topics when they match, and AI (when configured) to synthesize guidance or fill gaps from general PBO Act context."
+        eyebrow={t.guidance.eyebrow}
+        title={t.guidance.title}
+        lead={t.guidance.lead}
       />
       <SectionSubnav />
       <section className="creco-section creco-section-alt">

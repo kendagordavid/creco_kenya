@@ -1,13 +1,7 @@
 "use client";
 
 import { FormEvent, KeyboardEvent, useCallback, useEffect, useId, useRef, useState } from "react";
-
-const STARTER_QUESTIONS = [
-  "What documents do I need to register as a PBO?",
-  "What is a Public Benefit Organization under the PBO Act?",
-  "How long does the Authority have to decide on a registration application?",
-  "Ni nini mahitaji ya kusajili shirika la faida ya umma?",
-];
+import { useTranslations } from "@/lib/i18n/client";
 
 const MAX_LENGTH = 500;
 const SINGLE_LINE_MAX_PX = 52;
@@ -38,11 +32,13 @@ function ExampleQuestions({
   loading: boolean;
   compact?: boolean;
 }) {
+  const t = useTranslations();
+
   return (
     <div className={compact ? "mt-2" : "mt-3"}>
-      <p className="text-xs font-medium text-creco-muted">Example questions</p>
+      <p className="text-xs font-medium text-creco-muted">{t.questionComposer.exampleQuestions}</p>
       <div className={`mt-1.5 flex flex-wrap ${compact ? "gap-1" : "gap-1.5"}`}>
-        {STARTER_QUESTIONS.map((question) => (
+        {t.questionComposer.starterQuestions.map((question) => (
           <button
             key={question}
             type="button"
@@ -69,6 +65,7 @@ export function QuestionComposer({
   submitLabel,
   questionDirty = false,
 }: Props) {
+  const t = useTranslations();
   const textareaId = useId();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [expanded, setExpanded] = useState(autoOpen || Boolean(initialQuestion) || pinned);
@@ -145,9 +142,11 @@ export function QuestionComposer({
             </svg>
           </span>
           <span className="min-w-0 flex-1 text-sm text-creco-muted">
-            Ask about the PBO Act — registration, compliance, English or Kiswahili…
+            {t.questionComposer.collapsedPrompt}
           </span>
-          <span className="shrink-0 text-xs font-semibold text-creco-accent">Ask →</span>
+          <span className="shrink-0 text-xs font-semibold text-creco-accent">
+            {t.questionComposer.ask}
+          </span>
         </button>
         <div className="border-t border-creco-border px-4 pb-3 pt-2 sm:px-5">
           <ExampleQuestions onPick={handleStarterClick} loading={loading} compact />
@@ -159,15 +158,17 @@ export function QuestionComposer({
   const showMeta = multiLine || pinned;
 
   return (
-    <section className={`creco-card creco-fade-in ${showMeta ? "p-4 sm:p-5" : "p-3 sm:p-4"}`}>
+    <section className={`creco-card creco-card-green creco-fade-in ${showMeta ? "p-4 sm:p-5" : "p-3 sm:p-4"}`}>
       {!pinned && (
         <div className="mb-2 flex items-center justify-between gap-2">
-          <h2 className="text-base font-semibold text-creco-primary sm:text-lg">Your question</h2>
+          <h2 className="text-base font-bold text-creco-black sm:text-lg">
+            {t.questionComposer.yourQuestion}
+          </h2>
           <button
             type="button"
             onClick={() => setExpanded(false)}
             className="rounded p-1.5 text-creco-muted transition hover:bg-creco-surface hover:text-creco-primary"
-            aria-label="Minimize"
+            aria-label={t.questionComposer.minimize}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
               <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
@@ -178,13 +179,13 @@ export function QuestionComposer({
 
       {pinned && questionDirty && (
         <p className="mb-2 text-xs font-medium text-creco-accent" role="status">
-          Question changed — submit for an updated answer.
+          {t.questionComposer.questionChanged}
         </p>
       )}
 
       <form onSubmit={handleSubmit}>
         <label htmlFor={textareaId} className="sr-only">
-          Your question about the PBO Act
+          {t.questionComposer.label}
         </label>
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end">
           <div className="min-w-0 flex-1 rounded-lg border border-creco-border bg-white focus-within:border-creco-primary focus-within:ring-2 focus-within:ring-creco-sage/20">
@@ -195,9 +196,7 @@ export function QuestionComposer({
               onChange={(event) => onChange(event.target.value)}
               onKeyDown={handleKeyDown}
               placeholder={
-                pinned
-                  ? "Edit your question…"
-                  : "Ask a question (Shift+Enter for a new line)"
+                pinned ? t.questionComposer.placeholderEdit : t.questionComposer.placeholderAsk
               }
               rows={1}
               maxLength={MAX_LENGTH}
@@ -209,9 +208,7 @@ export function QuestionComposer({
                 <span>
                   {value.length}/{MAX_LENGTH}
                 </span>
-                <span className="hidden sm:inline">
-                  Ctrl+Enter to submit · Shift+Enter for new line
-                </span>
+                <span className="hidden sm:inline">{t.questionComposer.submitHint}</span>
               </div>
             )}
           </div>
@@ -226,7 +223,7 @@ export function QuestionComposer({
                 …
               </span>
             ) : (
-              submitLabel ?? "Get answer"
+              submitLabel ?? t.questionComposer.getAnswer
             )}
           </button>
         </div>
@@ -238,6 +235,8 @@ export function QuestionComposer({
 }
 
 export function AskAnotherButton({ onClick, disabled }: { onClick: () => void; disabled?: boolean }) {
+  const t = useTranslations();
+
   return (
     <button
       type="button"
@@ -245,7 +244,7 @@ export function AskAnotherButton({ onClick, disabled }: { onClick: () => void; d
       disabled={disabled}
       className="creco-btn creco-btn-secondary w-full text-sm sm:w-auto disabled:opacity-50"
     >
-      Ask another question
+      {t.questionComposer.askAnother}
     </button>
   );
 }

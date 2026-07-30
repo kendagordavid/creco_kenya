@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { askQuestion, AskResponse, Citation } from "@/lib/api";
+import { useFormat, useTranslations } from "@/lib/i18n/client";
 import { AnswerDisplay } from "./AnswerDisplay";
 import { AskAnotherButton, QuestionComposer } from "./QuestionComposer";
 import { SourceReferences } from "./SourceReferences";
@@ -19,15 +20,9 @@ type Props = {
   autoOpen?: boolean;
 };
 
-function answerBadge(mode?: AskResponse["answer_mode"], refused?: boolean) {
-  if (refused) return { label: "No answer", tone: "muted" as const };
-  if (mode === "openai_wiki") return { label: "AI · compiled topics", tone: "primary" as const };
-  if (mode === "openai_supplemental")
-    return { label: "AI · general reference", tone: "accent" as const };
-  return { label: "Compiled topics", tone: "sage" as const };
-}
-
 export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props) {
+  const t = useTranslations();
+  const format = useFormat();
   const [input, setInput] = useState(initialQuestion);
   const [loading, setLoading] = useState(false);
   const [composerOpen, setComposerOpen] = useState(autoOpen || Boolean(initialQuestion));
@@ -40,6 +35,15 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
   const questionDirty = Boolean(
     current && input.trim() && input.trim() !== current.question.trim(),
   );
+
+  function answerBadge(mode?: AskResponse["answer_mode"], refused?: boolean) {
+    if (refused) return { label: t.guidancePanel.badges.noAnswer, tone: "muted" as const };
+    if (mode === "openai_wiki")
+      return { label: t.guidancePanel.badges.aiTopics, tone: "primary" as const };
+    if (mode === "openai_supplemental")
+      return { label: t.guidancePanel.badges.aiReference, tone: "accent" as const };
+    return { label: t.guidancePanel.badges.compiledTopics, tone: "sage" as const };
+  }
 
   useEffect(() => {
     if (current && responseRef.current) {
@@ -73,9 +77,7 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
       setCurrent({
         question: trimmed,
         answer:
-          error instanceof Error
-            ? error.message
-            : "We could not retrieve an answer at this time. Please try again.",
+          error instanceof Error ? error.message : t.guidancePanel.errorFallback,
         citations: [],
         refused: true,
       });
@@ -119,9 +121,9 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
             submitLabel={
               current
                 ? questionDirty
-                  ? "Update answer"
-                  : "Ask again"
-                : "Get answer"
+                  ? t.questionComposer.updateAnswer
+                  : t.questionComposer.askAgain
+                : t.questionComposer.getAnswer
             }
           />
         )}
@@ -131,7 +133,7 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
             <div className="flex items-center gap-3">
               <span className="h-5 w-5 animate-spin rounded-full border-2 border-creco-sage/30 border-t-creco-primary" />
               <p className="text-sm font-semibold text-creco-primary">
-                Searching topics and generating your answer…
+                {t.guidancePanel.searching}
               </p>
             </div>
             <div className="mt-5 space-y-2">
@@ -144,7 +146,7 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
 
         {loading && current && (
           <p className="text-sm font-medium text-creco-primary" aria-live="polite">
-            Updating your answer…
+            {t.guidancePanel.updating}
           </p>
         )}
 
@@ -158,17 +160,19 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
               className={`creco-card p-5 sm:p-6 ${current.refused ? "!border-l-creco-sand" : "creco-card-featured"}`}
             >
               <div className="flex flex-wrap items-center justify-between gap-3">
-                <p className="text-xs font-medium text-creco-sage">Answer</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-creco-primary">
+                  {t.guidancePanel.answer}
+                </p>
                 {badge && (
                   <span
-                    className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${
+                    className={`rounded-full px-2.5 py-0.5 text-xs font-bold ${
                       badge.tone === "accent"
-                        ? "bg-creco-accent/10 text-creco-accent"
+                        ? "bg-creco-orange-muted text-creco-accent-hover"
                         : badge.tone === "primary"
-                          ? "bg-creco-primary/10 text-creco-primary"
+                          ? "bg-creco-green-muted text-creco-primary"
                           : badge.tone === "muted"
-                            ? "bg-creco-surface-alt text-creco-muted"
-                            : "bg-creco-sage/15 text-creco-sage"
+                            ? "bg-creco-surface text-creco-muted"
+                            : "bg-creco-green-muted text-creco-primary"
                     }`}
                   >
                     {badge.label}
@@ -181,8 +185,10 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
               {!current.refused && current.citations.length > 0 && (
                 <p className="mt-5 border-t border-creco-border pt-4 text-xs text-creco-muted">
                   {current.answer_mode === "openai_supplemental"
-                    ? "References include compiled topics where relevant and general PBO Act resources."
-                    : `Grounded in ${current.citations.length} topic reference${current.citations.length === 1 ? "" : "s"}. See panel →`}
+                    ? t.guidancePanel.referencesSupplemental
+                    : format(t.guidancePanel.referencesGrounded, {
+                        count: current.citations.length,
+                      })}
                 </p>
               )}
             </article>
@@ -193,13 +199,13 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
 
         {!current && !loading && !composerOpen && (
           <section className="rounded-lg border border-dashed border-creco-border bg-white p-6 text-center text-sm text-creco-muted">
-            Open the question form above to get started.
+            {t.guidancePanel.getStarted}
           </section>
         )}
 
         {history.length > 0 && (
           <section>
-            <h3 className="font-display text-lg font-bold text-creco-primary">Recent questions</h3>
+            <h3 className="text-lg font-bold text-creco-black">{t.guidancePanel.recentQuestions}</h3>
             <ul className="mt-3 divide-y divide-creco-border overflow-hidden rounded-lg border border-creco-border bg-white">
               {history.map((item) => (
                 <li key={item.question}>

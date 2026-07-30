@@ -1,6 +1,7 @@
 "use client";
 
 import { Citation } from "@/lib/api";
+import { useFormat, useTranslations } from "@/lib/i18n/client";
 
 type Props = {
   citations: Citation[];
@@ -9,17 +10,18 @@ type Props = {
 };
 
 export function SourceReferences({ citations, activeIndex, onSelect }: Props) {
+  const t = useTranslations();
+  const format = useFormat();
+
   return (
     <div className="creco-card p-5">
-      <span className="creco-eyebrow">References</span>
-      <h2 className="font-display text-lg font-bold text-creco-primary">Source material</h2>
-      <p className="mt-2 text-sm text-creco-muted">
-        Topic pages and approved documents used to form the guidance response.
-      </p>
+      <span className="creco-eyebrow">{t.sourceReferences.eyebrow}</span>
+      <h2 className="font-display text-lg font-bold text-creco-primary">{t.sourceReferences.title}</h2>
+      <p className="mt-2 text-sm text-creco-muted">{t.sourceReferences.lead}</p>
 
       {citations.length === 0 ? (
         <p className="mt-5 border-t border-creco-border pt-4 text-sm text-creco-muted">
-          References appear here after you submit a question.
+          {t.sourceReferences.empty}
         </p>
       ) : (
         <ul className="mt-5 space-y-3">
@@ -38,10 +40,15 @@ export function SourceReferences({ citations, activeIndex, onSelect }: Props) {
                 >
                   <div className="flex items-start justify-between gap-2">
                     <span className="text-xs font-medium text-creco-sage">
-                      {citation.source_type === "reference" ? "Reference" : "Topic"} {citation.index}
+                      {citation.source_type === "reference"
+                        ? t.sourceReferences.reference
+                        : t.sourceReferences.topic}{" "}
+                      {citation.index}
                     </span>
                     <span className="text-xs text-creco-muted">
-                      {Math.round(citation.relevance * 100)}% match
+                      {format(t.sourceReferences.match, {
+                        percent: Math.round(citation.relevance * 100),
+                      })}
                     </span>
                   </div>
                   <p className="mt-2 text-sm font-semibold text-creco-primary">

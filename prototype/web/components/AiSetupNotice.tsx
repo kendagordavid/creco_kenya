@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useFormat, useTranslations } from "@/lib/i18n/client";
 
 type Health = {
   answer_mode?: string;
@@ -9,6 +10,8 @@ type Health = {
 };
 
 export function AiSetupNotice() {
+  const t = useTranslations();
+  const format = useFormat();
   const [health, setHealth] = useState<Health | null>(null);
 
   useEffect(() => {
@@ -22,26 +25,22 @@ export function AiSetupNotice() {
     return null;
   }
 
+  const [before, after] = format(t.aiSetup.lead, { key: "OPENAI_API_KEY" }).split(
+    "OPENAI_API_KEY",
+  );
+
   return (
     <div
-      className="mb-6 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950"
+      className="mb-6 rounded-xl border border-creco-accent/30 bg-creco-orange-muted px-4 py-3 text-sm text-creco-black-soft"
       role="status"
     >
-      <p className="font-semibold">AI answers are off on this deployment</p>
-      <p className="mt-1 text-amber-900/90">
-        You are seeing compiled topic text only (<code className="text-xs">wiki_direct</code>). Keys
-        in <code className="text-xs">.env</code> on your laptop are not sent to Vercel.
+      <p className="font-bold text-creco-black">{t.aiSetup.title}</p>
+      <p className="mt-1 text-creco-muted">
+        {before}
+        <code className="text-xs">OPENAI_API_KEY</code>
+        {after}
       </p>
-      {health.setup_hint && (
-        <p className="mt-2 text-amber-900/90">{health.setup_hint}</p>
-      )}
-      <p className="mt-2 text-xs text-amber-800">
-        After adding the variable, open{" "}
-        <a href="/api/health" className="font-medium underline">
-          /api/health
-        </a>{" "}
-        — it should show <code className="text-xs">answer_mode: openai</code>.
-      </p>
+      {health.setup_hint && <p className="mt-2 text-creco-muted">{health.setup_hint}</p>}
     </div>
   );
 }

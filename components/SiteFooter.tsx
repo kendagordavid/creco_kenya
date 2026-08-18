@@ -14,7 +14,7 @@ export function SiteFooter() {
   ];
 
   return (
-    <footer className="mt-auto border-t border-creco-border bg-creco-surface">
+    <footer className="mt-auto border-t border-creco-border bg-creco-surface dark:border-border dark:bg-card">
       <div className="creco-container grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <div className="flex items-center gap-3">
@@ -22,21 +22,21 @@ export function SiteFooter() {
               C
             </span>
             <div>
-              <p className="text-lg font-bold text-creco-black">CRECO Kenya</p>
-              <p className="text-xs font-medium text-creco-muted">PBO Act Platform</p>
+              <p className="text-lg font-bold text-creco-black dark:text-foreground">CRECO Kenya</p>
+              <p className="text-xs font-medium text-creco-muted dark:text-muted-foreground">PBO Act Platform</p>
             </div>
           </div>
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-creco-muted">{t.footer.tagline}</p>
         </div>
 
         <div className="lg:col-span-3">
-          <p className="text-sm font-semibold text-creco-black">{t.footer.platform}</p>
+          <p className="text-sm font-semibold text-creco-black dark:text-foreground">{t.footer.platform}</p>
           <ul className="mt-3 space-y-2 text-sm">
             {platformLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="text-creco-muted no-underline transition hover:text-creco-primary"
+                  className="text-creco-muted no-underline transition hover:text-creco-primary dark:text-muted-foreground dark:hover:text-creco-green-light"
                 >
                   {link.label}
                 </Link>
@@ -46,7 +46,7 @@ export function SiteFooter() {
         </div>
 
         <div className="lg:col-span-4">
-          <p className="text-sm font-semibold text-creco-black">{t.footer.partnership}</p>
+          <p className="text-sm font-semibold text-creco-black dark:text-foreground">{t.footer.partnership}</p>
           <p className="mt-3 text-sm leading-relaxed text-creco-muted">{t.footer.partnershipText}</p>
         </div>
       </div>

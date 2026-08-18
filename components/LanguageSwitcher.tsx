@@ -24,7 +24,7 @@ export function LanguageSwitcher() {
 
   return (
     <div
-      className="flex items-center gap-1 rounded-lg border border-creco-border bg-creco-surface p-0.5"
+      className="flex items-center gap-1 rounded-lg border border-creco-border bg-creco-surface p-0.5 dark:border-border dark:bg-card"
       role="group"
       aria-label={t.language.label}
     >
@@ -41,7 +41,7 @@ export function LanguageSwitcher() {
             className={`rounded-md px-2.5 py-1 text-xs font-bold transition ${
               active
                 ? "bg-creco-primary text-white shadow-sm"
-                : "text-creco-black-soft/70 hover:bg-white hover:text-creco-black disabled:opacity-50"
+                : "text-creco-black-soft/70 hover:bg-white hover:text-creco-black disabled:opacity-50 dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-foreground"
             }`}
           >
             {code.toUpperCase()}

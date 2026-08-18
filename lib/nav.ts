@@ -46,5 +46,10 @@ export function isPublicNavActive(pathname: string, href: string): boolean {
 }
 
 export function isDashboardRoute(pathname: string): boolean {
-  return pathname === "/profile" || pathname.startsWith("/profile/");
+  return (
+    pathname === "/profile" ||
+    pathname.startsWith("/profile/") ||
+    pathname === "/admin" ||
+    pathname.startsWith("/admin/")
+  );
 }

@@ -16,6 +16,7 @@ export const en = {
     dashboard: "Dashboard",
     account: "Account settings",
     submissions: "My submissions",
+    allReports: "All reports",
     signOut: "Sign out",
     login: "Login",
     register: "Register",
@@ -28,6 +29,13 @@ export const en = {
   language: {
     label: "Language",
     switchTo: "Switch to {language}",
+  },
+  theme: {
+    label: "Color mode",
+    light: "Light",
+    dark: "Dark",
+    switchToLight: "Switch to light mode",
+    switchToDark: "Switch to dark mode",
   },
   home: {
     eyebrow: "Civic access for PBOs · Kenya",
@@ -353,6 +361,20 @@ export const en = {
       securityNote:
         "Your monitoring submissions are linked to this account. Keep your login details secure.",
     },
+  },
+  admin: {
+    metaTitle: "Report oversight",
+    title: "All monitoring reports",
+    description: "Review every report submitted by PBO users across the platform.",
+    loading: "Loading reports…",
+    emptyTitle: "No reports yet",
+    emptyLead: "When PBO users submit monitoring reports, they will appear here for review.",
+    reporter: "Submitted by",
+    updateStatus: "Update status",
+    statusUpdated: "Report status updated.",
+    statusFailed: "Could not update report status.",
+    filterLabel: "Filter",
+    filterAll: "All statuses",
   },
   submissionTypes: {
     registration: "Registration experience",

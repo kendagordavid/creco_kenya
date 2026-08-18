@@ -14,5 +14,7 @@ export const config = {
     "/profile",
     "/profile/account",
     "/profile/:path*",
+    "/admin",
+    "/admin/:path*",
   ],
 };

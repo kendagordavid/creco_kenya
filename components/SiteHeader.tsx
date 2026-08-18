@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { UserMenu } from "@/components/UserMenu";
 import { useTranslations } from "@/lib/i18n/client";
 import {
@@ -35,8 +36,8 @@ function NavLink({
       className={cn(
         "rounded-lg px-3 py-2 text-sm font-semibold no-underline transition-colors",
         active
-          ? "bg-creco-green-muted text-creco-primary"
-          : "text-creco-black-soft hover:bg-creco-surface hover:text-creco-black",
+          ? "bg-creco-green-muted text-creco-primary dark:bg-creco-green-muted/80"
+          : "text-creco-black-soft hover:bg-creco-surface hover:text-creco-black dark:text-foreground/80 dark:hover:bg-muted dark:hover:text-foreground",
         className,
       )}
     >
@@ -65,7 +66,7 @@ export function SiteHeader() {
       }));
 
   return (
-    <header className="sticky top-0 z-50 border-b border-creco-border bg-white/95 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-creco-border bg-background/95 backdrop-blur-md dark:border-border">
       <div className="creco-container flex h-16 items-center gap-4">
         <Link href="/" className="group flex shrink-0 items-center gap-2.5 no-underline">
           <span
@@ -75,8 +76,8 @@ export function SiteHeader() {
             C
           </span>
           <span className="hidden sm:block">
-            <span className="block text-base font-bold leading-none text-creco-black">CRECO</span>
-            <span className="mt-0.5 block text-[0.625rem] font-semibold uppercase tracking-wider text-creco-muted">
+            <span className="block text-base font-bold leading-none text-creco-black dark:text-foreground">CRECO</span>
+            <span className="mt-0.5 block text-[0.625rem] font-semibold uppercase tracking-wider text-creco-muted dark:text-muted-foreground">
               PBO Act Platform
             </span>
           </span>
@@ -101,7 +102,8 @@ export function SiteHeader() {
             </Link>
           )}
 
-          <div className="hidden sm:block">
+          <div className="hidden sm:flex sm:items-center sm:gap-2">
+            <ThemeSwitcher />
             <LanguageSwitcher />
           </div>
 
@@ -109,7 +111,7 @@ export function SiteHeader() {
 
           <button
             type="button"
-            className="rounded-lg p-2 text-creco-black transition hover:bg-creco-green-muted lg:hidden"
+            className="rounded-lg p-2 text-creco-black transition hover:bg-creco-green-muted dark:text-foreground dark:hover:bg-muted lg:hidden"
             aria-label={t.nav.toggleNav}
             aria-expanded={open}
             onClick={() => setOpen((value) => !value)}
@@ -129,7 +131,7 @@ export function SiteHeader() {
       {open && (
         <nav
           aria-label={isLoggedIn ? t.nav.platformNav : t.nav.sectionNav}
-          className="border-t border-creco-border bg-white px-4 py-3 lg:hidden"
+          className="border-t border-creco-border bg-background px-4 py-3 dark:border-border lg:hidden"
         >
           <ul className="space-y-1">
             {navItems.map((item) => (
@@ -155,7 +157,8 @@ export function SiteHeader() {
             </Link>
           )}
 
-          <div className="mt-3 sm:hidden">
+          <div className="mt-3 flex items-center gap-2 sm:hidden">
+            <ThemeSwitcher />
             <LanguageSwitcher />
           </div>
         </nav>

@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { authConfig } from "@/auth.config";
+import { normalizeRole } from "@/lib/authz";
 import { findUserByEmail } from "@/lib/store";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -30,7 +31,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           email: user.email,
           name: user.name,
           orgName: user.orgName,
-          role: "pbo_user" as const,
+          role: normalizeRole(user.role),
         };
       },
     }),

@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { randomUUID } from "crypto";
+import type { UserRole } from "@/lib/authz";
 
 export type UserRecord = {
   id: string;
@@ -11,6 +12,7 @@ export type UserRecord = {
   orgType?: string;
   county?: string;
   phone?: string;
+  role?: UserRole;
   createdAt: string;
 };
 
@@ -141,6 +143,7 @@ export function createUser(
     orgType: input.orgType,
     county: input.county,
     phone: input.phone,
+    role: input.role ?? "pbo_user",
     createdAt: new Date().toISOString(),
   };
 
@@ -184,6 +187,33 @@ export function listSubmissionsForUser(userId: string): SubmissionRecord[] {
 
 export function findSubmission(id: string, userId: string): SubmissionRecord | undefined {
   return getStore().submissions.find((s) => s.id === id && s.userId === userId);
+}
+
+export function findSubmissionById(id: string): SubmissionRecord | undefined {
+  return getStore().submissions.find((s) => s.id === id);
+}
+
+export function listAllSubmissions(): SubmissionRecord[] {
+  return getStore()
+    .submissions.slice()
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+}
+
+export function updateSubmissionStatus(
+  id: string,
+  status: SubmissionStatus,
+): SubmissionRecord | undefined {
+  const store = getStore();
+  const index = store.submissions.findIndex((s) => s.id === id);
+  if (index === -1) return undefined;
+
+  store.submissions[index] = {
+    ...store.submissions[index],
+    status,
+    updatedAt: new Date().toISOString(),
+  };
+  saveStore(store);
+  return store.submissions[index];
 }
 
 export function createFeedback(input: Omit<FeedbackRecord, "id" | "createdAt">): FeedbackRecord {

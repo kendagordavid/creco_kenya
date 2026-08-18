@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "@/lib/i18n/client";
 import { cn } from "@/lib/utils";
+import { isSuperuser } from "@/lib/authz";
 import { isDashboardRoute } from "@/lib/nav";
 
 export function UserMenu() {
@@ -72,6 +73,9 @@ export function UserMenu() {
     { href: "/profile", label: t.nav.dashboard },
     { href: "/monitoring/submissions", label: t.nav.submissions },
     { href: "/profile/account", label: t.nav.account },
+    ...(isSuperuser(session.user.role)
+      ? [{ href: "/admin/reports", label: t.nav.allReports }]
+      : []),
   ] as const;
 
   return (

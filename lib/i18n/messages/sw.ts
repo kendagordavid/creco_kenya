@@ -18,6 +18,7 @@ export const sw: Dictionary = {
     dashboard: "Dashibodi",
     account: "Mipangilio ya akaunti",
     submissions: "Ripoti zangu",
+    allReports: "Ripoti zote",
     signOut: "Toka",
     login: "Ingia",
     register: "Jisajili",
@@ -30,6 +31,13 @@ export const sw: Dictionary = {
   language: {
     label: "Lugha",
     switchTo: "Badilisha hadi {language}",
+  },
+  theme: {
+    label: "Hali ya rangi",
+    light: "Mwanga",
+    dark: "Giza",
+    switchToLight: "Badilisha hadi hali ya mwanga",
+    switchToDark: "Badilisha hadi hali ya giza",
   },
   home: {
     eyebrow: "Ufikiaji wa kiraia kwa PBO · Kenya",
@@ -355,6 +363,20 @@ export const sw: Dictionary = {
       securityNote:
         "Ripoti zako za ufuatiliaji zimeunganishwa na akaunti hii. Linda maelezo yako ya kuingia.",
     },
+  },
+  admin: {
+    metaTitle: "Uangalizi wa ripoti",
+    title: "Ripoti zote za ufuatiliaji",
+    description: "Kagua kila ripoti iliyowasilishwa na watumiaji wa PBO kwenye jukwaa.",
+    loading: "Inapakia ripoti…",
+    emptyTitle: "Bado hakuna ripoti",
+    emptyLead: "Watumiaji wa PBO wanapowasilisha ripoti za ufuatiliaji, zitaonekana hapa kwa ukaguzi.",
+    reporter: "Imewasilishwa na",
+    updateStatus: "Sasisha hali",
+    statusUpdated: "Hali ya ripoti imesasishwa.",
+    statusFailed: "Imeshindwa kusasisha hali ya ripoti.",
+    filterLabel: "Chuja",
+    filterAll: "Hali zote",
   },
   submissionTypes: {
     registration: "Uzoefu wa usajili",

@@ -7,6 +7,18 @@
     "orgName": "Sample Community Organisation",
     "orgType": "CBO",
     "county": "Nairobi",
+    "role": "pbo_user",
+    "createdAt": "2026-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "user-super-001",
+    "email": "admin@creco.or.ke",
+    "passwordHash": "$2b$10$Xx/s4DENG8eOKlkgNgAy6e3W3lp2J9JO6KD4c7rFOGvF6Wc10sqim",
+    "name": "CRECO Superuser",
+    "orgName": "CRECO Kenya",
+    "orgType": "NGO",
+    "county": "Nairobi",
+    "role": "superuser",
     "createdAt": "2026-01-01T00:00:00.000Z"
   }
 ]

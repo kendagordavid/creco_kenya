@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { BookOpen, Shield, Users } from "lucide-react";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { useFormat, useTranslations } from "@/lib/i18n/client";
 
 type Props = {
@@ -95,7 +96,10 @@ export function AuthShell({ children }: Props) {
         </p>
       </aside>
 
-      <div className="flex min-h-svh flex-col justify-center bg-[var(--creco-surface)] px-4 py-10 sm:px-8 lg:min-h-0 lg:px-12 xl:px-16">
+      <div className="relative flex min-h-svh flex-col justify-center bg-[var(--creco-surface)] px-4 py-10 sm:px-8 lg:min-h-0 lg:px-12 xl:px-16">
+        <div className="absolute right-4 top-4 flex items-center gap-2 sm:right-8 lg:right-12">
+          <ThemeSwitcher />
+        </div>
         <div className="mx-auto w-full max-w-md lg:max-w-lg">{children}</div>
       </div>
     </div>

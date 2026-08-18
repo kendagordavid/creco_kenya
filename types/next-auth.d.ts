@@ -1,11 +1,12 @@
 import "next-auth";
 import "next-auth/jwt";
+import type { UserRole } from "@/lib/authz";
 
 declare module "next-auth" {
   interface User {
     id: string;
     orgName?: string;
-    role?: "pbo_user";
+    role?: UserRole;
   }
 
   interface Session {
@@ -20,6 +21,6 @@ declare module "next-auth/jwt" {
   interface JWT {
     id?: string;
     orgName?: string;
-    role?: string;
+    role?: UserRole;
   }
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins, Geist } from "next/font/google";
 import { AuthProvider } from "@/components/AuthProvider";
 import { SiteChrome } from "@/components/SiteChrome";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import { LocaleProvider } from "@/lib/i18n/client";
 import { getDictionary, getLocale } from "@/lib/i18n/server";
 import "./globals.css";
@@ -37,13 +38,15 @@ export default async function RootLayout({
   const dictionary = getDictionary(locale);
 
   return (
-    <html lang={locale} className={cn("h-full", poppins.variable, "font-sans", geist.variable)}>
-      <body className="flex min-h-full flex-col bg-white font-sans text-creco-text antialiased">
-        <LocaleProvider locale={locale} dictionary={dictionary}>
-          <AuthProvider>
-            <SiteChrome>{children}</SiteChrome>
-          </AuthProvider>
-        </LocaleProvider>
+    <html lang={locale} suppressHydrationWarning className={cn("h-full", poppins.variable, "font-sans", geist.variable)}>
+      <body className="flex min-h-full flex-col bg-background font-sans text-foreground antialiased">
+        <ThemeProvider>
+          <LocaleProvider locale={locale} dictionary={dictionary}>
+            <AuthProvider>
+              <SiteChrome>{children}</SiteChrome>
+            </AuthProvider>
+          </LocaleProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,4 +1,5 @@
 import type { NextAuthConfig } from "next-auth";
+import { isSuperuser } from "@/lib/authz";
 
 export const authConfig = {
   trustHost: true,
@@ -12,6 +13,11 @@ export const authConfig = {
   callbacks: {
     authorized({ auth, request }) {
       const { pathname } = request.nextUrl;
+
+      if (pathname === "/admin" || pathname.startsWith("/admin/")) {
+        return isSuperuser(auth?.user?.role);
+      }
+
       const protectedPrefixes = [
         "/monitoring/registration",
         "/monitoring/enabling",
@@ -42,7 +48,7 @@ export const authConfig = {
       if (session.user) {
         session.user.id = token.id as string;
         session.user.orgName = token.orgName as string | undefined;
-        session.user.role = token.role as "pbo_user" | undefined;
+        session.user.role = token.role;
       }
       return session;
     },

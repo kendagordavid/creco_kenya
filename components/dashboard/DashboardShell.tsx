@@ -10,9 +10,11 @@ import {
   LogOut,
   Settings,
   Shield,
+  ShieldCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useFormat, useTranslations } from "@/lib/i18n/client";
+import { isSuperuser } from "@/lib/authz";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -32,6 +34,9 @@ export function DashboardShell({ children, title, description }: Props) {
     { href: "/profile/account", label: t.nav.account, icon: Settings },
     { href: "/monitoring/submissions", label: t.nav.submissions, icon: ClipboardList },
     { href: "/monitoring", label: t.dashboard.submitReport, icon: FilePlus, exact: true },
+    ...(isSuperuser(session?.user?.role)
+      ? [{ href: "/admin/reports", label: t.nav.allReports, icon: ShieldCheck, exact: true as const }]
+      : []),
   ] as const;
 
   const firstName = session?.user?.name?.split(" ")[0];

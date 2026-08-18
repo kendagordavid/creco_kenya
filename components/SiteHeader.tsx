@@ -67,7 +67,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-creco-border bg-white/95 backdrop-blur-md">
       <div className="creco-container flex h-16 items-center gap-4">
-        <Link href={isLoggedIn ? "/profile" : "/"} className="group flex shrink-0 items-center gap-2.5 no-underline">
+        <Link href="/" className="group flex shrink-0 items-center gap-2.5 no-underline">
           <span
             className="flex size-10 items-center justify-center rounded-lg bg-creco-primary text-sm font-bold text-white"
             aria-hidden

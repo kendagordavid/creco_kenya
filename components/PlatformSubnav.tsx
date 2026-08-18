@@ -16,13 +16,10 @@ export function PlatformSubnav() {
     return null;
   }
 
-  const items = [
-    { href: "/", label: t.nav.home },
-    ...PLATFORM_NAV.map((item) => ({
-      href: item.href,
-      label: t.nav[item.labelKey],
-    })),
-  ];
+  const items = PLATFORM_NAV.map((item) => ({
+    href: item.href,
+    label: t.nav[item.labelKey],
+  }));
 
   return (
     <nav

@@ -1,4 +1,5 @@
 export const PLATFORM_NAV = [
+  { href: "/", labelKey: "home" as const },
   { href: "/knowledge", labelKey: "knowledge" as const },
   { href: "/compliance", labelKey: "compliance" as const },
   { href: "/guidance", labelKey: "guidance" as const },
@@ -14,6 +15,8 @@ export const PUBLIC_NAV = [
 
 export function isPlatformNavActive(pathname: string, href: string): boolean {
   switch (href) {
+    case "/":
+      return pathname === "/";
     case "/knowledge":
       return (
         pathname === "/knowledge" ||

@@ -23,14 +23,14 @@ export async function PATCH(request: Request, context: RouteContext) {
   }
 
   const { id } = await context.params;
-  const existing = findSubmissionById(id);
+  const existing = await findSubmissionById(id);
   if (!existing) {
     return NextResponse.json({ error: "Report not found." }, { status: 404 });
   }
 
   try {
     const body = updateSchema.parse(await request.json());
-    const submission = updateSubmissionStatus(id, body.status);
+    const submission = await updateSubmissionStatus(id, body.status);
     return NextResponse.json({ submission });
   } catch (error) {
     if (error instanceof z.ZodError) {

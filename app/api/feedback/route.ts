@@ -14,7 +14,7 @@ export async function POST(request: Request) {
 
   try {
     const body = schema.parse(await request.json());
-    const record = createFeedback({
+    const record = await createFeedback({
       userId: session?.user?.id,
       question: body.question,
       reason: body.reason,

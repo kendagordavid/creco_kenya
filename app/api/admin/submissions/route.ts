@@ -13,21 +13,24 @@ export async function GET() {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  const submissions = listAllSubmissions().map((submission) => {
-    const reporter = findUserById(submission.userId);
-    return {
-      ...submission,
-      reporter: reporter
-        ? {
-            id: reporter.id,
-            name: reporter.name,
-            email: reporter.email,
-            orgName: reporter.orgName,
-            county: reporter.county,
-          }
-        : null,
-    };
-  });
+  const allSubmissions = await listAllSubmissions();
+  const submissions = await Promise.all(
+    allSubmissions.map(async (submission) => {
+      const reporter = await findUserById(submission.userId);
+      return {
+        ...submission,
+        reporter: reporter
+          ? {
+              id: reporter.id,
+              name: reporter.name,
+              email: reporter.email,
+              orgName: reporter.orgName,
+              county: reporter.county,
+            }
+          : null,
+      };
+    }),
+  );
 
   return NextResponse.json({ submissions });
 }

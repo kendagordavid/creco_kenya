@@ -17,7 +17,7 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const user = findUserById(session.user.id);
+  const user = await findUserById(session.user.id);
   if (!user) {
     return NextResponse.json({ error: "User not found" }, { status: 404 });
   }
@@ -42,7 +42,7 @@ export async function PATCH(request: Request) {
 
   try {
     const body = schema.parse(await request.json());
-    const user = updateUser(session.user.id, body);
+    const user = await updateUser(session.user.id, body);
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }

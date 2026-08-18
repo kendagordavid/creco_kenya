@@ -15,7 +15,18 @@ If Vercel **Root Directory** is still set to **`prototype/web`**, production ser
    ```bash
    openssl rand -base64 32
    ```
-5. **Deployments** → latest → **Redeploy** → enable **Clear build cache**.
+5. **Storage → Neon** — ensure **`POSTGRES_URL`** is linked to the project (Production + Preview).
+6. **Deployments** → latest → **Redeploy** → enable **Clear build cache**.
+
+### Database (first time)
+
+From your machine, with Neon’s connection string in `.env.local`:
+
+```bash
+npm run db:setup
+```
+
+This creates `users`, `submissions`, and `feedback` tables and seeds demo accounts from `data/users.seed.json`.
 
 ## Verify the correct app is live
 

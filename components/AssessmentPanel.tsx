@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ASSESSMENT_QUESTIONS, ASSESSMENT_STORAGE_KEY } from "@/lib/content/assessment";
+import { loadPersistedData, savePersistedData } from "@/lib/persist-user-data";
 
 export function AssessmentPanel() {
   const router = useRouter();
@@ -11,12 +12,15 @@ export function AssessmentPanel() {
   const [step, setStep] = useState(0);
 
   useEffect(() => {
-    try {
-      const saved = sessionStorage.getItem(ASSESSMENT_STORAGE_KEY);
-      if (saved) setAnswers(JSON.parse(saved));
-    } catch {
-      // ignore
-    }
+    let active = true;
+    void loadPersistedData<Record<string, number>>(ASSESSMENT_STORAGE_KEY, sessionStorage).then(
+      (saved) => {
+        if (active && saved) setAnswers(saved);
+      },
+    );
+    return () => {
+      active = false;
+    };
   }, []);
 
   const question = ASSESSMENT_QUESTIONS[step];
@@ -25,7 +29,7 @@ export function AssessmentPanel() {
   function select(value: number) {
     const next = { ...answers, [question.id]: value };
     setAnswers(next);
-    sessionStorage.setItem(ASSESSMENT_STORAGE_KEY, JSON.stringify(next));
+    void savePersistedData(ASSESSMENT_STORAGE_KEY, next, sessionStorage);
   }
 
   function nextStep() {

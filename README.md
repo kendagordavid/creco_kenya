@@ -10,8 +10,10 @@
 3. Use **default settings** — Framework: Next.js, Root Directory: *(empty / repo root)*.
 4. Add environment variables:
    - `AUTH_SECRET` — session signing secret (required for login)
+   - `POSTGRES_URL` — from **Storage → Neon** (required for users, submissions, feedback)
    - `OPENAI_API_KEY` — optional, for AI-polished guidance answers (Production + Preview)
-5. Deploy.
+5. After first deploy, run **`npm run db:setup`** locally with the Neon `POSTGRES_URL` to create tables and seed demo users.
+6. Deploy.
 
 **URLs after deploy:**
 
@@ -45,8 +47,19 @@ npx vercel --prod   # production
 
 ```bash
 npm install
+cp .env.local.example .env.local   # set AUTH_SECRET and POSTGRES_URL
+npm run db:setup                     # create tables + seed demo users
 npm run dev
 ```
+
+**Local Postgres:** create a database, then point `POSTGRES_URL` at it:
+
+```bash
+sudo -u postgres createdb creco_pbo
+# POSTGRES_URL=postgresql://postgres:YOUR_PASSWORD@localhost:5432/creco_pbo
+```
+
+**Same Neon DB as Vercel:** copy `POSTGRES_URL` from Vercel → your project → Storage → Neon into `.env.local`. Local dev and production then share one database.
 
 Open [http://localhost:3000](http://localhost:3000).
 

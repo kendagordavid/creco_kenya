@@ -21,7 +21,7 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  return NextResponse.json({ submissions: listSubmissionsForUser(session.user.id) });
+  return NextResponse.json({ submissions: await listSubmissionsForUser(session.user.id) });
 }
 
 export async function POST(request: Request) {
@@ -37,7 +37,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Consent is required to submit a report." }, { status: 400 });
     }
 
-    const submission = createSubmission({
+    const submission = await createSubmission({
       userId: session.user.id,
       type: body.type,
       county: body.county,

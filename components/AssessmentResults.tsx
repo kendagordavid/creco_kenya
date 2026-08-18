@@ -3,19 +3,21 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { scoreAssessment, ASSESSMENT_STORAGE_KEY } from "@/lib/content/assessment";
+import { loadPersistedData } from "@/lib/persist-user-data";
 
 export function AssessmentResults() {
   const [result, setResult] = useState<ReturnType<typeof scoreAssessment> | null>(null);
 
   useEffect(() => {
-    try {
-      const saved = sessionStorage.getItem(ASSESSMENT_STORAGE_KEY);
-      if (saved) {
-        setResult(scoreAssessment(JSON.parse(saved)));
-      }
-    } catch {
-      // ignore
-    }
+    let active = true;
+    void loadPersistedData<Record<string, number>>(ASSESSMENT_STORAGE_KEY, sessionStorage).then(
+      (saved) => {
+        if (active && saved) setResult(scoreAssessment(saved));
+      },
+    );
+    return () => {
+      active = false;
+    };
   }, []);
 
   if (!result) {

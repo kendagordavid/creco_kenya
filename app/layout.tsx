@@ -39,7 +39,10 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning className={cn("h-full", poppins.variable, "font-sans", geist.variable)}>
-      <body className="flex min-h-full flex-col bg-background font-sans text-foreground antialiased">
+      <body
+        suppressHydrationWarning
+        className="flex min-h-full flex-col bg-background font-sans text-foreground antialiased"
+      >
         <ThemeProvider>
           <LocaleProvider locale={locale} dictionary={dictionary}>
             <AuthProvider>

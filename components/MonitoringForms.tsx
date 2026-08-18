@@ -10,6 +10,11 @@ import {
   KENYA_COUNTIES,
   ORG_TYPES,
 } from "@/lib/content/constants";
+import {
+  clearPersistedData,
+  loadPersistedData,
+  savePersistedData,
+} from "@/lib/persist-user-data";
 
 export type MonitoringDraft = {
   type: "registration" | "enabling" | "incident";
@@ -45,21 +50,20 @@ export function MonitoringReportForm({ type, title, continueHref }: Props) {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    try {
-      const saved = sessionStorage.getItem(DRAFT_KEY);
-      if (saved) {
-        const draft = JSON.parse(saved) as MonitoringDraft;
-        if (draft.type === type) setForm({ ...draft, type });
-      }
-    } catch {
-      // ignore
-    }
+    let active = true;
+    void loadPersistedData<MonitoringDraft>(DRAFT_KEY, sessionStorage).then((draft) => {
+      if (!active || !draft || draft.type !== type) return;
+      setForm({ ...draft, type });
+    });
+    return () => {
+      active = false;
+    };
   }, [type]);
 
   function update(field: keyof MonitoringDraft, value: string) {
     setForm((prev) => {
       const next = { ...prev, [field]: value };
-      sessionStorage.setItem(DRAFT_KEY, JSON.stringify(next));
+      void savePersistedData(DRAFT_KEY, next, sessionStorage);
       return next;
     });
   }
@@ -74,7 +78,7 @@ export function MonitoringReportForm({ type, title, continueHref }: Props) {
       setError("Please select a county.");
       return;
     }
-    sessionStorage.setItem(DRAFT_KEY, JSON.stringify(form));
+    void savePersistedData(DRAFT_KEY, form, sessionStorage);
     router.push(continueHref);
   }
 
@@ -184,12 +188,13 @@ export function MonitoringUploadForm() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    try {
-      const saved = sessionStorage.getItem(DRAFT_KEY);
-      if (saved) setDraft(JSON.parse(saved));
-    } catch {
-      // ignore
-    }
+    let active = true;
+    void loadPersistedData<MonitoringDraft>(DRAFT_KEY, sessionStorage).then((saved) => {
+      if (active && saved) setDraft(saved);
+    });
+    return () => {
+      active = false;
+    };
   }, []);
 
   async function onSubmit(e: FormEvent) {
@@ -208,6 +213,7 @@ export function MonitoringUploadForm() {
 
     const res = await fetch("/api/submissions", {
       method: "POST",
+      credentials: "same-origin",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         ...draft,
@@ -224,7 +230,7 @@ export function MonitoringUploadForm() {
       return;
     }
 
-    sessionStorage.removeItem(DRAFT_KEY);
+    await clearPersistedData(DRAFT_KEY, sessionStorage);
     router.push(`/monitoring/confirmation?id=${data.id}`);
   }
 

@@ -1,7 +1,7 @@
-import fs from "fs";
-import path from "path";
 import { randomUUID } from "crypto";
+import type { JSONValue } from "postgres";
 import type { UserRole } from "@/lib/authz";
+import { getSql } from "@/lib/db";
 
 export type UserRecord = {
   id: string;
@@ -46,184 +46,324 @@ export type FeedbackRecord = {
   createdAt: string;
 };
 
-type PlatformStore = {
-  users: UserRecord[];
-  submissions: SubmissionRecord[];
-  feedback: FeedbackRecord[];
+type UserRow = {
+  id: string;
+  email: string;
+  password_hash: string;
+  name: string;
+  org_name: string;
+  org_type: string | null;
+  county: string | null;
+  phone: string | null;
+  role: string;
+  created_at: Date;
 };
 
-const STORE_DIR = path.join(process.cwd(), "data");
-const STORE_PATH = path.join(STORE_DIR, "platform-store.json");
-const SEED_PATH = path.join(STORE_DIR, "users.seed.json");
+type SubmissionRow = {
+  id: string;
+  user_id: string;
+  type: SubmissionType;
+  status: SubmissionStatus;
+  county: string;
+  narrative: string;
+  issue_type: string | null;
+  severity: string | null;
+  experience_date: string | null;
+  org_type: string | null;
+  consent_given: boolean;
+  attachment_note: string | null;
+  created_at: Date;
+  updated_at: Date;
+};
 
-declare global {
-  // eslint-disable-next-line no-var
-  var __crecoPlatformStore: PlatformStore | undefined;
-}
+type FeedbackRow = {
+  id: string;
+  user_id: string | null;
+  question: string;
+  reason: string;
+  details: string | null;
+  created_at: Date;
+};
 
-function readSeedUsers(): UserRecord[] {
-  if (!fs.existsSync(SEED_PATH)) return [];
-  return JSON.parse(fs.readFileSync(SEED_PATH, "utf-8")) as UserRecord[];
-}
-
-function loadFromDisk(): PlatformStore {
-  const seedUsers = readSeedUsers();
-  if (!fs.existsSync(STORE_PATH)) {
-    return { users: seedUsers, submissions: [], feedback: [] };
-  }
-
-  const parsed = JSON.parse(fs.readFileSync(STORE_PATH, "utf-8")) as PlatformStore;
-  const byEmail = new Map<string, UserRecord>();
-
-  for (const user of seedUsers) {
-    byEmail.set(user.email.toLowerCase(), user);
-  }
-  for (const user of parsed.users ?? []) {
-    byEmail.set(user.email.toLowerCase(), user);
-  }
-
+function mapUser(row: UserRow): UserRecord {
   return {
-    users: [...byEmail.values()],
-    submissions: parsed.submissions ?? [],
-    feedback: parsed.feedback ?? [],
+    id: row.id,
+    email: row.email,
+    passwordHash: row.password_hash,
+    name: row.name,
+    orgName: row.org_name,
+    orgType: row.org_type ?? undefined,
+    county: row.county ?? undefined,
+    phone: row.phone ?? undefined,
+    role: row.role as UserRole,
+    createdAt: row.created_at.toISOString(),
   };
 }
 
-function persist(store: PlatformStore) {
-  if (!fs.existsSync(STORE_DIR)) {
-    fs.mkdirSync(STORE_DIR, { recursive: true });
-  }
-  const seedEmails = new Set(readSeedUsers().map((u) => u.email.toLowerCase()));
-  const writable: PlatformStore = {
-    users: store.users.filter((u) => !seedEmails.has(u.email.toLowerCase())),
-    submissions: store.submissions,
-    feedback: store.feedback,
+function mapSubmission(row: SubmissionRow): SubmissionRecord {
+  return {
+    id: row.id,
+    userId: row.user_id,
+    type: row.type,
+    status: row.status,
+    county: row.county,
+    narrative: row.narrative,
+    issueType: row.issue_type ?? undefined,
+    severity: row.severity ?? undefined,
+    experienceDate: row.experience_date ?? undefined,
+    orgType: row.org_type ?? undefined,
+    consentGiven: row.consent_given,
+    attachmentNote: row.attachment_note ?? undefined,
+    createdAt: row.created_at.toISOString(),
+    updatedAt: row.updated_at.toISOString(),
   };
-  fs.writeFileSync(STORE_PATH, `${JSON.stringify(writable, null, 2)}\n`, "utf-8");
 }
 
-function getStore(): PlatformStore {
-  if (!globalThis.__crecoPlatformStore) {
-    globalThis.__crecoPlatformStore = loadFromDisk();
-  }
-  return globalThis.__crecoPlatformStore;
+function mapFeedback(row: FeedbackRow): FeedbackRecord {
+  return {
+    id: row.id,
+    userId: row.user_id ?? undefined,
+    question: row.question,
+    reason: row.reason,
+    details: row.details ?? undefined,
+    createdAt: row.created_at.toISOString(),
+  };
 }
 
-function saveStore(store: PlatformStore) {
-  globalThis.__crecoPlatformStore = store;
-  try {
-    persist(store);
-  } catch {
-    // Writable filesystem may be unavailable on some serverless hosts.
-  }
+export async function findUserByEmail(email: string): Promise<UserRecord | undefined> {
+  const sql = getSql();
+  const rows = await sql<UserRow[]>`
+    SELECT *
+    FROM users
+    WHERE lower(email) = lower(${email})
+    LIMIT 1
+  `;
+  return rows[0] ? mapUser(rows[0]) : undefined;
 }
 
-export function findUserByEmail(email: string): UserRecord | undefined {
-  return getStore().users.find((u) => u.email.toLowerCase() === email.toLowerCase());
+export async function findUserById(id: string): Promise<UserRecord | undefined> {
+  const sql = getSql();
+  const rows = await sql<UserRow[]>`
+    SELECT *
+    FROM users
+    WHERE id = ${id}
+    LIMIT 1
+  `;
+  return rows[0] ? mapUser(rows[0]) : undefined;
 }
 
-export function findUserById(id: string): UserRecord | undefined {
-  return getStore().users.find((u) => u.id === id);
-}
-
-export function createUser(
+export async function createUser(
   input: Omit<UserRecord, "id" | "createdAt"> & { passwordHash: string },
-): UserRecord {
-  const store = getStore();
-  if (findUserByEmail(input.email)) {
+): Promise<UserRecord> {
+  if (await findUserByEmail(input.email)) {
     throw new Error("An account with this email already exists.");
   }
 
-  const user: UserRecord = {
-    id: randomUUID(),
-    email: input.email.toLowerCase(),
-    passwordHash: input.passwordHash,
-    name: input.name,
-    orgName: input.orgName,
-    orgType: input.orgType,
-    county: input.county,
-    phone: input.phone,
-    role: input.role ?? "pbo_user",
-    createdAt: new Date().toISOString(),
-  };
+  const sql = getSql();
+  const id = randomUUID();
+  const rows = await sql<UserRow[]>`
+    INSERT INTO users (
+      id,
+      email,
+      password_hash,
+      name,
+      org_name,
+      org_type,
+      county,
+      phone,
+      role
+    )
+    VALUES (
+      ${id},
+      ${input.email.toLowerCase()},
+      ${input.passwordHash},
+      ${input.name},
+      ${input.orgName},
+      ${input.orgType ?? null},
+      ${input.county ?? null},
+      ${input.phone ?? null},
+      ${input.role ?? "pbo_user"}
+    )
+    RETURNING *
+  `;
 
-  store.users.push(user);
-  saveStore(store);
-  return user;
+  return mapUser(rows[0]);
 }
 
-export function updateUser(id: string, patch: Partial<Omit<UserRecord, "id" | "email" | "passwordHash">>) {
-  const store = getStore();
-  const index = store.users.findIndex((u) => u.id === id);
-  if (index === -1) return undefined;
+export async function updateUser(
+  id: string,
+  patch: Partial<Omit<UserRecord, "id" | "email" | "passwordHash">>,
+): Promise<UserRecord | undefined> {
+  const existing = await findUserById(id);
+  if (!existing) return undefined;
 
-  store.users[index] = { ...store.users[index], ...patch };
-  saveStore(store);
-  return store.users[index];
+  const sql = getSql();
+  const rows = await sql<UserRow[]>`
+    UPDATE users
+    SET
+      name = ${patch.name ?? existing.name},
+      org_name = ${patch.orgName ?? existing.orgName},
+      org_type = ${patch.orgType ?? existing.orgType ?? null},
+      county = ${patch.county ?? existing.county ?? null},
+      phone = ${patch.phone ?? existing.phone ?? null},
+      role = ${patch.role ?? existing.role ?? "pbo_user"}
+    WHERE id = ${id}
+    RETURNING *
+  `;
+
+  return rows[0] ? mapUser(rows[0]) : undefined;
 }
 
-export function createSubmission(
+export async function createSubmission(
   input: Omit<SubmissionRecord, "id" | "status" | "createdAt" | "updatedAt">,
-): SubmissionRecord {
-  const store = getStore();
-  const now = new Date().toISOString();
-  const submission: SubmissionRecord = {
-    ...input,
-    id: randomUUID(),
-    status: "pending",
-    createdAt: now,
-    updatedAt: now,
-  };
-  store.submissions.unshift(submission);
-  saveStore(store);
-  return submission;
+): Promise<SubmissionRecord> {
+  const sql = getSql();
+  const id = randomUUID();
+  const rows = await sql<SubmissionRow[]>`
+    INSERT INTO submissions (
+      id,
+      user_id,
+      type,
+      status,
+      county,
+      narrative,
+      issue_type,
+      severity,
+      experience_date,
+      org_type,
+      consent_given,
+      attachment_note
+    )
+    VALUES (
+      ${id},
+      ${input.userId},
+      ${input.type},
+      'pending',
+      ${input.county},
+      ${input.narrative},
+      ${input.issueType ?? null},
+      ${input.severity ?? null},
+      ${input.experienceDate ?? null},
+      ${input.orgType ?? null},
+      ${input.consentGiven},
+      ${input.attachmentNote ?? null}
+    )
+    RETURNING *
+  `;
+
+  return mapSubmission(rows[0]);
 }
 
-export function listSubmissionsForUser(userId: string): SubmissionRecord[] {
-  return getStore()
-    .submissions.filter((s) => s.userId === userId)
-    .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+export async function listSubmissionsForUser(userId: string): Promise<SubmissionRecord[]> {
+  const sql = getSql();
+  const rows = await sql<SubmissionRow[]>`
+    SELECT *
+    FROM submissions
+    WHERE user_id = ${userId}
+    ORDER BY created_at DESC
+  `;
+  return rows.map(mapSubmission);
 }
 
-export function findSubmission(id: string, userId: string): SubmissionRecord | undefined {
-  return getStore().submissions.find((s) => s.id === id && s.userId === userId);
+export async function findSubmission(
+  id: string,
+  userId: string,
+): Promise<SubmissionRecord | undefined> {
+  const sql = getSql();
+  const rows = await sql<SubmissionRow[]>`
+    SELECT *
+    FROM submissions
+    WHERE id = ${id}
+      AND user_id = ${userId}
+    LIMIT 1
+  `;
+  return rows[0] ? mapSubmission(rows[0]) : undefined;
 }
 
-export function findSubmissionById(id: string): SubmissionRecord | undefined {
-  return getStore().submissions.find((s) => s.id === id);
+export async function findSubmissionById(id: string): Promise<SubmissionRecord | undefined> {
+  const sql = getSql();
+  const rows = await sql<SubmissionRow[]>`
+    SELECT *
+    FROM submissions
+    WHERE id = ${id}
+    LIMIT 1
+  `;
+  return rows[0] ? mapSubmission(rows[0]) : undefined;
 }
 
-export function listAllSubmissions(): SubmissionRecord[] {
-  return getStore()
-    .submissions.slice()
-    .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+export async function listAllSubmissions(): Promise<SubmissionRecord[]> {
+  const sql = getSql();
+  const rows = await sql<SubmissionRow[]>`
+    SELECT *
+    FROM submissions
+    ORDER BY created_at DESC
+  `;
+  return rows.map(mapSubmission);
 }
 
-export function updateSubmissionStatus(
+export async function updateSubmissionStatus(
   id: string,
   status: SubmissionStatus,
-): SubmissionRecord | undefined {
-  const store = getStore();
-  const index = store.submissions.findIndex((s) => s.id === id);
-  if (index === -1) return undefined;
-
-  store.submissions[index] = {
-    ...store.submissions[index],
-    status,
-    updatedAt: new Date().toISOString(),
-  };
-  saveStore(store);
-  return store.submissions[index];
+): Promise<SubmissionRecord | undefined> {
+  const sql = getSql();
+  const rows = await sql<SubmissionRow[]>`
+    UPDATE submissions
+    SET
+      status = ${status},
+      updated_at = NOW()
+    WHERE id = ${id}
+    RETURNING *
+  `;
+  return rows[0] ? mapSubmission(rows[0]) : undefined;
 }
 
-export function createFeedback(input: Omit<FeedbackRecord, "id" | "createdAt">): FeedbackRecord {
-  const store = getStore();
-  const record: FeedbackRecord = {
-    ...input,
-    id: randomUUID(),
-    createdAt: new Date().toISOString(),
-  };
-  store.feedback.unshift(record);
-  saveStore(store);
-  return record;
+export async function createFeedback(
+  input: Omit<FeedbackRecord, "id" | "createdAt">,
+): Promise<FeedbackRecord> {
+  const sql = getSql();
+  const id = randomUUID();
+  const rows = await sql<FeedbackRow[]>`
+    INSERT INTO feedback (id, user_id, question, reason, details)
+    VALUES (
+      ${id},
+      ${input.userId ?? null},
+      ${input.question},
+      ${input.reason},
+      ${input.details ?? null}
+    )
+    RETURNING *
+  `;
+  return mapFeedback(rows[0]);
+}
+
+export async function getUserData(userId: string, dataKey: string): Promise<unknown | null> {
+  const sql = getSql();
+  const rows = await sql<{ payload: unknown }[]>`
+    SELECT payload
+    FROM user_data
+    WHERE user_id = ${userId}
+      AND data_key = ${dataKey}
+    LIMIT 1
+  `;
+  return rows[0]?.payload ?? null;
+}
+
+export async function setUserData(userId: string, dataKey: string, payload: unknown): Promise<void> {
+  const sql = getSql();
+  await sql`
+    INSERT INTO user_data (user_id, data_key, payload)
+    VALUES (${userId}, ${dataKey}, ${sql.json(payload as JSONValue)})
+    ON CONFLICT (user_id, data_key) DO UPDATE SET
+      payload = EXCLUDED.payload,
+      updated_at = NOW()
+  `;
+}
+
+export async function deleteUserData(userId: string, dataKey: string): Promise<void> {
+  const sql = getSql();
+  await sql`
+    DELETE FROM user_data
+    WHERE user_id = ${userId}
+      AND data_key = ${dataKey}
+  `;
 }

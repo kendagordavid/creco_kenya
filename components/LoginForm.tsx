@@ -176,13 +176,6 @@ export function LoginForm() {
         >
           {t.common.backToHome}
         </Link>
-        {process.env.NODE_ENV === "development" && (
-          <p className="rounded-lg bg-muted px-3 py-2 text-center text-xs text-muted-foreground">
-            {t.auth.login.devDemo}{" "}
-            <strong className="text-foreground">demo@pbo.org</strong> /{" "}
-            <strong className="text-foreground">demo1234</strong>
-          </p>
-        )}
       </CardFooter>
     </Card>
   );

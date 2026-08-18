@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { CHECKLIST_SECTIONS, CHECKLIST_STORAGE_KEY } from "@/lib/content/checklist";
+import { loadPersistedData, savePersistedData } from "@/lib/persist-user-data";
 
 export function ChecklistPanel() {
   const [checked, setChecked] = useState<Record<string, boolean>>({});
@@ -12,16 +13,20 @@ export function ChecklistPanel() {
   const completed = Object.values(checked).filter(Boolean).length;
 
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem(CHECKLIST_STORAGE_KEY);
-      if (saved) setChecked(JSON.parse(saved));
-    } catch {
-      // ignore
-    }
+    let active = true;
+    void loadPersistedData<Record<string, boolean>>(CHECKLIST_STORAGE_KEY, localStorage).then(
+      (saved) => {
+        if (active && saved) setChecked(saved);
+      },
+    );
+    return () => {
+      active = false;
+    };
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(CHECKLIST_STORAGE_KEY, JSON.stringify(checked));
+    if (Object.keys(checked).length === 0) return;
+    void savePersistedData(CHECKLIST_STORAGE_KEY, checked, localStorage);
   }, [checked]);
 
   function toggle(id: string) {

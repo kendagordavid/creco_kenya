@@ -247,7 +247,6 @@ export const en = {
       createAccount: "Create PBO account",
       registeredSuccess: "Account created successfully. Sign in with your email and password.",
       invalidCredentials: "Invalid email or password. Please try again.",
-      devDemo: "Dev demo:",
     },
     register: {
       title: "Create PBO account",

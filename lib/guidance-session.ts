@@ -43,14 +43,19 @@ export function createTurnId(): string {
   return `turn-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 }
 
-export function formatRelativeTime(timestamp: number): string {
+export function formatRelativeTime(
+  timestamp: number,
+  options?: { locale?: string; justNow?: string },
+): string {
+  const { locale, justNow = "Just now" } = options ?? {};
   const seconds = Math.floor((Date.now() - timestamp) / 1000);
-  if (seconds < 60) return "Just now";
+  if (seconds < 60) return justNow;
+  const rtf = new Intl.RelativeTimeFormat(locale, { numeric: "auto" });
   const minutes = Math.floor(seconds / 60);
-  if (minutes < 60) return `${minutes} min ago`;
+  if (minutes < 60) return rtf.format(-minutes, "minute");
   const hours = Math.floor(minutes / 60);
-  if (hours < 24) return `${hours} hr ago`;
-  return new Intl.DateTimeFormat(undefined, {
+  if (hours < 24) return rtf.format(-hours, "hour");
+  return new Intl.DateTimeFormat(locale, {
     month: "short",
     day: "numeric",
     hour: "numeric",

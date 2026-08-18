@@ -1,27 +1,30 @@
 import { PageHero } from "@/components/PageHero";
 import { SectionSubnav } from "@/components/SectionSubnav";
+import { getServerTranslations } from "@/lib/i18n/server";
 import { listSourceDocuments } from "@/lib/wiki-server";
 
-export const metadata = {
-  title: "Sources",
-};
+export async function generateMetadata() {
+  const { t } = await getServerTranslations();
+  return { title: t.sources.metaTitle };
+}
 
 export default async function SourcesPage() {
+  const { t } = await getServerTranslations();
   const sources = listSourceDocuments();
 
   return (
     <>
       <PageHero
-        eyebrow="Document library"
-        title="Approved source materials"
-        lead="Topic pages are compiled from these PBO Act documents. In production, CRECO controls which materials are included and when they are updated."
+        eyebrow={t.sources.eyebrow}
+        title={t.sources.title}
+        lead={t.sources.lead}
       />
       <SectionSubnav />
       <section className="creco-section creco-section-alt">
         <div className="creco-container relative z-10">
           {sources.length === 0 ? (
             <div className="creco-card p-10 text-center">
-              <p className="text-creco-muted">No sources listed.</p>
+              <p className="text-creco-muted">{t.sources.empty}</p>
             </div>
           ) : (
             <div className="space-y-4">
@@ -54,7 +57,7 @@ export default async function SourcesPage() {
                     rel="noopener noreferrer"
                     className="creco-btn creco-btn-accent shrink-0 text-sm"
                   >
-                    View PDF
+                    {t.sources.viewPdf}
                     <span aria-hidden>↗</span>
                   </a>
                 </article>
@@ -65,10 +68,9 @@ export default async function SourcesPage() {
           <aside className="creco-card mt-12 overflow-hidden p-0">
             <div className="creco-brand-stripe" aria-hidden />
             <div className="p-7">
-              <h3 className="text-lg font-bold text-creco-black">Document control</h3>
+              <h3 className="text-lg font-bold text-creco-black">{t.sources.control.title}</h3>
               <p className="mt-3 text-sm leading-relaxed text-creco-muted">
-                Only CRECO-approved materials are compiled into topic pages. Staff can add Kiswahili
-                summaries, plain-language guides, and updated regulations as they become available.
+                {t.sources.control.lead}
               </p>
             </div>
           </aside>

@@ -1,0 +1,17 @@
+{
+  "users": [
+    {
+      "id": "37c2f82b-ced3-4a7f-a159-2245dcef16d9",
+      "email": "davidkendagor7@gmail.com",
+      "passwordHash": "$2b$10$JOnHv/SoSPgGqkGHF2.pO.3DlTUS6M.YLnZfMrdei8FQkkH04GD1a",
+      "name": "Kendagor David",
+      "orgName": "creco",
+      "orgType": "NGO",
+      "county": "Nairobi",
+      "phone": "+254794643510",
+      "createdAt": "2026-08-17T09:57:10.768Z"
+    }
+  ],
+  "submissions": [],
+  "feedback": []
+}

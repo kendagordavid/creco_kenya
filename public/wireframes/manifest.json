@@ -1,0 +1,435 @@
+{
+  "generatedAt": "2026-07-27T18:09:16.283Z",
+  "screenCount": 48,
+  "journeyCount": 6,
+  "mobileScreens": [
+    "01-home-mobile.html",
+    "30-guidance-mobile.html",
+    "41-monitoring-registration-mobile.html",
+    "50-dashboard-mobile.html"
+  ],
+  "screens": [
+    {
+      "id": "WF-00",
+      "file": "pages/00-sitemap-roles.html",
+      "title": "Sitemap & user roles",
+      "module": "Overview",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-01",
+      "file": "pages/01-home-desktop.html",
+      "title": "Home (desktop)",
+      "module": "Global",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-01M",
+      "file": "pages/01-home-mobile.html",
+      "title": "Home (mobile)",
+      "module": "Global",
+      "viewport": "mobile",
+      "role": "public"
+    },
+    {
+      "id": "WF-02",
+      "file": "pages/02-login.html",
+      "title": "Login",
+      "module": "Auth",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-03",
+      "file": "pages/03-register-pbo.html",
+      "title": "Register (PBO user)",
+      "module": "Auth",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-04",
+      "file": "pages/04-password-reset.html",
+      "title": "Password reset",
+      "module": "Auth",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-05",
+      "file": "pages/05-profile-account.html",
+      "title": "Profile / account",
+      "module": "Auth",
+      "viewport": "desktop",
+      "role": "pbo"
+    },
+    {
+      "id": "WF-06",
+      "file": "pages/06-global-search.html",
+      "title": "Global search results",
+      "module": "Global",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-10",
+      "file": "pages/10-knowledge-hub.html",
+      "title": "Knowledge hub landing",
+      "module": "Module 1 — Knowledge",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-11",
+      "file": "pages/11-topic-listing.html",
+      "title": "Topic listing",
+      "module": "Module 1 — Knowledge",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-12",
+      "file": "pages/12-topic-detail.html",
+      "title": "Topic detail",
+      "module": "Module 1 — Knowledge",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-13",
+      "file": "pages/13-faq-index.html",
+      "title": "FAQ index",
+      "module": "Module 1 — Knowledge",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-14",
+      "file": "pages/14-faq-detail.html",
+      "title": "FAQ detail",
+      "module": "Module 1 — Knowledge",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-15",
+      "file": "pages/15-toolkit-detail.html",
+      "title": "Toolkit / resource detail",
+      "module": "Module 1 — Knowledge",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-16",
+      "file": "pages/16-media-gallery.html",
+      "title": "Media gallery",
+      "module": "Module 1 — Knowledge",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-20",
+      "file": "pages/20-compliance-hub.html",
+      "title": "Compliance tools hub",
+      "module": "Module 2 — Compliance",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-21",
+      "file": "pages/21-checklist.html",
+      "title": "Interactive checklist",
+      "module": "Module 2 — Compliance",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-22",
+      "file": "pages/22-assessment-intro.html",
+      "title": "Self-assessment intro",
+      "module": "Module 2 — Compliance",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-23",
+      "file": "pages/23-assessment-steps.html",
+      "title": "Self-assessment steps",
+      "module": "Module 2 — Compliance",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-24",
+      "file": "pages/24-assessment-results.html",
+      "title": "Self-assessment results",
+      "module": "Module 2 — Compliance",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-25",
+      "file": "pages/25-template-library.html",
+      "title": "Template library",
+      "module": "Module 2 — Compliance",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-26",
+      "file": "pages/26-template-detail.html",
+      "title": "Template detail",
+      "module": "Module 2 — Compliance",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-30",
+      "file": "pages/30-guidance-desktop.html",
+      "title": "Guidance landing (desktop)",
+      "module": "Module 3 — Q&A",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-30M",
+      "file": "pages/30-guidance-mobile.html",
+      "title": "Guidance landing (mobile)",
+      "module": "Module 3 — Q&A",
+      "viewport": "mobile",
+      "role": "public"
+    },
+    {
+      "id": "WF-31",
+      "file": "pages/31-answer-view.html",
+      "title": "Answer view",
+      "module": "Module 3 — Q&A",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-32",
+      "file": "pages/32-flag-feedback.html",
+      "title": "Flag / feedback",
+      "module": "Module 3 — Q&A",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-33",
+      "file": "pages/33-ask-creco.html",
+      "title": "Ask CRECO (human follow-up)",
+      "module": "Module 3 — Q&A",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-40",
+      "file": "pages/40-monitoring-hub.html",
+      "title": "Monitoring hub",
+      "module": "Module 4 — Monitoring",
+      "viewport": "desktop",
+      "role": "public"
+    },
+    {
+      "id": "WF-41",
+      "file": "pages/41-monitoring-registration-desktop.html",
+      "title": "Registration / barriers form (desktop)",
+      "module": "Module 4 — Monitoring",
+      "viewport": "desktop",
+      "role": "pbo"
+    },
+    {
+      "id": "WF-41M",
+      "file": "pages/41-monitoring-registration-mobile.html",
+      "title": "Registration form (mobile)",
+      "module": "Module 4 — Monitoring",
+      "viewport": "mobile",
+      "role": "pbo"
+    },
+    {
+      "id": "WF-42",
+      "file": "pages/42-monitoring-enabling.html",
+      "title": "Enabling practices form",
+      "module": "Module 4 — Monitoring",
+      "viewport": "desktop",
+      "role": "pbo"
+    },
+    {
+      "id": "WF-43",
+      "file": "pages/43-monitoring-incident.html",
+      "title": "Civic space incident form",
+      "module": "Module 4 — Monitoring",
+      "viewport": "desktop",
+      "role": "pbo"
+    },
+    {
+      "id": "WF-44",
+      "file": "pages/44-monitoring-upload.html",
+      "title": "Upload & consent step",
+      "module": "Module 4 — Monitoring",
+      "viewport": "desktop",
+      "role": "pbo"
+    },
+    {
+      "id": "WF-45",
+      "file": "pages/45-monitoring-confirmation.html",
+      "title": "Submission confirmation",
+      "module": "Module 4 — Monitoring",
+      "viewport": "desktop",
+      "role": "pbo"
+    },
+    {
+      "id": "WF-46",
+      "file": "pages/46-my-submissions.html",
+      "title": "My submissions",
+      "module": "Module 4 — Monitoring",
+      "viewport": "desktop",
+      "role": "pbo"
+    },
+    {
+      "id": "WF-50",
+      "file": "pages/50-dashboard-desktop.html",
+      "title": "Admin dashboard (desktop)",
+      "module": "Module 5 — Admin",
+      "viewport": "desktop",
+      "role": "staff"
+    },
+    {
+      "id": "WF-50M",
+      "file": "pages/50-dashboard-mobile.html",
+      "title": "Admin dashboard (mobile)",
+      "module": "Module 5 — Admin",
+      "viewport": "mobile",
+      "role": "staff"
+    },
+    {
+      "id": "WF-51",
+      "file": "pages/51-submissions-list.html",
+      "title": "Submissions list",
+      "module": "Module 5 — Admin",
+      "viewport": "desktop",
+      "role": "staff"
+    },
+    {
+      "id": "WF-52",
+      "file": "pages/52-submission-detail.html",
+      "title": "Submission detail (moderation)",
+      "module": "Module 5 — Admin",
+      "viewport": "desktop",
+      "role": "staff"
+    },
+    {
+      "id": "WF-53",
+      "file": "pages/53-qa-review-queue.html",
+      "title": "Q&A review queue",
+      "module": "Module 5 — Admin",
+      "viewport": "desktop",
+      "role": "staff"
+    },
+    {
+      "id": "WF-54",
+      "file": "pages/54-analytics-trends.html",
+      "title": "Analytics & trends",
+      "module": "Module 5 — Admin",
+      "viewport": "desktop",
+      "role": "staff"
+    },
+    {
+      "id": "WF-55",
+      "file": "pages/55-export-data.html",
+      "title": "Export data",
+      "module": "Module 5 — Admin",
+      "viewport": "desktop",
+      "role": "staff"
+    },
+    {
+      "id": "WF-56",
+      "file": "pages/56-cms-dashboard.html",
+      "title": "CMS dashboard",
+      "module": "Module 5 — Admin",
+      "viewport": "desktop",
+      "role": "staff"
+    },
+    {
+      "id": "WF-57",
+      "file": "pages/57-article-editor.html",
+      "title": "Article editor",
+      "module": "Module 5 — Admin",
+      "viewport": "desktop",
+      "role": "staff"
+    },
+    {
+      "id": "WF-58",
+      "file": "pages/58-media-library.html",
+      "title": "Media library",
+      "module": "Module 5 — Admin",
+      "viewport": "desktop",
+      "role": "staff"
+    },
+    {
+      "id": "WF-59",
+      "file": "pages/59-user-management.html",
+      "title": "User management",
+      "module": "Module 5 — Admin",
+      "viewport": "desktop",
+      "role": "staff"
+    },
+    {
+      "id": "WF-60",
+      "file": "pages/60-login-mfa.html",
+      "title": "Staff login + MFA",
+      "module": "Module 5 — Admin",
+      "viewport": "desktop",
+      "role": "staff"
+    },
+    {
+      "id": "WF-61",
+      "file": "pages/61-settings.html",
+      "title": "System settings",
+      "module": "Module 5 — Admin",
+      "viewport": "desktop",
+      "role": "staff"
+    }
+  ],
+  "journeys": [
+    {
+      "id": "J-01",
+      "file": "pages/journey-01-knowledge-assessment.html",
+      "title": "Knowledge → Self-assessment",
+      "steps": 5
+    },
+    {
+      "id": "J-02",
+      "file": "pages/journey-02-guidance-flag.html",
+      "title": "Guidance Q&A → Flag → Ask CRECO",
+      "steps": 5
+    },
+    {
+      "id": "J-03",
+      "file": "pages/journey-03-monitoring-submit.html",
+      "title": "Login → Monitoring → Upload",
+      "steps": 5
+    },
+    {
+      "id": "J-04",
+      "file": "pages/journey-04-moderation.html",
+      "title": "Moderator MFA → Approve submission",
+      "steps": 4
+    },
+    {
+      "id": "J-05",
+      "file": "pages/journey-05-cms-publish.html",
+      "title": "CMS → Edit Kiswahili → Publish",
+      "steps": 3
+    },
+    {
+      "id": "J-06",
+      "file": "pages/journey-06-admin-export.html",
+      "title": "Admin dashboard → Export CSV",
+      "steps": 3
+    }
+  ]
+}

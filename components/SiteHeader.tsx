@@ -2,98 +2,164 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { UserMenu } from "@/components/UserMenu";
+import { useTranslations } from "@/lib/i18n/client";
+import {
+  isPlatformNavActive,
+  isPublicNavActive,
+  PLATFORM_NAV,
+  PUBLIC_NAV,
+} from "@/lib/nav";
+import { cn } from "@/lib/utils";
 
-const NAV_ITEMS = [
-  { href: "/", label: "Home" },
-  { href: "/guidance", label: "Guidance" },
-  { href: "/topics", label: "Topics" },
-  { href: "/sources", label: "Sources" },
-];
+function NavLink({
+  href,
+  label,
+  active,
+  onNavigate,
+  className,
+}: {
+  href: string;
+  label: string;
+  active: boolean;
+  onNavigate?: () => void;
+  className?: string;
+}) {
+  return (
+    <Link
+      href={href}
+      onClick={onNavigate}
+      className={cn(
+        "rounded-lg px-3 py-2 text-sm font-semibold no-underline transition-colors",
+        active
+          ? "bg-creco-green-muted text-creco-primary"
+          : "text-creco-black-soft hover:bg-creco-surface hover:text-creco-black",
+        className,
+      )}
+    >
+      {label}
+    </Link>
+  );
+}
 
 export function SiteHeader() {
   const pathname = usePathname();
+  const { data: session } = useSession();
   const [open, setOpen] = useState(false);
+  const t = useTranslations();
+  const isLoggedIn = Boolean(session?.user);
+
+  const navItems = isLoggedIn
+    ? PLATFORM_NAV.map((item) => ({
+        href: item.href,
+        label: t.nav[item.labelKey],
+        active: isPlatformNavActive(pathname, item.href),
+      }))
+    : PUBLIC_NAV.map((item) => ({
+        href: item.href,
+        label: t.nav[item.labelKey],
+        active: isPublicNavActive(pathname, item.href),
+      }));
 
   return (
-    <header className="sticky top-0 z-50 border-b border-creco-border/80 bg-white/95 shadow-sm backdrop-blur-lg">
-      <div className="creco-brand-stripe" aria-hidden />
-      <div className="creco-container flex items-center justify-between gap-6 py-3.5">
-        <Link href="/" className="group flex items-center gap-3 no-underline">
+    <header className="sticky top-0 z-50 border-b border-creco-border bg-white/95 backdrop-blur-md">
+      <div className="creco-container flex h-16 items-center gap-4">
+        <Link href={isLoggedIn ? "/profile" : "/"} className="group flex shrink-0 items-center gap-2.5 no-underline">
           <span
-            className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-creco-primary to-creco-green-light text-base font-bold text-white shadow-md transition-all duration-300 group-hover:shadow-lg group-hover:shadow-creco-green/25"
+            className="flex size-10 items-center justify-center rounded-lg bg-creco-primary text-sm font-bold text-white"
             aria-hidden
           >
-            <span className="relative z-10">C</span>
-            <span className="absolute inset-0 bg-gradient-to-br from-creco-accent/0 to-creco-accent/30 opacity-0 transition-opacity group-hover:opacity-100" />
+            C
           </span>
-          <span>
-            <span className="block text-lg font-bold leading-none tracking-tight text-creco-black">
-              CRECO
-            </span>
-            <span className="mt-0.5 block text-[0.625rem] font-bold uppercase tracking-[0.18em] text-creco-primary">
+          <span className="hidden sm:block">
+            <span className="block text-base font-bold leading-none text-creco-black">CRECO</span>
+            <span className="mt-0.5 block text-[0.625rem] font-semibold uppercase tracking-wider text-creco-muted">
               PBO Act Platform
             </span>
           </span>
         </Link>
 
-        <button
-          type="button"
-          className="rounded-lg p-2.5 text-creco-black transition hover:bg-creco-green-muted lg:hidden"
-          aria-label="Toggle navigation"
-          aria-expanded={open}
-          onClick={() => setOpen((value) => !value)}
-        >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
-            <path
-              d="M4 7h16M4 12h16M4 17h16"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
-        </button>
-
         <nav
-          className={`${
-            open ? "flex" : "hidden"
-          } absolute left-0 right-0 top-full flex-col gap-1 border-b border-creco-border bg-white px-5 py-4 shadow-xl lg:static lg:flex lg:flex-row lg:items-center lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none`}
+          aria-label={isLoggedIn ? t.nav.platformNav : t.nav.sectionNav}
+          className="hidden flex-1 items-center justify-center gap-1 lg:flex"
         >
-          {NAV_ITEMS.map((item) => {
-            const active =
-              item.href === "/"
-                ? pathname === "/"
-                : pathname === item.href || pathname.startsWith(`${item.href}/`);
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className={`relative rounded-lg px-3.5 py-2 text-sm font-semibold no-underline transition-all duration-200 ${
-                  active
-                    ? "bg-creco-green-muted text-creco-primary"
-                    : "text-creco-black-soft/75 hover:bg-creco-surface hover:text-creco-black"
-                }`}
-              >
-                {item.label}
-                {active && (
-                  <span
-                    className="absolute bottom-0 left-3 right-3 h-0.5 rounded-full bg-creco-accent lg:-bottom-0.5"
-                    aria-hidden
-                  />
-                )}
-              </Link>
-            );
-          })}
-          <Link
-            href="/guidance?ask=1"
-            onClick={() => setOpen(false)}
-            className="creco-btn creco-btn-accent mt-2 text-sm lg:ml-4 lg:mt-0"
-          >
-            Ask a question
-          </Link>
+          {navItems.map((item) => (
+            <NavLink key={item.href} href={item.href} label={item.label} active={item.active} />
+          ))}
         </nav>
+
+        <div className="ml-auto flex items-center gap-2 sm:gap-3">
+          {!isLoggedIn && (
+            <Link
+              href="/guidance?ask=1"
+              className="creco-btn creco-btn-accent hidden px-4 py-2 text-sm md:inline-flex"
+            >
+              {t.nav.askQuestion}
+            </Link>
+          )}
+
+          <div className="hidden sm:block">
+            <LanguageSwitcher />
+          </div>
+
+          <UserMenu />
+
+          <button
+            type="button"
+            className="rounded-lg p-2 text-creco-black transition hover:bg-creco-green-muted lg:hidden"
+            aria-label={t.nav.toggleNav}
+            aria-expanded={open}
+            onClick={() => setOpen((value) => !value)}
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path
+                d="M4 7h16M4 12h16M4 17h16"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
+
+      {open && (
+        <nav
+          aria-label={isLoggedIn ? t.nav.platformNav : t.nav.sectionNav}
+          className="border-t border-creco-border bg-white px-4 py-3 lg:hidden"
+        >
+          <ul className="space-y-1">
+            {navItems.map((item) => (
+              <li key={item.href}>
+                <NavLink
+                  href={item.href}
+                  label={item.label}
+                  active={item.active}
+                  onNavigate={() => setOpen(false)}
+                  className="block"
+                />
+              </li>
+            ))}
+          </ul>
+
+          {!isLoggedIn && (
+            <Link
+              href="/guidance?ask=1"
+              onClick={() => setOpen(false)}
+              className="creco-btn creco-btn-accent mt-3 w-full text-sm"
+            >
+              {t.nav.askQuestion}
+            </Link>
+          )}
+
+          <div className="mt-3 sm:hidden">
+            <LanguageSwitcher />
+          </div>
+        </nav>
+      )}
     </header>
   );
 }

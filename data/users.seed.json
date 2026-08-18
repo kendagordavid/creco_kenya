@@ -1,0 +1,12 @@
+[
+  {
+    "id": "user-demo-001",
+    "email": "demo@pbo.org",
+    "passwordHash": "$2b$10$ldXhIexCCuumzRa.CmxS9OYmYmTKnpSZFK006NNJwu0ytjijbQ8O.",
+    "name": "Demo PBO User",
+    "orgName": "Sample Community Organisation",
+    "orgType": "CBO",
+    "county": "Nairobi",
+    "createdAt": "2026-01-01T00:00:00.000Z"
+  }
+]

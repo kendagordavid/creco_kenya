@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useFormat, useTranslations } from "@/lib/i18n/client";
 
 type Health = {
   answer_mode?: string;
@@ -9,6 +10,8 @@ type Health = {
 };
 
 export function AiSetupNotice() {
+  const t = useTranslations();
+  const format = useFormat();
   const [health, setHealth] = useState<Health | null>(null);
 
   useEffect(() => {
@@ -29,12 +32,11 @@ export function AiSetupNotice() {
     >
       <div className="h-1 bg-gradient-to-r from-creco-orange to-creco-orange-light" aria-hidden />
       <div className="px-5 py-4">
-      <p className="font-bold text-creco-black">AI answers are off on this deployment</p>
-      <p className="mt-1 text-creco-muted">
-        You are seeing compiled topic text only. Add <code className="text-xs">OPENAI_API_KEY</code>{" "}
-        in Vercel to enable AI-assisted answers.
-      </p>
-      {health.setup_hint && <p className="mt-2 text-creco-muted">{health.setup_hint}</p>}
+        <p className="font-bold text-creco-black">{t.aiSetup.title}</p>
+        <p className="mt-1 text-creco-muted">
+          {format(t.aiSetup.lead, { key: "OPENAI_API_KEY" })}
+        </p>
+        {health.setup_hint && <p className="mt-2 text-creco-muted">{health.setup_hint}</p>}
       </div>
     </div>
   );

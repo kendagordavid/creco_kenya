@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
 
 :root {
   /* Brand — green, orange, white, black */
@@ -32,6 +36,12 @@
   --creco-sage: #3d9970;
   --creco-sand: var(--creco-orange-muted);
 
+  /* Legacy aliases → brand green #0A864D scale */
+  --creco-deep-fir: var(--creco-green-dark);
+  --creco-deep-fir-soft: var(--creco-primary);
+  --creco-sulu: var(--creco-green-light);
+  --creco-sulu-muted: var(--creco-green-muted);
+
   --creco-content-max: 72rem;
   --creco-radius: 0.625rem;
   --creco-radius-lg: 1rem;
@@ -42,12 +52,47 @@
   --creco-shadow-lg: 0 16px 48px rgba(10, 10, 10, 0.1);
   --creco-shadow-green: 0 8px 32px rgba(10, 134, 77, 0.2);
   --creco-shadow-orange: 0 8px 32px rgba(239, 147, 52, 0.25);
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: #0a864d;
+  --primary-foreground: #ffffff;
+  --ring: #0a864d;
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
 }
 
 @theme inline {
   --color-creco-primary: var(--creco-primary);
   --color-creco-primary-dark: var(--creco-primary-dark);
   --color-creco-primary-light: var(--creco-green-light);
+  --color-creco-green: var(--creco-green);
+  --color-creco-green-light: var(--creco-green-light);
+  --color-creco-green-dark: var(--creco-green-dark);
   --color-creco-accent: var(--creco-accent);
   --color-creco-accent-hover: var(--creco-accent-hover);
   --color-creco-accent-light: var(--creco-orange-light);
@@ -64,7 +109,46 @@
   --color-creco-border: var(--creco-border);
   --font-display: var(--font-poppins);
   --font-body: var(--font-poppins);
-  --font-sans: var(--font-poppins), system-ui, sans-serif;
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
 html {
@@ -471,31 +555,22 @@ h4,
   margin-top: 0.35rem;
 }
 
-/* CTA band */
+/* CTA band — plain surface, no decorative overlays */
 .creco-cta-band {
-  background: linear-gradient(165deg, var(--creco-black) 0%, var(--creco-black-soft) 100%);
-  position: relative;
-  overflow: hidden;
+  background: var(--creco-green-muted);
+  border-top: 1px solid var(--creco-border);
 }
 
-.creco-cta-band::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--creco-green), var(--creco-orange), var(--creco-green));
+.creco-cta-band h2 {
+  color: var(--creco-green-dark);
 }
 
-.creco-cta-band::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 80% at 80% 50%, rgba(10, 134, 77, 0.18) 0%, transparent 55%),
-    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(239, 147, 52, 0.1) 0%, transparent 50%);
-  pointer-events: none;
+.creco-cta-band .creco-eyebrow {
+  color: var(--creco-primary);
+}
+
+.creco-cta-band .creco-eyebrow::before {
+  background: var(--creco-primary);
 }
 
 /* Feature list */
@@ -672,4 +747,313 @@ h4,
 :focus-visible {
   outline: 2px solid var(--creco-orange);
   outline-offset: 2px;
+}
+
+/* ── Forms (shared) ── */
+.creco-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.creco-form-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--creco-primary);
+}
+
+.creco-form-hint {
+  font-size: 0.75rem;
+  color: var(--creco-muted);
+}
+
+.creco-form-error {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #b42318;
+}
+
+.creco-input {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.9375rem;
+  font-family: inherit;
+  color: var(--creco-text);
+  background: var(--creco-white);
+  border: 1px solid var(--creco-border);
+  border-radius: 0.5rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.creco-input::placeholder {
+  color: #9ca3af;
+}
+
+.creco-input:focus {
+  outline: none;
+  border-color: var(--creco-primary);
+  box-shadow: 0 0 0 3px var(--creco-green-glow);
+}
+
+.creco-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%235c5c5c' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.875rem center;
+  padding-right: 2.25rem;
+}
+
+.creco-textarea {
+  min-height: 7rem;
+  resize: vertical;
+}
+
+.creco-auth-card {
+  width: 100%;
+  max-width: 26rem;
+  margin-inline: auto;
+  padding: 2rem;
+  background: var(--creco-white);
+  border: 1px solid var(--creco-border);
+  border-radius: 1rem;
+  box-shadow: var(--creco-shadow);
+}
+
+/* ── Login page (CRECO green #0A864D) ── */
+.creco-login-page {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.25rem 3rem;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(10, 134, 77, 0.2) 0%, transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(18, 163, 98, 0.12) 0%, transparent 40%),
+    linear-gradient(165deg, var(--creco-green-deep) 0%, var(--creco-green-dark) 50%, var(--creco-primary) 100%);
+}
+
+.creco-login-card {
+  width: 100%;
+  max-width: 24rem;
+  padding: 2rem 2rem 1.75rem;
+  background: var(--creco-white);
+  border-radius: 1rem;
+  box-shadow: 0 24px 48px rgba(10, 134, 77, 0.25);
+}
+
+.creco-login-card--wide {
+  max-width: 28rem;
+}
+
+.creco-login-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-inline: auto;
+  border-radius: 0.75rem;
+  background: var(--creco-primary);
+  color: var(--creco-white);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.creco-login-title {
+  margin-top: 1.25rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--creco-primary);
+  letter-spacing: -0.02em;
+}
+
+.creco-login-lead {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--creco-muted);
+}
+
+.creco-login-notice {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--creco-primary);
+  background: var(--creco-green-muted);
+  border: 1px solid rgba(10, 134, 77, 0.25);
+  border-radius: 0.5rem;
+}
+
+.creco-login-form {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.creco-login-submit {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.25rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  font-family: inherit;
+  color: var(--creco-white);
+  background: var(--creco-primary);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.creco-login-submit:hover:not(:disabled) {
+  background: var(--creco-green-dark);
+  color: var(--creco-white);
+}
+
+.creco-login-submit:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+.creco-login-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.creco-login-alt-link {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6875rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--creco-primary);
+  background: transparent;
+  border: 2px solid var(--creco-primary);
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.creco-login-alt-link:hover {
+  background: var(--creco-green-muted);
+  color: var(--creco-primary-dark);
+}
+
+.creco-login-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-block: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--creco-muted);
+}
+
+.creco-login-divider::before,
+.creco-login-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--creco-border);
+}
+
+.creco-login-links {
+  margin-top: 1.25rem;
+  text-align: center;
+  font-size: 0.8125rem;
+  color: var(--creco-muted);
+}
+
+.creco-login-links a {
+  font-weight: 600;
+  color: var(--creco-primary);
+  text-decoration: none;
+}
+
+.creco-login-links a:hover {
+  color: var(--creco-green-light);
+  text-decoration: underline;
+}
+
+.creco-login-demo {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--creco-border);
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--creco-muted);
+}
+
+.creco-login-demo strong {
+  color: var(--creco-primary);
+  font-weight: 600;
+}
+
+.creco-login-back {
+  display: block;
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.8125rem;
+}
+
+.creco-login-back a {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+}
+
+.creco-login-back a:hover {
+  color: var(--creco-green-light);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
 }

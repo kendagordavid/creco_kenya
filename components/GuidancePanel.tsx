@@ -9,6 +9,7 @@ import {
   loadConversation,
   saveConversation,
 } from "@/lib/guidance-session";
+import { useFormat, useTranslations } from "@/lib/i18n/client";
 import { ChatTurn, ChatTurnLoading, Turn } from "./ChatTurn";
 import { QuestionComposer } from "./QuestionComposer";
 import { SourceReferences } from "./SourceReferences";
@@ -31,8 +32,13 @@ function TurnHistoryButton({
   active: boolean;
   onSelect: () => void;
 }) {
+  const t = useTranslations();
+  const format = useFormat();
   const position = total - index;
-  const label = position === 1 ? "Latest" : `${position} questions ago`;
+  const label =
+    position === 1
+      ? t.guidancePage.conversation.latest
+      : format(t.guidancePage.conversation.questionsAgo, { count: position });
 
   return (
     <button
@@ -56,6 +62,8 @@ function TurnHistoryButton({
 }
 
 export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props) {
+  const t = useTranslations();
+  const format = useFormat();
   const [turns, setTurns] = useState<Turn[]>([]);
   const [activeTurnId, setActiveTurnId] = useState<string | null>(null);
   const [input, setInput] = useState("");
@@ -123,7 +131,7 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
         answer:
           error instanceof Error
             ? error.message
-            : "We could not retrieve an answer at this time. Please try again.",
+            : t.guidancePanel.errorFallback,
         citations: [],
         refused: true,
         createdAt: Date.now(),
@@ -166,7 +174,7 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
   if (!hydrated) {
     return (
       <div className="creco-card p-8 text-center text-sm text-creco-muted" aria-busy="true">
-        Loading your conversation…
+        {t.guidancePage.conversation.loading}
       </div>
     );
   }
@@ -177,10 +185,11 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
         {hasConversation && (
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <div>
-              <h2 className="text-lg font-bold text-creco-black">Your conversation</h2>
+              <h2 className="text-lg font-bold text-creco-black">{t.guidancePage.conversation.title}</h2>
               <p className="text-sm text-creco-muted">
-                {turns.length} question{turns.length === 1 ? "" : "s"} in this thread · earlier
-                answers stay visible as you ask follow-ups
+                {turns.length === 1
+                  ? format(t.guidancePage.conversation.summary, { count: turns.length })
+                  : format(t.guidancePage.conversation.summaryPlural, { count: turns.length })}
               </p>
             </div>
             <button
@@ -189,7 +198,7 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
               disabled={loading}
               className="creco-btn creco-btn-secondary text-sm disabled:opacity-50"
             >
-              New conversation
+              {t.guidancePage.conversation.newConversation}
             </button>
           </div>
         )}
@@ -197,8 +206,7 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
         <div className="flex-1 space-y-8">
           {!hasConversation && !loading && (
             <section className="rounded-lg border border-dashed border-creco-border bg-white p-6 text-center text-sm text-creco-muted">
-              Ask your first question below. Follow-up questions stay in this thread — like a chat —
-              so you can scroll back to any earlier answer.
+              {t.guidancePage.conversation.empty}
             </section>
           )}
 
@@ -235,9 +243,9 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
 
       <aside className="lg:sticky lg:top-28 lg:self-start">
         {turns.length > 1 && (
-          <nav className="creco-card mb-4 p-4 lg:hidden" aria-label="Conversation history">
+          <nav className="creco-card mb-4 p-4 lg:hidden" aria-label={t.guidancePage.conversation.jumpToQuestion}>
             <p className="text-xs font-bold uppercase tracking-wider text-creco-primary">
-              Jump to question
+              {t.guidancePage.conversation.jumpToQuestion}
             </p>
             <ul className="mt-3 max-h-52 space-y-1 overflow-y-auto">
               {turns.map((turn, index) => (
@@ -262,9 +270,9 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
         />
 
         {turns.length > 1 && (
-          <nav className="creco-card mt-4 hidden p-4 lg:block" aria-label="Conversation history">
+          <nav className="creco-card mt-4 hidden p-4 lg:block" aria-label={t.guidancePage.conversation.earlierInChat}>
             <p className="text-xs font-bold uppercase tracking-wider text-creco-primary">
-              Earlier in this chat
+              {t.guidancePage.conversation.earlierInChat}
             </p>
             <ul className="mt-3 max-h-72 space-y-1 overflow-y-auto">
               {[...turns].reverse().map((turn, reverseIndex) => {

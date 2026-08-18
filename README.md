@@ -5,18 +5,27 @@
 1. Push this repo to GitHub (`kendagordavid/creco_kenya`).
 2. In [Vercel](https://vercel.com/new), **Import** the repository.
 3. Use **default settings** — Framework: Next.js, Root Directory: *(empty / repo root)*.
-4. Add environment variable (optional, for AI-polished guidance answers):
-   - `OPENAI_API_KEY` — your OpenAI API key (Production + Preview)
+4. Add environment variables:
+   - `AUTH_SECRET` — session signing secret (required for login)
+   - `OPENAI_API_KEY` — optional, for AI-polished guidance answers (Production + Preview)
 5. Deploy.
 
 **URLs after deploy:**
 
 | URL | What |
 |-----|------|
-| `/` | PBO Act platform (Guidance, Topics, Sources) |
+| `/` | Platform home — all five modules |
+| `/knowledge` | Knowledge hub (topics, FAQs, toolkits, media) |
+| `/compliance` | Checklist, self-assessment, templates |
 | `/guidance` | PBO Act guidance Q&A |
-| `/topics` | Topic library |
+| `/monitoring` | Civic space monitoring reports |
+| `/login` | Sign in (demo: `demo@pbo.org` / `demo1234`) |
+| `/register` | PBO user registration |
+| `/search` | Global search |
 | `/sources` | Source documents |
+| `/topics` | Topic library (legacy route) |
+
+Set **`AUTH_SECRET`** in Vercel (Production + Preview) — generate with `openssl rand -base64 32`.
 
 The site includes **built-in API routes** (`/api/ask`, `/api/sources`, …) that read wiki topics from `prototype/wiki/`. You do **not** need a separate backend for demos.
 
@@ -46,9 +55,25 @@ uvicorn app.main:app --reload --port 8000
 # Then set NEXT_PUBLIC_API_URL=http://localhost:8000 in .env.local
 ```
 
+## Inception report (ToR Deliverable #1)
+
+Full project inception report — methodology, architecture, and **32-week work plan** (inception through post-deployment support):
+
+| Format | Location |
+|--------|----------|
+| Markdown (source) | [`docs/Inception-Report-CRECO-PBO-Platform.md`](docs/Inception-Report-CRECO-PBO-Platform.md) |
+| HTML (CRECO review) | [`docs/inception-report.html`](docs/inception-report.html) |
+| Wireframe site copy | https://creco-wireframe.vercel.app/docs/inception-report.html |
+
+Open the HTML version in a browser and use **Print → Save as PDF** for submission.
+
 ## Wireframes (ToR Deliverable #2)
 
-Mid-fidelity UI/UX wireframes for CRECO sign-off — deployed **separately** from this app (see [`wireframes/README.md`](wireframes/README.md)).
+Mid-fidelity UI/UX wireframes for CRECO sign-off — **hosted separately**:
+
+**https://creco-wireframe.vercel.app/**
+
+Source repo: [`kendagordavid/creco_wireframe`](https://github.com/kendagordavid/creco_wireframe)
 
 ## Repo layout
 
@@ -56,7 +81,7 @@ Mid-fidelity UI/UX wireframes for CRECO sign-off — deployed **separately** fro
 |------|---------|
 | `app/`, `components/`, `lib/` | Next.js frontend + Vercel API |
 | `wireframes/` | ToR wireframe deliverable (HTML + PDF export) |
-| `docs/` | Sitemap, user journeys, inception wireframe report |
+| `docs/` | Sitemap, user journeys, **full inception report** |
 | `prototype/wiki/` | PBO Act topic pages (bundled with deploy) |
 | `prototype/backend/` | Optional FastAPI server |
 

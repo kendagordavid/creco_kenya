@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inception Report — CRECO PBO Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --p: #0a864d; --pd: #086941; --a: #ef9334; --m: #5c6470; --b: #ddd5c8; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font: 15px/1.6 "Poppins", system-ui, sans-serif; color: #2c2c2c; background: #faf8f5; }
+    .cover { background: linear-gradient(135deg, var(--pd), var(--p)); color: #fff; padding: 2.5rem 1.5rem 3rem; }
+    .cover h1 { margin: 0 0 .5rem; font-size: 1.75rem; }
+    .cover p { margin: 0; opacity: .9; max-width: 52ch; }
+    .meta { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin-top: 1.5rem; font-size: .85rem; }
+    main { max-width: 780px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+    h2 { font-size: 1.1rem; color: var(--pd); border-bottom: 2px solid var(--a); padding-bottom: .3rem; margin: 2rem 0 1rem; }
+    h2:first-child { margin-top: 0; }
+    table { width: 100%; border-collapse: collapse; font-size: .875rem; margin: .75rem 0 1rem; background: #fff; border: 1px solid var(--b); border-radius: 8px; overflow: hidden; }
+    th, td { padding: .5rem .75rem; text-align: left; border-bottom: 1px solid var(--b); vertical-align: top; }
+    th { background: var(--p); color: #fff; }
+    tr:last-child td { border: 0; }
+    .links { display: flex; flex-wrap: wrap; gap: .5rem; margin: .75rem 0; }
+    .links a { background: var(--p); color: #fff; padding: .4rem .8rem; border-radius: 6px; text-decoration: none; font-size: .8rem; }
+    .done { color: var(--p); font-weight: 600; }
+    .signoff td { height: 2rem; }
+    footer { text-align: center; padding: 1.5rem; font-size: .8rem; color: var(--m); border-top: 1px solid var(--b); }
+    @media print { .links a { background: none; color: inherit; padding: 0; } }
+  </style>
+</head>
+<body>
+
+<header class="cover">
+  <p style="font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;opacity:.8">ToR Deliverable #1 · Weeks 1–32</p>
+  <h1>Inception Report</h1>
+  <p>Civic Access and PBO Act Monitoring Web Platform — CRECO Kenya &amp; ICNL</p>
+  <div class="meta">
+    <span><strong>Consultant:</strong> Emmanuel Kiyai Kendagor</span>
+    <span><strong>Date:</strong> August 2026</span>
+    <span>emmanuelkens@gmail.com · +254 708 454 455</span>
+  </div>
+</header>
+
+<main>
+
+<h2>1. Summary</h2>
+<p>One integrated platform for legal awareness, compliance tools, guided Q&amp;A, and PBO monitoring. <strong>32 weeks</strong> total: 8 weeks build &amp; handover, 24 weeks support. Inception is complete — wireframes and prototype ready for CRECO sign-off before Week 3 development.</p>
+<div class="links">
+  <a href="https://creco-kenya.vercel.app/" target="_blank" rel="noopener">Prototype</a>
+  <a href="https://creco-wireframe.vercel.app/" target="_blank" rel="noopener">Wireframes</a>
+  <a href="https://creco-wireframe.vercel.app/export/CRECO-PBO-Wireframes.pdf" target="_blank" rel="noopener">PDF</a>
+</div>
+
+<h2>2. Scope</h2>
+<table>
+  <tr><th>Module</th><th>Purpose</th></tr>
+  <tr><td>Knowledge hub</td><td>EN/SW content, FAQs, toolkits, media</td></tr>
+  <tr><td>Compliance</td><td>Checklist, self-assessment, templates</td></tr>
+  <tr><td>Guided Q&amp;A</td><td>Approved sources, citations, Ask CRECO</td></tr>
+  <tr><td>Monitoring</td><td>Reports, county tags, uploads, consent</td></tr>
+  <tr><td>Admin &amp; CMS</td><td>Dashboard, moderation, exports (MFA for staff)</td></tr>
+</table>
+
+<h2>3. Work plan</h2>
+<table>
+  <tr><th>Weeks</th><th>Phase</th></tr>
+  <tr><td>1–2</td><td>Inception, wireframes, specs</td></tr>
+  <tr><td>3–5</td><td>Development sprints (staging demos)</td></tr>
+  <tr><td>6</td><td>Testing &amp; UAT</td></tr>
+  <tr><td>7–8</td><td>Deploy, train, handover</td></tr>
+  <tr><td>9–32</td><td>Support &amp; maintenance</td></tr>
+</table>
+
+<h2>4. Technical approach</h2>
+<p>Django + PostgreSQL · responsive mobile-first frontend · secure uploads · privacy-conscious analytics · CRECO-approved hosting with HTTPS and daily backups. Next.js prototype validates Q&amp;A UX; production follows wireframes on Django.</p>
+
+<h2>5. Deliverables</h2>
+<table>
+  <tr><th>#</th><th>Item</th><th>When</th><th>Status</th></tr>
+  <tr><td>1</td><td>Inception report</td><td>Wk 2</td><td class="done">Done</td></tr>
+  <tr><td>2</td><td>Wireframes</td><td>Wk 2</td><td class="done">Done</td></tr>
+  <tr><td>3</td><td>Full platform</td><td>Wk 7</td><td>Planned</td></tr>
+  <tr><td>4–8</td><td>Dashboard, code, manuals, training, final report</td><td>Wk 5–8</td><td>Planned</td></tr>
+  <tr><td>9</td><td>Post-deployment support</td><td>Wk 9–32</td><td>Planned</td></tr>
+</table>
+
+<h2>6. Risks &amp; CRECO inputs</h2>
+<p><strong>Risks:</strong> late content (audit + samples), Q&amp;A accuracy (approved corpus + review), low uptake (mobile + Kiswahili), hosting delay (confirm by Week 6).</p>
+<p><strong>CRECO to provide:</strong> legal materials, branding, focal person, wireframe sign-off, pilot PBOs (Week 6), hosting (Week 6).</p>
+
+<h2>7. Sign-off</h2>
+<table class="signoff">
+  <tr><th>Role</th><th>Name</th><th>Signature</th><th>Date</th></tr>
+  <tr><td>Consultant</td><td>Emmanuel Kiyai Kendagor</td><td></td><td></td></tr>
+  <tr><td>CRECO focal person</td><td></td><td></td><td></td></tr>
+  <tr><td>CRECO authorising officer</td><td></td><td></td><td></td></tr>
+</table>
+
+</main>
+
+<footer>Emmanuel Kiyai Kendagor · CRECO Kenya · ICNL · August 2026</footer>
+</body>
+</html>

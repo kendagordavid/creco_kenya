@@ -6,9 +6,19 @@ import { useEffect, useState } from "react";
 import { ASSESSMENT_QUESTIONS, ASSESSMENT_STORAGE_KEY } from "@/lib/content/assessment";
 import { loadPersistedData, savePersistedData } from "@/lib/persist-user-data";
 
+function readAssessmentAnswers(): Record<string, number> {
+  if (typeof window === "undefined") return {};
+  try {
+    const saved = sessionStorage.getItem(ASSESSMENT_STORAGE_KEY);
+    return saved ? (JSON.parse(saved) as Record<string, number>) : {};
+  } catch {
+    return {};
+  }
+}
+
 export function AssessmentPanel() {
   const router = useRouter();
-  const [answers, setAnswers] = useState<Record<string, number>>({});
+  const [answers, setAnswers] = useState<Record<string, number>>(readAssessmentAnswers);
   const [step, setStep] = useState(0);
 
   useEffect(() => {

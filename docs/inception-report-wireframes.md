@@ -6,6 +6,8 @@
 **Deliverable:** UI/UX designs and wireframes (Week 2)  
 **Date:** July 2026
 
+> **Note:** This document covers the wireframe deliverable only. For the full project inception report (32-week methodology, architecture, and work plan), see [`Inception-Report-CRECO-PBO-Platform.md`](Inception-Report-CRECO-PBO-Platform.md) or [`inception-report.html`](inception-report.html).
+
 ---
 
 ## 1. Purpose

@@ -97,7 +97,7 @@ export function DashboardShell({ children, title, description }: Props) {
           <aside className="lg:sticky lg:top-20 lg:self-start">
             <nav
               aria-label={t.dashboard.navLabel}
-              className="rounded-xl border border-creco-border bg-white p-2 shadow-sm ring-1 ring-black/5"
+              className="rounded-xl border border-border bg-card p-2 shadow-sm ring-1 ring-border/60"
             >
               <ul className="space-y-1">
                 {NAV.map((item) => {
@@ -112,7 +112,7 @@ export function DashboardShell({ children, title, description }: Props) {
                           "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium no-underline transition-colors",
                           active
                             ? "bg-creco-primary text-white"
-                            : "text-creco-black-soft hover:bg-[var(--creco-green-muted)] hover:text-creco-primary",
+                            : "text-foreground/80 hover:bg-muted hover:text-creco-primary",
                         )}
                       >
                         <Icon className="size-4 shrink-0" aria-hidden />
@@ -123,7 +123,7 @@ export function DashboardShell({ children, title, description }: Props) {
                 })}
               </ul>
 
-              <div className="my-2 border-t border-creco-border" />
+              <div className="my-2 border-t border-border" />
 
               <Link
                 href="/"

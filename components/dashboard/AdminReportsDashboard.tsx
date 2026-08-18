@@ -10,6 +10,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
+import { useAuthQuery } from "@/hooks/useAuthQuery";
+import { authFetch, invalidateAuthCache, peekCachedJson } from "@/lib/auth-client";
+import { CACHE_TTL } from "@/lib/browser-cache";
 import { useFormat, useTranslations } from "@/lib/i18n/client";
 import type { Dictionary } from "@/lib/i18n/messages/en";
 
@@ -57,22 +60,24 @@ function statusLabel(t: Dictionary, status: string): string {
 export function AdminReportsDashboard() {
   const t = useTranslations();
   const format = useFormat();
-  const [submissions, setSubmissions] = useState<AdminSubmission[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const cached = peekCachedJson<{ submissions?: AdminSubmission[]; error?: string }>(
+    "/api/admin/submissions",
+  );
+  const { data, loading, error: queryError } = useAuthQuery<{
+    submissions?: AdminSubmission[];
+    error?: string;
+  }>("/api/admin/submissions", { ttlMs: CACHE_TTL.admin });
+  const [submissions, setSubmissions] = useState<AdminSubmission[]>(
+    () => (cached?.error ? [] : (cached?.submissions ?? [])),
+  );
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [updatingId, setUpdatingId] = useState<string | null>(null);
   const [notice, setNotice] = useState("");
+  const error = queryError ?? data?.error ?? "";
 
   useEffect(() => {
-    fetch("/api/admin/submissions")
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.error) setError(data.error);
-        else setSubmissions(data.submissions ?? []);
-      })
-      .finally(() => setLoading(false));
-  }, []);
+    if (data && !data.error) setSubmissions(data.submissions ?? []);
+  }, [data]);
 
   const filtered = useMemo(() => {
     if (statusFilter === "all") return submissions;
@@ -83,9 +88,8 @@ export function AdminReportsDashboard() {
     setUpdatingId(id);
     setNotice("");
     try {
-      const response = await fetch(`/api/admin/submissions/${id}`, {
+      const response = await authFetch(`/api/admin/submissions/${id}`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status }),
       });
       const data = await response.json();
@@ -93,6 +97,7 @@ export function AdminReportsDashboard() {
         setNotice(data.error ?? t.admin.statusFailed);
         return;
       }
+      invalidateAuthCache("/api/admin/submissions");
       setSubmissions((current) =>
         current.map((item) => (item.id === id ? { ...item, status: data.submission.status } : item)),
       );
@@ -106,7 +111,7 @@ export function AdminReportsDashboard() {
 
   return (
     <DashboardShell title={t.admin.title} description={t.admin.description}>
-      {loading ? (
+      {loading && !data ? (
         <div className="flex items-center gap-2 py-16 text-muted-foreground">
           <Loader2 className="size-5 animate-spin" aria-hidden />
           {t.admin.loading}

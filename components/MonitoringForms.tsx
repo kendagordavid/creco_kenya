@@ -15,6 +15,7 @@ import {
   loadPersistedData,
   savePersistedData,
 } from "@/lib/persist-user-data";
+import { authFetch, invalidateAuthCache } from "@/lib/auth-client";
 
 export type MonitoringDraft = {
   type: "registration" | "enabling" | "incident";
@@ -211,10 +212,8 @@ export function MonitoringUploadForm() {
     setLoading(true);
     setError("");
 
-    const res = await fetch("/api/submissions", {
+    const res = await authFetch("/api/submissions", {
       method: "POST",
-      credentials: "same-origin",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         ...draft,
         attachmentNote,
@@ -231,6 +230,7 @@ export function MonitoringUploadForm() {
     }
 
     await clearPersistedData(DRAFT_KEY, sessionStorage);
+    invalidateAuthCache("/api/submissions");
     router.push(`/monitoring/confirmation?id=${data.id}`);
   }
 

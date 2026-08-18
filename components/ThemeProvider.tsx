@@ -9,7 +9,12 @@ type Props = {
 
 export function ThemeProvider({ children }: Props) {
   return (
-    <NextThemesProvider attribute="class" defaultTheme="system" enableSystem storageKey="creco-theme">
+    <NextThemesProvider
+      attribute="class"
+      defaultTheme="light"
+      enableSystem={false}
+      storageKey="creco-theme"
+    >
       {children}
     </NextThemesProvider>
   );

@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { ArrowRight, ClipboardList, FilePlus, Loader2 } from "lucide-react";
 import {
   Card,
@@ -11,6 +10,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
+import { useAuthQuery } from "@/hooks/useAuthQuery";
+import { CACHE_TTL } from "@/lib/browser-cache";
 import { useFormat, useTranslations } from "@/lib/i18n/client";
 import type { Dictionary } from "@/lib/i18n/messages/en";
 
@@ -45,26 +46,19 @@ function statusLabel(t: Dictionary, status: string): string {
 export function SubmissionsDashboard() {
   const t = useTranslations();
   const format = useFormat();
-  const [submissions, setSubmissions] = useState<Submission[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    fetch("/api/submissions")
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.error) setError(data.error);
-        else setSubmissions(data.submissions ?? []);
-      })
-      .finally(() => setLoading(false));
-  }, []);
+  const { data, loading, error: queryError } = useAuthQuery<{
+    submissions?: Submission[];
+    error?: string;
+  }>("/api/submissions", { ttlMs: CACHE_TTL.submissions });
+  const submissions = data?.error ? [] : (data?.submissions ?? []);
+  const error = queryError ?? data?.error ?? "";
 
   return (
     <DashboardShell
       title={t.dashboard.submissions.title}
       description={t.dashboard.submissions.description}
     >
-      {loading ? (
+      {loading && !data ? (
         <div className="flex items-center gap-2 py-16 text-muted-foreground">
           <Loader2 className="size-5 animate-spin" aria-hidden />
           {t.dashboard.submissions.loading}

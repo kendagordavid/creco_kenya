@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { FormField, FormSelect, FormTextarea } from "@/components/FormField";
+import { authFetch } from "@/lib/auth-client";
 
 const REASONS = [
   "Inaccurate or incomplete",
@@ -25,9 +26,8 @@ export function FlagFeedbackForm({ defaultQuestion = "" }: { defaultQuestion?: s
     setError("");
     setMessage("");
 
-    const res = await fetch("/api/feedback", {
+    const res = await authFetch("/api/feedback", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ question, reason, details }),
     });
 

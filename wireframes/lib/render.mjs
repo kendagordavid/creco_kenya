@@ -220,7 +220,8 @@ export function renderHub(sections) {
 <body class="wf-hub">
   <header class="wf-hub-header">
     <h1>CRECO PBO Act Platform — UI/UX Wireframes</h1>
-    <p>ToR Deliverable #2 · Mid-fidelity wireframes for CRECO sign-off before full development. Covers all five platform modules, user roles, and key mobile flows.</p>
+    <p>ToR Deliverable #2 · CRECO Kenya &amp; ICNL · For administrator review and sign-off before development. This site is separate from the live PBO platform.</p>
+    <p style="margin-top:0.75rem"><a href="export/CRECO-PBO-Wireframes.pdf" style="color:#93c5fd">Download PDF for CRECO sign-off →</a></p>
   </header>
   <div class="wf-hub-grid">
     ${body}
@@ -238,9 +239,10 @@ export function renderHub(sections) {
     <section class="wf-hub-section">
       <h2>Documentation</h2>
       <ul class="wf-hub-links">
-        <li><a href="../docs/sitemap.md">Sitemap (Markdown)</a></li>
-        <li><a href="../docs/user-journeys.md">User journeys (Markdown)</a></li>
-        <li><a href="../docs/inception-report-wireframes.md">Inception report — wireframe section</a></li>
+        <li><a href="docs/sitemap.html">Sitemap &amp; screen inventory</a></li>
+        <li><a href="docs/user-journeys.html">User journeys</a></li>
+        <li><a href="docs/inception.html">Inception report summary</a></li>
+        <li><a href="export/CRECO-PBO-Wireframes.pdf">Wireframes PDF (CRECO deliverable)</a></li>
       </ul>
     </section>
   </div>

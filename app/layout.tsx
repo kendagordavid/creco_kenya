@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins, Geist } from "next/font/google";
+import { auth } from "@/auth";
 import { AuthProvider } from "@/components/AuthProvider";
 import { SiteChrome } from "@/components/SiteChrome";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -26,6 +27,10 @@ export async function generateMetadata(): Promise<Metadata> {
       template: t.meta.titleTemplate,
     },
     description: t.meta.description,
+    icons: {
+      icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+      apple: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    },
   };
 }
 
@@ -36,6 +41,7 @@ export default async function RootLayout({
 }>) {
   const locale = await getLocale();
   const dictionary = getDictionary(locale);
+  const session = await auth();
 
   return (
     <html lang={locale} suppressHydrationWarning className={cn("h-full", poppins.variable, "font-sans", geist.variable)}>
@@ -45,7 +51,7 @@ export default async function RootLayout({
       >
         <ThemeProvider>
           <LocaleProvider locale={locale} dictionary={dictionary}>
-            <AuthProvider>
+            <AuthProvider session={session}>
               <SiteChrome>{children}</SiteChrome>
             </AuthProvider>
           </LocaleProvider>

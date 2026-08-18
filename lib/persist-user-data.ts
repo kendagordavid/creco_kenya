@@ -1,3 +1,5 @@
+import { authFetch } from "@/lib/auth-client";
+
 type StorageLike = Pick<Storage, "getItem" | "setItem" | "removeItem">;
 
 export async function loadPersistedData<T>(
@@ -5,9 +7,7 @@ export async function loadPersistedData<T>(
   storage?: StorageLike,
 ): Promise<T | null> {
   try {
-    const response = await fetch(`/api/user-data?key=${encodeURIComponent(key)}`, {
-      credentials: "same-origin",
-    });
+    const response = await authFetch(`/api/user-data?key=${encodeURIComponent(key)}`);
     if (response.ok) {
       const body = (await response.json()) as { data?: T | null };
       if (body.data != null) {
@@ -37,10 +37,8 @@ export async function savePersistedData<T>(
   storage?.setItem(key, JSON.stringify(data));
 
   try {
-    await fetch("/api/user-data", {
+    await authFetch("/api/user-data", {
       method: "PUT",
-      credentials: "same-origin",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ key, data }),
     });
   } catch {
@@ -52,9 +50,8 @@ export async function clearPersistedData(key: string, storage?: StorageLike): Pr
   storage?.removeItem(key);
 
   try {
-    await fetch(`/api/user-data?key=${encodeURIComponent(key)}`, {
+    await authFetch(`/api/user-data?key=${encodeURIComponent(key)}`, {
       method: "DELETE",
-      credentials: "same-origin",
     });
   } catch {
     // Ignore network errors during cleanup.

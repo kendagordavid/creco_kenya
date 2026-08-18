@@ -1,36 +1,36 @@
 # CRECO PBO Platform — UI/UX Wireframes
 
+**Standalone review site for CRECO administrators** — not part of the main PBO platform.
+
+**Live:** https://creco-wireframe.vercel.app/
+
 ToR Deliverable #2 · Mid-fidelity wireframes for CRECO sign-off (Week 2)
 
-## Quick start
+## Deploy on Vercel
+
+1. Connect this repository: `kendagordavid/creco_wireframe`
+2. **Root Directory:** *(leave empty — repo root is the site)*
+3. **Framework:** Other (static HTML — no build command)
+4. Deploy
+
+`vercel.json` is included for clean URLs.
+
+## Local preview
 
 ```bash
-# Regenerate all pages after editing data/screens.mjs
-node wireframes/build.mjs
-
-# View in browser
-npx --yes serve wireframes -p 3456
+npx --yes serve . -p 3456
 # Open http://localhost:3456
 ```
 
-## Structure
+## Regenerate pages (developers)
 
-```
-wireframes/
-├── index.html              # Hub — links to all screens & journeys
-├── manifest.json           # Screen inventory (generated)
-├── build.mjs               # HTML generator
-├── export/                 # PDF deliverable
-├── assets/
-│   └── wireframe.css       # Mid-fidelity styles + CRECO branding
-├── data/
-│   └── screens.mjs         # All screen & journey definitions
-├── lib/
-│   └── render.mjs        # HTML rendering helpers
-└── pages/                  # Generated wireframe HTML (48 screens + 6 journeys)
+```bash
+node build.mjs
 ```
 
-## Coverage
+Edit screen content in `data/screens.mjs`, then run the build script.
+
+## What's included
 
 | Area | Screens |
 |------|---------|
@@ -43,47 +43,11 @@ wireframes/
 | Module 5 — Admin & CMS | 12 (+ mobile dashboard) |
 | User journey flows | 6 |
 
-## Mobile wireframes
+**PDF:** [`export/CRECO-PBO-Wireframes.pdf`](export/CRECO-PBO-Wireframes.pdf)
 
-Dedicated mobile frames (390px) for ToR-priority flows:
+## Related project
 
-- `01-home-mobile.html`
-- `30-guidance-mobile.html`
-- `41-monitoring-registration-mobile.html`
-- `50-dashboard-mobile.html`
-
-## Documentation
-
-- [Sitemap](../docs/sitemap.md) — screen-to-module mapping
-- [User journeys](../docs/user-journeys.md) — six primary flows
-- [Inception report — wireframes](../docs/inception-report-wireframes.md) — CRECO deliverable summary
-
-## PDF export
-
-```bash
-node wireframes/export-pdf.mjs
-```
-
-Output: `wireframes/export/CRECO-PBO-Wireframes.pdf`
-
-Requires Chromium (via Puppeteer, installed on first run).
-
-## Figma import (optional)
-
-To produce a native Figma file for CRECO:
-
-1. Open the PDF or individual PNG screenshots in Figma (File → Import)
-2. Or use Figma's HTML-to-design plugins with `wireframes/pages/*.html`
-
-The HTML wireframes are the source of truth in this repository.
-
-## Editing wireframes
-
-1. Edit screen content in `data/screens.mjs`
-2. Run `node build.mjs`
-3. Commit updated `pages/` output
-
-Do not edit generated HTML in `pages/` directly — changes will be overwritten.
+The working PBO Act platform (Guidance, Topics, API) lives in a **separate repo**: [creco_kenya](https://github.com/kendagordavid/creco_kenya) → https://creco-kenya.vercel.app/
 
 ## Sign-off
 

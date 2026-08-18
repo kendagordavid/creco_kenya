@@ -5,8 +5,20 @@ import Link from "next/link";
 import { scoreAssessment, ASSESSMENT_STORAGE_KEY } from "@/lib/content/assessment";
 import { loadPersistedData } from "@/lib/persist-user-data";
 
+function readAssessmentResult() {
+  if (typeof window === "undefined") return null;
+  try {
+    const saved = sessionStorage.getItem(ASSESSMENT_STORAGE_KEY);
+    return saved ? scoreAssessment(JSON.parse(saved)) : null;
+  } catch {
+    return null;
+  }
+}
+
 export function AssessmentResults() {
-  const [result, setResult] = useState<ReturnType<typeof scoreAssessment> | null>(null);
+  const [result, setResult] = useState<ReturnType<typeof scoreAssessment> | null>(
+    readAssessmentResult,
+  );
 
   useEffect(() => {
     let active = true;

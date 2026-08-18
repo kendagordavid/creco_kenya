@@ -1,4 +1,6 @@
 /** Browser-safe API client (no Node.js fs). */
+import { CACHE_TTL, peekBrowserCache, writeBrowserCache } from "@/lib/browser-cache";
+
 export function getApiBase(): string {
   const external = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "");
   if (external) return external;
@@ -46,6 +48,10 @@ export type WikiPage = {
 export async function askQuestion(question: string): Promise<AskResponse> {
   const base = getApiBase();
   const url = useBuiltInApi() ? `${base}/api/ask` : `${base}/ask`;
+  const cacheKey = `POST:${url}:${question.trim().toLowerCase()}`;
+  const cached = peekBrowserCache<AskResponse>(cacheKey, "local");
+  if (cached) return cached;
+
   const response = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -57,5 +63,7 @@ export async function askQuestion(question: string): Promise<AskResponse> {
     throw new Error(detail || "Failed to get an answer");
   }
 
-  return response.json();
+  const data = (await response.json()) as AskResponse;
+  writeBrowserCache(cacheKey, data, CACHE_TTL.public, "local");
+  return data;
 }

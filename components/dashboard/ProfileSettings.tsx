@@ -24,6 +24,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
+import { useAuthQuery } from "@/hooks/useAuthQuery";
+import { authFetch, invalidateAuthCache, peekCachedJson } from "@/lib/auth-client";
+import { CACHE_TTL } from "@/lib/browser-cache";
 import { useTranslations } from "@/lib/i18n/client";
 import { KENYA_COUNTIES, ORG_TYPES } from "@/lib/content/constants";
 import { cn } from "@/lib/utils";
@@ -39,32 +42,38 @@ type Profile = {
 
 export function ProfileSettings() {
   const t = useTranslations();
-  const [profile, setProfile] = useState<Profile | null>(null);
-  const [form, setForm] = useState<Profile>({
-    email: "",
-    name: "",
-    orgName: "",
-    orgType: "",
-    county: "",
-    phone: "",
-  });
+  const cachedProfile = peekCachedJson<Profile & { error?: string }>("/api/profile");
+  const { data, loading: queryLoading, error: queryError } = useAuthQuery<Profile & { error?: string }>(
+    "/api/profile",
+    { ttlMs: CACHE_TTL.profile },
+  );
+  const [profile, setProfile] = useState<Profile | null>(
+    cachedProfile?.error ? null : cachedProfile,
+  );
+  const [form, setForm] = useState<Profile>(
+    cachedProfile?.error
+      ? { email: "", name: "", orgName: "", orgType: "", county: "", phone: "" }
+      : (cachedProfile ?? { email: "", name: "", orgName: "", orgType: "", county: "", phone: "" }),
+  );
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const loading = queryLoading && !data;
 
   useEffect(() => {
-    fetch("/api/profile")
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.error) setError(data.error);
-        else {
-          setProfile(data);
-          setForm(data);
-        }
-      })
-      .finally(() => setLoading(false));
-  }, []);
+    if (queryError) {
+      setError(queryError);
+      return;
+    }
+    if (data?.error) {
+      setError(data.error);
+      return;
+    }
+    if (data) {
+      setProfile(data);
+      setForm(data);
+    }
+  }, [data, queryError]);
 
   function update(field: keyof Profile, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -76,9 +85,8 @@ export function ProfileSettings() {
     setMessage("");
     setError("");
 
-    const res = await fetch("/api/profile", {
+    const res = await authFetch("/api/profile", {
       method: "PATCH",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         name: form.name,
         orgName: form.orgName,
@@ -95,6 +103,8 @@ export function ProfileSettings() {
       setError(data.error ?? t.dashboard.accountSettings.saveFailed);
       return;
     }
+
+    invalidateAuthCache("/api/profile");
 
     setProfile(data);
     setForm(data);
@@ -131,7 +141,7 @@ export function ProfileSettings() {
       description={t.dashboard.accountSettings.description}
     >
       <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_16rem]">
-        <Card className="border-0 shadow-md ring-1 ring-black/5">
+        <Card className="border-0 shadow-md ring-1 ring-border/60">
           <CardHeader>
             <CardTitle className="text-lg text-creco-primary">
               {t.dashboard.accountSettings.personalSection}
@@ -273,7 +283,7 @@ export function ProfileSettings() {
               {t.dashboard.accountSettings.orgLead}
             </CardContent>
           </Card>
-          <Card className="border-0 shadow-sm ring-1 ring-black/5">
+          <Card className="border-0 shadow-sm ring-1 ring-border/60">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-bold text-creco-primary">
                 {t.dashboard.stats.accountStatus}

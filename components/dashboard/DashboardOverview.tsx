@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import {
   ArrowRight,
   BookOpen,
@@ -19,6 +18,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
+import { useAuthQuery } from "@/hooks/useAuthQuery";
+import { CACHE_TTL } from "@/lib/browser-cache";
 import { useFormat, useTranslations } from "@/lib/i18n/client";
 import type { Dictionary } from "@/lib/i18n/messages/en";
 
@@ -50,9 +51,19 @@ function statusLabel(t: Dictionary, status: string): string {
 export function DashboardOverview() {
   const t = useTranslations();
   const format = useFormat();
-  const [profile, setProfile] = useState<Profile | null>(null);
-  const [submissions, setSubmissions] = useState<Submission[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data: profileData, loading: profileLoading } = useAuthQuery<Profile & { error?: string }>(
+    "/api/profile",
+    { ttlMs: CACHE_TTL.profile },
+  );
+  const { data: submissionsData, loading: submissionsLoading } = useAuthQuery<{
+    submissions?: Submission[];
+    error?: string;
+  }>("/api/submissions", { ttlMs: CACHE_TTL.submissions });
+
+  const profile = profileData?.error ? null : profileData;
+  const submissions = submissionsData?.error ? [] : (submissionsData?.submissions ?? []);
+  const loading =
+    (profileLoading && !profileData) || (submissionsLoading && !submissionsData);
 
   const QUICK_LINKS = [
     {
@@ -84,18 +95,6 @@ export function DashboardOverview() {
       accent: "bg-muted text-foreground",
     },
   ] as const;
-
-  useEffect(() => {
-    Promise.all([
-      fetch("/api/profile").then((r) => r.json()),
-      fetch("/api/submissions").then((r) => r.json()),
-    ])
-      .then(([profileData, submissionsData]) => {
-        if (!profileData.error) setProfile(profileData);
-        if (!submissionsData.error) setSubmissions(submissionsData.submissions ?? []);
-      })
-      .finally(() => setLoading(false));
-  }, []);
 
   const pendingCount = submissions.filter((s) => s.status === "pending").length;
   const recent = submissions.slice(0, 3);
@@ -132,7 +131,7 @@ export function DashboardOverview() {
                 sub: t.dashboard.stats.registeredUser,
               },
             ].map((stat) => (
-              <Card key={stat.label} className="border-0 shadow-md ring-1 ring-black/5">
+              <Card key={stat.label} className="border-0 shadow-md ring-1 ring-border/60">
                 <CardHeader className="pb-2">
                   <CardDescription className="text-xs font-semibold uppercase tracking-wider">
                     {stat.label}
@@ -157,8 +156,8 @@ export function DashboardOverview() {
             </p>
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               {QUICK_LINKS.map(({ href, title, description, icon: Icon, accent }) => (
-                <Link key={href} href={href} className="group no-underline">
-                  <Card className="h-full border-0 shadow-sm ring-1 ring-black/5 transition-all hover:-translate-y-0.5 hover:shadow-md">
+                <Link key={href} href={href} prefetch className="group no-underline">
+                  <Card className="h-full border-0 shadow-sm ring-1 ring-border/60 transition-all hover:-translate-y-0.5 hover:shadow-md">
                     <CardHeader className="flex-row items-start gap-4 space-y-0">
                       <span
                         className={`flex size-11 shrink-0 items-center justify-center rounded-xl ${accent}`}
@@ -184,7 +183,7 @@ export function DashboardOverview() {
             </div>
           </div>
 
-          <Card className="border-0 shadow-md ring-1 ring-black/5">
+          <Card className="border-0 shadow-md ring-1 ring-border/60">
             <CardHeader className="flex flex-row items-center justify-between gap-4 space-y-0">
               <div>
                 <CardTitle className="flex items-center gap-2 text-lg text-creco-primary">
@@ -197,6 +196,7 @@ export function DashboardOverview() {
               </div>
               <Link
                 href="/monitoring/submissions"
+                prefetch
                 className="inline-flex items-center gap-1 rounded-lg border border-input px-3 py-1.5 text-sm font-medium no-underline transition-colors hover:bg-muted"
               >
                 {t.common.viewAll}
@@ -211,6 +211,7 @@ export function DashboardOverview() {
                   </p>
                   <Link
                     href="/monitoring"
+                    prefetch
                     className="mt-4 inline-flex h-10 items-center justify-center rounded-lg bg-creco-primary px-4 text-sm font-semibold text-white no-underline transition-colors hover:bg-creco-primary-dark"
                   >
                     {t.dashboard.recentSubmissions.submitFirst}

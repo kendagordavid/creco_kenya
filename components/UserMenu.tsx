@@ -90,17 +90,17 @@ export function UserMenu() {
           "flex items-center gap-2 rounded-lg border px-2 py-1.5 text-left transition",
           open || onDashboard
             ? "border-creco-primary/30 bg-creco-green-muted"
-            : "border-creco-border bg-white hover:border-creco-primary/20 hover:bg-creco-surface",
+            : "border-border bg-card hover:border-creco-primary/20 hover:bg-muted",
         )}
       >
         <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-creco-primary text-xs font-bold text-white">
           {initials}
         </span>
-        <span className="hidden max-w-[7rem] truncate text-sm font-semibold text-creco-black sm:block">
+        <span className="hidden max-w-[7rem] truncate text-sm font-semibold text-foreground sm:block">
           {firstName}
         </span>
         <ChevronDown
-          className={cn("size-4 shrink-0 text-creco-muted transition", open && "rotate-180")}
+          className={cn("size-4 shrink-0 text-muted-foreground transition", open && "rotate-180")}
           aria-hidden
         />
       </button>
@@ -108,11 +108,11 @@ export function UserMenu() {
       {open && (
         <div
           role="menu"
-          className="absolute right-0 z-50 mt-2 w-56 overflow-hidden rounded-xl border border-creco-border bg-white py-1 shadow-lg ring-1 ring-black/5"
+          className="absolute right-0 z-50 mt-2 w-56 overflow-hidden rounded-xl border border-border bg-popover py-1 shadow-lg ring-1 ring-border/60"
         >
-          <div className="border-b border-creco-border px-3 py-2.5">
-            <p className="truncate text-sm font-semibold text-creco-black">{session.user.name}</p>
-            <p className="truncate text-xs text-creco-muted">{session.user.email}</p>
+          <div className="border-b border-border px-3 py-2.5">
+            <p className="truncate text-sm font-semibold text-popover-foreground">{session.user.name}</p>
+            <p className="truncate text-xs text-muted-foreground">{session.user.email}</p>
           </div>
 
           {accountLinks.map((item) => (
@@ -121,13 +121,13 @@ export function UserMenu() {
               href={item.href}
               role="menuitem"
               onClick={() => setOpen(false)}
-              className="block px-3 py-2.5 text-sm font-medium text-creco-black-soft no-underline transition hover:bg-creco-green-muted hover:text-creco-primary"
+              className="block px-3 py-2.5 text-sm font-medium text-popover-foreground no-underline transition hover:bg-muted hover:text-creco-primary"
             >
               {item.label}
             </Link>
           ))}
 
-          <div className="my-1 border-t border-creco-border" />
+          <div className="my-1 border-t border-border" />
 
           <button
             type="button"
@@ -136,7 +136,7 @@ export function UserMenu() {
               setOpen(false);
               signOut({ callbackUrl: "/" });
             }}
-            className="flex w-full items-center gap-2 px-3 py-2.5 text-left text-sm font-medium text-creco-black-soft transition hover:bg-red-50 hover:text-red-700"
+            className="flex w-full items-center gap-2 px-3 py-2.5 text-left text-sm font-medium text-popover-foreground transition hover:bg-destructive/10 hover:text-destructive"
           >
             <LogOut className="size-4" aria-hidden />
             {t.nav.signOut}

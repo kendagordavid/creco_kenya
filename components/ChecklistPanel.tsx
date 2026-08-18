@@ -4,8 +4,18 @@ import { useEffect, useMemo, useState } from "react";
 import { CHECKLIST_SECTIONS, CHECKLIST_STORAGE_KEY } from "@/lib/content/checklist";
 import { loadPersistedData, savePersistedData } from "@/lib/persist-user-data";
 
+function readChecklistProgress(): Record<string, boolean> {
+  if (typeof window === "undefined") return {};
+  try {
+    const saved = localStorage.getItem(CHECKLIST_STORAGE_KEY);
+    return saved ? (JSON.parse(saved) as Record<string, boolean>) : {};
+  } catch {
+    return {};
+  }
+}
+
 export function ChecklistPanel() {
-  const [checked, setChecked] = useState<Record<string, boolean>>({});
+  const [checked, setChecked] = useState<Record<string, boolean>>(readChecklistProgress);
   const totalItems = useMemo(
     () => CHECKLIST_SECTIONS.reduce((sum, s) => sum + s.items.length, 0),
     [],

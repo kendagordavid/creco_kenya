@@ -4,23 +4,10 @@ import { z } from "zod";
 import { canViewAllReports } from "@/lib/authz";
 import { findSubmissionById, updateSubmissionStatus } from "@/lib/store";
 
-const updateSchema = z
-  .object({
-    status: z.enum(["pending", "under_review", "approved", "rejected"]),
-    reviewComment: z.string().trim().min(10).max(2000).optional(),
-  })
-  .superRefine((data, ctx) => {
-    if (
-      (data.status === "approved" || data.status === "rejected") &&
-      !data.reviewComment
-    ) {
-      ctx.addIssue({
-        code: "custom",
-        message: "A review comment is required when approving or rejecting a report.",
-        path: ["reviewComment"],
-      });
-    }
-  });
+const updateSchema = z.object({
+  status: z.enum(["pending", "under_review", "approved", "rejected"]),
+  reviewComment: z.string().trim().max(2000).optional(),
+});
 
 type RouteContext = {
   params: Promise<{ id: string }>;

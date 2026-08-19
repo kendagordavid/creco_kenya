@@ -379,11 +379,10 @@ export const en = {
     filterLabel: "Filter",
     filterAll: "All statuses",
     reviewCommentLabel: "Review comment",
-    reviewCommentPlaceholder:
-      "Explain why this report is approved or rejected (required for final decisions).",
-    reviewCommentHint: "Required when setting status to Approved or Rejected.",
-    reviewCommentRequired: "Add a review comment before approving or rejecting this report.",
-    saveReview: "Save review",
+    reviewCommentPlaceholder: "Add an optional note about this decision…",
+    reviewCommentHint: "Optional — visible to the submitter when provided.",
+    addReviewComment: "Add review comment",
+    saveComment: "Save comment",
   },
   adminCompliance: {
     metaTitle: "Organisation compliance oversight",

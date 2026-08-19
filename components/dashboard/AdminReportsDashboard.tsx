@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ClipboardList, Loader2 } from "lucide-react";
+import { ClipboardList, Loader2, MessageSquare } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -37,11 +37,6 @@ type AdminSubmission = {
   reporter: Reporter | null;
 };
 
-type ReviewDraft = {
-  status: string;
-  reviewComment: string;
-};
-
 const STATUS_CLASS: Record<string, string> = {
   pending: "creco-status-pending",
   under_review: "creco-status-review",
@@ -63,12 +58,11 @@ function statusLabel(t: Dictionary, status: string): string {
   return status.replace("_", " ");
 }
 
-function draftsFromSubmissions(submissions: AdminSubmission[]): Record<string, ReviewDraft> {
+function commentDraftsFromSubmissions(
+  submissions: AdminSubmission[],
+): Record<string, string> {
   return Object.fromEntries(
-    submissions.map((item) => [
-      item.id,
-      { status: item.status, reviewComment: item.reviewComment ?? "" },
-    ]),
+    submissions.map((item) => [item.id, item.reviewComment ?? ""]),
   );
 }
 
@@ -85,11 +79,13 @@ export function AdminReportsDashboard() {
   const [submissions, setSubmissions] = useState<AdminSubmission[]>(
     () => (cached?.error ? [] : (cached?.submissions ?? [])),
   );
-  const [drafts, setDrafts] = useState<Record<string, ReviewDraft>>(() =>
-    draftsFromSubmissions(cached?.error ? [] : (cached?.submissions ?? [])),
+  const [commentDrafts, setCommentDrafts] = useState<Record<string, string>>(() =>
+    commentDraftsFromSubmissions(cached?.error ? [] : (cached?.submissions ?? [])),
   );
+  const [openCommentId, setOpenCommentId] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [updatingId, setUpdatingId] = useState<string | null>(null);
+  const [savingCommentId, setSavingCommentId] = useState<string | null>(null);
   const [notice, setNotice] = useState("");
   const error = queryError ?? data?.error ?? "";
 
@@ -97,7 +93,7 @@ export function AdminReportsDashboard() {
     if (data && !data.error) {
       const next = data.submissions ?? [];
       setSubmissions(next);
-      setDrafts(draftsFromSubmissions(next));
+      setCommentDrafts(commentDraftsFromSubmissions(next));
     }
   }, [data]);
 
@@ -106,37 +102,14 @@ export function AdminReportsDashboard() {
     return submissions.filter((item) => item.status === statusFilter);
   }, [submissions, statusFilter]);
 
-  function updateDraft(id: string, patch: Partial<ReviewDraft>) {
-    setDrafts((current) => ({
-      ...current,
-      [id]: { ...current[id], ...patch },
-    }));
-  }
-
-  async function handleSaveReview(id: string) {
-    const draft = drafts[id];
-    if (!draft) return;
-
-    const trimmedComment = draft.reviewComment.trim();
-    const requiresComment = draft.status === "approved" || draft.status === "rejected";
-
-    if (requiresComment && !trimmedComment) {
-      setNotice(t.admin.reviewCommentRequired);
-      return;
-    }
-
+  async function handleStatusChange(id: string, status: string) {
     setUpdatingId(id);
     setNotice("");
-
-    const payload: { status: string; reviewComment?: string } = { status: draft.status };
-    if (requiresComment) {
-      payload.reviewComment = trimmedComment;
-    }
 
     try {
       const response = await authFetch(`/api/admin/submissions/${id}`, {
         method: "PATCH",
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ status }),
       });
       const responseData = await response.json();
       if (!response.ok) {
@@ -149,18 +122,54 @@ export function AdminReportsDashboard() {
       setSubmissions((current) =>
         current.map((item) => (item.id === id ? { ...item, ...updated } : item)),
       );
-      setDrafts((current) => ({
-        ...current,
-        [id]: {
-          status: updated.status,
-          reviewComment: updated.reviewComment ?? "",
-        },
-      }));
       setNotice(t.admin.statusUpdated);
     } catch {
       setNotice(t.admin.statusFailed);
     } finally {
       setUpdatingId(null);
+    }
+  }
+
+  async function handleSaveComment(id: string) {
+    const item = submissions.find((entry) => entry.id === id);
+    if (!item) return;
+
+    setSavingCommentId(id);
+    setNotice("");
+
+    const trimmedComment = (commentDrafts[id] ?? "").trim();
+
+    try {
+      const response = await authFetch(`/api/admin/submissions/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify({
+          status: item.status,
+          reviewComment: trimmedComment || null,
+        }),
+      });
+      const responseData = await response.json();
+      if (!response.ok) {
+        setNotice(responseData.error ?? t.admin.statusFailed);
+        return;
+      }
+
+      invalidateAuthCache("/api/admin/submissions");
+      const updated = responseData.submission as AdminSubmission;
+      setSubmissions((current) =>
+        current.map((entry) => (entry.id === id ? { ...entry, ...updated } : entry)),
+      );
+      setCommentDrafts((current) => ({
+        ...current,
+        [id]: updated.reviewComment ?? "",
+      }));
+      if (!updated.reviewComment) {
+        setOpenCommentId((current) => (current === id ? null : current));
+      }
+      setNotice(t.admin.statusUpdated);
+    } catch {
+      setNotice(t.admin.statusFailed);
+    } finally {
+      setSavingCommentId(null);
     }
   }
 
@@ -219,12 +228,9 @@ export function AdminReportsDashboard() {
           )}
 
           {filtered.map((item) => {
-            const draft = drafts[item.id] ?? {
-              status: item.status,
-              reviewComment: item.reviewComment ?? "",
-            };
-            const requiresComment =
-              draft.status === "approved" || draft.status === "rejected";
+            const commentDraft = commentDrafts[item.id] ?? item.reviewComment ?? "";
+            const hasComment = Boolean(item.reviewComment?.trim());
+            const commentOpen = openCommentId === item.id;
 
             return (
               <Card
@@ -258,74 +264,95 @@ export function AdminReportsDashboard() {
                     </div>
                   )}
 
-                  {item.reviewComment && (
+                  {hasComment && !commentOpen && (
                     <div className="rounded-lg border border-creco-border bg-muted/30 px-4 py-3 text-sm">
                       <p className="font-semibold text-creco-primary">{t.admin.reviewCommentLabel}</p>
                       <p className="mt-1 leading-relaxed text-foreground/90">{item.reviewComment}</p>
                     </div>
                   )}
 
-                  <div className="space-y-3 rounded-lg border border-creco-border bg-white px-4 py-4">
-                    <label className="block space-y-2 text-sm">
-                      <span className="font-semibold text-creco-primary">
-                        {t.admin.reviewCommentLabel}
-                      </span>
-                      <textarea
-                        value={draft.reviewComment}
-                        disabled={updatingId === item.id}
-                        onChange={(event) =>
-                          updateDraft(item.id, { reviewComment: event.target.value })
-                        }
-                        rows={4}
-                        placeholder={t.admin.reviewCommentPlaceholder}
-                        className="w-full resize-y rounded-lg border border-creco-border bg-white px-3 py-2 text-sm leading-relaxed text-foreground disabled:opacity-60"
-                      />
-                      <span className="block text-xs text-muted-foreground">
-                        {t.admin.reviewCommentHint}
-                      </span>
-                    </label>
-
-                    <div className="flex flex-wrap items-center justify-between gap-3 border-t border-creco-border pt-3">
-                      <p className="text-xs font-medium text-muted-foreground">
-                        {t.common.referenceId}{" "}
-                        <span className="font-mono">{item.id.slice(0, 8)}</span>
-                      </p>
-                      <div className="flex flex-wrap items-center gap-2">
-                        <label className="flex items-center gap-2 text-sm">
-                          <span className="font-medium text-muted-foreground">
-                            {t.admin.updateStatus}
-                          </span>
-                          <select
-                            value={draft.status}
-                            disabled={updatingId === item.id}
-                            onChange={(event) =>
-                              updateDraft(item.id, { status: event.target.value })
-                            }
-                            className="rounded-lg border border-creco-border bg-white px-3 py-1.5 text-sm disabled:opacity-60"
-                          >
-                            {STATUS_OPTIONS.map((status) => (
-                              <option key={status} value={status}>
-                                {statusLabel(t, status)}
-                              </option>
-                            ))}
-                          </select>
-                        </label>
+                  {commentOpen && (
+                    <div className="rounded-lg border border-creco-border bg-white px-3 py-3 text-sm">
+                      <label className="block space-y-2">
+                        <span className="font-medium text-creco-primary">
+                          {t.admin.reviewCommentLabel}
+                        </span>
+                        <textarea
+                          value={commentDraft}
+                          disabled={savingCommentId === item.id}
+                          onChange={(event) =>
+                            setCommentDrafts((current) => ({
+                              ...current,
+                              [item.id]: event.target.value,
+                            }))
+                          }
+                          rows={3}
+                          placeholder={t.admin.reviewCommentPlaceholder}
+                          className="w-full resize-y rounded-lg border border-creco-border bg-white px-3 py-2 text-sm leading-relaxed text-foreground disabled:opacity-60"
+                        />
+                        <span className="block text-xs text-muted-foreground">
+                          {t.admin.reviewCommentHint}
+                        </span>
+                      </label>
+                      <div className="mt-2 flex justify-end">
                         <button
                           type="button"
-                          disabled={updatingId === item.id || (requiresComment && !draft.reviewComment.trim())}
-                          onClick={() => handleSaveReview(item.id)}
-                          className="inline-flex h-9 items-center rounded-lg bg-creco-primary px-4 text-sm font-semibold text-white transition-colors hover:bg-creco-primary-dark disabled:cursor-not-allowed disabled:opacity-60"
+                          disabled={savingCommentId === item.id}
+                          onClick={() => handleSaveComment(item.id)}
+                          className="inline-flex h-8 items-center rounded-lg bg-creco-primary px-3 text-xs font-semibold text-white transition-colors hover:bg-creco-primary-dark disabled:cursor-not-allowed disabled:opacity-60"
                         >
-                          {updatingId === item.id ? (
+                          {savingCommentId === item.id ? (
                             <>
-                              <Loader2 className="mr-2 size-4 animate-spin" aria-hidden />
+                              <Loader2 className="mr-1.5 size-3.5 animate-spin" aria-hidden />
                               {t.admin.loading}
                             </>
                           ) : (
-                            t.admin.saveReview
+                            t.admin.saveComment
                           )}
                         </button>
                       </div>
+                    </div>
+                  )}
+
+                  <div className="flex flex-wrap items-center justify-between gap-3 border-t border-creco-border pt-3">
+                    <p className="text-xs font-medium text-muted-foreground">
+                      {t.common.referenceId}{" "}
+                      <span className="font-mono">{item.id.slice(0, 8)}</span>
+                    </p>
+                    <div className="flex items-center gap-2">
+                      <label className="flex items-center gap-2 text-sm">
+                        <span className="font-medium text-muted-foreground">
+                          {t.admin.updateStatus}
+                        </span>
+                        <select
+                          value={item.status}
+                          disabled={updatingId === item.id}
+                          onChange={(event) => handleStatusChange(item.id, event.target.value)}
+                          className="rounded-lg border border-creco-border bg-white px-3 py-1.5 text-sm disabled:opacity-60"
+                        >
+                          {STATUS_OPTIONS.map((status) => (
+                            <option key={status} value={status}>
+                              {statusLabel(t, status)}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                      <button
+                        type="button"
+                        aria-label={t.admin.addReviewComment}
+                        aria-expanded={commentOpen}
+                        disabled={updatingId === item.id || savingCommentId === item.id}
+                        onClick={() =>
+                          setOpenCommentId((current) => (current === item.id ? null : item.id))
+                        }
+                        className={`inline-flex size-9 shrink-0 items-center justify-center rounded-lg border transition-colors disabled:opacity-60 ${
+                          hasComment || commentOpen
+                            ? "border-creco-primary/30 bg-creco-green-muted text-creco-primary"
+                            : "border-creco-border bg-white text-muted-foreground hover:border-creco-primary/30 hover:text-creco-primary"
+                        }`}
+                      >
+                        <MessageSquare className="size-4" aria-hidden />
+                      </button>
                     </div>
                   </div>
                 </CardContent>

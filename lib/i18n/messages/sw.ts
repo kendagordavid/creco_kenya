@@ -381,11 +381,10 @@ export const sw: Dictionary = {
     filterLabel: "Chuja",
     filterAll: "Hali zote",
     reviewCommentLabel: "Maoni ya ukaguzi",
-    reviewCommentPlaceholder:
-      "Eleza kwa nini ripoti hii imeidhinishwa au kukataliwa (inahitajika kwa uamuzi wa mwisho).",
-    reviewCommentHint: "Inahitajika unapoweka hali kuwa Imeidhinishwa au Imekataliwa.",
-    reviewCommentRequired: "Ongeza maoni ya ukaguzi kabla ya kuidhinisha au kukataa ripoti hii.",
-    saveReview: "Hifadhi ukaguzi",
+    reviewCommentPlaceholder: "Ongeza maelezo ya hiari kuhusu uamuzi huu…",
+    reviewCommentHint: "Si lazima — mtumiaji ataona ikiwa umeongeza.",
+    addReviewComment: "Ongeza maoni ya ukaguzi",
+    saveComment: "Hifadhi maoni",
   },
   adminCompliance: {
     metaTitle: "Uangalizi wa utiifu wa mashirika",

@@ -367,3 +367,107 @@ export async function deleteUserData(userId: string, dataKey: string): Promise<v
       AND data_key = ${dataKey}
   `;
 }
+
+export type ComplianceUserSnapshot = {
+  user: {
+    id: string;
+    email: string;
+    name: string;
+    orgName: string;
+    orgType?: string;
+    county?: string;
+    createdAt: string;
+  };
+  checklist: unknown | null;
+  checklistUpdatedAt: string | null;
+  assessment: unknown | null;
+  assessmentUpdatedAt: string | null;
+};
+
+export async function listComplianceSnapshots(): Promise<ComplianceUserSnapshot[]> {
+  const sql = getSql();
+  const users = await sql<UserRow[]>`
+    SELECT *
+    FROM users
+    WHERE role = 'pbo_user'
+    ORDER BY org_name ASC, name ASC
+  `;
+
+  if (users.length === 0) return [];
+
+  const userIds = users.map((u) => u.id);
+  const dataRows = await sql<
+    { user_id: string; data_key: string; payload: unknown; updated_at: Date }[]
+  >`
+    SELECT user_id, data_key, payload, updated_at
+    FROM user_data
+    WHERE user_id IN ${sql(userIds)}
+      AND data_key IN ('creco-checklist-progress', 'creco-assessment-answers')
+  `;
+
+  const byUser = new Map<
+    string,
+    {
+      checklist: unknown | null;
+      checklistUpdatedAt: string | null;
+      assessment: unknown | null;
+      assessmentUpdatedAt: string | null;
+    }
+  >();
+
+  for (const user of users) {
+    byUser.set(user.id, {
+      checklist: null,
+      checklistUpdatedAt: null,
+      assessment: null,
+      assessmentUpdatedAt: null,
+    });
+  }
+
+  for (const row of dataRows) {
+    const entry = byUser.get(row.user_id);
+    if (!entry) continue;
+    const updatedAt = row.updated_at.toISOString();
+
+    if (row.data_key === "creco-checklist-progress") {
+      entry.checklist = row.payload;
+      entry.checklistUpdatedAt = updatedAt;
+    } else if (row.data_key === "creco-assessment-answers") {
+      entry.assessment = row.payload;
+      entry.assessmentUpdatedAt = updatedAt;
+    }
+  }
+
+  return users.map((user) => {
+    const progress = byUser.get(user.id)!;
+    return {
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        orgName: user.org_name,
+        orgType: user.org_type ?? undefined,
+        county: user.county ?? undefined,
+        createdAt: user.created_at.toISOString(),
+      },
+      checklist: progress.checklist,
+      checklistUpdatedAt: progress.checklistUpdatedAt,
+      assessment: progress.assessment,
+      assessmentUpdatedAt: progress.assessmentUpdatedAt,
+    };
+  });
+}
+
+export async function countSubmissionsByUsers(userIds: string[]): Promise<Record<string, number>> {
+  if (userIds.length === 0) return {};
+
+  const sql = getSql();
+  const rows = await sql<{ user_id: string; count: number }[]>`
+    SELECT user_id, count(*)::int AS count
+    FROM submissions
+    WHERE user_id IN ${sql(userIds)}
+    GROUP BY user_id
+  `;
+
+  return Object.fromEntries(rows.map((row) => [row.user_id, row.count]));
+}

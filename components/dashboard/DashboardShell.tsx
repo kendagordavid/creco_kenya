@@ -11,6 +11,7 @@ import {
   Settings,
   Shield,
   ShieldCheck,
+  BarChart3,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useFormat, useTranslations } from "@/lib/i18n/client";
@@ -35,7 +36,10 @@ export function DashboardShell({ children, title, description }: Props) {
     { href: "/monitoring/submissions", label: t.nav.submissions, icon: ClipboardList },
     { href: "/monitoring", label: t.dashboard.submitReport, icon: FilePlus, exact: true },
     ...(isSuperuser(session?.user?.role)
-      ? [{ href: "/admin/reports", label: t.nav.allReports, icon: ShieldCheck, exact: true as const }]
+      ? [
+          { href: "/admin/compliance", label: t.nav.orgProgress, icon: BarChart3, exact: true as const },
+          { href: "/admin/reports", label: t.nav.allReports, icon: ShieldCheck, exact: true as const },
+        ]
       : []),
   ] as const;
 

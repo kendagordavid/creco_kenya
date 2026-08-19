@@ -74,7 +74,10 @@ export function UserMenu() {
     { href: "/monitoring/submissions", label: t.nav.submissions },
     { href: "/profile/account", label: t.nav.account },
     ...(isSuperuser(session.user.role)
-      ? [{ href: "/admin/reports", label: t.nav.allReports }]
+      ? [
+          { href: "/admin/compliance", label: t.nav.orgProgress },
+          { href: "/admin/reports", label: t.nav.allReports },
+        ]
       : []),
   ] as const;
 

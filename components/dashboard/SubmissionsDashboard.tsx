@@ -21,6 +21,7 @@ type Submission = {
   status: string;
   county: string;
   narrative: string;
+  reviewComment?: string;
   createdAt: string;
 };
 
@@ -126,6 +127,17 @@ export function SubmissionsDashboard() {
               </CardHeader>
               <CardContent className="space-y-3 pt-0">
                 <p className="text-sm leading-relaxed text-foreground/90">{item.narrative}</p>
+                {item.reviewComment &&
+                  (item.status === "approved" || item.status === "rejected") && (
+                    <div className="rounded-lg border border-creco-border bg-muted/30 px-4 py-3 text-sm">
+                      <p className="font-semibold text-creco-primary">
+                        {item.status === "approved"
+                          ? t.dashboard.submissions.reviewCommentApproved
+                          : t.dashboard.submissions.reviewCommentRejected}
+                      </p>
+                      <p className="mt-1 leading-relaxed text-foreground/90">{item.reviewComment}</p>
+                    </div>
+                  )}
                 <p className="text-xs font-medium text-muted-foreground">
                   {t.common.referenceId}{" "}
                   <span className="font-mono">{item.id.slice(0, 8)}</span>

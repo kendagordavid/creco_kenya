@@ -345,6 +345,9 @@ export const en = {
         "Share your PBO registration experience, enabling practices, or civic space incidents confidentially with CRECO.",
       submitReport: "Submit a report",
       newReport: "New report",
+      reviewCommentLabel: "Review decision",
+      reviewCommentApproved: "Reason for approval",
+      reviewCommentRejected: "Reason for rejection",
     },
     accountSettings: {
       metaTitle: "Account settings",
@@ -375,6 +378,12 @@ export const en = {
     statusFailed: "Could not update report status.",
     filterLabel: "Filter",
     filterAll: "All statuses",
+    reviewCommentLabel: "Review comment",
+    reviewCommentPlaceholder:
+      "Explain why this report is approved or rejected (required for final decisions).",
+    reviewCommentHint: "Required when setting status to Approved or Rejected.",
+    reviewCommentRequired: "Add a review comment before approving or rejecting this report.",
+    saveReview: "Save review",
   },
   adminCompliance: {
     metaTitle: "Organisation compliance oversight",

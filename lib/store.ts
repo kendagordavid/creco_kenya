@@ -33,6 +33,7 @@ export type SubmissionRecord = {
   orgType?: string;
   consentGiven: boolean;
   attachmentNote?: string;
+  reviewComment?: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -72,6 +73,7 @@ type SubmissionRow = {
   org_type: string | null;
   consent_given: boolean;
   attachment_note: string | null;
+  review_comment: string | null;
   created_at: Date;
   updated_at: Date;
 };
@@ -114,6 +116,7 @@ function mapSubmission(row: SubmissionRow): SubmissionRecord {
     orgType: row.org_type ?? undefined,
     consentGiven: row.consent_given,
     attachmentNote: row.attachment_note ?? undefined,
+    reviewComment: row.review_comment ?? undefined,
     createdAt: row.created_at.toISOString(),
     updatedAt: row.updated_at.toISOString(),
   };
@@ -304,16 +307,28 @@ export async function listAllSubmissions(): Promise<SubmissionRecord[]> {
 export async function updateSubmissionStatus(
   id: string,
   status: SubmissionStatus,
+  reviewComment?: string | null,
 ): Promise<SubmissionRecord | undefined> {
   const sql = getSql();
-  const rows = await sql<SubmissionRow[]>`
-    UPDATE submissions
-    SET
-      status = ${status},
-      updated_at = NOW()
-    WHERE id = ${id}
-    RETURNING *
-  `;
+  const rows =
+    reviewComment !== undefined
+      ? await sql<SubmissionRow[]>`
+          UPDATE submissions
+          SET
+            status = ${status},
+            review_comment = ${reviewComment},
+            updated_at = NOW()
+          WHERE id = ${id}
+          RETURNING *
+        `
+      : await sql<SubmissionRow[]>`
+          UPDATE submissions
+          SET
+            status = ${status},
+            updated_at = NOW()
+          WHERE id = ${id}
+          RETURNING *
+        `;
   return rows[0] ? mapSubmission(rows[0]) : undefined;
 }
 

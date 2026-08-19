@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS submissions (
   org_type TEXT,
   consent_given BOOLEAN NOT NULL,
   attachment_note TEXT,
+  review_comment TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );

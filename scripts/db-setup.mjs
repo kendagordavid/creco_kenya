@@ -57,6 +57,9 @@ async function main() {
   await sql.unsafe(schema);
   console.log("Applied schema from db/schema.sql");
 
+  await sql`ALTER TABLE submissions ADD COLUMN IF NOT EXISTS review_comment TEXT`;
+  console.log("Ensured submissions.review_comment column");
+
   const seedPath = path.join(root, "data", "users.seed.json");
   const seedUsers = JSON.parse(fs.readFileSync(seedPath, "utf8"));
 

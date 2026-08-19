@@ -347,6 +347,9 @@ export const sw: Dictionary = {
         "Shiriki uzoefu wako wa usajili wa PBO, mazoea yanayowezesha, au matukio ya nafasi ya kiraia kwa siri na CRECO.",
       submitReport: "Wasilisha ripoti",
       newReport: "Ripoti mpya",
+      reviewCommentLabel: "Uamuzi wa ukaguzi",
+      reviewCommentApproved: "Sababu ya kuidhinisha",
+      reviewCommentRejected: "Sababu ya kukataliwa",
     },
     accountSettings: {
       metaTitle: "Mipangilio ya akaunti",
@@ -377,6 +380,12 @@ export const sw: Dictionary = {
     statusFailed: "Imeshindwa kusasisha hali ya ripoti.",
     filterLabel: "Chuja",
     filterAll: "Hali zote",
+    reviewCommentLabel: "Maoni ya ukaguzi",
+    reviewCommentPlaceholder:
+      "Eleza kwa nini ripoti hii imeidhinishwa au kukataliwa (inahitajika kwa uamuzi wa mwisho).",
+    reviewCommentHint: "Inahitajika unapoweka hali kuwa Imeidhinishwa au Imekataliwa.",
+    reviewCommentRequired: "Ongeza maoni ya ukaguzi kabla ya kuidhinisha au kukataa ripoti hii.",
+    saveReview: "Hifadhi ukaguzi",
   },
   adminCompliance: {
     metaTitle: "Uangalizi wa utiifu wa mashirika",

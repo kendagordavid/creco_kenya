@@ -96,7 +96,7 @@ export function ChatTurn({ turn, active, index, onViewSources }: Props) {
               <button
                 type="button"
                 onClick={onViewSources}
-                className="text-xs font-semibold text-creco-accent hover:underline"
+                className="inline-flex min-h-11 items-center rounded-lg px-2 text-xs font-semibold text-creco-accent hover:underline sm:px-3"
               >
                 {t.chatTurn.viewSources}
               </button>

@@ -47,7 +47,7 @@ export function UserMenu() {
       <div className="flex items-center gap-2">
         <Link
           href="/login"
-          className="rounded-lg px-3 py-2 text-sm font-semibold text-creco-black-soft no-underline transition hover:bg-creco-green-muted hover:text-creco-primary"
+          className="inline-flex min-h-11 items-center rounded-lg px-3 text-sm font-semibold text-creco-black-soft no-underline transition hover:bg-creco-green-muted hover:text-creco-primary"
         >
           {t.nav.login}
         </Link>
@@ -90,7 +90,7 @@ export function UserMenu() {
         aria-label={t.nav.accountMenu}
         onClick={() => setOpen((value) => !value)}
         className={cn(
-          "flex items-center gap-2 rounded-lg border px-2 py-1.5 text-left transition",
+          "flex min-h-11 items-center gap-2 rounded-lg border px-2 py-1.5 text-left transition",
           open || onDashboard
             ? "border-creco-primary/30 bg-creco-green-muted"
             : "border-border bg-card hover:border-creco-primary/20 hover:bg-muted",

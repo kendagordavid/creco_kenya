@@ -126,7 +126,7 @@ export function SubmissionsDashboard() {
                 </span>
               </CardHeader>
               <CardContent className="space-y-3 pt-0">
-                <p className="text-sm leading-relaxed text-foreground/90">{item.narrative}</p>
+                <p className="creco-break-words text-sm leading-relaxed text-foreground/90">{item.narrative}</p>
                 {item.reviewComment &&
                   (item.status === "approved" || item.status === "rejected") && (
                     <div className="rounded-lg border border-creco-border bg-muted/30 px-4 py-3 text-sm">

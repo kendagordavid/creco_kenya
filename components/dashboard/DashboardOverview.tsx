@@ -184,10 +184,10 @@ export function DashboardOverview() {
           </div>
 
           <Card className="border-0 shadow-md ring-1 ring-border/60">
-            <CardHeader className="flex flex-row items-center justify-between gap-4 space-y-0">
-              <div>
+            <CardHeader className="flex flex-col gap-3 space-y-0 sm:flex-row sm:items-center sm:justify-between">
+              <div className="min-w-0">
                 <CardTitle className="flex items-center gap-2 text-lg text-creco-primary">
-                  <ClipboardList className="size-5" aria-hidden />
+                  <ClipboardList className="size-5 shrink-0" aria-hidden />
                   {t.dashboard.recentSubmissions.title}
                 </CardTitle>
                 <CardDescription className="mt-1">
@@ -197,7 +197,7 @@ export function DashboardOverview() {
               <Link
                 href="/monitoring/submissions"
                 prefetch
-                className="inline-flex items-center gap-1 rounded-lg border border-input px-3 py-1.5 text-sm font-medium no-underline transition-colors hover:bg-muted"
+                className="inline-flex min-h-11 w-full items-center justify-center gap-1 rounded-lg border border-input px-3 text-sm font-medium no-underline transition-colors hover:bg-muted sm:w-auto"
               >
                 {t.common.viewAll}
                 <ArrowRight className="size-3.5" aria-hidden />

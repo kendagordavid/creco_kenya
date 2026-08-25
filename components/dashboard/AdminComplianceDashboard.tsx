@@ -403,14 +403,14 @@ export function AdminComplianceDashboard() {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder={t.adminCompliance.searchPlaceholder}
-                  className="pl-9"
+                  className="h-11 pl-9"
                 />
               </div>
-              <div className="flex flex-wrap items-center gap-2">
+              <div className="grid grid-cols-1 gap-2 sm:flex sm:flex-wrap sm:items-center">
                 <select
                   value={county}
                   onChange={(e) => setCounty(e.target.value)}
-                  className="h-9 rounded-lg border border-input bg-background px-3 text-sm"
+                  className="h-11 w-full rounded-lg border border-input bg-background px-3 text-sm sm:min-w-[8rem] sm:flex-1 sm:w-auto"
                   aria-label={t.adminCompliance.countyFilter}
                 >
                   <option value="all">{t.adminCompliance.allCounties}</option>
@@ -423,7 +423,7 @@ export function AdminComplianceDashboard() {
                 <select
                   value={tierFilter}
                   onChange={(e) => setTierFilter(e.target.value as ProgressTier | "all")}
-                  className="h-9 rounded-lg border border-input bg-background px-3 text-sm"
+                  className="h-11 w-full rounded-lg border border-input bg-background px-3 text-sm sm:min-w-[8rem] sm:flex-1 sm:w-auto"
                   aria-label={t.adminCompliance.tierFilter}
                 >
                   <option value="all">{t.adminCompliance.allTiers}</option>
@@ -436,7 +436,7 @@ export function AdminComplianceDashboard() {
                 <select
                   value={sort}
                   onChange={(e) => setSort(e.target.value as SortKey)}
-                  className="h-9 rounded-lg border border-input bg-background px-3 text-sm"
+                  className="h-11 w-full rounded-lg border border-input bg-background px-3 text-sm sm:min-w-[8rem] sm:flex-1 sm:w-auto"
                   aria-label={t.adminCompliance.sortLabel}
                 >
                   <option value="checklist">{t.adminCompliance.sort.checklist}</option>
@@ -449,7 +449,7 @@ export function AdminComplianceDashboard() {
                     type="button"
                     onClick={() => setView("grid")}
                     className={cn(
-                      "rounded-md p-2 transition",
+                      "inline-flex size-11 items-center justify-center rounded-md transition",
                       view === "grid" ? "bg-creco-primary text-white" : "text-muted-foreground hover:bg-muted",
                     )}
                     aria-label={t.adminCompliance.gridView}
@@ -460,7 +460,7 @@ export function AdminComplianceDashboard() {
                     type="button"
                     onClick={() => setView("list")}
                     className={cn(
-                      "rounded-md p-2 transition",
+                      "inline-flex size-11 items-center justify-center rounded-md transition",
                       view === "list" ? "bg-creco-primary text-white" : "text-muted-foreground hover:bg-muted",
                     )}
                     aria-label={t.adminCompliance.listView}
@@ -557,9 +557,49 @@ export function AdminComplianceDashboard() {
               })}
             </div>
           ) : (
-            <Card className="overflow-hidden border-0 shadow-sm ring-1 ring-border/60">
-              <div className="overflow-x-auto">
-                <table className="w-full min-w-[720px] text-left text-sm">
+            <>
+              <div className="space-y-3 md:hidden">
+                {filtered.map((org) => {
+                  const tier = checklistTier(org.checklist.percent, org.checklist.started);
+                  const styles = tierStyles(tier);
+                  return (
+                    <button
+                      key={org.user.id}
+                      type="button"
+                      onClick={() => setSelected(org)}
+                      className="w-full rounded-xl border border-border/70 bg-card p-4 text-left shadow-sm ring-1 ring-border/40 transition active:scale-[0.99]"
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-base font-bold text-foreground">{org.user.orgName}</p>
+                          <p className="mt-0.5 truncate text-sm text-muted-foreground">{org.user.name}</p>
+                          {org.user.county && (
+                            <p className="mt-1 text-xs text-muted-foreground">{org.user.county}</p>
+                          )}
+                        </div>
+                        <ProgressRing percent={org.checklist.percent} tier={tier} size={64} />
+                      </div>
+                      <div className="mt-3 flex flex-wrap items-center gap-2">
+                        <span className={cn("rounded-full px-2.5 py-0.5 text-[0.625rem] font-bold uppercase tracking-wider ring-1", styles.badge)}>
+                          {t.adminCompliance.tiers[tier]}
+                        </span>
+                        {org.assessment && (
+                          <span className="text-xs font-semibold tabular-nums text-muted-foreground">
+                            {org.assessment.percent}% assessment
+                          </span>
+                        )}
+                      </div>
+                      <p className="mt-3 text-xs font-semibold text-creco-primary">
+                        {t.adminCompliance.viewDetail} →
+                      </p>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <Card className="hidden overflow-hidden border-0 shadow-sm ring-1 ring-border/60 md:block">
+                <div className="overflow-x-auto">
+                  <table className="w-full min-w-[720px] text-left text-sm">
                   <thead className="border-b border-border bg-muted/40 text-xs uppercase tracking-wider text-muted-foreground">
                     <tr>
                       <th className="px-4 py-3 font-semibold">{t.adminCompliance.table.org}</th>
@@ -620,6 +660,7 @@ export function AdminComplianceDashboard() {
                 </table>
               </div>
             </Card>
+            </>
           )}
         </div>
       )}
@@ -667,7 +708,7 @@ export function AdminComplianceDashboard() {
               <button
                 type="button"
                 onClick={() => setSelected(null)}
-                className="rounded-lg p-2 text-muted-foreground hover:bg-muted"
+                className="inline-flex size-11 shrink-0 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted"
                 aria-label={t.adminCompliance.closeDetail}
               >
                 <X className="size-5" />

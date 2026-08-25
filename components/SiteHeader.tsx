@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { UserMenu } from "@/components/UserMenu";
@@ -34,7 +34,7 @@ function NavLink({
       href={href}
       onClick={onNavigate}
       className={cn(
-        "rounded-lg px-3 py-2 text-sm font-semibold no-underline transition-colors",
+        "flex min-h-11 items-center rounded-lg px-3 py-2.5 text-sm font-semibold no-underline transition-colors",
         active
           ? "bg-creco-green-muted text-creco-primary dark:bg-creco-green-muted/80"
           : "text-creco-black-soft hover:bg-creco-surface hover:text-creco-black dark:text-foreground/80 dark:hover:bg-muted dark:hover:text-foreground",
@@ -52,6 +52,10 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const t = useTranslations();
   const isLoggedIn = Boolean(session?.user);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   const navItems = isLoggedIn
     ? PLATFORM_NAV.map((item) => ({
@@ -92,7 +96,7 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="ml-auto flex items-center gap-2 sm:gap-3">
+        <div className="ml-auto flex min-w-0 items-center gap-1.5 sm:gap-3">
           {!isLoggedIn && (
             <Link
               href="/guidance?ask=1"
@@ -107,11 +111,13 @@ export function SiteHeader() {
             <LanguageSwitcher />
           </div>
 
-          <UserMenu />
+          <div className={cn(!isLoggedIn && "hidden sm:block")}>
+            <UserMenu />
+          </div>
 
           <button
             type="button"
-            className="rounded-lg p-2 text-creco-black transition hover:bg-creco-green-muted dark:text-foreground dark:hover:bg-muted lg:hidden"
+            className="inline-flex size-11 shrink-0 items-center justify-center rounded-lg text-creco-black transition hover:bg-creco-green-muted dark:text-foreground dark:hover:bg-muted lg:hidden"
             aria-label={t.nav.toggleNav}
             aria-expanded={open}
             onClick={() => setOpen((value) => !value)}
@@ -148,13 +154,31 @@ export function SiteHeader() {
           </ul>
 
           {!isLoggedIn && (
-            <Link
-              href="/guidance?ask=1"
-              onClick={() => setOpen(false)}
-              className="creco-btn creco-btn-accent mt-3 w-full text-sm"
-            >
-              {t.nav.askQuestion}
-            </Link>
+            <>
+              <Link
+                href="/guidance?ask=1"
+                onClick={() => setOpen(false)}
+                className="creco-btn creco-btn-accent mt-3 w-full text-sm md:hidden"
+              >
+                {t.nav.askQuestion}
+              </Link>
+              <div className="mt-3 flex flex-col gap-2 sm:hidden">
+                <Link
+                  href="/login"
+                  onClick={() => setOpen(false)}
+                  className="flex min-h-11 items-center justify-center rounded-lg border border-creco-border px-4 text-sm font-semibold text-creco-black-soft no-underline transition hover:bg-creco-green-muted hover:text-creco-primary"
+                >
+                  {t.nav.login}
+                </Link>
+                <Link
+                  href="/register"
+                  onClick={() => setOpen(false)}
+                  className="creco-btn creco-btn-primary flex min-h-11 w-full justify-center text-sm"
+                >
+                  {t.nav.register}
+                </Link>
+              </div>
+            </>
           )}
 
           <div className="mt-3 flex items-center gap-2 sm:hidden">

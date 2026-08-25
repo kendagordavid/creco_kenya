@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Poppins, Geist } from "next/font/google";
 import { auth } from "@/auth";
 import { AuthProvider } from "@/components/AuthProvider";
@@ -33,6 +33,11 @@ export async function generateMetadata(): Promise<Metadata> {
     },
   };
 }
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 export default async function RootLayout({
   children,

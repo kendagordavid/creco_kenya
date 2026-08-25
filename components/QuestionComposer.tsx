@@ -45,7 +45,7 @@ function ExampleQuestions({
             type="button"
             onClick={() => onPick(question)}
             disabled={loading}
-            className="rounded border border-creco-border bg-creco-surface px-2 py-1 text-left text-[11px] font-medium leading-snug text-creco-primary transition hover:border-creco-sage hover:bg-white disabled:opacity-50 sm:px-2.5 sm:py-1.5 sm:text-xs"
+            className="min-h-11 rounded border border-creco-border bg-creco-surface px-3 py-2 text-left text-xs font-medium leading-snug text-creco-primary transition hover:border-creco-sage hover:bg-white disabled:opacity-50 sm:text-sm"
           >
             {question}
           </button>
@@ -174,7 +174,7 @@ export function QuestionComposer({
           <button
             type="button"
             onClick={() => setExpanded(false)}
-            className="rounded p-1.5 text-creco-muted transition hover:bg-creco-surface hover:text-creco-primary"
+            className="inline-flex size-11 shrink-0 items-center justify-center rounded-lg text-creco-muted transition hover:bg-creco-surface hover:text-creco-primary"
             aria-label={t.questionComposer.minimize}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>

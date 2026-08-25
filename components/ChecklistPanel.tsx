@@ -65,14 +65,14 @@ export function ChecklistPanel() {
             <ul className="mt-4 space-y-3">
               {section.items.map((item) => (
                 <li key={item.id}>
-                  <label className="flex cursor-pointer items-start gap-3 text-sm">
+                  <label className="flex min-h-11 cursor-pointer items-start gap-3 py-1 text-sm">
                     <input
                       type="checkbox"
                       checked={Boolean(checked[item.id])}
                       onChange={() => toggle(item.id)}
-                      className="mt-1 h-4 w-4 rounded border-creco-border text-creco-primary"
+                      className="mt-0.5 size-5 shrink-0 rounded border-creco-border text-creco-primary"
                     />
-                    <span className={checked[item.id] ? "text-creco-muted line-through" : ""}>
+                    <span className={`creco-break-words ${checked[item.id] ? "text-creco-muted line-through" : ""}`}>
                       {item.label}
                     </span>
                   </label>

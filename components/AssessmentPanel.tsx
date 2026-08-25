@@ -56,7 +56,7 @@ export function AssessmentPanel() {
   }
 
   return (
-    <div className="creco-card mx-auto max-w-2xl p-8">
+    <div className="creco-card mx-auto max-w-2xl p-4 sm:p-8">
       <p className="text-xs font-bold uppercase tracking-wider text-creco-muted">
         Question {step + 1} of {ASSESSMENT_QUESTIONS.length} · {question.domain}
       </p>
@@ -93,7 +93,7 @@ export function AssessmentPanel() {
           Back
         </button>
         <div className="flex gap-3">
-          <Link href="/compliance/assessment" className="creco-btn creco-btn-ghost-nav text-sm">
+          <Link href="/compliance/assessment" className="creco-btn creco-btn-secondary text-sm">
             Exit
           </Link>
           <button

@@ -44,7 +44,7 @@ function TurnHistoryButton({
     <button
       type="button"
       onClick={onSelect}
-      className={`w-full rounded-lg px-3 py-2.5 text-left text-sm transition ${
+      className={`flex min-h-11 w-full items-center rounded-lg px-3 py-2.5 text-left text-sm transition ${
         active
           ? "bg-creco-green-muted font-semibold text-creco-primary ring-1 ring-creco-primary/20"
           : "text-creco-muted hover:bg-creco-surface hover:text-creco-black"
@@ -71,9 +71,11 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
   const [pendingQuestion, setPendingQuestion] = useState<string | null>(null);
   const [composerOpen, setComposerOpen] = useState(autoOpen || Boolean(initialQuestion));
   const [activeCitation, setActiveCitation] = useState<number | null>(null);
+  const [mobileSourcesOpen, setMobileSourcesOpen] = useState(true);
   const [hydrated, setHydrated] = useState(false);
 
   const threadEndRef = useRef<HTMLDivElement>(null);
+  const mobileSourcesRef = useRef<HTMLDivElement>(null);
   const composerFocusRef = useRef<(() => void) | null>(null);
   const shouldAutoSubmit = useRef(Boolean(initialQuestion));
 
@@ -156,7 +158,13 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
   function handleSelectTurn(turn: Turn) {
     setActiveTurnId(turn.id);
     setActiveCitation(turn.citations[0]?.index ?? null);
+    if (turn.citations.length > 0) {
+      setMobileSourcesOpen(true);
+    }
     document.getElementById(`turn-${turn.id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    requestAnimationFrame(() => {
+      mobileSourcesRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
   }
 
   function handleNewConversation() {
@@ -180,11 +188,11 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
   }
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[1fr_340px]">
-      <div className="flex min-h-[420px] flex-col">
+    <div className="grid gap-6 lg:grid-cols-[1fr_340px] lg:gap-8">
+      <div className="flex min-h-0 flex-col lg:min-h-[420px]">
         {hasConversation && (
-          <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-            <div>
+          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
+            <div className="min-w-0">
               <h2 className="text-lg font-bold text-creco-black">{t.guidancePage.conversation.title}</h2>
               <p className="text-sm text-creco-muted">
                 {turns.length === 1
@@ -196,16 +204,40 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
               type="button"
               onClick={handleNewConversation}
               disabled={loading}
-              className="creco-btn creco-btn-secondary text-sm disabled:opacity-50"
+              className="creco-btn creco-btn-secondary w-full text-sm sm:w-auto disabled:opacity-50"
             >
               {t.guidancePage.conversation.newConversation}
             </button>
           </div>
         )}
 
-        <div className="flex-1 space-y-8">
+        {turns.length > 1 && (
+          <nav
+            className="creco-card mb-4 p-4 lg:hidden"
+            aria-label={t.guidancePage.conversation.jumpToQuestion}
+          >
+            <p className="text-xs font-bold uppercase tracking-wider text-creco-primary">
+              {t.guidancePage.conversation.jumpToQuestion}
+            </p>
+            <ul className="mt-3 max-h-40 space-y-1 overflow-y-auto">
+              {turns.map((turn, index) => (
+                <li key={turn.id}>
+                  <TurnHistoryButton
+                    turn={turn}
+                    index={index}
+                    total={turns.length}
+                    active={turn.id === activeTurn?.id}
+                    onSelect={() => handleSelectTurn(turn)}
+                  />
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
+
+        <div className="flex-1 space-y-6 sm:space-y-8">
           {!hasConversation && !loading && (
-            <section className="rounded-lg border border-dashed border-creco-border bg-white p-6 text-center text-sm text-creco-muted">
+            <section className="rounded-lg border border-dashed border-creco-border bg-white p-4 text-center text-sm text-creco-muted sm:p-6">
               {t.guidancePage.conversation.empty}
             </section>
           )}
@@ -227,7 +259,34 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
           <div ref={threadEndRef} aria-hidden />
         </div>
 
-        <div className={`${hasConversation ? "sticky bottom-4 z-10 mt-8" : "mt-6"}`}>
+        {activeTurn && (
+          <div ref={mobileSourcesRef} className="mt-6 lg:hidden">
+            <button
+              type="button"
+              onClick={() => setMobileSourcesOpen((open) => !open)}
+              aria-expanded={mobileSourcesOpen}
+              className="flex min-h-11 w-full items-center justify-between rounded-lg border border-creco-border bg-white px-4 text-sm font-semibold text-creco-primary"
+            >
+              {t.sourceReferences.title}
+              <span className="text-xs font-medium text-creco-muted">
+                {activeTurn.citations.length > 0
+                  ? format(t.guidancePanel.referencesGrounded, { count: activeTurn.citations.length })
+                  : t.sourceReferences.empty}
+              </span>
+            </button>
+            {mobileSourcesOpen && (
+              <div className="mt-3">
+                <SourceReferences
+                  citations={activeTurn.citations}
+                  activeIndex={activeCitation}
+                  onSelect={setActiveCitation}
+                />
+              </div>
+            )}
+          </div>
+        )}
+
+        <div className={`${hasConversation ? "sticky bottom-0 z-10 mt-6 pb-[max(1rem,env(safe-area-inset-bottom))] sm:mt-8" : "mt-6"}`}>
           <QuestionComposer
             value={input}
             onChange={setInput}
@@ -241,28 +300,7 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
         </div>
       </div>
 
-      <aside className="lg:sticky lg:top-28 lg:self-start">
-        {turns.length > 1 && (
-          <nav className="creco-card mb-4 p-4 lg:hidden" aria-label={t.guidancePage.conversation.jumpToQuestion}>
-            <p className="text-xs font-bold uppercase tracking-wider text-creco-primary">
-              {t.guidancePage.conversation.jumpToQuestion}
-            </p>
-            <ul className="mt-3 max-h-52 space-y-1 overflow-y-auto">
-              {turns.map((turn, index) => (
-                <li key={turn.id}>
-                  <TurnHistoryButton
-                    turn={turn}
-                    index={index}
-                    total={turns.length}
-                    active={turn.id === activeTurn?.id}
-                    onSelect={() => handleSelectTurn(turn)}
-                  />
-                </li>
-              ))}
-            </ul>
-          </nav>
-        )}
-
+      <aside className="hidden lg:sticky lg:top-28 lg:block lg:self-start">
         <SourceReferences
           citations={activeTurn?.citations ?? []}
           activeIndex={activeCitation}
@@ -270,7 +308,7 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
         />
 
         {turns.length > 1 && (
-          <nav className="creco-card mt-4 hidden p-4 lg:block" aria-label={t.guidancePage.conversation.earlierInChat}>
+          <nav className="creco-card mt-4 p-4" aria-label={t.guidancePage.conversation.earlierInChat}>
             <p className="text-xs font-bold uppercase tracking-wider text-creco-primary">
               {t.guidancePage.conversation.earlierInChat}
             </p>

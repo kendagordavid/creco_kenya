@@ -209,7 +209,7 @@ export function AdminReportsDashboard() {
               <select
                 value={statusFilter}
                 onChange={(event) => setStatusFilter(event.target.value)}
-                className="rounded-lg border border-creco-border bg-white px-3 py-1.5 text-sm text-foreground"
+                className="h-11 rounded-lg border border-creco-border bg-white px-3 text-sm text-foreground"
               >
                 <option value="all">{t.admin.filterAll}</option>
                 {STATUS_OPTIONS.map((status) => (
@@ -252,7 +252,7 @@ export function AdminReportsDashboard() {
                   </span>
                 </CardHeader>
                 <CardContent className="space-y-4 pt-0">
-                  <p className="text-sm leading-relaxed text-foreground/90">{item.narrative}</p>
+                  <p className="creco-break-words text-sm leading-relaxed text-foreground/90">{item.narrative}</p>
 
                   {item.reporter && (
                     <div className="rounded-lg bg-[var(--creco-green-muted)] px-4 py-3 text-sm">
@@ -299,7 +299,7 @@ export function AdminReportsDashboard() {
                           type="button"
                           disabled={savingCommentId === item.id}
                           onClick={() => handleSaveComment(item.id)}
-                          className="inline-flex h-8 items-center rounded-lg bg-creco-primary px-3 text-xs font-semibold text-white transition-colors hover:bg-creco-primary-dark disabled:cursor-not-allowed disabled:opacity-60"
+                          className="inline-flex min-h-11 items-center rounded-lg bg-creco-primary px-3 text-xs font-semibold text-white transition-colors hover:bg-creco-primary-dark disabled:cursor-not-allowed disabled:opacity-60"
                         >
                           {savingCommentId === item.id ? (
                             <>
@@ -314,21 +314,21 @@ export function AdminReportsDashboard() {
                     </div>
                   )}
 
-                  <div className="flex flex-wrap items-center justify-between gap-3 border-t border-creco-border pt-3">
+                  <div className="flex flex-col gap-3 border-t border-creco-border pt-3 sm:flex-row sm:items-center sm:justify-between">
                     <p className="text-xs font-medium text-muted-foreground">
                       {t.common.referenceId}{" "}
                       <span className="font-mono">{item.id.slice(0, 8)}</span>
                     </p>
-                    <div className="flex items-center gap-2">
-                      <label className="flex items-center gap-2 text-sm">
-                        <span className="font-medium text-muted-foreground">
+                    <div className="flex w-full items-center gap-2 sm:w-auto">
+                      <label className="flex min-w-0 flex-1 items-center gap-2 text-sm sm:flex-initial">
+                        <span className="hidden font-medium text-muted-foreground sm:inline">
                           {t.admin.updateStatus}
                         </span>
                         <select
                           value={item.status}
                           disabled={updatingId === item.id}
                           onChange={(event) => handleStatusChange(item.id, event.target.value)}
-                          className="rounded-lg border border-creco-border bg-white px-3 py-1.5 text-sm disabled:opacity-60"
+                          className="h-11 min-w-0 flex-1 rounded-lg border border-creco-border bg-white px-3 text-sm disabled:opacity-60 sm:flex-initial"
                         >
                           {STATUS_OPTIONS.map((status) => (
                             <option key={status} value={status}>
@@ -345,7 +345,7 @@ export function AdminReportsDashboard() {
                         onClick={() =>
                           setOpenCommentId((current) => (current === item.id ? null : item.id))
                         }
-                        className={`inline-flex size-9 shrink-0 items-center justify-center rounded-lg border transition-colors disabled:opacity-60 ${
+                        className={`inline-flex size-11 shrink-0 items-center justify-center rounded-lg border transition-colors disabled:opacity-60 ${
                           hasComment || commentOpen
                             ? "border-creco-primary/30 bg-creco-green-muted text-creco-primary"
                             : "border-creco-border bg-white text-muted-foreground hover:border-creco-primary/30 hover:text-creco-primary"

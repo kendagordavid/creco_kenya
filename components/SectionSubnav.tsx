@@ -27,13 +27,13 @@ export function SectionSubnav() {
       aria-label={t.nav.sectionNav}
       className="border-b border-creco-border bg-creco-surface/80"
     >
-      <div className="creco-container overflow-x-auto">
-        <ul className="flex min-w-max gap-1 py-2.5">
+      <div className="creco-container overflow-x-auto creco-scroll-x">
+        <ul className="flex min-w-max snap-x snap-mandatory gap-1 py-2">
           {items.map((item) => (
-            <li key={item.href}>
+            <li key={item.href} className="snap-start">
               <Link
                 href={item.href}
-                className={`block rounded-lg px-3.5 py-2 text-sm font-semibold no-underline transition-colors ${
+                className={`flex min-h-11 items-center rounded-lg px-3.5 text-sm font-semibold no-underline transition-colors ${
                   item.active
                     ? "bg-creco-primary text-white"
                     : "text-creco-black-soft hover:bg-white hover:text-creco-primary"

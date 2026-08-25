@@ -153,6 +153,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
@@ -191,7 +192,7 @@ h4,
 }
 
 .creco-section {
-  padding-block: clamp(4.5rem, 9vw, 7rem);
+  padding-block: clamp(2.75rem, 6vw, 7rem);
 }
 
 .creco-section-alt {
@@ -353,10 +354,18 @@ h4,
     border-color 0.3s ease;
 }
 
-.creco-card:hover {
-  box-shadow: var(--creco-shadow);
-  border-color: rgba(10, 134, 77, 0.22);
-  transform: translateY(-3px);
+@media (hover: hover) and (pointer: fine) {
+  .creco-card:hover {
+    box-shadow: var(--creco-shadow);
+    border-color: rgba(10, 134, 77, 0.22);
+    transform: translateY(-3px);
+  }
+
+  .creco-check-item:hover {
+    border-color: rgba(239, 147, 52, 0.45);
+    box-shadow: var(--creco-shadow-sm);
+    transform: translateX(4px);
+  }
 }
 
 .creco-card-accent {
@@ -585,12 +594,6 @@ h4,
   transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
 }
 
-.creco-check-item:hover {
-  border-color: rgba(239, 147, 52, 0.45);
-  box-shadow: var(--creco-shadow-sm);
-  transform: translateX(4px);
-}
-
 .creco-check-icon {
   flex-shrink: 0;
   display: flex;
@@ -660,6 +663,80 @@ h4,
   border-radius: 50%;
   background: var(--creco-orange);
   box-shadow: 0 0 8px var(--creco-orange-glow);
+}
+
+/* Submission status badges */
+.creco-status-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.creco-status-pending {
+  background: var(--creco-orange-muted);
+  color: var(--creco-orange-dark);
+}
+
+.creco-status-review {
+  background: #eef4ff;
+  color: #1d4ed8;
+}
+
+.creco-status-approved {
+  background: var(--creco-green-muted);
+  color: var(--creco-green-dark);
+}
+
+.creco-status-rejected {
+  background: #fef2f2;
+  color: #b42318;
+}
+
+.dark .creco-status-review {
+  background: rgba(29, 78, 216, 0.15);
+  color: #93c5fd;
+}
+
+.dark .creco-status-rejected {
+  background: rgba(180, 35, 24, 0.15);
+  color: #fca5a5;
+}
+
+/* Prevent long strings from forcing horizontal scroll */
+.creco-break-words {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Horizontal scroll regions with edge fade on small screens */
+.creco-scroll-x {
+  position: relative;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.creco-scroll-x::-webkit-scrollbar {
+  display: none;
+}
+
+.creco-scroll-x::after {
+  content: "";
+  position: sticky;
+  right: 0;
+  top: 0;
+  float: right;
+  width: 2rem;
+  height: 100%;
+  margin-left: -2rem;
+  pointer-events: none;
+  background: linear-gradient(to left, var(--background) 0%, transparent 100%);
 }
 
 .line-clamp-4 {
@@ -1064,8 +1141,10 @@ h4,
   border-color: var(--creco-border);
 }
 
-.dark .creco-card:hover {
-  border-color: rgba(10, 134, 77, 0.35);
+@media (hover: hover) and (pointer: fine) {
+  .dark .creco-card:hover {
+    border-color: rgba(10, 134, 77, 0.35);
+  }
 }
 
 .dark .creco-btn-secondary {

@@ -193,7 +193,7 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
         {hasConversation && (
           <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
             <div className="min-w-0">
-              <h2 className="text-lg font-bold text-creco-black">{t.guidancePage.conversation.title}</h2>
+              <h2 className="text-lg font-bold text-creco-black dark:text-foreground">{t.guidancePage.conversation.title}</h2>
               <p className="text-sm text-creco-muted">
                 {turns.length === 1
                   ? format(t.guidancePage.conversation.summary, { count: turns.length })
@@ -237,7 +237,7 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
 
         <div className="flex-1 space-y-6 sm:space-y-8">
           {!hasConversation && !loading && (
-            <section className="rounded-lg border border-dashed border-creco-border bg-white p-4 text-center text-sm text-creco-muted sm:p-6">
+            <section className="rounded-lg border border-dashed border-creco-border bg-white p-4 text-center text-sm text-creco-muted dark:bg-card sm:p-6">
               {t.guidancePage.conversation.empty}
             </section>
           )}
@@ -265,7 +265,7 @@ export function GuidancePanel({ initialQuestion = "", autoOpen = false }: Props)
               type="button"
               onClick={() => setMobileSourcesOpen((open) => !open)}
               aria-expanded={mobileSourcesOpen}
-              className="flex min-h-11 w-full items-center justify-between rounded-lg border border-creco-border bg-white px-4 text-sm font-semibold text-creco-primary"
+              className="flex min-h-11 w-full items-center justify-between rounded-lg border border-creco-border bg-white px-4 text-sm font-semibold text-creco-primary dark:bg-card"
             >
               {t.sourceReferences.title}
               <span className="text-xs font-medium text-creco-muted">

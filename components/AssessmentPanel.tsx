@@ -60,7 +60,7 @@ export function AssessmentPanel() {
       <p className="text-xs font-bold uppercase tracking-wider text-creco-muted">
         Question {step + 1} of {ASSESSMENT_QUESTIONS.length} · {question.domain}
       </p>
-      <h2 className="mt-3 text-xl font-bold text-creco-black">{question.prompt}</h2>
+      <h2 className="mt-3 text-xl font-bold text-creco-black dark:text-foreground">{question.prompt}</h2>
 
       <div className="mt-6 space-y-3">
         {question.options.map((option) => (

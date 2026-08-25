@@ -38,7 +38,7 @@ export function SourceReferences({ citations, activeIndex, onSelect }: Props) {
                     className={`w-full rounded-lg border p-4 text-left transition-all duration-200 ${
                       active
                         ? "border-creco-primary bg-creco-green-muted shadow-sm"
-                        : "border-creco-border bg-white hover:border-creco-accent/50 hover:shadow-sm"
+                        : "border-creco-border bg-white hover:border-creco-accent/50 hover:shadow-sm dark:bg-card dark:hover:border-creco-accent/40"
                     }`}
                   >
                     <div className="flex items-start justify-between gap-2">

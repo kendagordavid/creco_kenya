@@ -61,7 +61,7 @@ export function LoginForm() {
   }
 
   return (
-    <Card className="border-0 bg-white shadow-xl shadow-[rgba(22,51,0,0.08)] ring-1 ring-black/5">
+    <Card className="border-0 bg-white shadow-xl shadow-[rgba(22,51,0,0.08)] ring-1 ring-black/5 dark:bg-card dark:shadow-none dark:ring-border/60">
       <CardHeader className="space-y-3 pb-2 text-center">
         <div className="mx-auto flex size-12 items-center justify-center rounded-xl bg-creco-primary text-white shadow-md">
           <LogIn className="size-5" aria-hidden />

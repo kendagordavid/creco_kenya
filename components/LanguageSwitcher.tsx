@@ -38,7 +38,7 @@ export function LanguageSwitcher() {
             aria-pressed={active}
             aria-label={format(t.language.switchTo, { language: localeNames[code] })}
             onClick={() => handleChange(code)}
-            className={`min-h-11 min-w-11 rounded-md px-3 py-2 text-xs font-bold transition ${
+            className={`min-h-11 rounded-md px-3.5 py-2 text-xs font-bold transition ${
               active
                 ? "bg-creco-primary text-white shadow-sm"
                 : "text-creco-black-soft/70 hover:bg-white hover:text-creco-black disabled:opacity-50 dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-foreground"

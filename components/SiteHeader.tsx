@@ -166,7 +166,7 @@ export function SiteHeader() {
                 <Link
                   href="/login"
                   onClick={() => setOpen(false)}
-                  className="flex min-h-11 items-center justify-center rounded-lg border border-creco-border px-4 text-sm font-semibold text-creco-black-soft no-underline transition hover:bg-creco-green-muted hover:text-creco-primary"
+                  className="flex min-h-11 items-center justify-center rounded-lg border border-creco-border px-4 text-sm font-semibold text-creco-black-soft no-underline transition hover:bg-creco-green-muted hover:text-creco-primary dark:border-border dark:text-foreground dark:hover:bg-muted dark:hover:text-creco-green-light"
                 >
                   {t.nav.login}
                 </Link>

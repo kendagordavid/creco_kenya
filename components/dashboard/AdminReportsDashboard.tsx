@@ -209,7 +209,7 @@ export function AdminReportsDashboard() {
               <select
                 value={statusFilter}
                 onChange={(event) => setStatusFilter(event.target.value)}
-                className="h-11 rounded-lg border border-creco-border bg-white px-3 text-sm text-foreground"
+                className="h-11 rounded-lg border border-creco-border bg-background px-3 text-sm text-foreground"
               >
                 <option value="all">{t.admin.filterAll}</option>
                 {STATUS_OPTIONS.map((status) => (
@@ -272,7 +272,7 @@ export function AdminReportsDashboard() {
                   )}
 
                   {commentOpen && (
-                    <div className="rounded-lg border border-creco-border bg-white px-3 py-3 text-sm">
+                    <div className="rounded-lg border border-creco-border bg-background px-3 py-3 text-sm">
                       <label className="block space-y-2">
                         <span className="font-medium text-creco-primary">
                           {t.admin.reviewCommentLabel}
@@ -288,7 +288,7 @@ export function AdminReportsDashboard() {
                           }
                           rows={3}
                           placeholder={t.admin.reviewCommentPlaceholder}
-                          className="w-full resize-y rounded-lg border border-creco-border bg-white px-3 py-2 text-sm leading-relaxed text-foreground disabled:opacity-60"
+                          className="w-full resize-y rounded-lg border border-creco-border bg-background px-3 py-2 text-sm leading-relaxed text-foreground disabled:opacity-60"
                         />
                         <span className="block text-xs text-muted-foreground">
                           {t.admin.reviewCommentHint}
@@ -328,7 +328,7 @@ export function AdminReportsDashboard() {
                           value={item.status}
                           disabled={updatingId === item.id}
                           onChange={(event) => handleStatusChange(item.id, event.target.value)}
-                          className="h-11 min-w-0 flex-1 rounded-lg border border-creco-border bg-white px-3 text-sm disabled:opacity-60 sm:flex-initial"
+                          className="h-11 min-w-0 flex-1 rounded-lg border border-creco-border bg-background px-3 text-sm disabled:opacity-60 sm:flex-initial"
                         >
                           {STATUS_OPTIONS.map((status) => (
                             <option key={status} value={status}>
@@ -348,7 +348,7 @@ export function AdminReportsDashboard() {
                         className={`inline-flex size-11 shrink-0 items-center justify-center rounded-lg border transition-colors disabled:opacity-60 ${
                           hasComment || commentOpen
                             ? "border-creco-primary/30 bg-creco-green-muted text-creco-primary"
-                            : "border-creco-border bg-white text-muted-foreground hover:border-creco-primary/30 hover:text-creco-primary"
+                            : "border-creco-border bg-background text-muted-foreground hover:border-creco-primary/30 hover:text-creco-primary"
                         }`}
                       >
                         <MessageSquare className="size-4" aria-hidden />

@@ -43,6 +43,10 @@
   --creco-sulu-muted: var(--creco-green-muted);
 
   --creco-content-max: 72rem;
+  --creco-on-primary: #ffffff;
+  --creco-on-accent: #0a0a0a;
+  --creco-surface-light: #ffffff;
+  --creco-heading: #0a0a0a;
   --creco-radius: 0.625rem;
   --creco-radius-lg: 1rem;
   --creco-radius-xl: 1.25rem;
@@ -172,7 +176,7 @@ h3,
 h4,
 .font-display {
   font-family: var(--font-poppins), system-ui, sans-serif;
-  color: var(--creco-black);
+  color: var(--creco-heading, var(--creco-black));
   font-weight: 700;
   letter-spacing: -0.025em;
   line-height: 1.15;
@@ -432,7 +436,7 @@ h4,
 
 .creco-btn-primary {
   background: var(--creco-green);
-  color: var(--creco-white);
+  color: var(--creco-on-primary);
   border-color: var(--creco-green);
   box-shadow: 0 2px 12px rgba(10, 134, 77, 0.32);
 }
@@ -440,11 +444,12 @@ h4,
 .creco-btn-primary:hover {
   background: var(--creco-green-dark);
   border-color: var(--creco-green-dark);
+  color: var(--creco-on-primary);
   box-shadow: 0 6px 20px rgba(10, 134, 77, 0.38);
 }
 
 .creco-btn-secondary {
-  background: var(--creco-white);
+  background: var(--creco-surface-light);
   color: var(--creco-black);
   border-color: var(--creco-border);
 }
@@ -457,7 +462,7 @@ h4,
 
 .creco-btn-accent {
   background: var(--creco-orange);
-  color: var(--creco-black);
+  color: var(--creco-on-accent);
   border-color: var(--creco-orange);
   box-shadow: 0 2px 14px rgba(239, 147, 52, 0.38);
 }
@@ -465,7 +470,7 @@ h4,
 .creco-btn-accent:hover {
   background: var(--creco-orange-dark);
   border-color: var(--creco-orange-dark);
-  color: var(--creco-black);
+  color: var(--creco-on-accent);
   box-shadow: var(--creco-shadow-orange);
 }
 
@@ -482,15 +487,21 @@ h4,
 }
 
 .creco-btn-white {
-  background: var(--creco-white);
+  background: var(--creco-surface-light);
   color: var(--creco-green-dark);
-  border-color: var(--creco-white);
+  border-color: var(--creco-surface-light);
   box-shadow: var(--creco-shadow);
 }
 
 .creco-btn-white:hover {
   background: var(--creco-orange-muted);
   color: var(--creco-black);
+}
+
+/* Light panels that stay readable in dark mode */
+.creco-surface-light {
+  background: var(--creco-surface-light);
+  color: var(--creco-text);
 }
 
 /* Stats */
@@ -981,7 +992,7 @@ h4,
   font-size: 0.9375rem;
   font-weight: 700;
   font-family: inherit;
-  color: var(--creco-white);
+  color: var(--creco-on-primary);
   background: var(--creco-primary);
   border: none;
   border-radius: 0.5rem;
@@ -991,7 +1002,7 @@ h4,
 
 .creco-login-submit:hover:not(:disabled) {
   background: var(--creco-green-dark);
-  color: var(--creco-white);
+  color: var(--creco-on-primary);
 }
 
 .creco-login-submit:active:not(:disabled) {
@@ -1090,6 +1101,7 @@ h4,
 }
 
 .dark {
+  --creco-heading: #f5f5f5;
   --creco-green-muted: #0f2a1c;
   --creco-orange-muted: #2a1f0f;
   --creco-black: #f5f5f5;
@@ -1099,6 +1111,9 @@ h4,
   --creco-border: #2e2e2e;
   --creco-surface: #161616;
   --creco-surface-alt: #0f2a1c;
+  --creco-surface-light: oklch(0.205 0 0);
+  --creco-on-primary: #ffffff;
+  --creco-on-accent: #0a0a0a;
   --creco-green-glow: rgba(10, 134, 77, 0.22);
   --creco-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
   --creco-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
@@ -1148,7 +1163,7 @@ h4,
 }
 
 .dark .creco-btn-secondary {
-  background: oklch(0.205 0 0);
+  background: var(--creco-surface-light);
   color: var(--creco-text);
   border-color: var(--creco-border);
 }
@@ -1156,6 +1171,35 @@ h4,
 .dark .creco-btn-secondary:hover {
   background: var(--creco-green-muted);
   color: var(--creco-green-light);
+}
+
+.dark .creco-btn-primary,
+.dark .creco-btn-primary:hover {
+  color: var(--creco-on-primary);
+}
+
+.dark .creco-btn-accent,
+.dark .creco-btn-accent:hover {
+  color: var(--creco-on-accent);
+}
+
+.dark .creco-btn-white {
+  background: var(--creco-surface-light);
+  color: var(--creco-green-light);
+  border-color: var(--creco-border);
+}
+
+.dark .creco-btn-white:hover {
+  background: var(--creco-orange-muted);
+  color: var(--creco-text);
+}
+
+.dark .creco-btn-ghost-light {
+  color: #ffffff;
+}
+
+.dark .creco-surface-light {
+  color: var(--creco-text);
 }
 
 .dark .creco-cta-band {

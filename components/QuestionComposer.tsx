@@ -45,7 +45,7 @@ function ExampleQuestions({
             type="button"
             onClick={() => onPick(question)}
             disabled={loading}
-            className="min-h-11 rounded border border-creco-border bg-creco-surface px-3 py-2 text-left text-xs font-medium leading-snug text-creco-primary transition hover:border-creco-sage hover:bg-white disabled:opacity-50 sm:text-sm"
+            className="min-h-11 rounded border border-creco-border bg-creco-surface px-3 py-2 text-left text-xs font-medium leading-snug text-creco-primary transition hover:border-creco-sage hover:bg-white disabled:opacity-50 dark:hover:bg-muted sm:text-sm"
           >
             {question}
           </button>
@@ -167,7 +167,7 @@ export function QuestionComposer({
       }`}
     >
       <div className="mb-2 flex items-center justify-between gap-2">
-        <h2 className="text-base font-bold text-creco-black sm:text-lg">
+        <h2 className="text-base font-bold text-creco-black dark:text-foreground sm:text-lg">
           {followUp ? t.guidancePage.followUp.title : t.questionComposer.yourQuestion}
         </h2>
         {!followUp && (
@@ -189,7 +189,7 @@ export function QuestionComposer({
           {followUp ? t.guidancePage.followUp.label : t.questionComposer.label}
         </label>
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end">
-          <div className="min-w-0 flex-1 rounded-lg border border-creco-border bg-white focus-within:border-creco-primary focus-within:ring-2 focus-within:ring-creco-sage/20">
+          <div className="min-w-0 flex-1 rounded-lg border border-creco-border bg-white focus-within:border-creco-primary focus-within:ring-2 focus-within:ring-creco-sage/20 dark:bg-card dark:focus-within:ring-creco-green/20">
             <textarea
               ref={textareaRef}
               id={textareaId}
@@ -204,7 +204,7 @@ export function QuestionComposer({
               rows={1}
               maxLength={MAX_LENGTH}
               disabled={loading}
-              className="block w-full resize-none bg-transparent px-3 py-2.5 text-sm leading-snug text-creco-text placeholder:text-creco-muted/70 outline-none disabled:opacity-60 sm:px-3.5 sm:py-3 sm:text-base"
+              className="block w-full resize-none bg-transparent px-3 py-2.5 text-sm leading-snug text-creco-text placeholder:text-creco-muted/70 outline-none disabled:opacity-60 dark:text-foreground sm:px-3.5 sm:py-3 sm:text-base"
             />
             {(multiLine || followUp) && (
               <div className="flex items-center justify-between gap-2 border-t border-creco-border px-3 py-1.5 text-xs text-creco-muted">

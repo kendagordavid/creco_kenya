@@ -37,7 +37,7 @@ export function PlatformSubnav() {
                   className={`flex min-h-11 items-center rounded-lg px-3.5 text-sm font-semibold no-underline transition-colors ${
                     active
                       ? "bg-creco-primary text-white"
-                      : "text-creco-black-soft hover:bg-white hover:text-creco-primary"
+                      : "text-creco-black-soft hover:bg-white hover:text-creco-primary dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-creco-green-light"
                   }`}
                 >
                   {item.label}

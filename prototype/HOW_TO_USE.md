@@ -9,9 +9,12 @@ You need **two terminals** — backend (API) and frontend (website).
 ```bash
 cd prototype/backend
 source .venv/bin/activate
-python scripts/rebuild_wiki_index.py   # once, or after editing wiki files
+python scripts/download_documents.py   # once — copies approved PDFs from repo root
+python scripts/rebuild_wiki_index.py              # once, or after editing wiki files
 uvicorn app.main:app --reload --port 8000
 ```
+
+From the repo root you can also run `npm run documents:sync` (same PDFs → `public/documents` and `prototype/backend/data`).
 
 Check: open [http://localhost:8000/health](http://localhost:8000/health) — you should see `"status": "ok"`.
 

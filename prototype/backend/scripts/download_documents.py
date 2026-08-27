@@ -1,33 +1,41 @@
 #!/usr/bin/env python3
-"""Download approved PBO Act PDFs into the data directory."""
+"""Copy approved PBO PDFs from the repo into the backend data directory."""
 
 from __future__ import annotations
 
+import shutil
 import sys
 from pathlib import Path
 
-import httpx
-
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from app.compiler import SOURCE_DOCUMENTS
 from app.config import settings
-from app.ingest import SOURCE_DOCUMENTS
+
+ROOT = Path(__file__).resolve().parents[3]
+SOURCE_FILES = {
+    "pbo-act-2013.pdf": ROOT / "PBO ACT 2013.pdf",
+    "pbo-regulations-2026.pdf": ROOT
+    / "Kenya Gazette Supplement No. 67 Legal Notice No. 43 - PBO Regulations.pdf",
+}
 
 
-def download_all() -> None:
+def sync_documents() -> None:
     settings.data_dir.mkdir(parents=True, exist_ok=True)
-    with httpx.Client(timeout=60.0, follow_redirects=True) as client:
-        for doc in SOURCE_DOCUMENTS:
-            dest = settings.data_dir / doc["filename"]
-            if dest.exists() and dest.stat().st_size > 1000:
-                print(f"skip  {doc['filename']} (already exists)")
-                continue
-            print(f"fetch {doc['url']}")
-            response = client.get(doc["url"])
-            response.raise_for_status()
-            dest.write_bytes(response.content)
-            print(f"saved {dest} ({len(response.content):,} bytes)")
+    public_dir = ROOT / "public" / "documents"
+    public_dir.mkdir(parents=True, exist_ok=True)
+
+    for doc in SOURCE_DOCUMENTS:
+        filename = doc["filename"]
+        src = SOURCE_FILES.get(filename)
+        if not src or not src.exists():
+            raise FileNotFoundError(f"Missing source PDF for {filename}: {src}")
+
+        for dest_dir in (settings.data_dir, public_dir):
+            dest = dest_dir / filename
+            shutil.copy2(src, dest)
+            print(f"copied {filename} → {dest}")
 
 
 if __name__ == "__main__":
-    download_all()
+    sync_documents()

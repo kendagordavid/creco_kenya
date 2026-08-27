@@ -12,30 +12,37 @@ from app.config import settings
 
 SOURCE_DOCUMENTS = [
     {
-        "filename": "pbo-act-popular-version.pdf",
-        "title": "PBO Act 2013 — Popular Version",
-        "url": "https://www.pbora.go.ke/sites/default/files/PBORA/PBO%20ACT%202013%20Popular%20version.pdf",
+        "id": "pbo-act-2013",
+        "filename": "pbo-act-2013.pdf",
+        "title": "Public Benefit Organizations Act, 2013 (No. 18 of 2013)",
+        "url": "/documents/pbo-act-2013.pdf",
+        "type": "legislation",
     },
     {
-        "filename": "icj-pbo-act-analysis.pdf",
-        "title": "ICJ Kenya — Analysis of the PBO Act 2013",
-        "url": "https://icj-kenya.org/wp-content/uploads/2024/05/Analysis-of-the-provisions-of-the-Public-Benefit-Organizations-Act-2013-PBO-Act.pdf",
-    },
-    {
-        "filename": "pbo-act-official.pdf",
-        "title": "Public Benefit Organizations Act, 2013 (Official)",
-        "url": "https://kenyalaw.org/kl/fileadmin/pdfdownloads/Acts/PublicBenefitsOrganisationNo18of2013.PDF",
+        "id": "pbo-regulations-2026",
+        "filename": "pbo-regulations-2026.pdf",
+        "title": "Public Benefit Organizations Regulations, 2026 (Legal Notice No. 43)",
+        "url": "/documents/pbo-regulations-2026.pdf",
+        "type": "regulations",
     },
 ]
 
 COMPILE_PROMPT = """You are compiling approved PBO Act source material into a structured Markdown wiki page.
 
 Create ONE focused wiki page with:
-- YAML frontmatter (slug, title, tags, related slugs, source_documents with id/title/url/sections)
+- YAML frontmatter (slug, title, tags, related slugs, source_documents)
 - Clear headings and plain-language explanations
 - [[wikilink]] references to related topics where appropriate
 - A brief Kiswahili summary section if the topic is user-facing
 - NO invented legal requirements — only content supported by the source text
+
+Use ONLY these source_documents entries in frontmatter (pick the relevant one(s)):
+  - id: pbo-act-2013
+    title: Public Benefit Organizations Act, 2013 (No. 18 of 2013)
+    url: /documents/pbo-act-2013.pdf
+  - id: pbo-regulations-2026
+    title: Public Benefit Organizations Regulations, 2026 (Legal Notice No. 43)
+    url: /documents/pbo-regulations-2026.pdf
 
 Topic to compile: {topic}
 Suggested slug: {slug}

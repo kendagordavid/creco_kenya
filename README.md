@@ -49,8 +49,16 @@ npx vercel --prod   # production
 npm install
 cp .env.local.example .env.local   # set AUTH_SECRET and POSTGRES_URL
 npm run db:setup                     # create tables + seed demo users
+npm run documents:sync               # copy approved PBO PDFs into public/documents
 npm run dev
 ```
+
+Place the approved source PDFs at the repo root before running `documents:sync`:
+
+- `PBO ACT 2013.pdf`
+- `Kenya Gazette Supplement No. 67 Legal Notice No. 43 - PBO Regulations.pdf`
+
+They are copied to `public/documents/` as `pbo-act-2013.pdf` and `pbo-regulations-2026.pdf`.
 
 **Local Postgres:** create a database, then point `POSTGRES_URL` at it:
 

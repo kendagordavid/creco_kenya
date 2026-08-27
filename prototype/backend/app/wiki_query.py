@@ -8,6 +8,7 @@ from openai import OpenAI
 
 from app.config import openai_configured, settings
 from app.topic_guard import OFF_TOPIC_REFUSAL, resolve_topic_scope
+from app.compiler import SOURCE_DOCUMENTS
 from app.wiki_store import WikiPage, search_wiki
 
 WIKI_STRONG_SCORE = 4
@@ -39,12 +40,23 @@ REFERENCE_CITATIONS = [
     {
         "index": 1,
         "wiki_slug": "pbo-act-2013",
-        "wiki_title": "Public Benefit Organization Act, 2013 (Kenya)",
+        "wiki_title": "Public Benefit Organizations Act, 2013",
         "excerpt": "Primary legislation for PBO registration and regulation in Kenya.",
         "relevance": 0.85,
-        "source_id": "kenya-pbo-act",
-        "source_title": "PBO Act 2013 — ICNL resource hub",
-        "source_url": "https://www.icnl.org/resources/research/kenya-public-benefit-organizations-act",
+        "source_id": "pbo-act-2013",
+        "source_title": "Public Benefit Organizations Act, 2013 (No. 18 of 2013)",
+        "source_url": "/documents/pbo-act-2013.pdf",
+        "source_type": "reference",
+    },
+    {
+        "index": 2,
+        "wiki_slug": "pbo-regulations-2026",
+        "wiki_title": "Public Benefit Organizations Regulations, 2026",
+        "excerpt": "Subsidiary legislation under Legal Notice No. 43.",
+        "relevance": 0.8,
+        "source_id": "pbo-regulations-2026",
+        "source_title": "Public Benefit Organizations Regulations, 2026 (Legal Notice No. 43)",
+        "source_url": "/documents/pbo-regulations-2026.pdf",
         "source_type": "reference",
     },
 ]

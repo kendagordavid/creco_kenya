@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { PLATFORM_DOCUMENTS } from "./document-sources";
 import { NO_GUIDANCE_REFUSAL } from "./topic-guard";
 
 export type SourceDocument = {
@@ -214,15 +215,12 @@ export function askQuestionWiki(question: string) {
 }
 
 export function listSourceDocuments() {
-  const seen = new Map<string, { id: string; title: string; url: string; type: string }>();
-  for (const page of loadWikiPages()) {
-    for (const doc of page.sourceDocuments) {
-      if (!seen.has(doc.id)) {
-        seen.set(doc.id, { id: doc.id, title: doc.title, url: doc.url, type: "source" });
-      }
-    }
-  }
-  return [...seen.values()];
+  return PLATFORM_DOCUMENTS.map((doc) => ({
+    id: doc.id,
+    title: doc.title,
+    url: doc.url,
+    type: doc.type,
+  }));
 }
 
 export function listWikiPageSummaries() {

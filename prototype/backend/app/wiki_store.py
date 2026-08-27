@@ -7,6 +7,7 @@ import sqlite3
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from app.compiler import SOURCE_DOCUMENTS
 from app.config import settings
 
 FRONTMATTER_RE = re.compile(r"^---\n(.*?)\n---\n(.*)", re.DOTALL)
@@ -250,17 +251,15 @@ def search_wiki(query: str, limit: int | None = None) -> list[WikiPage]:
 
 
 def list_source_documents() -> list[dict]:
-    seen: dict[str, dict] = {}
-    for page in discover_wiki_pages():
-        for doc in page.source_documents:
-            if doc.id not in seen:
-                seen[doc.id] = {
-                    "id": doc.id,
-                    "title": doc.title,
-                    "url": doc.url,
-                    "type": "source",
-                }
-    return list(seen.values())
+    return [
+        {
+            "id": doc["id"],
+            "title": doc["title"],
+            "url": doc["url"],
+            "type": doc.get("type", "source"),
+        }
+        for doc in SOURCE_DOCUMENTS
+    ]
 
 
 def list_wiki_pages() -> list[dict]:

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { HeroCarousel } from "@/components/HeroCarousel";
 import { getServerTranslations } from "@/lib/i18n/server";
 
 export default async function HomePage() {
@@ -27,32 +28,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="creco-hero">
-        <div className="creco-hero-inner creco-container py-20 sm:py-28 lg:py-32">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="mb-4 text-sm font-semibold uppercase tracking-wide text-white/80">
-              {t.home.eyebrow}
-            </p>
-
-            <h1 className="text-4xl font-bold leading-tight sm:text-5xl lg:text-[3.25rem]">
-              {t.home.title}
-            </h1>
-
-            <p className="creco-hero-lead mx-auto mt-6 max-w-2xl text-base sm:text-lg">
-              {t.home.lead}
-            </p>
-
-            <div className="mt-10 flex flex-wrap justify-center gap-4">
-              <Link href="/guidance?ask=1" className="creco-btn creco-btn-accent">
-                {t.home.lookUpGuidance}
-              </Link>
-              <Link href="/topics" className="creco-btn creco-btn-ghost-light">
-                {t.home.exploreTopics}
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroCarousel />
 
       <section className="creco-section">
         <div className="creco-container">

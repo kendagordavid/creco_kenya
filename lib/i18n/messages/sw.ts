@@ -90,6 +90,56 @@ export const sw: Dictionary = {
       lead: "Jaribu swali la kawaida au andika lako mwenyewe. Mwongozo unachukua kutoka kurasa za mada zilizokusanywa na unataja vyanzo vilivyotumika.",
       button: "Nenda kwenye zana ya mwongozo",
     },
+    hero: {
+      ariaLabel: "Muhtasari wa jukwaa la Sheria ya PBO la CRECO",
+      previousSlide: "Slaidi iliyotangulia",
+      nextSlide: "Slaidi inayofuata",
+      chooseSlide: "Chagua slaidi",
+      goToSlide: "Nenda kwenye slaidi {number}: {headline}",
+      slideOf: "{current} kati ya {total}",
+      slides: [
+        {
+          eyebrow: "Elewa Sheria",
+          headline: "Jua Sheria ya PBO, 2013",
+          description:
+            "Mwongozo wa lugha rahisi kuhusu malengo na madhumuni ya Sheria, ili shirika lako lijue hasa mahali lilipo.",
+          ctaLabel: "Chunguza mada",
+          imageAlt: "Wanajamii wa Kenya waliokusanyika Kargi, Kenya",
+        },
+        {
+          eyebrow: "Jisajili Kwa Usahihi",
+          headline: "Elewa Usajili wa PBO",
+          description:
+            "Mwongozo wa hatua kwa hatua kuhusu mchakato wa usajili, ratiba, na mahitaji kwa Mashirika ya Faida ya Umma.",
+          ctaLabel: "Anza mwongozo",
+          imageAlt: "Mtaalamu Mweusi akikagua mahitaji ya usajili wa shirika",
+        },
+        {
+          eyebrow: "Endelea Kuwa na Uzingatiaji",
+          headline: "Timiza Wajibu Wako wa Uzingatiaji",
+          description:
+            "Elewa Mamlaka ya Udhibiti, Daftari la Umma, na uzingatiaji unavyoonekana chini ya Kanuni za 2026.",
+          ctaLabel: "Angalia uzingatiaji",
+          imageAlt: "Mtaalamu Mweusi akijiandaa nyaraka za uzingatiaji",
+        },
+        {
+          eyebrow: "Uliza Swali",
+          headline: "Pata Majibu Yaliyounganishwa na Vyanzo",
+          description:
+            "Uliza kuhusu usajili au uzingatiaji kwa Kiingereza au Kiswahili, na upate majibu yanayofuatiliwa hadi nyaraka za kisheria zilizoidhinishwa.",
+          ctaLabel: "Uliza sasa",
+          imageAlt: "Wanawake Weusi wakishirikiana juu ya nyaraka za mwongozo mezani mwa mkutano",
+        },
+        {
+          eyebrow: "Ufuatiliaji wa Nafasi ya Kiraia",
+          headline: "Kulinda Nafasi ya Kiraia",
+          description:
+            "Kufuatilia utekelezaji wa Sheria ya PBO nchini Kenya kwa ushirikiano na ICNL, ili kulinda nafasi ya mashirika ya kiraia.",
+          ctaLabel: "Jifunze zaidi",
+          imageAlt: "Wakenya Weusi waliokusanyika katika maandamano ya nafasi ya kiraia",
+        },
+      ],
+    },
   },
   guidance: {
     metaTitle: "Mwongozo wa PBO",

@@ -88,6 +88,56 @@ export const en = {
       lead: "Try a common question or type your own. Guidance draws from compiled topic pages and cites the sources used.",
       button: "Go to guidance tool",
     },
+    hero: {
+      ariaLabel: "CRECO PBO Act platform highlights",
+      previousSlide: "Previous slide",
+      nextSlide: "Next slide",
+      chooseSlide: "Choose slide",
+      goToSlide: "Go to slide {number}: {headline}",
+      slideOf: "{current} of {total}",
+      slides: [
+        {
+          eyebrow: "Understand the Law",
+          headline: "Know the PBO Act, 2013",
+          description:
+            "Plain-language guidance on the objects and purpose of the Act, so your organisation knows exactly where it stands.",
+          ctaLabel: "Explore topics",
+          imageAlt: "Kenyan community members gathered in Kargi, Kenya",
+        },
+        {
+          eyebrow: "Register Correctly",
+          headline: "Navigate PBO Registration",
+          description:
+            "Step-by-step guidance on the registration process, timelines, and requirements for Public Benefit Organizations.",
+          ctaLabel: "Start guidance",
+          imageAlt: "Black professional reviewing organisation registration requirements",
+        },
+        {
+          eyebrow: "Stay Compliant",
+          headline: "Meet Your Compliance Duties",
+          description:
+            "Understand the Regulatory Authority, the Public Registry, and what compliance looks like under the 2026 Regulations.",
+          ctaLabel: "See compliance",
+          imageAlt: "Black professional preparing compliance documentation",
+        },
+        {
+          eyebrow: "Ask a Question",
+          headline: "Get Source-Linked Answers",
+          description:
+            "Ask about registration or compliance in English or Kiswahili, and get answers traced back to approved legal documents.",
+          ctaLabel: "Ask now",
+          imageAlt: "Black women collaborating over guidance materials at a meeting table",
+        },
+        {
+          eyebrow: "Civic Space Monitoring",
+          headline: "Safeguarding Civic Space",
+          description:
+            "Monitoring PBO Act implementation across Kenya in partnership with ICNL, to protect the space for civic organisations.",
+          ctaLabel: "Learn more",
+          imageAlt: "Black Kenyans gathered in a civic space demonstration",
+        },
+      ],
+    },
   },
   guidance: {
     metaTitle: "PBO Guidance",

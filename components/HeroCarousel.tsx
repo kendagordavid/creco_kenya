@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useFormat, useTranslations } from "@/lib/i18n/client";
 import "./HeroCarousel.css";
 
 const AUTO_ADVANCE_MS = 6000;
@@ -19,70 +20,58 @@ export type HeroSlide = {
 };
 
 /** Kenyan / Black photos in /public/images/hero — replace with CRECO photos when ready. */
-export const HERO_SLIDES: HeroSlide[] = [
+const HERO_SLIDE_CONFIG = [
   {
     id: "understand-the-law",
-    eyebrow: "Understand the Law",
-    headline: "Know the PBO Act, 2013",
-    description:
-      "Plain-language guidance on the objects and purpose of the Act, so your organisation knows exactly where it stands.",
-    ctaLabel: "Explore topics",
     ctaHref: "/topics",
     imageSrc: "/images/hero/understand-the-law.jpg",
-    imageAlt: "Kenyan community members gathered in Kargi, Kenya",
   },
   {
     id: "register-correctly",
-    eyebrow: "Register Correctly",
-    headline: "Navigate PBO Registration",
-    description:
-      "Step-by-step guidance on the registration process, timelines, and requirements for Public Benefit Organizations.",
-    ctaLabel: "Start guidance",
     ctaHref: "/guidance",
     imageSrc: "/images/hero/register-correctly.jpg",
-    imageAlt: "Black professional reviewing organisation registration requirements",
   },
   {
     id: "stay-compliant",
-    eyebrow: "Stay Compliant",
-    headline: "Meet Your Compliance Duties",
-    description:
-      "Understand the Regulatory Authority, the Public Registry, and what compliance looks like under the 2026 Regulations.",
-    ctaLabel: "See compliance",
     ctaHref: "/compliance",
     imageSrc: "/images/hero/stay-compliant.jpg",
-    imageAlt: "Black professional preparing compliance documentation",
   },
   {
     id: "ask-a-question",
-    eyebrow: "Ask a Question",
-    headline: "Get Source-Linked Answers",
-    description:
-      "Ask about registration or compliance in English or Kiswahili, and get answers traced back to approved legal documents.",
-    ctaLabel: "Ask now",
     ctaHref: "/guidance?ask=1",
     imageSrc: "/images/hero/ask-a-question.jpg",
-    imageAlt: "Black women collaborating over guidance materials at a meeting table",
   },
   {
     id: "civic-space",
-    eyebrow: "Civic Space Monitoring",
-    headline: "Safeguarding Civic Space",
-    description:
-      "Monitoring PBO Act implementation across Kenya in partnership with ICNL, to protect the space for civic organisations.",
-    ctaLabel: "Learn more",
     ctaHref: "/monitoring",
     imageSrc: "/images/hero/civic-space.jpg",
-    imageAlt: "Black Kenyans gathered in a civic space demonstration",
   },
-];
+] as const;
 
 type Props = {
-  slides?: HeroSlide[];
   className?: string;
 };
 
-export function HeroCarousel({ slides = HERO_SLIDES, className = "" }: Props) {
+export function HeroCarousel({ className = "" }: Props) {
+  const t = useTranslations();
+  const format = useFormat();
+  const slides = useMemo<HeroSlide[]>(
+    () =>
+      HERO_SLIDE_CONFIG.map((config, index) => {
+        const copy = t.home.hero.slides[index];
+        return {
+          id: config.id,
+          ctaHref: config.ctaHref,
+          imageSrc: config.imageSrc,
+          eyebrow: copy.eyebrow,
+          headline: copy.headline,
+          description: copy.description,
+          ctaLabel: copy.ctaLabel,
+          imageAlt: copy.imageAlt,
+        };
+      }),
+    [t],
+  );
   const [activeIndex, setActiveIndex] = useState(0);
   const carouselRef = useRef<HTMLElement>(null);
   const timerRef = useRef<number | null>(null);
@@ -153,7 +142,7 @@ export function HeroCarousel({ slides = HERO_SLIDES, className = "" }: Props) {
       className={`hero-carousel relative isolate h-[calc(100svh-4rem)] min-h-[32rem] w-full overflow-hidden bg-creco-green-deep text-white ${className}`.trim()}
       style={{ "--hero-carousel-auto-ms": `${AUTO_ADVANCE_MS}ms` } as React.CSSProperties}
       aria-roledescription="carousel"
-      aria-label="CRECO PBO Act platform highlights"
+      aria-label={t.home.hero.ariaLabel}
       tabIndex={0}
     >
       <div className="absolute inset-0">
@@ -165,7 +154,7 @@ export function HeroCarousel({ slides = HERO_SLIDES, className = "" }: Props) {
               id={`hero-slide-${slide.id}`}
               className={`hero-carousel__slide absolute inset-0${isActive ? " hero-carousel__slide--active" : ""}`}
               aria-roledescription="slide"
-              aria-label={`${index + 1} of ${total}`}
+              aria-label={format(t.home.hero.slideOf, { current: index + 1, total })}
               aria-hidden={!isActive}
             >
               <div className="hero-carousel__photo-wrap">
@@ -214,7 +203,7 @@ export function HeroCarousel({ slides = HERO_SLIDES, className = "" }: Props) {
         type="button"
         className="hero-carousel__arrow absolute left-4 top-1/2 z-30 hidden -translate-y-1/2 sm:inline-flex"
         onClick={goPrev}
-        aria-label="Previous slide"
+        aria-label={t.home.hero.previousSlide}
       >
         <ChevronLeft className="size-6" aria-hidden />
       </button>
@@ -223,7 +212,7 @@ export function HeroCarousel({ slides = HERO_SLIDES, className = "" }: Props) {
         type="button"
         className="hero-carousel__arrow absolute right-4 top-1/2 z-30 hidden -translate-y-1/2 sm:inline-flex"
         onClick={goNext}
-        aria-label="Next slide"
+        aria-label={t.home.hero.nextSlide}
       >
         <ChevronRight className="size-6" aria-hidden />
       </button>
@@ -231,7 +220,7 @@ export function HeroCarousel({ slides = HERO_SLIDES, className = "" }: Props) {
       <div
         className="hero-carousel__dots absolute bottom-5 left-1/2 z-30 flex -translate-x-1/2 items-center gap-2"
         role="tablist"
-        aria-label="Choose slide"
+        aria-label={t.home.hero.chooseSlide}
       >
         {slides.map((slide, index) => (
           <button
@@ -239,7 +228,7 @@ export function HeroCarousel({ slides = HERO_SLIDES, className = "" }: Props) {
             type="button"
             role="tab"
             className={`hero-carousel__dot${index === activeIndex ? " hero-carousel__dot--active" : ""}`}
-            aria-label={`Go to slide ${index + 1}: ${slide.headline}`}
+            aria-label={format(t.home.hero.goToSlide, { number: index + 1, headline: slide.headline })}
             aria-selected={index === activeIndex}
             onClick={() => goTo(index)}
           />

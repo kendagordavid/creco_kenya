@@ -2,17 +2,19 @@ import Link from "next/link";
 import { ModuleCard } from "@/components/ModuleCard";
 import { PageHero } from "@/components/PageHero";
 import { PlatformSubnav } from "@/components/PlatformSubnav";
+import { getCachedWikiSummaries } from "@/lib/cached-wiki";
 import { KNOWLEDGE_FILTERS } from "@/lib/content/constants";
 import { MEDIA_ITEMS, TOOLKIT_ITEMS } from "@/lib/content/knowledge";
 import { FAQ_CATEGORIES } from "@/lib/content/faqs";
-import { listWikiPageSummaries } from "@/lib/wiki-server";
 
 export const metadata = {
   title: "Knowledge hub",
 };
 
-export default function KnowledgeHubPage() {
-  const topics = listWikiPageSummaries();
+export const revalidate = 3600;
+
+export default async function KnowledgeHubPage() {
+  const topics = await getCachedWikiSummaries();
 
   return (
     <>

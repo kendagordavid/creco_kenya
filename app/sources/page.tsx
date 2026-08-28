@@ -1,7 +1,9 @@
 import { PageHero } from "@/components/PageHero";
 import { SectionSubnav } from "@/components/SectionSubnav";
+import { getCachedSourceDocuments } from "@/lib/cached-wiki";
 import { getServerTranslations } from "@/lib/i18n/server";
-import { listSourceDocuments } from "@/lib/wiki-server";
+
+export const revalidate = 3600;
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
@@ -10,7 +12,7 @@ export async function generateMetadata() {
 
 export default async function SourcesPage() {
   const { t } = await getServerTranslations();
-  const sources = listSourceDocuments();
+  const sources = await getCachedSourceDocuments();
 
   return (
     <>

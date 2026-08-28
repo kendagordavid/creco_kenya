@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getCachedWikiSummaries } from "@/lib/cached-wiki";
+import { PUBLIC_CACHE } from "@/lib/http-cache";
 
 export const runtime = "nodejs";
 export const revalidate = 3600;
@@ -10,7 +11,7 @@ export async function GET() {
     { pages },
     {
       headers: {
-        "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
+        "Cache-Control": PUBLIC_CACHE.wiki,
       },
     },
   );

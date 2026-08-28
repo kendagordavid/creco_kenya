@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { PUBLIC_CACHE } from "@/lib/http-cache";
 import { globalSearch } from "@/lib/search";
 
 export const revalidate = 300;
@@ -11,7 +12,7 @@ export async function GET(request: Request) {
     { query: q, results },
     {
       headers: {
-        "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
+        "Cache-Control": PUBLIC_CACHE.search,
       },
     },
   );

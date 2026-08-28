@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Poppins, Geist } from "next/font/google";
-import { auth } from "@/auth";
 import { AuthProvider } from "@/components/AuthProvider";
 import { SiteChrome } from "@/components/SiteChrome";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -46,7 +45,6 @@ export default async function RootLayout({
 }>) {
   const locale = await getLocale();
   const dictionary = getDictionary(locale);
-  const session = await auth();
 
   return (
     <html lang={locale} suppressHydrationWarning className={cn("h-full", poppins.variable, "font-sans", geist.variable)}>
@@ -56,7 +54,7 @@ export default async function RootLayout({
       >
         <ThemeProvider>
           <LocaleProvider locale={locale} dictionary={dictionary}>
-            <AuthProvider session={session}>
+            <AuthProvider>
               <SiteChrome>{children}</SiteChrome>
             </AuthProvider>
           </LocaleProvider>

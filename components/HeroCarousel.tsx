@@ -18,7 +18,7 @@ export type HeroSlide = {
   imageAlt: string;
 };
 
-/** Kenyan / Black placeholder photos — replace imageSrc with local CRECO photos when ready. */
+/** Kenyan / Black photos in /public/images/hero — replace with CRECO photos when ready. */
 export const HERO_SLIDES: HeroSlide[] = [
   {
     id: "understand-the-law",
@@ -28,8 +28,7 @@ export const HERO_SLIDES: HeroSlide[] = [
       "Plain-language guidance on the objects and purpose of the Act, so your organisation knows exactly where it stands.",
     ctaLabel: "Explore topics",
     ctaHref: "/topics",
-    imageSrc:
-      "https://images.unsplash.com/photo-1515658323406-25d61c141a6e?auto=format&fit=crop&w=1920&q=80",
+    imageSrc: "/images/hero/understand-the-law.jpg",
     imageAlt: "Kenyan community members gathered in Kargi, Kenya",
   },
   {
@@ -40,8 +39,7 @@ export const HERO_SLIDES: HeroSlide[] = [
       "Step-by-step guidance on the registration process, timelines, and requirements for Public Benefit Organizations.",
     ctaLabel: "Start guidance",
     ctaHref: "/guidance",
-    imageSrc:
-      "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1920&q=80",
+    imageSrc: "/images/hero/register-correctly.jpg",
     imageAlt: "Black professional reviewing organisation registration requirements",
   },
   {
@@ -52,8 +50,7 @@ export const HERO_SLIDES: HeroSlide[] = [
       "Understand the Regulatory Authority, the Public Registry, and what compliance looks like under the 2026 Regulations.",
     ctaLabel: "See compliance",
     ctaHref: "/compliance",
-    imageSrc:
-      "https://images.unsplash.com/photo-1611432579402-7037e3e2c1e4?auto=format&fit=crop&w=1920&q=80",
+    imageSrc: "/images/hero/stay-compliant.jpg",
     imageAlt: "Black professional preparing compliance documentation",
   },
   {
@@ -64,8 +61,7 @@ export const HERO_SLIDES: HeroSlide[] = [
       "Ask about registration or compliance in English or Kiswahili, and get answers traced back to approved legal documents.",
     ctaLabel: "Ask now",
     ctaHref: "/guidance?ask=1",
-    imageSrc:
-      "https://images.unsplash.com/photo-1573164574397-dd250bc8a598?auto=format&fit=crop&w=1920&q=80",
+    imageSrc: "/images/hero/ask-a-question.jpg",
     imageAlt: "Black women collaborating over guidance materials at a meeting table",
   },
   {
@@ -76,8 +72,7 @@ export const HERO_SLIDES: HeroSlide[] = [
       "Monitoring PBO Act implementation across Kenya in partnership with ICNL, to protect the space for civic organisations.",
     ctaLabel: "Learn more",
     ctaHref: "/monitoring",
-    imageSrc:
-      "https://images.unsplash.com/photo-1719444036101-4ad52db556b4?auto=format&fit=crop&w=1920&q=80",
+    imageSrc: "/images/hero/civic-space.jpg",
     imageAlt: "Black Kenyans gathered in a civic space demonstration",
   },
 ];
@@ -129,6 +124,12 @@ export function HeroCarousel({ slides = HERO_SLIDES, className = "" }: Props) {
   }, [startAutoAdvance]);
 
   useEffect(() => {
+    const nextIndex = (activeIndex + 1) % total;
+    const preload = new window.Image();
+    preload.src = slides[nextIndex].imageSrc;
+  }, [activeIndex, slides, total]);
+
+  useEffect(() => {
     const node = carouselRef.current;
     if (!node) return;
 
@@ -168,14 +169,16 @@ export function HeroCarousel({ slides = HERO_SLIDES, className = "" }: Props) {
               aria-hidden={!isActive}
             >
               <div className="hero-carousel__photo-wrap">
-                {/* eslint-disable-next-line @next/next/no-img-element -- full-bleed hero backgrounds need native img for reliable cover sizing */}
-                <img
-                  src={slide.imageSrc}
-                  alt={slide.imageAlt}
-                  className="hero-carousel__photo"
-                  decoding="async"
-                  fetchPriority={index === 0 ? "high" : "auto"}
-                />
+                {isActive ? (
+                  /* eslint-disable-next-line @next/next/no-img-element -- full-bleed hero backgrounds need native img for reliable cover sizing */
+                  <img
+                    src={slide.imageSrc}
+                    alt={slide.imageAlt}
+                    className="hero-carousel__photo"
+                    decoding="async"
+                    fetchPriority={index === 0 ? "high" : "auto"}
+                  />
+                ) : null}
               </div>
 
               <div className="hero-carousel__scrim pointer-events-none absolute inset-0 z-[1]" aria-hidden />

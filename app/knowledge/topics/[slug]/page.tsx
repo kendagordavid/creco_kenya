@@ -3,7 +3,9 @@ import { notFound } from "next/navigation";
 import { PageHero } from "@/components/PageHero";
 import { PlatformSubnav } from "@/components/PlatformSubnav";
 import { WikiBody } from "@/components/WikiBody";
-import { loadWikiPages } from "@/lib/wiki-server";
+import { getCachedWikiPageBySlug } from "@/lib/cached-wiki";
+
+export const revalidate = 3600;
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -11,13 +13,13 @@ type Props = {
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
-  const page = loadWikiPages().find((p) => p.slug === slug);
+  const page = await getCachedWikiPageBySlug(slug);
   return { title: page?.title ?? "Topic" };
 }
 
 export default async function TopicDetailPage({ params }: Props) {
   const { slug } = await params;
-  const page = loadWikiPages().find((p) => p.slug === slug);
+  const page = await getCachedWikiPageBySlug(slug);
   if (!page) notFound();
 
   return (

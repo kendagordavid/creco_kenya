@@ -25,3 +25,14 @@ export const getCachedWikiSummaries = unstable_cache(
   ["wiki-summaries"],
   { revalidate: WIKI_REVALIDATE_SECONDS, tags: ["wiki"] },
 );
+
+export async function getCachedWikiPageBySlug(slug: string) {
+  return unstable_cache(
+    async () => {
+      const pages = await loadWikiPages();
+      return pages.find((page) => page.slug === slug) ?? null;
+    },
+    ["wiki-page", slug],
+    { revalidate: WIKI_REVALIDATE_SECONDS, tags: ["wiki", `wiki:${slug}`] },
+  )();
+}

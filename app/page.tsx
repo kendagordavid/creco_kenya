@@ -2,6 +2,8 @@ import Link from "next/link";
 import { HeroCarousel } from "@/components/HeroCarousel";
 import { getServerTranslations } from "@/lib/i18n/server";
 
+export const revalidate = 3600;
+
 export default async function HomePage() {
   const { t } = await getServerTranslations();
 

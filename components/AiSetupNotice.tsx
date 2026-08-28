@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { peekBrowserCache, writeBrowserCache, CACHE_TTL } from "@/lib/browser-cache";
 import { useFormat, useTranslations } from "@/lib/i18n/client";
 
 type Health = {
@@ -9,15 +10,27 @@ type Health = {
   setup_hint?: string | null;
 };
 
+const HEALTH_CACHE_KEY = "GET:/api/health";
+
 export function AiSetupNotice() {
   const t = useTranslations();
   const format = useFormat();
-  const [health, setHealth] = useState<Health | null>(null);
+  const [health, setHealth] = useState<Health | null>(() =>
+    peekBrowserCache<Health>(HEALTH_CACHE_KEY, "session"),
+  );
 
   useEffect(() => {
-    fetch("/api/health", { cache: "no-store" })
+    const cached = peekBrowserCache<Health>(HEALTH_CACHE_KEY, "session");
+    if (cached) {
+      setHealth(cached);
+    }
+
+    fetch("/api/health")
       .then((r) => r.json())
-      .then(setHealth)
+      .then((data: Health) => {
+        writeBrowserCache(HEALTH_CACHE_KEY, data, CACHE_TTL.public, "session");
+        setHealth(data);
+      })
       .catch(() => setHealth(null));
   }, []);
 

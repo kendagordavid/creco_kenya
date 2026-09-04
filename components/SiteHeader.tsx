@@ -29,10 +29,13 @@ function NavLink({
   onNavigate?: () => void;
   className?: string;
 }) {
+  const t = useTranslations();
+
   return (
     <Link
       href={href}
       onClick={onNavigate}
+      aria-current={active ? "page" : undefined}
       className={cn(
         "flex min-h-11 items-center rounded-lg px-3 py-2.5 text-sm font-semibold no-underline transition-colors",
         active
@@ -42,6 +45,7 @@ function NavLink({
       )}
     >
       {label}
+      {active && <span className="sr-only"> ({t.a11y.currentPage})</span>}
     </Link>
   );
 }
@@ -70,9 +74,13 @@ export function SiteHeader() {
       }));
 
   return (
-    <header className="sticky top-0 z-50 border-b border-creco-border bg-background/95 backdrop-blur-md dark:border-border">
+    <header className="sticky top-0 z-50 border-b border-creco-border bg-background/95 dark:border-border supports-[backdrop-filter]:backdrop-blur-md">
       <div className="creco-container flex h-16 items-center gap-4">
-        <Link href="/" className="group flex shrink-0 items-center gap-2.5 no-underline">
+        <Link
+          href="/"
+          aria-label={t.a11y.homeLink}
+          className="group flex shrink-0 items-center gap-2.5 no-underline"
+        >
           <span
             className="flex size-10 items-center justify-center rounded-lg bg-creco-primary text-sm font-bold text-white"
             aria-hidden
@@ -120,6 +128,7 @@ export function SiteHeader() {
             className="inline-flex size-11 shrink-0 items-center justify-center rounded-lg text-creco-black transition hover:bg-creco-green-muted dark:text-foreground dark:hover:bg-muted lg:hidden"
             aria-label={t.nav.toggleNav}
             aria-expanded={open}
+            aria-controls="mobile-primary-nav"
             onClick={() => setOpen((value) => !value)}
           >
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -136,6 +145,7 @@ export function SiteHeader() {
 
       {open && (
         <nav
+          id="mobile-primary-nav"
           aria-label={isLoggedIn ? t.nav.platformNav : t.nav.sectionNav}
           className="border-t border-creco-border bg-background px-4 py-3 dark:border-border lg:hidden"
         >

@@ -8,12 +8,13 @@ import { getDictionary, getLocale } from "@/lib/i18n/server";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans", display: "swap" });
 
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600", "700"],
+  display: "swap",
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -55,7 +56,7 @@ export default async function RootLayout({
         <ThemeProvider>
           <LocaleProvider locale={locale} dictionary={dictionary}>
             <AuthProvider>
-              <SiteChrome>{children}</SiteChrome>
+              <SiteChrome skipLinkLabel={dictionary.a11y.skipToMain}>{children}</SiteChrome>
             </AuthProvider>
           </LocaleProvider>
         </ThemeProvider>

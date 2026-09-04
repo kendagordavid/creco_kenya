@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { HeroCarousel } from "@/components/HeroCarousel";
-import { getServerTranslations } from "@/lib/i18n/server";
+import { getServerTranslations, interpolate } from "@/lib/i18n/server";
 
 export const revalidate = 3600;
 
@@ -30,7 +30,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <HeroCarousel />
+      <HeroCarousel copy={t.home.hero} />
 
       <section className="creco-section">
         <div className="creco-container">
@@ -47,11 +47,15 @@ export default async function HomePage() {
               <Link
                 key={module.href}
                 href={module.href}
+                aria-label={interpolate(t.a11y.openModule, {
+                  title: module.title,
+                  description: module.description,
+                })}
                 className={`creco-card group block p-8 no-underline ${
                   module.accent === "orange" ? "creco-card-accent" : "creco-card-green"
                 }`}
               >
-                <h3 className="text-xl font-bold text-creco-black transition-colors group-hover:text-creco-primary">
+                <h3 className="text-xl font-bold text-creco-black transition-colors group-hover:text-creco-primary dark:text-foreground dark:group-hover:text-creco-green-light">
                   {module.title}
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-creco-muted">
@@ -59,6 +63,7 @@ export default async function HomePage() {
                 </p>
                 <span className="mt-5 inline-block text-sm font-semibold text-creco-primary group-hover:text-creco-accent">
                   {t.home.howItWorks.open}
+                  <span className="sr-only"> — {module.title}</span>
                 </span>
               </Link>
             ))}

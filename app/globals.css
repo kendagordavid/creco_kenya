@@ -415,6 +415,8 @@ h4,
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  min-height: 2.75rem;
+  min-width: 2.75rem;
   padding: 0.8125rem 1.625rem;
   font-size: 0.9375rem;
   font-weight: 600;
@@ -428,9 +430,23 @@ h4,
     box-shadow 0.2s ease;
   text-decoration: none;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.creco-btn:active {
+.creco-btn:focus-visible {
+  outline: 2px solid var(--creco-orange);
+  outline-offset: 2px;
+}
+
+.creco-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  transform: none;
+  box-shadow: none;
+}
+
+.creco-btn:active:not(:disabled) {
   transform: scale(0.98);
 }
 
@@ -837,6 +853,31 @@ h4,
   outline-offset: 2px;
 }
 
+/* Screen-reader-only utility — visible when focused (skip links) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.focus\:not-sr-only:focus,
+.focus\:not-sr-only:focus-visible {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
 /* ── Forms (shared) ── */
 .creco-form-group {
   display: flex;
@@ -877,8 +918,9 @@ h4,
   color: #9ca3af;
 }
 
-.creco-input:focus {
-  outline: none;
+.creco-input:focus-visible {
+  outline: 2px solid var(--creco-orange);
+  outline-offset: 2px;
   border-color: var(--creco-primary);
   box-shadow: 0 0 0 3px var(--creco-green-glow);
 }

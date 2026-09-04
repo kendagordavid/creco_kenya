@@ -18,7 +18,10 @@ export function SiteFooter() {
       <div className="creco-container grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <div className="flex items-center gap-3">
-            <span className="flex size-10 items-center justify-center rounded-lg bg-creco-primary text-sm font-bold text-white">
+            <span
+              className="flex size-10 items-center justify-center rounded-lg bg-creco-primary text-sm font-bold text-white"
+              aria-hidden
+            >
               C
             </span>
             <div>
@@ -29,8 +32,8 @@ export function SiteFooter() {
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-creco-muted">{t.footer.tagline}</p>
         </div>
 
-        <div className="lg:col-span-3">
-          <p className="text-sm font-semibold text-creco-black dark:text-foreground">{t.footer.platform}</p>
+        <nav className="lg:col-span-3" aria-label={t.a11y.footerPlatformNav}>
+          <h2 className="text-sm font-semibold text-creco-black dark:text-foreground">{t.footer.platform}</h2>
           <ul className="mt-3 space-y-2 text-sm">
             {platformLinks.map((link) => (
               <li key={link.href}>
@@ -43,10 +46,12 @@ export function SiteFooter() {
               </li>
             ))}
           </ul>
-        </div>
+        </nav>
 
         <div className="lg:col-span-4">
-          <p className="text-sm font-semibold text-creco-black dark:text-foreground">{t.footer.partnership}</p>
+          <h2 className="text-sm font-semibold text-creco-black dark:text-foreground">
+            {t.footer.partnership}
+          </h2>
           <p className="mt-3 text-sm leading-relaxed text-creco-muted">{t.footer.partnershipText}</p>
         </div>
       </div>

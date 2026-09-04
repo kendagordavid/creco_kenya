@@ -3,75 +3,56 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useFormat, useTranslations } from "@/lib/i18n/client";
+import { useFormat } from "@/lib/i18n/client";
 import "./HeroCarousel.css";
 
 const AUTO_ADVANCE_MS = 6000;
 
-export type HeroSlide = {
-  id: string;
+export type HeroSlideCopy = {
   eyebrow: string;
   headline: string;
   description: string;
   ctaLabel: string;
-  ctaHref: string;
-  imageSrc: string;
   imageAlt: string;
+};
+
+export type HeroCarouselCopy = {
+  ariaLabel: string;
+  previousSlide: string;
+  nextSlide: string;
+  chooseSlide: string;
+  goToSlide: string;
+  slideOf: string;
+  slides: readonly HeroSlideCopy[];
 };
 
 /** Kenyan / Black photos in /public/images/hero — replace with CRECO photos when ready. */
 const HERO_SLIDE_CONFIG = [
-  {
-    id: "understand-the-law",
-    ctaHref: "/topics",
-    imageSrc: "/images/hero/understand-the-law.jpg",
-  },
-  {
-    id: "register-correctly",
-    ctaHref: "/guidance",
-    imageSrc: "/images/hero/register-correctly.jpg",
-  },
-  {
-    id: "stay-compliant",
-    ctaHref: "/compliance",
-    imageSrc: "/images/hero/stay-compliant.jpg",
-  },
-  {
-    id: "ask-a-question",
-    ctaHref: "/guidance?ask=1",
-    imageSrc: "/images/hero/ask-a-question.jpg",
-  },
-  {
-    id: "civic-space",
-    ctaHref: "/monitoring",
-    imageSrc: "/images/hero/civic-space.jpg",
-  },
+  { id: "understand-the-law", ctaHref: "/topics", imageSrc: "/images/hero/understand-the-law.jpg" },
+  { id: "register-correctly", ctaHref: "/guidance", imageSrc: "/images/hero/register-correctly.jpg" },
+  { id: "stay-compliant", ctaHref: "/compliance", imageSrc: "/images/hero/stay-compliant.jpg" },
+  { id: "ask-a-question", ctaHref: "/guidance?ask=1", imageSrc: "/images/hero/ask-a-question.jpg" },
+  { id: "civic-space", ctaHref: "/monitoring", imageSrc: "/images/hero/civic-space.jpg" },
 ] as const;
 
 type Props = {
+  copy: HeroCarouselCopy;
   className?: string;
 };
 
-export function HeroCarousel({ className = "" }: Props) {
-  const t = useTranslations();
+export function HeroCarousel({ copy, className = "" }: Props) {
   const format = useFormat();
-  const slides = useMemo<HeroSlide[]>(
+  const slides = useMemo(
     () =>
-      HERO_SLIDE_CONFIG.map((config, index) => {
-        const copy = t.home.hero.slides[index];
-        return {
-          id: config.id,
-          ctaHref: config.ctaHref,
-          imageSrc: config.imageSrc,
-          eyebrow: copy.eyebrow,
-          headline: copy.headline,
-          description: copy.description,
-          ctaLabel: copy.ctaLabel,
-          imageAlt: copy.imageAlt,
-        };
-      }),
-    [t],
+      HERO_SLIDE_CONFIG.map((config, index) => ({
+        id: config.id,
+        ctaHref: config.ctaHref,
+        imageSrc: config.imageSrc,
+        ...copy.slides[index],
+      })),
+    [copy.slides],
   );
+
   const [activeIndex, setActiveIndex] = useState(0);
   const carouselRef = useRef<HTMLElement>(null);
   const timerRef = useRef<number | null>(null);
@@ -113,9 +94,12 @@ export function HeroCarousel({ className = "" }: Props) {
   }, [startAutoAdvance]);
 
   useEffect(() => {
-    const nextIndex = (activeIndex + 1) % total;
-    const preload = new window.Image();
-    preload.src = slides[nextIndex].imageSrc;
+    slides.forEach((slide, index) => {
+      if (index === activeIndex || index === (activeIndex + 1) % total) {
+        const preload = new window.Image();
+        preload.src = slide.imageSrc;
+      }
+    });
   }, [activeIndex, slides, total]);
 
   useEffect(() => {
@@ -136,13 +120,20 @@ export function HeroCarousel({ className = "" }: Props) {
     return () => node.removeEventListener("keydown", onKeyDown);
   }, [goNext, goPrev]);
 
+  const activeSlide = slides[activeIndex];
+
   return (
     <section
       ref={carouselRef}
-      className={`hero-carousel relative isolate h-[calc(100svh-4rem)] min-h-[32rem] w-full overflow-hidden bg-creco-green-deep text-white ${className}`.trim()}
-      style={{ "--hero-carousel-auto-ms": `${AUTO_ADVANCE_MS}ms` } as React.CSSProperties}
+      className={`hero-carousel relative isolate w-full overflow-hidden bg-creco-green-deep text-white ${className}`.trim()}
+      style={
+        {
+          "--hero-carousel-auto-ms": `${AUTO_ADVANCE_MS}ms`,
+          backgroundImage: `url(${slides[0]?.imageSrc ?? ""})`,
+        } as React.CSSProperties
+      }
       aria-roledescription="carousel"
-      aria-label={t.home.hero.ariaLabel}
+      aria-label={copy.ariaLabel}
       tabIndex={0}
     >
       <div className="absolute inset-0">
@@ -154,20 +145,19 @@ export function HeroCarousel({ className = "" }: Props) {
               id={`hero-slide-${slide.id}`}
               className={`hero-carousel__slide absolute inset-0${isActive ? " hero-carousel__slide--active" : ""}`}
               aria-roledescription="slide"
-              aria-label={format(t.home.hero.slideOf, { current: index + 1, total })}
+              aria-label={format(copy.slideOf, { current: index + 1, total })}
               aria-hidden={!isActive}
             >
               <div className="hero-carousel__photo-wrap">
-                {isActive ? (
-                  /* eslint-disable-next-line @next/next/no-img-element -- full-bleed hero backgrounds need native img for reliable cover sizing */
-                  <img
-                    src={slide.imageSrc}
-                    alt={slide.imageAlt}
-                    className="hero-carousel__photo"
-                    decoding="async"
-                    fetchPriority={index === 0 ? "high" : "auto"}
-                  />
-                ) : null}
+                <img
+                  src={slide.imageSrc}
+                  alt={isActive ? slide.imageAlt : ""}
+                  aria-hidden={!isActive}
+                  className="hero-carousel__photo"
+                  decoding={index === 0 ? "sync" : "async"}
+                  fetchPriority={index === 0 ? "high" : "auto"}
+                  loading={index <= 1 ? "eager" : "lazy"}
+                />
               </div>
 
               <div className="hero-carousel__scrim pointer-events-none absolute inset-0 z-[1]" aria-hidden />
@@ -201,18 +191,18 @@ export function HeroCarousel({ className = "" }: Props) {
 
       <button
         type="button"
-        className="hero-carousel__arrow absolute left-4 top-1/2 z-30 hidden -translate-y-1/2 sm:inline-flex"
+        className="hero-carousel__arrow absolute left-2 top-1/2 z-30 inline-flex -translate-y-1/2 sm:left-4"
         onClick={goPrev}
-        aria-label={t.home.hero.previousSlide}
+        aria-label={copy.previousSlide}
       >
         <ChevronLeft className="size-6" aria-hidden />
       </button>
 
       <button
         type="button"
-        className="hero-carousel__arrow absolute right-4 top-1/2 z-30 hidden -translate-y-1/2 sm:inline-flex"
+        className="hero-carousel__arrow absolute right-2 top-1/2 z-30 inline-flex -translate-y-1/2 sm:right-4"
         onClick={goNext}
-        aria-label={t.home.hero.nextSlide}
+        aria-label={copy.nextSlide}
       >
         <ChevronRight className="size-6" aria-hidden />
       </button>
@@ -220,7 +210,7 @@ export function HeroCarousel({ className = "" }: Props) {
       <div
         className="hero-carousel__dots absolute bottom-5 left-1/2 z-30 flex -translate-x-1/2 items-center gap-2"
         role="tablist"
-        aria-label={t.home.hero.chooseSlide}
+        aria-label={copy.chooseSlide}
       >
         {slides.map((slide, index) => (
           <button
@@ -228,7 +218,7 @@ export function HeroCarousel({ className = "" }: Props) {
             type="button"
             role="tab"
             className={`hero-carousel__dot${index === activeIndex ? " hero-carousel__dot--active" : ""}`}
-            aria-label={format(t.home.hero.goToSlide, { number: index + 1, headline: slide.headline })}
+            aria-label={format(copy.goToSlide, { number: index + 1, headline: slide.headline })}
             aria-selected={index === activeIndex}
             onClick={() => goTo(index)}
           />
@@ -236,7 +226,7 @@ export function HeroCarousel({ className = "" }: Props) {
       </div>
 
       <p className="sr-only" aria-live="polite" aria-atomic="true">
-        {slides[activeIndex].headline}
+        {activeSlide?.headline}
       </p>
     </section>
   );

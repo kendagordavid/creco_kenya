@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { BookOpen, Shield, Users } from "lucide-react";
+import { SkipLink } from "@/components/SkipLink";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { useFormat, useTranslations } from "@/lib/i18n/client";
 
@@ -35,7 +36,9 @@ export function AuthShell({ children }: Props) {
   ];
 
   return (
-    <div className="grid min-h-svh lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
+    <>
+      <SkipLink label={t.a11y.skipToMain} />
+      <div className="grid min-h-svh lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
       <aside
         className="relative hidden flex-col justify-between overflow-hidden p-10 text-white lg:flex xl:p-14"
         style={{
@@ -96,12 +99,17 @@ export function AuthShell({ children }: Props) {
         </p>
       </aside>
 
-      <div className="relative flex min-h-svh flex-col justify-center bg-[var(--creco-surface)] px-4 py-10 sm:px-8 lg:min-h-0 lg:px-12 xl:px-16">
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className="relative flex min-h-svh flex-col justify-center bg-[var(--creco-surface)] px-4 py-10 outline-none sm:px-8 lg:min-h-0 lg:px-12 xl:px-16"
+      >
         <div className="absolute right-4 top-4 flex items-center gap-2 sm:right-8 lg:right-12">
           <ThemeSwitcher />
         </div>
         <div className="mx-auto w-full max-w-md lg:max-w-lg">{children}</div>
+      </main>
       </div>
-    </div>
+    </>
   );
 }

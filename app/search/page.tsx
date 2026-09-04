@@ -1,18 +1,21 @@
-import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
 import { PlatformSubnav } from "@/components/PlatformSubnav";
 import { SearchForm } from "@/components/SearchForm";
+import { SearchResults } from "@/components/SearchResults";
+import { getServerTranslations } from "@/lib/i18n/server";
 import { globalSearch } from "@/lib/search";
 
-export const metadata = {
-  title: "Search",
-};
+export async function generateMetadata() {
+  const { t } = await getServerTranslations();
+  return { title: t.search.metaTitle };
+}
 
 type Props = {
   searchParams: Promise<{ q?: string }>;
 };
 
 export default async function SearchPage({ searchParams }: Props) {
+  const { t } = await getServerTranslations();
   const params = await searchParams;
   const query = params.q?.trim() ?? "";
   const results = globalSearch(query);
@@ -20,44 +23,16 @@ export default async function SearchPage({ searchParams }: Props) {
   return (
     <>
       <PageHero
-        eyebrow="Search"
-        title="Search the platform"
-        lead="Topics, FAQs, templates, toolkits, and key pages."
+        eyebrow={t.search.metaTitle}
+        title={t.search.title}
+        lead={t.search.lead}
         variant="light"
       />
       <PlatformSubnav />
-      <section className="creco-section">
+      <section className="creco-section" aria-label={t.search.resultsRegion}>
         <div className="creco-container max-w-3xl">
           <SearchForm defaultQuery={query} />
-
-          {query && (
-            <p className="mt-6 text-sm text-creco-muted">
-              {results.length} result{results.length === 1 ? "" : "s"} for &ldquo;{query}&rdquo;
-            </p>
-          )}
-
-          <ul className="mt-8 space-y-4">
-            {results.map((result) => (
-              <li key={result.href}>
-                <Link href={result.href} className="creco-card block p-5 no-underline">
-                  <span className="text-xs font-bold uppercase tracking-wider text-creco-accent">
-                    {result.type}
-                  </span>
-                  <h2 className="mt-1 font-bold text-creco-black">{result.title}</h2>
-                  <p className="mt-2 line-clamp-4 text-sm text-creco-muted">{result.excerpt}</p>
-                </Link>
-              </li>
-            ))}
-          </ul>
-
-          {query && results.length === 0 && (
-            <div className="creco-card mt-8 p-8 text-center">
-              <p className="text-creco-muted">No matches. Try the guidance tool or browse the knowledge hub.</p>
-              <Link href="/guidance?ask=1" className="creco-btn creco-btn-primary mt-4">
-                Ask a question
-              </Link>
-            </div>
-          )}
+          <SearchResults query={query} results={results} />
         </div>
       </section>
     </>

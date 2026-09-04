@@ -1,12 +1,19 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { SkipLink } from "@/components/SkipLink";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 
 const AUTH_ROUTES = new Set(["/login", "/register", "/forgot-password"]);
 
-export function SiteChrome({ children }: { children: React.ReactNode }) {
+export function SiteChrome({
+  children,
+  skipLinkLabel,
+}: {
+  children: React.ReactNode;
+  skipLinkLabel: string;
+}) {
   const pathname = usePathname();
   const isAuth = AUTH_ROUTES.has(pathname);
 
@@ -16,14 +23,9 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:shadow-lg"
-      >
-        Skip to main content
-      </a>
+      <SkipLink label={skipLinkLabel} />
       <SiteHeader />
-      <main id="main-content" className="flex-1">
+      <main id="main-content" tabIndex={-1} className="flex-1 outline-none">
         {children}
       </main>
       <SiteFooter />

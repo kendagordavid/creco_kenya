@@ -1,14 +1,22 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import Google from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
 import { authConfig } from "@/auth.config";
+import { isGoogleAuthEnabled, provisionGoogleUser } from "@/lib/auth-oauth";
 import { normalizeRole } from "@/lib/authz";
 import { findUserByEmail } from "@/lib/store";
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
-  ...authConfig,
-  providers: [
-    Credentials({
+const providers = [
+  ...(isGoogleAuthEnabled()
+    ? [
+        Google({
+          clientId: process.env.GOOGLE_CLIENT_ID!,
+          clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+        }),
+      ]
+    : []),
+  Credentials({
       name: "Email and password",
       credentials: {
         email: { label: "Email", type: "email" },
@@ -40,5 +48,31 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
       },
     }),
-  ],
+];
+
+export const { handlers, signIn, signOut, auth } = NextAuth({
+  ...authConfig,
+  providers,
+  callbacks: {
+    ...authConfig.callbacks,
+    async signIn({ user, account }) {
+      if (account?.provider !== "google") return true;
+
+      if (!user.email) return false;
+
+      try {
+        const dbUser = await provisionGoogleUser({
+          email: user.email,
+          name: user.name ?? user.email.split("@")[0] ?? "PBO user",
+        });
+        user.id = dbUser.id;
+        user.orgName = dbUser.orgName;
+        user.role = normalizeRole(dbUser.role);
+        return true;
+      } catch (error) {
+        console.error("[auth] google sign-in failed:", error);
+        return false;
+      }
+    },
+  },
 });

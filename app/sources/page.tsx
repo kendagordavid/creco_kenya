@@ -1,5 +1,4 @@
 import { PageHero } from "@/components/PageHero";
-import { SectionSubnav } from "@/components/SectionSubnav";
 import { getCachedSourceDocuments } from "@/lib/cached-wiki";
 import { getServerTranslations } from "@/lib/i18n/server";
 
@@ -21,7 +20,6 @@ export default async function SourcesPage() {
         title={t.sources.title}
         lead={t.sources.lead}
       />
-      <SectionSubnav />
       <section className="creco-section creco-section-alt">
         <div className="creco-container relative z-10">
           {sources.length === 0 ? (

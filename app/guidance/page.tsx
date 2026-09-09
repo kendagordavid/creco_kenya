@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { AiSetupNotice } from "@/components/AiSetupNotice";
 import { GuidancePanel } from "@/components/GuidancePanel";
 import { PageHero } from "@/components/PageHero";
-import { SectionSubnav } from "@/components/SectionSubnav";
 import { getDictionary, getLocale, getServerTranslations } from "@/lib/i18n/server";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -24,7 +23,6 @@ export default async function GuidancePage({ searchParams }: Props) {
   return (
     <>
       <PageHero eyebrow={t.guidance.eyebrow} title={t.guidance.title} lead={t.guidancePage.lead} />
-      <SectionSubnav />
       <section className="creco-section creco-section-alt">
         <div className="creco-container">
           <AiSetupNotice />

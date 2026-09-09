@@ -1,4 +1,6 @@
+import { redirect } from "next/navigation";
 import { Suspense } from "react";
+import { auth } from "@/auth";
 import { AuthShell } from "@/components/AuthShell";
 import { LoginForm } from "@/components/LoginForm";
 
@@ -6,7 +8,12 @@ export const metadata = {
   title: "Sign in",
 };
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const session = await auth();
+  if (session?.user) {
+    redirect("/profile");
+  }
+
   return (
     <AuthShell>
       <Suspense

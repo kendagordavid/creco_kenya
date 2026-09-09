@@ -11,12 +11,14 @@ function SessionCacheWarmup() {
   const { data: session } = useSession();
 
   useEffect(() => {
+    if (!session?.user) return;
+
     void prefetchAuthJson("/api/profile", CACHE_TTL.profile);
     void prefetchAuthJson("/api/submissions", CACHE_TTL.submissions);
-    if (isSuperuser(session?.user?.role)) {
+    if (isSuperuser(session.user.role)) {
       void prefetchAuthJson("/api/admin/compliance", CACHE_TTL.admin);
     }
-  }, [session?.user?.role]);
+  }, [session?.user]);
 
   return null;
 }

@@ -1,7 +1,9 @@
 import type { NextAuthConfig } from "next-auth";
+import { getAuthSecret } from "@/lib/auth-env";
 import { isRouteAuthorized } from "@/lib/auth-routes";
 
 export const authConfig = {
+  secret: getAuthSecret(),
   trustHost: true,
   pages: {
     signIn: "/login",

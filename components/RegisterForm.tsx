@@ -110,8 +110,7 @@ export function RegisterForm() {
 
     invalidateAuthCache();
     await updateSession();
-    router.push("/profile");
-    router.refresh();
+    window.location.assign("/profile");
   }
 
   return (

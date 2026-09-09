@@ -13,6 +13,10 @@ import {
 export default NextAuth(authConfig).auth((request) => {
   const { pathname, search } = request.nextUrl;
 
+  if (request.auth && (pathname === "/login" || pathname === "/register")) {
+    return NextResponse.redirect(new URL("/profile", request.url));
+  }
+
   if (!isRouteAuthorized(pathname, request.auth)) {
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("callbackUrl", `${pathname}${search}`);

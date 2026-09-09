@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 import {
   ArrowRight,
@@ -35,7 +35,6 @@ function safeCallbackUrl(raw: string | null): string {
 }
 
 export function LoginForm() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const { update } = useSession();
   const t = useTranslations();
@@ -67,8 +66,7 @@ export function LoginForm() {
 
     invalidateAuthCache();
     await update();
-    router.push(callbackUrl);
-    router.refresh();
+    window.location.assign(callbackUrl);
   }
 
   return (

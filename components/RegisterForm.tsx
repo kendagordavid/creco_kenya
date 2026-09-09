@@ -7,7 +7,6 @@ import {
   ArrowRight,
   Building2,
   Loader2,
-  Lock,
   Mail,
   MapPin,
   Phone,
@@ -25,6 +24,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
+import { PasswordInput } from "@/components/PasswordInput";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
@@ -147,31 +147,29 @@ export function RegisterForm() {
               />
             </Field>
 
-            <Field icon={Lock} id="password" label={t.auth.register.password} required>
-              <Input
+            <div className="space-y-2">
+              <Label htmlFor="password">{t.auth.register.password}</Label>
+              <PasswordInput
                 id="password"
-                type="password"
                 autoComplete="new-password"
-                className="h-11 pl-9"
                 required
                 minLength={8}
                 value={form.password}
                 onChange={(e) => update("password", e.target.value)}
               />
-            </Field>
+            </div>
 
-            <Field icon={Lock} id="confirmPassword" label={t.auth.register.confirmPassword} required>
-              <Input
+            <div className="space-y-2">
+              <Label htmlFor="confirmPassword">{t.auth.register.confirmPassword}</Label>
+              <PasswordInput
                 id="confirmPassword"
-                type="password"
                 autoComplete="new-password"
-                className="h-11 pl-9"
                 required
                 minLength={8}
                 value={form.confirmPassword}
                 onChange={(e) => update("confirmPassword", e.target.value)}
               />
-            </Field>
+            </div>
             <p className="text-xs text-muted-foreground sm:col-span-2">{t.auth.register.passwordHint}</p>
 
             <Field icon={Building2} id="orgName" label={t.auth.register.orgName} required className="sm:col-span-2">

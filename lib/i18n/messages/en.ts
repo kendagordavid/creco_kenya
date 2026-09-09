@@ -618,6 +618,8 @@ export const en = {
   a11y: {
     skipToMain: "Skip to main content",
     homeLink: "CRECO Kenya — PBO Act Platform, go to homepage",
+    showPassword: "Show password",
+    hidePassword: "Hide password",
     currentPage: "current page",
     openModule: "Open {title}: {description}",
     footerPlatformNav: "Platform links",

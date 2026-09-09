@@ -6,7 +6,6 @@ import { FormEvent, useState } from "react";
 import {
   ArrowRight,
   Loader2,
-  Lock,
   LogIn,
   Mail,
 } from "lucide-react";
@@ -20,6 +19,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { PasswordInput } from "@/components/PasswordInput";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
@@ -125,22 +125,14 @@ export function LoginForm() {
                 {t.auth.login.forgotPassword}
               </Link>
             </div>
-            <div className="relative">
-              <Lock
-                className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
-                aria-hidden
-              />
-              <Input
-                id="password"
-                type="password"
-                autoComplete="current-password"
-                placeholder={t.auth.login.passwordPlaceholder}
-                className="h-11 pl-9"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
+            <PasswordInput
+              id="password"
+              autoComplete="current-password"
+              placeholder={t.auth.login.passwordPlaceholder}
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
 
           <Button

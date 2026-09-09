@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { signIn, useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 import {
@@ -24,7 +23,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { invalidateAuthCache } from "@/lib/auth-client";
+import { signInWithCredentials } from "@/lib/auth-session-client";
 import { useTranslations } from "@/lib/i18n/client";
 
 function safeCallbackUrl(raw: string | null): string {
@@ -36,7 +35,6 @@ function safeCallbackUrl(raw: string | null): string {
 
 export function LoginForm() {
   const searchParams = useSearchParams();
-  const { update } = useSession();
   const t = useTranslations();
   const callbackUrl = safeCallbackUrl(searchParams.get("callbackUrl"));
   const registered = searchParams.get("registered") === "1";
@@ -51,22 +49,20 @@ export function LoginForm() {
     setError("");
     setLoading(true);
 
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
+    const result = await signInWithCredentials(email, password, callbackUrl);
 
-    setLoading(false);
-
-    if (result?.error || result?.ok === false) {
+    if (!result.ok) {
+      setLoading(false);
+      if (result.error === "configuration") {
+        setError(t.auth.login.configurationError);
+        return;
+      }
+      if (result.error === "unknown") {
+        setError(t.auth.login.serviceError);
+        return;
+      }
       setError(t.auth.login.invalidCredentials);
-      return;
     }
-
-    invalidateAuthCache();
-    await update();
-    window.location.assign(callbackUrl);
   }
 
   return (

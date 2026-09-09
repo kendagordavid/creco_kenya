@@ -298,6 +298,9 @@ export const en = {
       createAccount: "Create PBO account",
       registeredSuccess: "Account created successfully. Sign in with your email and password.",
       invalidCredentials: "Invalid email or password. Please try again.",
+      configurationError:
+        "Sign-in is not configured on this server. Contact the site administrator if this continues.",
+      serviceError: "We could not sign you in right now. Please try again in a moment.",
     },
     register: {
       title: "Create PBO account",

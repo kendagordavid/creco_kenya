@@ -4,9 +4,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { LogOut } from "lucide-react";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { UserMenu } from "@/components/UserMenu";
+import { completeSignOut } from "@/lib/auth-session-client";
 import { useTranslations } from "@/lib/i18n/client";
 import {
   isPlatformNavActive,
@@ -191,6 +193,20 @@ export function SiteHeader() {
                 </Link>
               </div>
             </>
+          )}
+
+          {isLoggedIn && (
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                void completeSignOut("/");
+              }}
+              className="mt-3 flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-destructive/30 px-4 text-sm font-semibold text-destructive transition hover:bg-destructive/10 sm:hidden"
+            >
+              <LogOut className="size-4" aria-hidden />
+              {t.nav.signOut}
+            </button>
           )}
 
           <div className="mt-3 flex items-center gap-2 sm:hidden">

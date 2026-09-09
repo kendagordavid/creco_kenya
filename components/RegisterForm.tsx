@@ -1,8 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import type { LucideIcon } from "lucide-react";
 import {
@@ -31,13 +29,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { KENYA_COUNTIES, ORG_TYPES } from "@/lib/content/constants";
-import { invalidateAuthCache } from "@/lib/auth-client";
+import { signInWithCredentials } from "@/lib/auth-session-client";
 import { useTranslations } from "@/lib/i18n/client";
 import { cn } from "@/lib/utils";
 
 export function RegisterForm() {
-  const router = useRouter();
-  const { update: updateSession } = useSession();
   const t = useTranslations();
   const termsParts = t.auth.register.terms.split("{privacyLink}");
   const [form, setForm] = useState({
@@ -95,22 +91,13 @@ export function RegisterForm() {
       return;
     }
 
-    const signInResult = await signIn("credentials", {
-      email: form.email,
-      password: form.password,
-      redirect: false,
-    });
+    const signInResult = await signInWithCredentials(form.email, form.password, "/profile");
 
     setLoading(false);
 
-    if (signInResult?.error || signInResult?.ok === false) {
-      router.push("/login?registered=1");
-      return;
+    if (!signInResult.ok) {
+      window.location.assign("/login?registered=1");
     }
-
-    invalidateAuthCache();
-    await updateSession();
-    window.location.assign("/profile");
   }
 
   return (

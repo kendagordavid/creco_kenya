@@ -1,10 +1,11 @@
 "use client";
 
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { ChevronDown, LogOut } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { completeSignOut } from "@/lib/auth-session-client";
 import { useTranslations } from "@/lib/i18n/client";
 import { cn } from "@/lib/utils";
 import { isSuperuser } from "@/lib/authz";
@@ -137,7 +138,7 @@ export function UserMenu() {
             role="menuitem"
             onClick={() => {
               setOpen(false);
-              signOut({ callbackUrl: "/" });
+              void completeSignOut("/");
             }}
             className="flex w-full items-center gap-2 px-3 py-2.5 text-left text-sm font-medium text-popover-foreground transition hover:bg-destructive/10 hover:text-destructive"
           >

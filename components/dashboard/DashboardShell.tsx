@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import {
   ClipboardList,
@@ -17,6 +17,7 @@ import {
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { completeSignOut } from "@/lib/auth-session-client";
 import { useFormat, useTranslations } from "@/lib/i18n/client";
 import { isSuperuser } from "@/lib/authz";
 import { cn } from "@/lib/utils";
@@ -175,7 +176,7 @@ export function DashboardShell({ children, title, description }: Props) {
                 type="button"
                 variant="ghost"
                 className="mt-1 w-full justify-start gap-3 px-3 text-muted-foreground hover:text-destructive"
-                onClick={() => signOut({ callbackUrl: "/" })}
+                onClick={() => void completeSignOut("/")}
               >
                 <LogOut className="size-4" aria-hidden />
                 {t.nav.signOut}
@@ -219,7 +220,7 @@ export function DashboardShell({ children, title, description }: Props) {
                 type="button"
                 variant="ghost"
                 className="mt-1 w-full justify-start gap-3 px-3 text-muted-foreground hover:text-destructive"
-                onClick={() => signOut({ callbackUrl: "/" })}
+                onClick={() => void completeSignOut("/")}
               >
                 <LogOut className="size-4" aria-hidden />
                 {t.nav.signOut}

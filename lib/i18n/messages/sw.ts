@@ -300,6 +300,9 @@ export const sw: Dictionary = {
       createAccount: "Unda akaunti ya PBO",
       registeredSuccess: "Akaunti imeundwa kwa mafanikio. Ingia kwa barua pepe na nenosiri lako.",
       invalidCredentials: "Barua pepe au nenosiri si sahihi. Tafadhali jaribu tena.",
+      configurationError:
+        "Kuingia hakijasanidiwa kwenye seva hii. Wasiliana na msimamizi wa tovuti ikiendelea.",
+      serviceError: "Hatukuweza kukuingiza sasa hivi. Tafadhali jaribu tena baada ya muda mfupi.",
     },
     register: {
       title: "Unda akaunti ya PBO",

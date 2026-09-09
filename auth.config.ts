@@ -1,5 +1,5 @@
 import type { NextAuthConfig } from "next-auth";
-import { isSuperuser } from "@/lib/authz";
+import { isRouteAuthorized } from "@/lib/auth-routes";
 
 export const authConfig = {
   trustHost: true,
@@ -13,29 +13,7 @@ export const authConfig = {
   providers: [],
   callbacks: {
     authorized({ auth, request }) {
-      const { pathname } = request.nextUrl;
-
-      if (pathname === "/admin" || pathname.startsWith("/admin/")) {
-        return isSuperuser(auth?.user?.role);
-      }
-
-      const protectedPrefixes = [
-        "/monitoring/registration",
-        "/monitoring/enabling",
-        "/monitoring/incident",
-        "/monitoring/upload",
-        "/monitoring/confirmation",
-        "/monitoring/submissions",
-        "/profile",
-        "/profile/account",
-      ];
-
-      const isProtected = protectedPrefixes.some(
-        (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
-      );
-
-      if (isProtected) return !!auth;
-      return true;
+      return isRouteAuthorized(request.nextUrl.pathname, auth);
     },
     jwt({ token, user }) {
       if (user) {

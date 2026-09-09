@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import { NextResponse } from "next/server";
 import { authConfig } from "@/auth.config";
+import { isRouteAuthorized } from "@/lib/auth-routes";
 import { PUBLIC_CACHE } from "@/lib/cache/headers";
 import { isPublicCacheablePath } from "@/lib/cache/public-paths";
 import {
@@ -10,6 +11,14 @@ import {
 } from "@/lib/i18n/locale-header";
 
 export default NextAuth(authConfig).auth((request) => {
+  const { pathname, search } = request.nextUrl;
+
+  if (!isRouteAuthorized(pathname, request.auth)) {
+    const loginUrl = new URL("/login", request.url);
+    loginUrl.searchParams.set("callbackUrl", `${pathname}${search}`);
+    return NextResponse.redirect(loginUrl);
+  }
+
   const locale = resolveLocaleFromCookie(request.cookies.get(LOCALE_COOKIE)?.value);
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set(LOCALE_HEADER, locale);
@@ -18,7 +27,7 @@ export default NextAuth(authConfig).auth((request) => {
     request: { headers: requestHeaders },
   });
 
-  if (isPublicCacheablePath(request.nextUrl.pathname)) {
+  if (isPublicCacheablePath(pathname)) {
     response.headers.set("Cache-Control", PUBLIC_CACHE.publicPage);
     response.headers.set("CDN-Cache-Control", PUBLIC_CACHE.publicPage);
     response.headers.set("Vary", "Cookie");

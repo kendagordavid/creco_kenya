@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { LogOut } from "lucide-react";
+import { LogOut, Menu, X } from "lucide-react";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { UserMenu } from "@/components/UserMenu";
@@ -135,14 +135,11 @@ export function SiteHeader() {
             aria-controls="mobile-primary-nav"
             onClick={() => setOpen((value) => !value)}
           >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
-              <path
-                d="M4 7h16M4 12h16M4 17h16"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
-            </svg>
+            {open ? (
+              <X className="size-[22px]" aria-hidden />
+            ) : (
+              <Menu className="size-[22px]" aria-hidden />
+            )}
           </button>
         </div>
       </div>

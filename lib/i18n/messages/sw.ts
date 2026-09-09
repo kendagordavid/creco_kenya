@@ -620,6 +620,8 @@ export const sw: Dictionary = {
   a11y: {
     skipToMain: "Ruka hadi maudhui kuu",
     homeLink: "CRECO Kenya — Jukwaa la Sheria ya PBO, nenda ukurasa wa nyumbani",
+    showPassword: "Onyesha nenosiri",
+    hidePassword: "Ficha nenosiri",
     currentPage: "ukurasa wa sasa",
     openModule: "Fungua {title}: {description}",
     footerPlatformNav: "Viungo vya jukwaa",

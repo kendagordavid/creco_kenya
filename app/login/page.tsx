@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { auth } from "@/auth";
 import { AuthShell } from "@/components/AuthShell";
 import { LoginForm } from "@/components/LoginForm";
+import { isGoogleAuthEnabled } from "@/lib/auth-oauth";
 
 export const metadata = {
   title: "Sign in",
@@ -23,7 +24,7 @@ export default async function LoginPage() {
           </div>
         }
       >
-        <LoginForm />
+        <LoginForm googleAuthEnabled={isGoogleAuthEnabled()} />
       </Suspense>
     </AuthShell>
   );

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import {
   ArrowRight,
   Loader2,
@@ -19,11 +19,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { GoogleSignInButton } from "@/components/GoogleSignInButton";
 import { PasswordInput } from "@/components/PasswordInput";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { signInWithCredentials } from "@/lib/auth-session-client";
+import { signInWithCredentials, signInWithGoogle } from "@/lib/auth-session-client";
 import { useTranslations } from "@/lib/i18n/client";
 
 function safeCallbackUrl(raw: string | null): string {
@@ -33,16 +34,45 @@ function safeCallbackUrl(raw: string | null): string {
   return raw;
 }
 
-export function LoginForm() {
+function oauthErrorMessage(
+  error: string | null,
+  t: ReturnType<typeof useTranslations>,
+): string | null {
+  switch (error) {
+    case "OAuthAccountNotLinked":
+      return t.auth.login.oauthAccountNotLinked;
+    case "AccessDenied":
+    case "OAuthSignin":
+    case "OAuthCallback":
+    case "Callback":
+      return t.auth.login.oauthSignInFailed;
+    case "Configuration":
+      return t.auth.login.configurationError;
+    default:
+      return error ? t.auth.login.oauthSignInFailed : null;
+  }
+}
+
+type Props = {
+  googleAuthEnabled?: boolean;
+};
+
+export function LoginForm({ googleAuthEnabled = false }: Props) {
   const searchParams = useSearchParams();
   const t = useTranslations();
   const callbackUrl = safeCallbackUrl(searchParams.get("callbackUrl"));
   const registered = searchParams.get("registered") === "1";
+  const oauthError = oauthErrorMessage(searchParams.get("error"), t);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(oauthError ?? "");
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
+
+  useEffect(() => {
+    if (oauthError) setError(oauthError);
+  }, [oauthError]);
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
@@ -65,6 +95,23 @@ export function LoginForm() {
     }
   }
 
+  async function onGoogleSignIn() {
+    if (!googleAuthEnabled) {
+      setError(t.auth.login.googleAuthUnavailable);
+      return;
+    }
+
+    setError("");
+    setGoogleLoading(true);
+
+    try {
+      await signInWithGoogle(callbackUrl);
+    } catch {
+      setGoogleLoading(false);
+      setError(t.auth.login.oauthSignInFailed);
+    }
+  }
+
   return (
     <Card className="border-0 bg-white shadow-xl shadow-[rgba(22,51,0,0.08)] ring-1 ring-black/5 dark:bg-card dark:shadow-none dark:ring-border/60">
       <CardHeader className="space-y-3 pb-2 text-center">
@@ -79,13 +126,30 @@ export function LoginForm() {
         </CardDescription>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="space-y-4">
         {registered && (
-          <Alert className="mb-4 border-creco-primary/40 bg-creco-green-muted">
+          <Alert className="border-creco-primary/40 bg-creco-green-muted">
             <AlertDescription className="text-creco-primary">
               {t.auth.login.registeredSuccess}
             </AlertDescription>
           </Alert>
+        )}
+
+        {googleAuthEnabled && (
+          <GoogleSignInButton
+            label={t.auth.login.signInWithGoogle}
+            loading={googleLoading}
+            disabled={loading}
+            onClick={() => void onGoogleSignIn()}
+          />
+        )}
+
+        {googleAuthEnabled && (
+          <div className="flex items-center gap-3">
+            <Separator className="flex-1" />
+            <span className="text-xs text-muted-foreground">{t.auth.login.orSignInWithEmail}</span>
+            <Separator className="flex-1" />
+          </div>
         )}
 
         <form onSubmit={onSubmit} className="space-y-4">
@@ -137,7 +201,7 @@ export function LoginForm() {
 
           <Button
             type="submit"
-            disabled={loading}
+            disabled={loading || googleLoading}
             className="h-11 w-full bg-creco-primary text-white hover:bg-creco-primary-dark font-semibold"
           >
             {loading ? (

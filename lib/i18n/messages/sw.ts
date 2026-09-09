@@ -303,6 +303,14 @@ export const sw: Dictionary = {
       configurationError:
         "Kuingia hakijasanidiwa kwenye seva hii. Wasiliana na msimamizi wa tovuti ikiendelea.",
       serviceError: "Hatukuweza kukuingiza sasa hivi. Tafadhali jaribu tena baada ya muda mfupi.",
+      signInWithGoogle: "Ingia kwa Google",
+      orSignInWithEmail: "Au ingia kwa barua pepe",
+      googleAuthUnavailable:
+        "Kuingia kwa Google hakijasanidiwa kwenye seva hii. Tumia barua pepe na nenosiri badala yake.",
+      oauthSignInFailed:
+        "Kuingia kwa Google kumeshindikana. Jaribu tena au tumia barua pepe na nenosiri.",
+      oauthAccountNotLinked:
+        "Barua pepe hii tayari imesajiliwa kwa nenosiri. Ingia kwa barua pepe na nenosiri badala yake.",
     },
     register: {
       title: "Unda akaunti ya PBO",

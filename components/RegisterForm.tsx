@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import type { LucideIcon } from "lucide-react";
@@ -31,11 +31,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { KENYA_COUNTIES, ORG_TYPES } from "@/lib/content/constants";
+import { invalidateAuthCache } from "@/lib/auth-client";
 import { useTranslations } from "@/lib/i18n/client";
 import { cn } from "@/lib/utils";
 
 export function RegisterForm() {
   const router = useRouter();
+  const { update: updateSession } = useSession();
   const t = useTranslations();
   const termsParts = t.auth.register.terms.split("{privacyLink}");
   const [form, setForm] = useState({
@@ -101,11 +103,13 @@ export function RegisterForm() {
 
     setLoading(false);
 
-    if (signInResult?.error) {
+    if (signInResult?.error || signInResult?.ok === false) {
       router.push("/login?registered=1");
       return;
     }
 
+    invalidateAuthCache();
+    await updateSession();
     router.push("/profile");
     router.refresh();
   }

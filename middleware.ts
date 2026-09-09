@@ -27,7 +27,7 @@ export default NextAuth(authConfig).auth((request) => {
     request: { headers: requestHeaders },
   });
 
-  if (isPublicCacheablePath(pathname)) {
+  if (isPublicCacheablePath(pathname) && !request.auth) {
     response.headers.set("Cache-Control", PUBLIC_CACHE.publicPage);
     response.headers.set("CDN-Cache-Control", PUBLIC_CACHE.publicPage);
     response.headers.set("Vary", "Cookie");

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Poppins, Geist } from "next/font/google";
+import { auth } from "@/auth";
 import { AuthProvider } from "@/components/AuthProvider";
 import { SiteChrome } from "@/components/SiteChrome";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -44,7 +45,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const locale = await getLocale();
+  const [locale, session] = await Promise.all([getLocale(), auth()]);
   const dictionary = getDictionary(locale);
 
   return (
@@ -55,7 +56,7 @@ export default async function RootLayout({
       >
         <ThemeProvider>
           <LocaleProvider locale={locale} dictionary={dictionary}>
-            <AuthProvider>
+            <AuthProvider session={session}>
               <SiteChrome skipLinkLabel={dictionary.a11y.skipToMain}>{children}</SiteChrome>
             </AuthProvider>
           </LocaleProvider>

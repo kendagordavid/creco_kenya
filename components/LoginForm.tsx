@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
 import {
@@ -24,13 +24,22 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { invalidateAuthCache } from "@/lib/auth-client";
 import { useTranslations } from "@/lib/i18n/client";
+
+function safeCallbackUrl(raw: string | null): string {
+  if (!raw || !raw.startsWith("/") || raw.startsWith("//")) {
+    return "/profile";
+  }
+  return raw;
+}
 
 export function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { update } = useSession();
   const t = useTranslations();
-  const callbackUrl = searchParams.get("callbackUrl") ?? "/";
+  const callbackUrl = safeCallbackUrl(searchParams.get("callbackUrl"));
   const registered = searchParams.get("registered") === "1";
 
   const [email, setEmail] = useState("");
@@ -51,11 +60,13 @@ export function LoginForm() {
 
     setLoading(false);
 
-    if (result?.error) {
+    if (result?.error || result?.ok === false) {
       setError(t.auth.login.invalidCredentials);
       return;
     }
 
+    invalidateAuthCache();
+    await update();
     router.push(callbackUrl);
     router.refresh();
   }

@@ -1,5 +1,6 @@
 "use client";
 
+import type { Session } from "next-auth";
 import { SessionProvider, useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { prefetchAuthJson } from "@/lib/auth-client";
@@ -20,9 +21,15 @@ function SessionCacheWarmup() {
   return null;
 }
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+export function AuthProvider({
+  children,
+  session,
+}: {
+  children: React.ReactNode;
+  session?: Session | null;
+}) {
   return (
-    <SessionProvider refetchInterval={5 * 60} refetchOnWindowFocus={false}>
+    <SessionProvider session={session} refetchInterval={5 * 60} refetchOnWindowFocus>
       <SessionCacheWarmup />
       {children}
     </SessionProvider>

@@ -1,5 +1,4 @@
 import { PageHero } from "@/components/PageHero";
-import { PlatformSubnav } from "@/components/PlatformSubnav";
 import { SearchForm } from "@/components/SearchForm";
 import { SearchResults } from "@/components/SearchResults";
 import { getServerTranslations } from "@/lib/i18n/server";
@@ -28,7 +27,6 @@ export default async function SearchPage({ searchParams }: Props) {
         lead={t.search.lead}
         variant="light"
       />
-      <PlatformSubnav />
       <section className="creco-section" aria-label={t.search.resultsRegion}>
         <div className="creco-container max-w-3xl">
           <SearchForm defaultQuery={query} />

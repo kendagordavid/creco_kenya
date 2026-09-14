@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
-import { PlatformSubnav } from "@/components/PlatformSubnav";
 import { SearchForm } from "@/components/SearchForm";
 import { FAQ_CATEGORIES, FAQ_ITEMS, getFaqsByCategory } from "@/lib/content/faqs";
 
@@ -25,7 +24,6 @@ export default async function FaqIndexPage({ searchParams }: Props) {
         lead="Quick answers on registration, governance, reporting, and compliance."
         variant="light"
       />
-      <PlatformSubnav />
       <section className="creco-section">
         <div className="creco-container">
           <SearchForm />

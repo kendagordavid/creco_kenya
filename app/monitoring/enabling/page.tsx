@@ -1,5 +1,4 @@
 import { MonitoringReportForm } from "@/components/MonitoringForms";
-import { PlatformSubnav } from "@/components/PlatformSubnav";
 
 export const metadata = {
   title: "Enabling practices report",
@@ -8,7 +7,6 @@ export const metadata = {
 export default function MonitoringEnablingPage() {
   return (
     <>
-      <PlatformSubnav />
       <section className="creco-section">
         <div className="creco-container">
           <MonitoringReportForm

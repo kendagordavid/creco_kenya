@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { ComplianceBanner } from "@/components/ComplianceBanner";
 import { CopyButton } from "@/components/CopyButton";
 import { PageHero } from "@/components/PageHero";
-import { PlatformSubnav } from "@/components/PlatformSubnav";
 import { getTemplateBySlug } from "@/lib/content/templates";
 
 type Props = {
@@ -18,7 +17,6 @@ export default async function TemplateDetailPage({ params }: Props) {
   return (
     <>
       <PageHero eyebrow="Template" title={template.title} lead={template.summary} variant="light" />
-      <PlatformSubnav />
       <ComplianceBanner />
       <section className="creco-section">
         <div className="creco-container max-w-3xl">

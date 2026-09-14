@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHero } from "@/components/PageHero";
-import { PlatformSubnav } from "@/components/PlatformSubnav";
 import { getFaqBySlug } from "@/lib/content/faqs";
 
 type Props = {
@@ -22,7 +21,6 @@ export default async function FaqDetailPage({ params }: Props) {
   return (
     <>
       <PageHero eyebrow="FAQ" title={faq.question} variant="light" />
-      <PlatformSubnav />
       <section className="creco-section">
         <div className="creco-container max-w-3xl">
           <div className="creco-prose">

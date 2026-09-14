@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { PlatformSubnav } from "@/components/PlatformSubnav";
 
 export const metadata = {
   title: "Submission received",
@@ -15,7 +14,6 @@ export default async function MonitoringConfirmationPage({ searchParams }: Props
 
   return (
     <>
-      <PlatformSubnav />
       <section className="creco-section">
         <div className="creco-container max-w-xl text-center">
           <div className="creco-card p-10">

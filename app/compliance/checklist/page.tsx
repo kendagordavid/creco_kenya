@@ -3,7 +3,6 @@ import { auth } from "@/auth";
 import { ChecklistPanel } from "@/components/ChecklistPanel";
 import { ComplianceBanner } from "@/components/ComplianceBanner";
 import { PageHero } from "@/components/PageHero";
-import { PlatformSubnav } from "@/components/PlatformSubnav";
 
 export const metadata = {
   title: "Compliance checklist",
@@ -20,7 +19,6 @@ export default async function ChecklistPage() {
         lead="Work through governance, registration, reporting, and operational items."
         variant="light"
       />
-      <PlatformSubnav />
       <ComplianceBanner />
       <section className="creco-section">
         <div className="creco-container max-w-3xl">

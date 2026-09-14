@@ -1,7 +1,6 @@
 import { ComplianceBanner } from "@/components/ComplianceBanner";
 import { ModuleCard } from "@/components/ModuleCard";
 import { PageHero } from "@/components/PageHero";
-import { PlatformSubnav } from "@/components/PlatformSubnav";
 
 export const metadata = {
   title: "Compliance tools",
@@ -15,7 +14,6 @@ export default function ComplianceHubPage() {
         title="Compliance tools"
         lead="Checklists, self-assessment, and templates mapped to PBO Act domains."
       />
-      <PlatformSubnav />
       <ComplianceBanner />
       <section className="creco-section">
         <div className="creco-container">

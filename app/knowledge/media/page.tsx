@@ -1,5 +1,4 @@
 import { PageHero } from "@/components/PageHero";
-import { PlatformSubnav } from "@/components/PlatformSubnav";
 import { MEDIA_ITEMS } from "@/lib/content/knowledge";
 
 export const metadata = {
@@ -15,7 +14,6 @@ export default function MediaGalleryPage() {
         lead="Videos, infographics, and guides introducing the PBO Act and compliance basics."
         variant="light"
       />
-      <PlatformSubnav />
       <section className="creco-section">
         <div className="creco-container">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHero } from "@/components/PageHero";
-import { PlatformSubnav } from "@/components/PlatformSubnav";
 import { getToolkitBySlug } from "@/lib/content/knowledge";
 
 type Props = {
@@ -16,7 +15,6 @@ export default async function ToolkitDetailPage({ params }: Props) {
   return (
     <>
       <PageHero eyebrow="Toolkit" title={toolkit.title} lead={toolkit.summary} variant="light" />
-      <PlatformSubnav />
       <section className="creco-section">
         <div className="creco-container max-w-3xl">
           <ol className="space-y-4">

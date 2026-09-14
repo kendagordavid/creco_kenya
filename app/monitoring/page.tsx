@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { ModuleCard } from "@/components/ModuleCard";
 import { PageHero } from "@/components/PageHero";
-import { PlatformSubnav } from "@/components/PlatformSubnav";
 
 export const metadata = {
   title: "Monitoring",
@@ -15,7 +14,6 @@ export default function MonitoringHubPage() {
         title="Report your experience"
         lead="Submissions are confidential. Moderated by CRECO staff before use in advocacy."
       />
-      <PlatformSubnav />
       <section className="creco-section">
         <div className="creco-container">
           <div className="grid gap-5 sm:grid-cols-2">

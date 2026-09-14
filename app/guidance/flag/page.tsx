@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { FlagFeedbackForm } from "@/components/FlagFeedbackForm";
 import { PageHero } from "@/components/PageHero";
-import { PlatformSubnav } from "@/components/PlatformSubnav";
 
 export const metadata = {
   title: "Flag guidance",
@@ -23,7 +22,6 @@ export default async function FlagFeedbackPage({ searchParams }: Props) {
         lead="Help CRECO improve guidance answers when something looks wrong or unclear."
         variant="light"
       />
-      <PlatformSubnav />
       <section className="creco-section">
         <div className="creco-container">
           <FlagFeedbackForm defaultQuestion={question} />

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { ModuleCard } from "@/components/ModuleCard";
 import { PageHero } from "@/components/PageHero";
-import { PlatformSubnav } from "@/components/PlatformSubnav";
 import { getCachedWikiSummaries } from "@/lib/cached-wiki";
 import { KNOWLEDGE_FILTERS } from "@/lib/content/constants";
 import { MEDIA_ITEMS, TOOLKIT_ITEMS } from "@/lib/content/knowledge";
@@ -23,7 +22,6 @@ export default async function KnowledgeHubPage() {
         title="Knowledge hub"
         lead="Plain-language guides, FAQs, toolkits, and media on Kenya's PBO Act — curated by CRECO."
       />
-      <PlatformSubnav />
       <section className="creco-section">
         <div className="creco-container">
           <div className="flex flex-wrap gap-2">

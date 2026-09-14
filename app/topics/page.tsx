@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
-import { PlatformSubnav } from "@/components/PlatformSubnav";
 import { getCachedWikiSummaries } from "@/lib/cached-wiki";
 import { getDictionary, getLocale, getServerTranslations, interpolate } from "@/lib/i18n/server";
 
@@ -20,7 +19,6 @@ export default async function TopicsPage() {
   return (
     <>
       <PageHero eyebrow={t.topics.eyebrow} title={t.topics.title} lead={t.topics.lead} />
-      <PlatformSubnav />
       <section className="creco-section">
         <div className="creco-container">
           {wikiPages.length === 0 ? (

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { ComplianceBanner } from "@/components/ComplianceBanner";
 import { PageHero } from "@/components/PageHero";
-import { PlatformSubnav } from "@/components/PlatformSubnav";
 import { TEMPLATE_ITEMS } from "@/lib/content/templates";
 
 export const metadata = {
@@ -17,7 +16,6 @@ export default function TemplatesPage() {
         lead="Starting points for board resolutions, policies, and reporting — review with your counsel before use."
         variant="light"
       />
-      <PlatformSubnav />
       <ComplianceBanner />
       <section className="creco-section">
         <div className="creco-container">

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
-import { PlatformSubnav } from "@/components/PlatformSubnav";
 
 export const metadata = {
   title: "Ask CRECO",
@@ -15,7 +14,6 @@ export default function AskCrecoPage() {
         lead="Request human follow-up when automated guidance does not fully address your situation."
         variant="light"
       />
-      <PlatformSubnav />
       <section className="creco-section">
         <div className="creco-container max-w-xl">
           <div className="creco-card p-8">

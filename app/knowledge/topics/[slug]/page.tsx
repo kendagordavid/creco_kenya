@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { AudioNarrationPlayer } from "@/components/AudioNarrationPlayer";
 import { PageHero } from "@/components/PageHero";
-import { PlatformSubnav } from "@/components/PlatformSubnav";
 import { WikiBody } from "@/components/WikiBody";
 import { textForSpeech } from "@/lib/a11y/text-for-speech";
 import { getCachedWikiPageBySlug } from "@/lib/cached-wiki";
@@ -29,7 +28,6 @@ export default async function TopicDetailPage({ params }: Props) {
   return (
     <>
       <PageHero eyebrow={t.knowledgeHub.metaTitle} title={page.title} variant="light" />
-      <PlatformSubnav />
       <section className="creco-section">
         <div className="creco-container max-w-3xl">
           <AudioNarrationPlayer text={textForSpeech(page.title, page.body)} className="mb-8" />

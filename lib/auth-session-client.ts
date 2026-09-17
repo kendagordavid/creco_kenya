@@ -19,11 +19,6 @@ export async function completeSignOut(callbackUrl = "/"): Promise<void> {
   window.location.assign(callbackUrl);
 }
 
-export async function signInWithGoogle(callbackUrl: string): Promise<void> {
-  invalidateAuthCache();
-  await signIn("google", { callbackUrl });
-}
-
 export async function signInWithCredentials(
   email: string,
   password: string,

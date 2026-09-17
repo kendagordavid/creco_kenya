@@ -195,6 +195,23 @@ h4,
   }
 }
 
+.creco-container--home {
+  max-width: 90rem;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 640px) {
+  .creco-container--home {
+    padding-inline: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .creco-container--home {
+    padding-inline: 1.5rem;
+  }
+}
+
 .creco-section {
   padding-block: clamp(2.75rem, 6vw, 7rem);
 }

@@ -37,7 +37,7 @@ export default async function HomePage() {
       />
 
       <section className="creco-section">
-        <div className="creco-container">
+        <div className="creco-container creco-container--home">
           <div className="text-center">
             <span className="creco-eyebrow creco-eyebrow-center">{t.home.howItWorks.eyebrow}</span>
             <h2 className="text-3xl font-bold sm:text-4xl lg:text-[2.75rem]">
@@ -76,7 +76,7 @@ export default async function HomePage() {
       </section>
 
       <section className="creco-section creco-section-alt">
-        <div className="creco-container relative z-10 grid items-center gap-14 lg:grid-cols-2">
+        <div className="creco-container creco-container--home relative z-10 grid items-center gap-14 lg:grid-cols-2">
           <div>
             <span className="creco-eyebrow">{t.home.why.eyebrow}</span>
             <h2 className="text-3xl font-bold sm:text-4xl lg:text-[2.75rem]">{t.home.why.title}</h2>
@@ -94,7 +94,7 @@ export default async function HomePage() {
       </section>
 
       <section className="creco-cta-band creco-section !py-20">
-        <div className="creco-container text-center">
+        <div className="creco-container creco-container--home text-center">
           <span className="creco-eyebrow creco-eyebrow-center">{t.common.getStarted}</span>
           <h2 className="text-2xl font-bold sm:text-3xl lg:text-4xl">{t.home.cta.title}</h2>
           <p className="mx-auto mt-4 max-w-lg leading-relaxed text-creco-muted">{t.home.cta.lead}</p>

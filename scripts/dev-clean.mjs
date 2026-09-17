@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { execSync } from "node:child_process";
-import { existsSync, rmSync } from "node:fs";
+import { existsSync, readFileSync, rmSync } from "node:fs";
 import { join } from "node:path";
 
 const root = process.cwd();
@@ -16,23 +16,35 @@ function run(command) {
 
 const selfPids = new Set([process.pid, process.ppid].filter((pid) => Number.isFinite(pid)));
 
-for (const port of [3000, 3001]) {
-  const pids = run(`lsof -ti:${port}`);
-  if (!pids) continue;
-  for (const pid of pids.split(/\s+/)) {
-    const n = Number(pid);
-    if (!n || selfPids.has(n)) continue;
-    try {
-      process.kill(n, "SIGTERM");
-    } catch {
-      // Process already exited.
-    }
+function stopPid(pid) {
+  if (!pid || selfPids.has(pid)) return;
+  try {
+    process.kill(pid, "SIGKILL");
+  } catch {
+    // Process already exited.
   }
 }
 
-const devLock = join(root, ".next", "dev", "lock");
-if (existsSync(devLock)) {
-  rmSync(devLock, { force: true });
+const lockPath = join(root, ".next", "dev", "lock");
+if (existsSync(lockPath)) {
+  try {
+    const lock = JSON.parse(readFileSync(lockPath, "utf8"));
+    stopPid(Number(lock.pid));
+  } catch {
+    // Ignore unreadable lock files.
+  }
+}
+
+for (const port of [3000, 3002]) {
+  const pids = run(`lsof -ti:${port}`);
+  if (!pids) continue;
+  for (const pid of pids.split(/\s+/)) {
+    stopPid(Number(pid));
+  }
+}
+
+if (existsSync(lockPath)) {
+  rmSync(lockPath, { force: true });
 }
 
 console.log("Cleared stale Next.js dev servers on ports 3000/3001.");

@@ -1,12 +1,29 @@
+import { redirect } from "next/navigation";
 import { Suspense } from "react";
+import { auth } from "@/auth";
 import { AuthShell } from "@/components/AuthShell";
 import { RegisterForm } from "@/components/RegisterForm";
+import { GoogleSignInServerForm } from "@/components/login/GoogleSignInServerForm";
+import { getGoogleAuthStatus } from "@/lib/auth-oauth";
+import { getDictionary, getLocale } from "@/lib/i18n/server";
 
 export const metadata = {
   title: "Register",
 };
 
-export default function RegisterPage() {
+export default async function RegisterPage() {
+  const session = await auth();
+  if (session?.user) {
+    redirect("/profile");
+  }
+
+  const locale = await getLocale();
+  const t = getDictionary(locale);
+  const googleAuthStatus = getGoogleAuthStatus();
+  const googleSection = (
+    <GoogleSignInServerForm callbackUrl="/profile" label={t.auth.login.signInWithGoogle} />
+  );
+
   return (
     <AuthShell>
       <Suspense
@@ -16,7 +33,7 @@ export default function RegisterPage() {
           </div>
         }
       >
-        <RegisterForm />
+        <RegisterForm googleAuthStatus={googleAuthStatus} googleSection={googleSection} />
       </Suspense>
     </AuthShell>
   );

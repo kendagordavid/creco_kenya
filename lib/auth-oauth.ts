@@ -8,12 +8,20 @@ export type GoogleAuthStatus = "disabled" | "misconfigured" | "enabled";
 
 export type GoogleAuthIssue = "missing" | "placeholder" | "invalid_client_id" | "invalid_client_secret";
 
+function firstEnv(...keys: string[]): string {
+  for (const key of keys) {
+    const value = process.env[key]?.trim() ?? "";
+    if (value) return value;
+  }
+  return "";
+}
+
 function getGoogleClientId(): string {
-  return process.env.GOOGLE_CLIENT_ID?.trim() ?? "";
+  return firstEnv("GOOGLE_CLIENT_ID", "AUTH_GOOGLE_ID");
 }
 
 function getGoogleClientSecret(): string {
-  return process.env.GOOGLE_CLIENT_SECRET?.trim() ?? "";
+  return firstEnv("GOOGLE_CLIENT_SECRET", "AUTH_GOOGLE_SECRET");
 }
 
 export function getGoogleAuthIssue(): GoogleAuthIssue | null {

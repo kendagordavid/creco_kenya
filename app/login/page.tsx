@@ -29,11 +29,9 @@ export default async function LoginPage({ searchParams }: Props) {
   const t = getDictionary(locale);
   const callbackUrl = safeLoginCallbackUrl(params.callbackUrl);
   const googleAuthStatus = getGoogleAuthStatus();
-
-  const googleSection =
-    googleAuthStatus === "enabled" ? (
-      <GoogleSignInServerForm callbackUrl={callbackUrl} label={t.auth.login.signInWithGoogle} />
-    ) : null;
+  const googleSection = (
+    <GoogleSignInServerForm callbackUrl={callbackUrl} label={t.auth.login.signInWithGoogle} />
+  );
 
   return (
     <AuthShell>

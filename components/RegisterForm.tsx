@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, type ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
 import {
   ArrowRight,
@@ -32,8 +32,15 @@ import { KENYA_COUNTIES, ORG_TYPES } from "@/lib/content/constants";
 import { signInWithCredentials } from "@/lib/auth-session-client";
 import { useTranslations } from "@/lib/i18n/client";
 import { cn } from "@/lib/utils";
+import type { GoogleAuthStatus } from "@/lib/auth-oauth";
 
-export function RegisterForm() {
+export function RegisterForm({
+  googleAuthStatus = "disabled",
+  googleSection,
+}: {
+  googleAuthStatus?: GoogleAuthStatus;
+  googleSection?: ReactNode;
+}) {
   const t = useTranslations();
   const termsParts = t.auth.register.terms.split("{privacyLink}");
   const [form, setForm] = useState({
@@ -114,7 +121,27 @@ export function RegisterForm() {
         </CardDescription>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="space-y-4">
+        {googleAuthStatus === "disabled" && (
+          <Alert>
+            <AlertDescription>{t.auth.login.googleAuthUnavailable}</AlertDescription>
+          </Alert>
+        )}
+
+        {googleAuthStatus === "misconfigured" && (
+          <Alert variant="destructive">
+            <AlertDescription>{t.auth.login.googleAuthMisconfigured}</AlertDescription>
+          </Alert>
+        )}
+
+        {googleSection}
+
+        <div className="flex items-center gap-3">
+          <Separator className="flex-1" />
+          <span className="text-xs text-muted-foreground">{t.auth.login.orSignInWithEmail}</span>
+          <Separator className="flex-1" />
+        </div>
+
         <form onSubmit={onSubmit} className="space-y-4">
           {error && (
             <Alert variant="destructive">

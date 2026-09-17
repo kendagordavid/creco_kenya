@@ -11,6 +11,7 @@
 4. Add environment variables:
    - `AUTH_SECRET` — session signing secret (required for login)
    - `POSTGRES_URL` — from **Storage → Neon** (required for users, submissions, feedback)
+   - `GOOGLE_CLIENT_ID` + `GOOGLE_CLIENT_SECRET` — optional, enables Google sign-in on `/login`
    - `OPENAI_API_KEY` — optional, for AI-polished guidance answers (Production + Preview)
 5. After first deploy, run **`npm run db:setup`** locally with the Neon `POSTGRES_URL` to create tables and seed demo users.
 6. Deploy.
@@ -31,6 +32,21 @@
 | `/topics` | Topic library (legacy route) |
 
 Set **`AUTH_SECRET`** in Vercel (Production + Preview) — generate with `openssl rand -base64 32`.
+
+### Google sign-in (optional)
+
+1. In [Google Cloud Console](https://console.cloud.google.com/apis/credentials), create an **OAuth 2.0 Client ID** (Web application).
+2. Add **Authorized redirect URIs**:
+   - Local: `http://localhost:3000/api/auth/callback/google`
+   - Production: `https://your-domain.example/api/auth/callback/google`
+3. Copy the Client ID and Client Secret into `.env.local` (local) and Vercel env vars (Production + Preview):
+   ```
+   GOOGLE_CLIENT_ID=...
+   GOOGLE_CLIENT_SECRET=...
+   ```
+4. Restart the dev server or redeploy. The login page shows **Sign in with Google** when both vars are set.
+
+Check **http://localhost:3000/health** for a readable status page (or `/api/health` for raw JSON). Google sign-in should show as **configured**.
 
 The site includes **built-in API routes** (`/api/ask`, `/api/sources`, …) that read wiki topics from `prototype/wiki/`. You do **not** need a separate backend for demos.
 

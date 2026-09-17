@@ -138,6 +138,34 @@ export const en = {
         },
       ],
     },
+    sideCards: [
+      {
+        title: "Check your PBO compliance status",
+        cta: "View checklist",
+        href: "/compliance/checklist",
+        imageAlt: "Organisation reviewing compliance documents",
+        tone: "green" as const,
+      },
+      {
+        title: "Register and manage your organisation profile",
+        cta: "Create account",
+        href: "/register",
+        imageAlt: "Community organisation members collaborating",
+        tone: "navy" as const,
+      },
+    ] as const,
+    quickAccess: {
+      searchPlaceholder: "How can we help you today?...",
+      searchLabel: "Search the platform",
+      browseLabel: "Or browse by:",
+      links: [
+        { label: "Knowledge hub", href: "/knowledge" },
+        { label: "Compliance", href: "/compliance" },
+        { label: "Guidance tool", href: "/guidance" },
+        { label: "Monitoring", href: "/monitoring" },
+        { label: "Sign in", href: "/login" },
+      ],
+    },
   },
   guidance: {
     metaTitle: "PBO Guidance",
@@ -301,6 +329,15 @@ export const en = {
       configurationError:
         "Sign-in is not configured on this server. Contact the site administrator if this continues.",
       serviceError: "We could not sign you in right now. Please try again in a moment.",
+      signInWithGoogle: "Sign in with Google",
+      orSignInWithEmail: "Or sign in with email",
+      googleAuthUnavailable:
+        "Google sign-in is not configured on this server. Use your email and password instead.",
+      googleAuthMisconfigured:
+        "Google sign-in is almost set up, but GOOGLE_CLIENT_SECRET in .env.local looks incomplete. In Google Cloud Console → Credentials → your OAuth client, copy the full Client secret (usually starts with GOCSPX- and is 24+ characters), paste it into .env.local, then restart npm run dev.",
+      oauthSignInFailed: "Google sign-in failed. Please try again or use email and password.",
+      oauthAccountNotLinked:
+        "This email is already registered with a password. Sign in with email and password instead.",
     },
     register: {
       title: "Create PBO account",

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HeroCarousel } from "@/components/HeroCarousel";
+import { HomeHeroSection } from "@/components/HomeHeroSection";
 import { getServerTranslations, interpolate } from "@/lib/i18n/server";
 
 export const revalidate = 3600;
@@ -30,7 +30,11 @@ export default async function HomePage() {
 
   return (
     <>
-      <HeroCarousel copy={t.home.hero} />
+      <HomeHeroSection
+        carousel={t.home.hero}
+        sideCards={t.home.sideCards}
+        quickAccess={t.home.quickAccess}
+      />
 
       <section className="creco-section">
         <div className="creco-container">

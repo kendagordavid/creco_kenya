@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, type ReactNode } from "react";
 import {
   ArrowRight,
   Loader2,
@@ -24,24 +23,51 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { signInWithCredentials } from "@/lib/auth-session-client";
+import type { GoogleAuthStatus } from "@/lib/auth-oauth";
 import { useTranslations } from "@/lib/i18n/client";
+import type { LoginAuthError } from "@/lib/login-params";
 
-function safeCallbackUrl(raw: string | null): string {
-  if (!raw || !raw.startsWith("/") || raw.startsWith("//")) {
-    return "/profile";
+function oauthErrorMessage(
+  error: LoginAuthError | null,
+  t: ReturnType<typeof useTranslations>,
+): string | null {
+  switch (error) {
+    case "OAuthAccountNotLinked":
+      return t.auth.login.oauthAccountNotLinked;
+    case "AccessDenied":
+    case "OAuthSignin":
+    case "OAuthCallback":
+    case "Callback":
+    case "unknown":
+      return t.auth.login.oauthSignInFailed;
+    case "Configuration":
+      return t.auth.login.configurationError;
+    default:
+      return null;
   }
-  return raw;
 }
 
-export function LoginForm() {
-  const searchParams = useSearchParams();
+type Props = {
+  googleAuthStatus: GoogleAuthStatus;
+  googleSection?: ReactNode;
+  callbackUrl: string;
+  registered?: boolean;
+  authError?: LoginAuthError | null;
+};
+
+export function LoginForm({
+  googleAuthStatus,
+  googleSection,
+  callbackUrl,
+  registered = false,
+  authError = null,
+}: Props) {
   const t = useTranslations();
-  const callbackUrl = safeCallbackUrl(searchParams.get("callbackUrl"));
-  const registered = searchParams.get("registered") === "1";
+  const oauthError = oauthErrorMessage(authError, t);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(oauthError ?? "");
   const [loading, setLoading] = useState(false);
 
   async function onSubmit(e: FormEvent) {
@@ -79,13 +105,29 @@ export function LoginForm() {
         </CardDescription>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="space-y-4">
         {registered && (
-          <Alert className="mb-4 border-creco-primary/40 bg-creco-green-muted">
+          <Alert className="border-creco-primary/40 bg-creco-green-muted">
             <AlertDescription className="text-creco-primary">
               {t.auth.login.registeredSuccess}
             </AlertDescription>
           </Alert>
+        )}
+
+        {googleAuthStatus === "misconfigured" && (
+          <Alert variant="destructive">
+            <AlertDescription>{t.auth.login.googleAuthMisconfigured}</AlertDescription>
+          </Alert>
+        )}
+
+        {googleSection}
+
+        {googleSection && (
+          <div className="flex items-center gap-3">
+            <Separator className="flex-1" />
+            <span className="text-xs text-muted-foreground">{t.auth.login.orSignInWithEmail}</span>
+            <Separator className="flex-1" />
+          </div>
         )}
 
         <form onSubmit={onSubmit} className="space-y-4">

@@ -94,7 +94,7 @@ export function AuthShell({ children }: Props) {
           </ul>
         </div>
 
-        <p className="relative z-10 text-xs text-white/50">
+        <p className="relative z-10 text-xs text-white/50" suppressHydrationWarning>
           {format(t.authShell.footer, { year: String(new Date().getFullYear()) })}
         </p>
       </aside>

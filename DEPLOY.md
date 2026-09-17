@@ -16,7 +16,8 @@ If Vercel **Root Directory** is still set to **`prototype/web`**, production ser
    openssl rand -base64 32
    ```
 5. **Storage → Neon** — ensure **`POSTGRES_URL`** is linked to the project (Production + Preview).
-6. **Deployments** → latest → **Redeploy** → enable **Clear build cache**.
+6. **Optional — Google sign-in:** add **`GOOGLE_CLIENT_ID`** and **`GOOGLE_CLIENT_SECRET`** (Production + Preview). In Google Cloud Console, set the redirect URI to `https://creco-kenya.vercel.app/api/auth/callback/google` (or your custom domain).
+7. **Deployments** → latest → **Redeploy** → enable **Clear build cache**.
 
 ### Database (first time)
 

@@ -53,7 +53,6 @@ export function SiteHeader() {
   const pathname = usePathname();
   const { data: session } = useSession();
   const [open, setOpen] = useState(false);
-  const [navReady, setNavReady] = useState(false);
   const t = useTranslations();
   const isLoggedIn = Boolean(session?.user);
 
@@ -61,20 +60,16 @@ export function SiteHeader() {
     setOpen(false);
   }, [pathname]);
 
-  useEffect(() => {
-    setNavReady(true);
-  }, []);
-
   const navItems = isLoggedIn
     ? PLATFORM_NAV.map((item) => ({
         href: item.href,
         label: t.nav[item.labelKey],
-        active: navReady && isPlatformNavActive(pathname, item.href),
+        active: isPlatformNavActive(pathname, item.href),
       }))
     : PUBLIC_NAV.map((item) => ({
         href: item.href,
         label: t.nav[item.labelKey],
-        active: navReady && isPublicNavActive(pathname, item.href),
+        active: isPublicNavActive(pathname, item.href),
       }));
 
   return (

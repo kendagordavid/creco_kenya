@@ -140,6 +140,34 @@ export const sw: Dictionary = {
         },
       ],
     },
+    sideCards: [
+      {
+        title: "Angalia hali yako ya uzingatiaji wa PBO",
+        cta: "Angalia orodha",
+        href: "/compliance/checklist",
+        imageAlt: "Shirika likikagua nyaraka za uzingatiaji",
+        tone: "green" as const,
+      },
+      {
+        title: "Jisajili na simamia wasifu wa shirika lako",
+        cta: "Unda akaunti",
+        href: "/register",
+        imageAlt: "Wanachama wa shirika la jamii wakishirikiana",
+        tone: "navy" as const,
+      },
+    ] as const,
+    quickAccess: {
+      searchPlaceholder: "Tunaweza kukusaidia vipi leo?...",
+      searchLabel: "Tafuta kwenye jukwaa",
+      browseLabel: "Au chunguza kwa:",
+      links: [
+        { label: "Kituo cha maarifa", href: "/knowledge" },
+        { label: "Uzingatiaji", href: "/compliance" },
+        { label: "Zana ya mwongozo", href: "/guidance" },
+        { label: "Ufuatiliaji", href: "/monitoring" },
+        { label: "Ingia", href: "/login" },
+      ],
+    },
   },
   guidance: {
     metaTitle: "Mwongozo wa PBO",
@@ -303,6 +331,16 @@ export const sw: Dictionary = {
       configurationError:
         "Kuingia hakijasanidiwa kwenye seva hii. Wasiliana na msimamizi wa tovuti ikiendelea.",
       serviceError: "Hatukuweza kukuingiza sasa hivi. Tafadhali jaribu tena baada ya muda mfupi.",
+      signInWithGoogle: "Ingia kwa Google",
+      orSignInWithEmail: "Au ingia kwa barua pepe",
+      googleAuthUnavailable:
+        "Kuingia kwa Google hakijasanidiwa kwenye seva hii. Tumia barua pepe na nenosiri badala yake.",
+      googleAuthMisconfigured:
+        "Kuingia kwa Google karibu kusanidiwa, lakini GOOGLE_CLIENT_SECRET kwenye .env.local inaonekana haijakamilika. Katika Google Cloud Console → Credentials → OAuth client yako, nakili Client secret kamili (kwa kawaida huanza na GOCSPX- na ina herufi 24+), iweke kwenye .env.local, kisha anzisha tena npm run dev.",
+      oauthSignInFailed:
+        "Kuingia kwa Google kumeshindikana. Jaribu tena au tumia barua pepe na nenosiri.",
+      oauthAccountNotLinked:
+        "Barua pepe hii tayari imesajiliwa kwa nenosiri. Ingia kwa barua pepe na nenosiri badala yake.",
     },
     register: {
       title: "Unda akaunti ya PBO",

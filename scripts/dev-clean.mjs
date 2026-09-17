@@ -47,4 +47,4 @@ if (existsSync(lockPath)) {
   rmSync(lockPath, { force: true });
 }
 
-console.log("Cleared stale Next.js dev servers on ports 3000/3001.");
+console.log("Cleared stale Next.js dev servers on ports 3000/3002.");

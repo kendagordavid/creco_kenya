@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { BookOpen, Shield, Users } from "lucide-react";
-import { SkipLink } from "@/components/SkipLink";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { useFormat, useTranslations } from "@/lib/i18n/client";
 
@@ -36,9 +35,7 @@ export function AuthShell({ children }: Props) {
   ];
 
   return (
-    <>
-      <SkipLink label={t.a11y.skipToMain} />
-      <div className="grid min-h-svh lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
+    <div className="grid min-h-svh lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
       <aside
         className="relative hidden flex-col justify-between overflow-hidden p-10 text-white lg:flex xl:p-14"
         style={{
@@ -109,7 +106,6 @@ export function AuthShell({ children }: Props) {
         </div>
         <div className="mx-auto w-full max-w-md lg:max-w-lg">{children}</div>
       </main>
-      </div>
-    </>
+    </div>
   );
 }

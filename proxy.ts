@@ -31,7 +31,9 @@ export default NextAuth(authConfig).auth((request) => {
     request: { headers: requestHeaders },
   });
 
-  if (isPublicCacheablePath(pathname) && !request.auth) {
+  // HTML cache headers in development make Fast Refresh serve stale pages and
+  // look like the site "dies" then comes back.
+  if (process.env.NODE_ENV === "production" && isPublicCacheablePath(pathname) && !request.auth) {
     response.headers.set("Cache-Control", PUBLIC_CACHE.publicPage);
     response.headers.set("CDN-Cache-Control", PUBLIC_CACHE.publicPage);
     response.headers.set("Vary", "Cookie");

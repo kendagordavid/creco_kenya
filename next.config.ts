@@ -13,6 +13,12 @@ const nextConfig: NextConfig = {
     ],
   },
   async headers() {
+    // Aggressive Cache-Control on /_next/static breaks webpack HMR in development
+    // and can serve stale client chunks (causing "Element type is invalid" crashes).
+    if (process.env.NODE_ENV !== "production") {
+      return [];
+    }
+
     return [
       {
         source: "/documents/:path*",

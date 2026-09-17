@@ -1,19 +1,21 @@
+"use client";
+
 import { HeroCarousel, type HeroCarouselCopy } from "@/components/HeroCarousel";
 import { HeroQuickAccess, type HeroQuickAccessCopy } from "@/components/HeroQuickAccess";
 import { HeroSideCards, type HeroSideCardCopy } from "@/components/HeroSideCards";
 
 type Props = {
-  carousel: HeroCarouselCopy;
+  hero: HeroCarouselCopy;
   sideCards: readonly HeroSideCardCopy[];
   quickAccess: HeroQuickAccessCopy;
 };
 
-export function HomeHeroSection({ carousel, sideCards, quickAccess }: Props) {
+export default function HomeHeroSection({ hero, sideCards, quickAccess }: Props) {
   return (
     <section className="bg-white px-4 pb-8 pt-6 sm:px-6 lg:px-8">
       <div className="creco-container">
-        <div className="grid items-stretch gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(17rem,22rem)]">
-          <HeroCarousel copy={carousel} className="min-h-[20rem] lg:min-h-[24rem]" />
+        <div className="grid items-stretch gap-4 lg:h-[30rem] lg:grid-cols-[minmax(0,1fr)_minmax(16.5rem,20.5rem)]">
+          <HeroCarousel copy={hero} />
           <HeroSideCards cards={sideCards} />
         </div>
         <HeroQuickAccess copy={quickAccess} />

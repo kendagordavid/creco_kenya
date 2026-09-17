@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HomeHeroSection } from "@/components/HomeHeroSection";
+import HomeHeroSection from "@/components/HomeHeroSection";
 import { getServerTranslations, interpolate } from "@/lib/i18n/server";
 
 export const revalidate = 3600;
@@ -31,7 +31,7 @@ export default async function HomePage() {
   return (
     <>
       <HomeHeroSection
-        carousel={t.home.hero}
+        hero={t.home.hero}
         sideCards={t.home.sideCards}
         quickAccess={t.home.quickAccess}
       />

@@ -20,6 +20,8 @@ export type HeroCarouselCopy = {
   ariaLabel: string;
   previousSlide: string;
   nextSlide: string;
+  chooseSlide: string;
+  goToSlide: string;
   slideOf: string;
   slides: readonly HeroSlideCopy[];
 };
@@ -77,6 +79,13 @@ export function HeroCarousel({ copy, className = "" }: Props) {
   const goNext = useCallback(() => goTo(activeIndex + 1), [activeIndex, goTo]);
   const goPrev = useCallback(() => goTo(activeIndex - 1), [activeIndex, goTo]);
 
+  function pauseAutoAdvance() {
+    if (timerRef.current !== null) {
+      window.clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  }
+
   useEffect(() => {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!reducedMotion) {
@@ -127,6 +136,14 @@ export function HeroCarousel({ copy, className = "" }: Props) {
       aria-roledescription="carousel"
       aria-label={copy.ariaLabel}
       tabIndex={0}
+      onMouseEnter={pauseAutoAdvance}
+      onMouseLeave={startAutoAdvance}
+      onFocus={pauseAutoAdvance}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+          startAutoAdvance();
+        }
+      }}
     >
       {slides.map((slide, index) => {
         const isActive = index === activeIndex;
@@ -174,23 +191,41 @@ export function HeroCarousel({ copy, className = "" }: Props) {
       })}
 
       {total > 1 && (
-        <div className="hero-carousel__controls">
-          <button
-            type="button"
-            className="hero-carousel__arrow"
-            onClick={goPrev}
-            aria-label={copy.previousSlide}
-          >
-            <ChevronLeft className="size-5" aria-hidden />
-          </button>
-          <button
-            type="button"
-            className="hero-carousel__arrow"
-            onClick={goNext}
-            aria-label={copy.nextSlide}
-          >
-            <ChevronRight className="size-5" aria-hidden />
-          </button>
+        <div className="hero-carousel__nav">
+          <div className="hero-carousel__dots" role="tablist" aria-label={copy.chooseSlide}>
+            {slides.map((slide, index) => {
+              const selected = index === activeIndex;
+              return (
+                <button
+                  key={slide.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={selected}
+                  aria-label={format(copy.goToSlide, { number: index + 1, headline: slide.headline })}
+                  className={`hero-carousel__dot${selected ? " hero-carousel__dot--active" : ""}`}
+                  onClick={() => goTo(index)}
+                />
+              );
+            })}
+          </div>
+          <div className="hero-carousel__controls">
+            <button
+              type="button"
+              className="hero-carousel__arrow"
+              onClick={goPrev}
+              aria-label={copy.previousSlide}
+            >
+              <ChevronLeft className="size-5" aria-hidden />
+            </button>
+            <button
+              type="button"
+              className="hero-carousel__arrow"
+              onClick={goNext}
+              aria-label={copy.nextSlide}
+            >
+              <ChevronRight className="size-5" aria-hidden />
+            </button>
+          </div>
         </div>
       )}
 

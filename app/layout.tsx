@@ -49,7 +49,12 @@ export default async function RootLayout({
   const dictionary = getDictionary(locale);
 
   return (
-    <html lang={locale} suppressHydrationWarning className={cn("h-full", poppins.variable, "font-sans", geist.variable)}>
+    <html
+      lang={locale}
+      suppressHydrationWarning
+      data-scroll-behavior="smooth"
+      className={cn("h-full", poppins.variable, "font-sans", geist.variable)}
+    >
       <body
         suppressHydrationWarning
         className="flex min-h-full flex-col bg-background font-sans text-foreground antialiased"

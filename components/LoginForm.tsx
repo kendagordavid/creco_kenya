@@ -114,12 +114,6 @@ export function LoginForm({
           </Alert>
         )}
 
-        {googleAuthStatus === "disabled" && (
-          <Alert>
-            <AlertDescription>{t.auth.login.googleAuthUnavailable}</AlertDescription>
-          </Alert>
-        )}
-
         {googleAuthStatus === "misconfigured" && (
           <Alert variant="destructive">
             <AlertDescription>{t.auth.login.googleAuthMisconfigured}</AlertDescription>
@@ -128,11 +122,13 @@ export function LoginForm({
 
         {googleSection}
 
-        <div className="flex items-center gap-3">
-          <Separator className="flex-1" />
-          <span className="text-xs text-muted-foreground">{t.auth.login.orSignInWithEmail}</span>
-          <Separator className="flex-1" />
-        </div>
+        {googleSection && (
+          <div className="flex items-center gap-3">
+            <Separator className="flex-1" />
+            <span className="text-xs text-muted-foreground">{t.auth.login.orSignInWithEmail}</span>
+            <Separator className="flex-1" />
+          </div>
+        )}
 
         <form onSubmit={onSubmit} className="space-y-4">
           {error && (

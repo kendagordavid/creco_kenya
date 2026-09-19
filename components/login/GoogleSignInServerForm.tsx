@@ -1,7 +1,4 @@
-"use client";
-
-import { useState } from "react";
-import { signInWithGoogle } from "@/lib/auth-session-client";
+import { googleSignIn } from "@/app/login/actions";
 
 function GoogleMark({ className }: { className?: string }) {
   return (
@@ -32,20 +29,15 @@ type Props = {
 };
 
 export function GoogleSignInServerForm({ callbackUrl, label }: Props) {
-  const [pending, setPending] = useState(false);
-
   return (
-    <button
-      type="button"
-      disabled={pending}
-      onClick={() => {
-        setPending(true);
-        void signInWithGoogle(callbackUrl);
-      }}
-      className="group/button inline-flex h-11 w-full shrink-0 items-center justify-center gap-2 rounded-lg border border-border bg-background px-2.5 text-sm font-semibold text-foreground shadow-sm transition hover:bg-muted/60 disabled:opacity-70"
-    >
-      <GoogleMark className="size-5 shrink-0" />
-      <span>{label}</span>
-    </button>
+    <form action={googleSignIn.bind(null, callbackUrl)}>
+      <button
+        type="submit"
+        className="group/button inline-flex h-11 w-full shrink-0 items-center justify-center gap-2 rounded-lg border border-border bg-background px-2.5 text-sm font-semibold text-foreground shadow-sm transition hover:bg-muted/60"
+      >
+        <GoogleMark className="size-5 shrink-0" />
+        <span>{label}</span>
+      </button>
+    </form>
   );
 }

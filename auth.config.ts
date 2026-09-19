@@ -15,6 +15,19 @@ export const authConfig = {
     signIn: "/login",
     error: "/login",
   },
+  // Avoid __Host- CSRF cookies on Vercel. Browsers reject them if the host/proxy
+  // does not meet the prefix rules, which shows up as MissingCSRF in production only.
+  cookies: {
+    csrfToken: {
+      name: process.env.NODE_ENV === "production" ? "__Secure-authjs.csrf-token" : "authjs.csrf-token",
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: process.env.NODE_ENV === "production",
+      },
+    },
+  },
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60,

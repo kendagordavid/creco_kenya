@@ -41,6 +41,7 @@ function oauthErrorMessage(
     case "OAuthSignin":
     case "OAuthCallback":
     case "Callback":
+    case "MissingCSRF":
     case "unknown":
       return t.auth.login.oauthSignInFailed;
     case "Configuration":

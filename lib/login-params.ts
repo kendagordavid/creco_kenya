@@ -12,6 +12,7 @@ export type LoginAuthError =
   | "OAuthCallback"
   | "Callback"
   | "Configuration"
+  | "MissingCSRF"
   | "unknown";
 
 export function parseLoginAuthError(raw: string | undefined | null): LoginAuthError | null {
@@ -22,6 +23,7 @@ export function parseLoginAuthError(raw: string | undefined | null): LoginAuthEr
     case "OAuthCallback":
     case "Callback":
     case "Configuration":
+    case "MissingCSRF":
       return raw;
     default:
       return raw ? "unknown" : null;

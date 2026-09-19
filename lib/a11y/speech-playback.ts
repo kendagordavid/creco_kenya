@@ -131,9 +131,29 @@ export function skipBackPosition(
   return { sentenceIndex: 0, charOffset: 0 };
 }
 
+function pickVoice(lang: string): SpeechSynthesisVoice | null {
+  if (typeof window === "undefined" || !window.speechSynthesis) return null;
+
+  const voices = window.speechSynthesis.getVoices();
+  if (voices.length === 0) return null;
+
+  const prefix = lang.slice(0, 2).toLowerCase();
+  return (
+    voices.find((voice) => voice.lang.toLowerCase().startsWith(prefix)) ??
+    voices.find((voice) => voice.lang.toLowerCase().startsWith("en")) ??
+    voices[0] ??
+    null
+  );
+}
+
+function isBenignSpeechError(error: string): boolean {
+  return error === "canceled" || error === "interrupted";
+}
+
 export class SpeechPlaybackEngine {
   private sentences: string[] = [];
   private rate = 1;
+  private lang = "en-KE";
   private position: PlaybackPosition = { sentenceIndex: 0, charOffset: 0 };
   private resumePosition: PlaybackPosition = { sentenceIndex: 0, charOffset: 0 };
   private paused = false;
@@ -146,15 +166,18 @@ export class SpeechPlaybackEngine {
   private onStateChange: ((state: "idle" | "playing" | "paused") => void) | null = null;
   private onPositionChange: ((position: PlaybackPosition) => void) | null = null;
   private onComplete: (() => void) | null = null;
+  private onError: (() => void) | null = null;
 
   setCallbacks(callbacks: {
     onStateChange?: (state: "idle" | "playing" | "paused") => void;
     onPositionChange?: (position: PlaybackPosition) => void;
     onComplete?: () => void;
+    onError?: () => void;
   }) {
     this.onStateChange = callbacks.onStateChange ?? null;
     this.onPositionChange = callbacks.onPositionChange ?? null;
     this.onComplete = callbacks.onComplete ?? null;
+    this.onError = callbacks.onError ?? null;
   }
 
   setText(text: string) {
@@ -162,11 +185,16 @@ export class SpeechPlaybackEngine {
     this.sentences = splitSentences(text);
     this.position = { sentenceIndex: 0, charOffset: 0 };
     this.resumePosition = { sentenceIndex: 0, charOffset: 0 };
+    this.onStateChange?.("idle");
     this.emitPosition();
   }
 
   setRate(rate: number) {
     this.rate = rate;
+  }
+
+  setLang(lang: string) {
+    this.lang = lang;
   }
 
   getPosition(): PlaybackPosition {
@@ -186,6 +214,11 @@ export class SpeechPlaybackEngine {
       return;
     }
 
+    if (this.playing && !from) {
+      return;
+    }
+
+    primeSpeechVoices();
     const start = from ?? this.resumePosition;
     this.position = { ...start };
     this.resumePosition = { ...start };
@@ -194,7 +227,7 @@ export class SpeechPlaybackEngine {
     this.playing = true;
     this.onStateChange?.("playing");
     this.emitPosition();
-    this.scheduleSpeak(80);
+    this.scheduleSpeak(120);
   }
 
   pause() {
@@ -204,6 +237,7 @@ export class SpeechPlaybackEngine {
     this.playing = false;
     this.stopped = false;
     this.resumePosition = { ...this.position };
+    this.clearResumeTimer();
     this.invalidateUtterance();
     this.cancelSynth();
     this.stopKeepAlive();
@@ -224,6 +258,7 @@ export class SpeechPlaybackEngine {
 
     this.invalidateUtterance();
     this.cancelSynth();
+    this.clearResumeTimer();
     this.stopKeepAlive();
     this.position = next;
     this.resumePosition = next;
@@ -234,7 +269,7 @@ export class SpeechPlaybackEngine {
       this.stopped = false;
       this.playing = true;
       this.onStateChange?.("playing");
-      this.scheduleSpeak(60);
+      this.scheduleSpeak(120);
     }
   }
 
@@ -245,6 +280,7 @@ export class SpeechPlaybackEngine {
     const resumeFrom = { ...this.position };
     this.invalidateUtterance();
     this.cancelSynth();
+    this.clearResumeTimer();
     this.stopKeepAlive();
     this.paused = false;
     this.stopped = false;
@@ -252,7 +288,7 @@ export class SpeechPlaybackEngine {
     this.position = resumeFrom;
     this.resumePosition = resumeFrom;
     this.onStateChange?.("playing");
-    this.scheduleSpeak(60);
+    this.scheduleSpeak(120);
   }
 
   destroy() {
@@ -260,6 +296,7 @@ export class SpeechPlaybackEngine {
     this.onStateChange = null;
     this.onPositionChange = null;
     this.onComplete = null;
+    this.onError = null;
   }
 
   private hardStop() {
@@ -305,14 +342,14 @@ export class SpeechPlaybackEngine {
     this.stopKeepAlive();
     if (typeof window === "undefined") return;
 
+    // Chrome can drop the utterance queue without firing onend. Restart if we
+    // still think we are playing but the synthesizer went idle.
     this.keepAliveTimer = window.setInterval(() => {
+      if (!this.playing || this.paused || this.stopped) return;
       const synth = window.speechSynthesis;
-      if (!this.playing || this.paused) return;
-      if (synth.speaking && !synth.paused) {
-        synth.pause();
-        synth.resume();
-      }
-    }, 8000);
+      if (synth.speaking || synth.pending) return;
+      this.scheduleSpeak(80);
+    }, 2000);
   }
 
   private stopKeepAlive() {
@@ -333,7 +370,9 @@ export class SpeechPlaybackEngine {
     }
 
     const synth = window.speechSynthesis;
-    synth.cancel();
+    if (synth.speaking || synth.pending) {
+      synth.cancel();
+    }
 
     const chunk = buildChunk(this.sentences, this.position.sentenceIndex, this.position.charOffset);
     if (!chunk) {
@@ -351,6 +390,9 @@ export class SpeechPlaybackEngine {
 
     const utterance = new SpeechSynthesisUtterance(chunk.text);
     utterance.rate = this.rate;
+    utterance.lang = this.lang;
+    const voice = pickVoice(this.lang);
+    if (voice) utterance.voice = voice;
 
     utterance.onboundary = (event) => {
       if (utteranceId !== this.utteranceId || this.paused || this.stopped) return;
@@ -370,11 +412,13 @@ export class SpeechPlaybackEngine {
       this.position = positionAfterChunk(chunk, this.sentences);
       this.resumePosition = { ...this.position };
       this.emitPosition();
-      this.scheduleSpeak(40);
+      this.scheduleSpeak(80);
     };
 
-    utterance.onerror = () => {
+    utterance.onerror = (event) => {
       if (utteranceId !== this.utteranceId || this.paused || this.stopped) return;
+      const error = "error" in event ? String(event.error) : "";
+      if (isBenignSpeechError(error)) return;
       this.finishWithError();
     };
 
@@ -402,6 +446,7 @@ export class SpeechPlaybackEngine {
     this.activeChunk = null;
     this.stopKeepAlive();
     this.onStateChange?.("idle");
+    this.onError?.();
   }
 }
 

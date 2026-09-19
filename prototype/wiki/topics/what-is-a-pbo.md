@@ -1,4 +1,4 @@
-```yaml
+---
 slug: what-is-a-pbo
 title: What is a Public Benefit Organization (PBO)?
 tags:
@@ -14,7 +14,7 @@ source_documents:
   - id: pbo-act-2013
     title: Public Benefit Organizations Act, 2013 (No. 18 of 2013)
     url: /documents/pbo-act-2013.pdf
-```
+---
 
 # What is a Public Benefit Organization (PBO)?
 

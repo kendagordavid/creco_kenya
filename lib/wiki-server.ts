@@ -30,26 +30,53 @@ function resolveWikiTopicsDir(): string {
   return WIKI_TOPIC_CANDIDATES[0];
 }
 
+const YAML_LIST_KEYS = new Set(["tags", "related", "related_slugs"]);
+
 function parseFrontmatter(text: string): { meta: Record<string, string | string[]>; body: string } {
-  const match = text.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  const normalized = text
+    .replace(/^```ya?ml\s*\n/, "---\n")
+    .replace(/\n```\s*\n/, "\n---\n");
+  const match = normalized.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
   if (!match) return { meta: {}, body: text };
 
   const meta: Record<string, string | string[]> = {};
+  let listKey: string | null = null;
+
   for (const line of match[1].split("\n")) {
+    const listItem = line.match(/^\s+-\s+(.*)$/);
+    if (listItem && listKey && YAML_LIST_KEYS.has(listKey)) {
+      const prev = meta[listKey];
+      const items = Array.isArray(prev) ? prev : [];
+      items.push(listItem[1].trim().replace(/^["']|["']$/g, ""));
+      meta[listKey] = items;
+      continue;
+    }
+
     if (!line || line.startsWith(" ") || line.startsWith("\t")) continue;
+
     const colon = line.indexOf(":");
     if (colon === -1) continue;
     const key = line.slice(0, colon).trim();
     let value = line.slice(colon + 1).trim();
+
     if (value.startsWith("[") && value.endsWith("]")) {
+      listKey = null;
       meta[key] = value
         .slice(1, -1)
         .split(",")
         .map((s) => s.trim())
         .filter(Boolean);
-    } else {
-      meta[key] = value.replace(/^"|"$/g, "");
+      continue;
     }
+
+    if (!value && YAML_LIST_KEYS.has(key)) {
+      listKey = key;
+      meta[key] = [];
+      continue;
+    }
+
+    listKey = null;
+    meta[key] = value.replace(/^["']|["']$/g, "");
   }
   return { meta, body: match[2].trim() };
 }
@@ -85,7 +112,7 @@ export function loadWikiPages(): WikiPage[] {
       const raw = fs.readFileSync(path.join(wikiDir, file), "utf-8");
       const { meta, body } = parseFrontmatter(raw);
       const tags = meta.tags;
-      const related = meta.related;
+      const related = meta.related ?? meta.related_slugs;
       return {
         slug: (meta.slug as string) || file.replace(/\.md$/, ""),
         title: (meta.title as string) || file.replace(/\.md$/, ""),

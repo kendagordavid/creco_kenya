@@ -10,7 +10,7 @@ const WIKI_REVALIDATE_SECONDS = 60 * 60;
 
 export const getCachedWikiPages = unstable_cache(
   async (): Promise<WikiPage[]> => loadWikiPages(),
-  ["wiki-pages"],
+  ["wiki-pages-v2"],
   { revalidate: WIKI_REVALIDATE_SECONDS, tags: ["wiki"] },
 );
 
@@ -22,7 +22,7 @@ export const getCachedSourceDocuments = unstable_cache(
 
 export const getCachedWikiSummaries = unstable_cache(
   async () => listWikiPageSummaries(),
-  ["wiki-summaries"],
+  ["wiki-summaries-v2"],
   { revalidate: WIKI_REVALIDATE_SECONDS, tags: ["wiki"] },
 );
 
@@ -32,7 +32,7 @@ export async function getCachedWikiPageBySlug(slug: string) {
       const pages = await loadWikiPages();
       return pages.find((page) => page.slug === slug) ?? null;
     },
-    ["wiki-page", slug],
+    ["wiki-page-v2", slug],
     { revalidate: WIKI_REVALIDATE_SECONDS, tags: ["wiki", `wiki:${slug}`] },
   )();
 }

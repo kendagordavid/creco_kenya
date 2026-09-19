@@ -266,6 +266,8 @@ export const en = {
   },
   topicsPage: {
     readTopic: "Read topic",
+    compiledGuidance: "Compiled guidance page",
+    readEnglish: "Read the full topic in English",
   },
   common: {
     backToHome: "← Back to home",

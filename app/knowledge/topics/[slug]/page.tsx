@@ -4,10 +4,11 @@ import { PageHero } from "@/components/PageHero";
 import { WikiBody } from "@/components/WikiBody";
 import { textForSpeech } from "@/lib/a11y/text-for-speech";
 import { getCachedWikiPageBySlug } from "@/lib/cached-wiki";
+import { localizeWikiPage } from "@/lib/wiki-locale";
 import { getServerTranslations } from "@/lib/i18n/server";
 import { notFound } from "next/navigation";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -15,15 +16,19 @@ type Props = {
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
+  const { locale } = await getServerTranslations();
   const page = await getCachedWikiPageBySlug(slug);
-  return { title: page?.title ?? "Topic" };
+  if (!page) return { title: "Topic" };
+  return { title: localizeWikiPage(page, locale).title };
 }
 
 export default async function TopicDetailPage({ params }: Props) {
   const { slug } = await params;
-  const { t } = await getServerTranslations();
-  const page = await getCachedWikiPageBySlug(slug);
-  if (!page) notFound();
+  const { locale, t } = await getServerTranslations();
+  const rawPage = await getCachedWikiPageBySlug(slug);
+  if (!rawPage) notFound();
+  const page = localizeWikiPage(rawPage, locale);
+  const showEnglish = locale === "sw" && page.englishBody && page.englishBody !== page.body;
 
   return (
     <>
@@ -32,6 +37,16 @@ export default async function TopicDetailPage({ params }: Props) {
         <div className="creco-container max-w-3xl">
           <AudioNarrationPlayer text={textForSpeech(page.title, page.body)} className="mb-8" />
           <WikiBody body={page.body} />
+          {showEnglish && (
+            <details className="creco-card mt-10 p-6">
+              <summary className="cursor-pointer text-sm font-semibold text-creco-primary">
+                {t.topicsPage.readEnglish}
+              </summary>
+              <div className="mt-6">
+                <WikiBody body={page.englishBody} />
+              </div>
+            </details>
+          )}
           {page.sourceDocuments.length > 0 && (
             <aside className="creco-card mt-10 p-6">
               <h2 className="text-lg font-bold text-creco-primary">{t.sources.metaTitle}</h2>

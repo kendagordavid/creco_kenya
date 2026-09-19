@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
 import { getCachedWikiSummaries } from "@/lib/cached-wiki";
+import { localizeWikiSummary } from "@/lib/wiki-locale";
 import { getDictionary, getLocale, getServerTranslations, interpolate } from "@/lib/i18n/server";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -13,8 +14,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function TopicsPage() {
-  const { t } = await getServerTranslations();
-  const wikiPages = await getCachedWikiSummaries();
+  const { locale, t } = await getServerTranslations();
+  const wikiPages = (await getCachedWikiSummaries()).map((page) =>
+    localizeWikiSummary(page, locale),
+  );
 
   return (
     <>
@@ -38,9 +41,11 @@ export default async function TopicsPage() {
                     })}
                   </span>
                   <h2 className="mt-3 text-xl font-bold text-creco-black">{page.title}</h2>
-                  <p className="mt-3 flex-1 text-sm leading-relaxed text-creco-muted">
-                    {page.tags.join(" · ")}
-                  </p>
+                  {page.tags.length > 0 && (
+                    <p className="mt-3 flex-1 text-sm leading-relaxed text-creco-muted">
+                      {page.tags.join(" · ")}
+                    </p>
+                  )}
                   <div className="mt-6 flex flex-wrap gap-2">
                     <Link
                       href={`/knowledge/topics/${page.slug}`}

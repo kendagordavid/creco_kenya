@@ -2,7 +2,7 @@
 
 import { Gauge, Pause, Play, Rewind } from "lucide-react";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
-import { useFormat, useTranslations } from "@/lib/i18n/client";
+import { useCurrentLocale, useFormat, useTranslations } from "@/lib/i18n/client";
 import {
   primeSpeechVoices,
   SpeechPlaybackEngine,
@@ -54,6 +54,7 @@ function AudioControlButton({
 export function AudioNarrationPlayer({ text, title, className = "" }: Props) {
   const t = useTranslations();
   const format = useFormat();
+  const locale = useCurrentLocale();
   const regionId = useId();
   const engineRef = useRef<SpeechPlaybackEngine | null>(null);
   const [supported, setSupported] = useState(true);
@@ -71,6 +72,7 @@ export function AudioNarrationPlayer({ text, title, className = "" }: Props) {
     primeSpeechVoices();
 
     const engine = new SpeechPlaybackEngine();
+    engine.setLang(locale === "sw" ? "sw-KE" : "en-KE");
     engine.setCallbacks({
       onStateChange: (state) => {
         setPlaybackState(state);
@@ -78,6 +80,7 @@ export function AudioNarrationPlayer({ text, title, className = "" }: Props) {
         if (state === "paused") setStatusMessage(t.a11y.audio.paused);
       },
       onComplete: () => setStatusMessage(t.a11y.audio.finished),
+      onError: () => setStatusMessage(t.a11y.audio.error),
       onPositionChange: (nextPosition) => setPosition(nextPosition),
     });
 
@@ -101,23 +104,30 @@ export function AudioNarrationPlayer({ text, title, className = "" }: Props) {
     engineRef.current?.setRate(SPEEDS[speedIndex]);
   }, [speedIndex]);
 
+  useEffect(() => {
+    engineRef.current?.setLang(locale === "sw" ? "sw-KE" : "en-KE");
+  }, [locale]);
+
   const togglePlay = useCallback(() => {
     const engine = engineRef.current;
     if (!engine) return;
 
-    if (engine.isPlaying()) {
+    if (playbackState === "playing" || engine.isPlaying()) {
+      setPlaybackState("paused");
       engine.pause();
       return;
     }
 
-    if (engine.isPaused()) {
+    if (playbackState === "paused" || engine.isPaused()) {
+      setPlaybackState("playing");
       engine.play();
       setStatusMessage(t.a11y.audio.resumed);
       return;
     }
 
+    setPlaybackState("playing");
     engine.play();
-  }, [t.a11y.audio.resumed]);
+  }, [playbackState, t.a11y.audio.resumed]);
 
   const skipBack = useCallback(() => {
     engineRef.current?.skipBack(SKIP_SECONDS);

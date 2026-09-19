@@ -1,4 +1,4 @@
-```yaml
+---
 slug: registration-requirements
 title: Public Benefit Organization (PBO) Registration Requirements
 tags:

@@ -268,6 +268,8 @@ export const sw: Dictionary = {
   },
   topicsPage: {
     readTopic: "Soma mada",
+    compiledGuidance: "Ukurasa wa mwongozo uliokusanywa",
+    readEnglish: "Soma mada kamili kwa Kiingereza",
   },
   common: {
     backToHome: "← Rudi nyumbani",

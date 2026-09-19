@@ -7,6 +7,11 @@ export type CredentialsSignInResult =
   | { ok: true }
   | { ok: false; error: "invalid_credentials" | "configuration" | "unknown"; message?: string };
 
+export async function signInWithGoogle(callbackUrl: string): Promise<void> {
+  invalidateAuthCache();
+  await signIn("google", { callbackUrl });
+}
+
 export async function completeSignOut(callbackUrl = "/"): Promise<void> {
   invalidateAuthCache();
 

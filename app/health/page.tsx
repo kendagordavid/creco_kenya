@@ -1,5 +1,6 @@
 import { getGoogleAuthIssue } from "@/lib/auth-oauth";
 import { getHealthStatus } from "@/lib/health-status";
+import { getRequestOrigin, googleOAuthRedirectUri } from "@/lib/request-origin";
 
 export const metadata = {
   title: "System status",
@@ -65,8 +66,9 @@ function googleStatusLabel(status: "disabled" | "misconfigured" | "enabled"): {
 }
 
 export default async function HealthPage() {
-  const health = await getHealthStatus();
+  const [health, origin] = await Promise.all([getHealthStatus(), getRequestOrigin()]);
   const google = googleStatusLabel(health.google_auth_status);
+  const googleRedirectUri = googleOAuthRedirectUri(origin);
 
   return (
     <div className="creco-section">
@@ -101,6 +103,10 @@ export default async function HealthPage() {
               <StatusBadge ok={google.ok} label={google.label} />
             </div>
             {google.hint && <p className="mt-2 text-sm text-muted-foreground">{google.hint}</p>}
+            <p className="mt-2 break-all text-sm text-muted-foreground">
+              Authorized redirect URI for this host:{" "}
+              <code className="rounded bg-muted px-1 py-0.5 text-foreground">{googleRedirectUri}</code>
+            </p>
           </div>
 
           <div className="flex flex-wrap items-center justify-between gap-3 border-t border-creco-border pt-4">

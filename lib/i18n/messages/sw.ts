@@ -332,6 +332,8 @@ export const sw: Dictionary = {
       invalidCredentials: "Barua pepe au nenosiri si sahihi. Tafadhali jaribu tena.",
       configurationError:
         "Kuingia hakijasanidiwa kwenye seva hii. Wasiliana na msimamizi wa tovuti ikiendelea.",
+      oauthConfigurationError:
+        "Kuingia kwa Google hakukamilika. Jaribu tena, au ingia kwa barua pepe na nenosiri. Ikiendelea, ongeza URI hii kamili ya kuelekeza katika Google Cloud Console → Credentials → OAuth 2.0 Web client yako: {redirectUri}",
       serviceError: "Hatukuweza kukuingiza sasa hivi. Tafadhali jaribu tena baada ya muda mfupi.",
       signInWithGoogle: "Ingia kwa Google",
       orSignInWithEmail: "Au ingia kwa barua pepe",

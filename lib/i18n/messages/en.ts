@@ -330,6 +330,8 @@ export const en = {
       invalidCredentials: "Invalid email or password. Please try again.",
       configurationError:
         "Sign-in is not configured on this server. Contact the site administrator if this continues.",
+      oauthConfigurationError:
+        "Google sign-in could not be completed. Try again, or sign in with email and password. If this continues, add this exact Authorized redirect URI in Google Cloud Console → Credentials → your OAuth 2.0 Web client: {redirectUri}",
       serviceError: "We could not sign you in right now. Please try again in a moment.",
       signInWithGoogle: "Sign in with Google",
       orSignInWithEmail: "Or sign in with email",

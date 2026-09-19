@@ -25,11 +25,14 @@ import { Separator } from "@/components/ui/separator";
 import { signInWithCredentials } from "@/lib/auth-session-client";
 import type { GoogleAuthStatus } from "@/lib/auth-oauth";
 import { useTranslations } from "@/lib/i18n/client";
+import { interpolate } from "@/lib/i18n/utils";
 import type { LoginAuthError } from "@/lib/login-params";
 
 function oauthErrorMessage(
   error: LoginAuthError | null,
   t: ReturnType<typeof useTranslations>,
+  googleAuthStatus: GoogleAuthStatus,
+  googleRedirectUri: string,
 ): string | null {
   switch (error) {
     case "OAuthAccountNotLinked":
@@ -41,7 +44,9 @@ function oauthErrorMessage(
     case "unknown":
       return t.auth.login.oauthSignInFailed;
     case "Configuration":
-      return t.auth.login.configurationError;
+      return googleAuthStatus === "enabled"
+        ? interpolate(t.auth.login.oauthConfigurationError, { redirectUri: googleRedirectUri })
+        : t.auth.login.configurationError;
     default:
       return null;
   }
@@ -50,6 +55,7 @@ function oauthErrorMessage(
 type Props = {
   googleAuthStatus: GoogleAuthStatus;
   googleSection?: ReactNode;
+  googleRedirectUri: string;
   callbackUrl: string;
   registered?: boolean;
   authError?: LoginAuthError | null;
@@ -58,12 +64,13 @@ type Props = {
 export function LoginForm({
   googleAuthStatus,
   googleSection,
+  googleRedirectUri,
   callbackUrl,
   registered = false,
   authError = null,
 }: Props) {
   const t = useTranslations();
-  const oauthError = oauthErrorMessage(authError, t);
+  const oauthError = oauthErrorMessage(authError, t, googleAuthStatus, googleRedirectUri);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

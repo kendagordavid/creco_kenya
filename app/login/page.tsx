@@ -6,6 +6,7 @@ import { GoogleSignInServerForm } from "@/components/login/GoogleSignInServerFor
 import { getGoogleAuthStatus } from "@/lib/auth-oauth";
 import { getDictionary, getLocale } from "@/lib/i18n/server";
 import { parseLoginAuthError, safeLoginCallbackUrl } from "@/lib/login-params";
+import { getRequestOrigin, googleOAuthRedirectUri } from "@/lib/request-origin";
 
 export const metadata = {
   title: "Sign in",
@@ -25,10 +26,15 @@ export default async function LoginPage({ searchParams }: Props) {
     redirect("/profile");
   }
 
-  const [params, locale] = await Promise.all([searchParams, getLocale()]);
+  const [params, locale, origin] = await Promise.all([
+    searchParams,
+    getLocale(),
+    getRequestOrigin(),
+  ]);
   const t = getDictionary(locale);
   const callbackUrl = safeLoginCallbackUrl(params.callbackUrl);
   const googleAuthStatus = getGoogleAuthStatus();
+  const googleRedirectUri = googleOAuthRedirectUri(origin);
 
   const googleSection =
     googleAuthStatus === "enabled" ? (
@@ -40,6 +46,7 @@ export default async function LoginPage({ searchParams }: Props) {
       <LoginForm
         googleAuthStatus={googleAuthStatus}
         googleSection={googleSection}
+        googleRedirectUri={googleRedirectUri}
         callbackUrl={callbackUrl}
         registered={params.registered === "1"}
         authError={parseLoginAuthError(params.error)}

@@ -6,7 +6,7 @@
     "dev": "next dev",
     "dev:clean": "node scripts/dev-clean.mjs && next dev",
     "dev:webpack": "next dev --webpack",
-    "build": "next build",
+    "build": "npm install && ./node_modules/.bin/next build",
     "start": "next start",
     "lint": "eslint",
     "db:setup": "node scripts/db-setup.mjs",

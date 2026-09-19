@@ -31,7 +31,7 @@ export function AuthProvider({
   session?: Session | null;
 }) {
   return (
-    <SessionProvider session={session} refetchInterval={5 * 60} refetchOnWindowFocus>
+    <SessionProvider session={session} refetchInterval={0} refetchOnWindowFocus={false}>
       <SessionCacheWarmup />
       {children}
     </SessionProvider>

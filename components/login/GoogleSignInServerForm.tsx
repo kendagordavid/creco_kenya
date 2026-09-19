@@ -1,4 +1,6 @@
-import { googleSignIn } from "@/app/login/actions";
+"use client";
+
+import { useEffect, useState } from "react";
 
 function GoogleMark({ className }: { className?: string }) {
   return (
@@ -29,11 +31,33 @@ type Props = {
 };
 
 export function GoogleSignInServerForm({ callbackUrl, label }: Props) {
+  const [csrfToken, setCsrfToken] = useState("");
+
+  useEffect(() => {
+    let cancelled = false;
+
+    fetch("/api/auth/csrf")
+      .then((response) => response.json())
+      .then((data: { csrfToken?: string }) => {
+        if (!cancelled && data.csrfToken) setCsrfToken(data.csrfToken);
+      })
+      .catch(() => {
+        // Keep the button disabled if the CSRF cookie cannot be established.
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
-    <form action={googleSignIn.bind(null, callbackUrl)}>
+    <form action="/api/auth/signin/google" method="post">
+      <input type="hidden" name="csrfToken" value={csrfToken} />
+      <input type="hidden" name="callbackUrl" value={callbackUrl} />
       <button
         type="submit"
-        className="group/button inline-flex h-11 w-full shrink-0 items-center justify-center gap-2 rounded-lg border border-border bg-background px-2.5 text-sm font-semibold text-foreground shadow-sm transition hover:bg-muted/60"
+        disabled={!csrfToken}
+        className="group/button inline-flex h-11 w-full shrink-0 items-center justify-center gap-2 rounded-lg border border-border bg-background px-2.5 text-sm font-semibold text-foreground shadow-sm transition hover:bg-muted/60 disabled:opacity-70"
       >
         <GoogleMark className="size-5 shrink-0" />
         <span>{label}</span>

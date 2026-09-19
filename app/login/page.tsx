@@ -12,6 +12,8 @@ export const metadata = {
   title: "Sign in",
 };
 
+export const dynamic = "force-dynamic";
+
 type Props = {
   searchParams: Promise<{
     callbackUrl?: string;

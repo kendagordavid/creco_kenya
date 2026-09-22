@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ComplianceBanner } from "@/components/ComplianceBanner";
 import { PageHero } from "@/components/PageHero";
 
 export const metadata = {
@@ -15,7 +14,6 @@ export default function AssessmentIntroPage() {
         lead="Eight questions across registration, governance, reporting, and operations. Takes about 5 minutes."
         variant="light"
       />
-      <ComplianceBanner />
       <section className="creco-section">
         <div className="creco-container max-w-xl text-center">
           <div className="creco-card p-8">

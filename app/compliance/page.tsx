@@ -1,4 +1,3 @@
-import { ComplianceBanner } from "@/components/ComplianceBanner";
 import { ModuleCard } from "@/components/ModuleCard";
 import { PageHero } from "@/components/PageHero";
 
@@ -16,7 +15,6 @@ export default function ComplianceHubPage() {
         backgroundImage="/images/pages/compliance-documents.jpg"
         backgroundAlt="Hands signing a printed compliance document"
       />
-      <ComplianceBanner />
       <section className="creco-section">
         <div className="creco-container">
           <div className="grid gap-5 md:grid-cols-3">

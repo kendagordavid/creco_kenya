@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ComplianceBanner } from "@/components/ComplianceBanner";
 import { PageHero } from "@/components/PageHero";
 import { TEMPLATE_ITEMS } from "@/lib/content/templates";
 
@@ -16,7 +15,6 @@ export default function TemplatesPage() {
         lead="Starting points for board resolutions, policies, and reporting — review with your counsel before use."
         variant="light"
       />
-      <ComplianceBanner />
       <section className="creco-section">
         <div className="creco-container">
           <div className="grid gap-5 sm:grid-cols-2">

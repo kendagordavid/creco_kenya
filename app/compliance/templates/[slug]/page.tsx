@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ComplianceBanner } from "@/components/ComplianceBanner";
 import { CopyButton } from "@/components/CopyButton";
 import { PageHero } from "@/components/PageHero";
 import { getTemplateBySlug } from "@/lib/content/templates";
@@ -17,7 +16,6 @@ export default async function TemplateDetailPage({ params }: Props) {
   return (
     <>
       <PageHero eyebrow="Template" title={template.title} lead={template.summary} variant="light" />
-      <ComplianceBanner />
       <section className="creco-section">
         <div className="creco-container max-w-3xl">
           <pre className="overflow-x-auto rounded-lg border border-creco-border bg-creco-surface p-6 text-sm leading-relaxed whitespace-pre-wrap">

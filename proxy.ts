@@ -44,6 +44,9 @@ export default NextAuth(authConfig).auth((request) => {
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|icon.svg|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|woff2?|pdf)$).*)",
+    // Keep Auth.js off /api/auth. This middleware rewrites the session cookie
+    // on every matched request, and on the credentials callback that rewrite
+    // clears the cookie the sign-in handler just set.
+    "/((?!api/auth|_next/static|_next/image|favicon.ico|icon.svg|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|woff2?|pdf)$).*)",
   ],
 };

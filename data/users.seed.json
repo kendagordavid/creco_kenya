@@ -13,7 +13,7 @@
   {
     "id": "user-super-001",
     "email": "admin@creco.or.ke",
-    "passwordHash": "$2b$10$Xx/s4DENG8eOKlkgNgAy6e3W3lp2J9JO6KD4c7rFOGvF6Wc10sqim",
+    "passwordHash": "$2b$10$K6x/c3YbYPxvd2gXT4gs4.taQc9Ku3jFqkBxMVDvFWbTcPRKQSK5C",
     "name": "CRECO Superuser",
     "orgName": "CRECO Kenya",
     "orgType": "NGO",

@@ -32,7 +32,7 @@ export function HeroQuickAccess({ copy }: Props) {
   }
 
   return (
-    <div className="mt-5 rounded-[1.25rem] bg-[#ececec] px-4 py-5 sm:px-6 sm:py-6">
+    <div className="mt-5 rounded-[1.25rem] bg-creco-surface px-4 py-5 dark:bg-muted sm:px-6 sm:py-6">
       <form onSubmit={onSubmit} role="search" className="flex flex-col gap-3 sm:flex-row">
         <label htmlFor="hero-search" className="sr-only">
           {copy.searchLabel}
@@ -45,11 +45,11 @@ export function HeroQuickAccess({ copy }: Props) {
           onChange={(event) => setQuery(event.target.value)}
           placeholder={copy.searchPlaceholder}
           autoComplete="off"
-          className="h-12 flex-1 rounded-xl border border-transparent bg-white px-4 text-sm text-creco-black shadow-sm outline-none ring-0 placeholder:text-creco-muted focus:border-creco-primary focus:ring-2 focus:ring-creco-primary/20"
+          className="h-12 flex-1 rounded-xl border border-border bg-card px-4 text-sm text-foreground shadow-sm outline-none ring-0 placeholder:text-muted-foreground focus:border-creco-primary focus:ring-2 focus:ring-creco-primary/20"
         />
         <button
           type="submit"
-          className="inline-flex h-12 w-full items-center justify-center rounded-xl bg-creco-orange px-5 text-creco-black shadow-sm transition hover:bg-creco-orange-light sm:w-14"
+          className="inline-flex h-12 min-h-11 w-full items-center justify-center rounded-xl bg-creco-orange px-5 text-creco-black shadow-sm transition hover:bg-creco-orange-light sm:w-14"
           aria-label={copy.searchLabel}
         >
           <Search className="size-5" aria-hidden />
@@ -57,13 +57,15 @@ export function HeroQuickAccess({ copy }: Props) {
       </form>
 
       <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
-        <span className="shrink-0 text-sm font-medium text-creco-muted">{copy.browseLabel}</span>
+        <span className="shrink-0 text-sm font-medium text-creco-muted dark:text-muted-foreground">
+          {copy.browseLabel}
+        </span>
         <div className="flex flex-wrap gap-2">
           {copy.links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="inline-flex items-center gap-2 rounded-full bg-creco-orange px-4 py-2 text-xs font-bold uppercase tracking-wide text-creco-black no-underline transition hover:bg-creco-orange-light"
+              className="inline-flex min-h-11 items-center gap-2 rounded-full bg-creco-orange px-4 py-2 text-xs font-bold uppercase tracking-wide text-creco-black no-underline transition-colors duration-300 ease-out hover:bg-creco-orange-light motion-reduce:transition-none"
             >
               {link.label}
               <ArrowRight className="size-3.5" aria-hidden />

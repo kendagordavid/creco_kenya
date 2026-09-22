@@ -1,9 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useFormat } from "@/lib/i18n/client";
+import { usePrefersReducedMotion } from "@/lib/use-parallax";
 import "./HeroCarousel.css";
 
 const AUTO_ADVANCE_MS = 6000;
@@ -55,13 +57,15 @@ export function HeroCarousel({ copy, className = "" }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
   const carouselRef = useRef<HTMLElement>(null);
   const timerRef = useRef<number | null>(null);
+  const reducedMotion = usePrefersReducedMotion();
   const total = slides.length;
 
   const startAutoAdvance = useCallback(() => {
     if (timerRef.current !== null) {
       window.clearInterval(timerRef.current);
+      timerRef.current = null;
     }
-    if (total <= 1) return;
+    if (total <= 1 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     timerRef.current = window.setInterval(() => {
       setActiveIndex((current) => (current + 1) % total);
@@ -87,7 +91,6 @@ export function HeroCarousel({ copy, className = "" }: Props) {
   }
 
   useEffect(() => {
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!reducedMotion) {
       startAutoAdvance();
     }
@@ -97,7 +100,42 @@ export function HeroCarousel({ copy, className = "" }: Props) {
         window.clearInterval(timerRef.current);
       }
     };
-  }, [startAutoAdvance]);
+  }, [startAutoAdvance, reducedMotion]);
+
+  useEffect(() => {
+    const section = carouselRef.current;
+    if (!section || reducedMotion) return;
+
+    const mobile = window.matchMedia("(max-width: 767px)").matches;
+    const factor = mobile ? 0.12 : 0.22;
+    let frame = 0;
+
+    const update = () => {
+      frame = 0;
+      const rect = section.getBoundingClientRect();
+      const viewport = window.innerHeight;
+      if (rect.bottom < 0 || rect.top > viewport) return;
+      const offset = rect.top + rect.height / 2 - viewport / 2;
+      const y = offset * factor;
+      section.querySelectorAll<HTMLElement>(".hero-carousel__parallax").forEach((layer) => {
+        layer.style.transform = `translate3d(0, ${y}px, 0)`;
+      });
+    };
+
+    const onScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, [reducedMotion]);
 
   useEffect(() => {
     slides.forEach((slide, index) => {
@@ -137,10 +175,12 @@ export function HeroCarousel({ copy, className = "" }: Props) {
       aria-label={copy.ariaLabel}
       tabIndex={0}
       onMouseEnter={pauseAutoAdvance}
-      onMouseLeave={startAutoAdvance}
+      onMouseLeave={() => {
+        if (!reducedMotion) startAutoAdvance();
+      }}
       onFocus={pauseAutoAdvance}
       onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null) && !reducedMotion) {
           startAutoAdvance();
         }
       }}
@@ -176,15 +216,17 @@ export function HeroCarousel({ copy, className = "" }: Props) {
             </div>
 
             <div className="hero-carousel__media">
-              <img
-                src={slide.imageSrc}
-                alt={isActive ? slide.imageAlt : ""}
-                aria-hidden={!isActive}
-                className="hero-carousel__photo"
-                decoding={index === 0 ? "sync" : "async"}
-                fetchPriority={index === 0 ? "high" : "auto"}
-                loading={index <= 1 ? "eager" : "lazy"}
-              />
+              <div className="hero-carousel__parallax">
+                <Image
+                  src={slide.imageSrc}
+                  alt={isActive ? slide.imageAlt : ""}
+                  aria-hidden={!isActive}
+                  fill
+                  sizes="(min-width: 1024px) 42vw, 100vw"
+                  className="hero-carousel__photo"
+                  priority={index === 0}
+                />
+              </div>
             </div>
           </article>
         );

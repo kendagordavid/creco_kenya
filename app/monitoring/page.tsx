@@ -13,6 +13,8 @@ export default function MonitoringHubPage() {
         eyebrow="Civic space monitoring"
         title="Report your experience"
         lead="Submissions are confidential. Moderated by CRECO staff before use in advocacy."
+        backgroundImage="/images/hero/civic-space.jpg"
+        backgroundAlt="Black Kenyans gathered in a civic space demonstration"
       />
       <section className="creco-section">
         <div className="creco-container">

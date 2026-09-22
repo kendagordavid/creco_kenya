@@ -13,6 +13,8 @@ export default function ComplianceHubPage() {
         eyebrow="Compliance support"
         title="Compliance tools"
         lead="Checklists, self-assessment, and templates mapped to PBO Act domains."
+        backgroundImage="/images/pages/compliance-documents.jpg"
+        backgroundAlt="Hands signing a printed compliance document"
       />
       <ComplianceBanner />
       <section className="creco-section">

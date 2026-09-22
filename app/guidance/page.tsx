@@ -22,7 +22,13 @@ export default async function GuidancePage({ searchParams }: Props) {
 
   return (
     <>
-      <PageHero eyebrow={t.guidance.eyebrow} title={t.guidance.title} lead={t.guidancePage.lead} />
+      <PageHero
+        eyebrow={t.guidance.eyebrow}
+        title={t.guidance.title}
+        lead={t.guidancePage.lead}
+        backgroundImage="/images/hero/ask-a-question.jpg"
+        backgroundAlt={t.home.hero.slides[3]?.imageAlt}
+      />
       <section className="creco-section creco-section-alt">
         <div className="creco-container">
           <AiSetupNotice />

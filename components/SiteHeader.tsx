@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { LogOut, Menu, X } from "lucide-react";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { SocialLinks } from "@/components/SocialLinks";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { UserMenu } from "@/components/UserMenu";
 import { completeSignOut } from "@/lib/auth-session-client";
@@ -37,10 +38,10 @@ function NavLink({
       onClick={onNavigate}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "flex min-h-11 items-center rounded-lg px-3 py-2.5 text-sm font-semibold no-underline transition-colors",
+        "flex h-16 shrink-0 items-center whitespace-nowrap border-b-2 px-2.5 text-sm font-medium no-underline transition-colors",
         active
-          ? "bg-creco-green-muted text-creco-primary dark:bg-creco-green-muted/80"
-          : "text-creco-black-soft hover:bg-creco-surface hover:text-creco-black dark:text-foreground/80 dark:hover:bg-muted dark:hover:text-foreground",
+          ? "border-creco-primary text-creco-primary"
+          : "border-transparent text-creco-black-soft hover:text-creco-primary dark:text-foreground/80 dark:hover:text-creco-green-light",
         className,
       )}
     >
@@ -73,8 +74,8 @@ export function SiteHeader() {
       }));
 
   return (
-    <header className="sticky top-0 z-50 border-b border-creco-border bg-background/95 dark:border-border supports-[backdrop-filter]:backdrop-blur-md">
-      <div className="creco-container flex h-16 items-center gap-4">
+    <header className="sticky top-0 z-50 border-b border-creco-border/90 bg-background/90 shadow-[0_1px_2px_rgba(10,10,10,0.04)] backdrop-blur-md dark:border-border dark:bg-background/90 dark:shadow-none">
+      <div className="mx-auto flex h-16 w-full max-w-[90rem] items-center px-5 sm:px-8">
         <Link
           href="/"
           aria-label={t.a11y.homeLink}
@@ -96,24 +97,26 @@ export function SiteHeader() {
 
         <nav
           aria-label={isLoggedIn ? t.nav.platformNav : t.nav.sectionNav}
-          className="hidden flex-1 items-center justify-center gap-1 lg:flex"
+          className="ml-6 hidden items-center xl:flex"
         >
           {navItems.map((item) => (
             <NavLink key={item.href} href={item.href} label={item.label} active={item.active} />
           ))}
         </nav>
 
-        <div className="ml-auto flex min-w-0 items-center gap-1.5 sm:gap-3">
-          {!isLoggedIn && (
-            <Link
-              href="/guidance?ask=1"
-              className="creco-btn creco-btn-accent hidden px-4 py-2 text-sm md:inline-flex"
-            >
-              {t.nav.askQuestion}
-            </Link>
-          )}
-
-          <div className="hidden sm:flex sm:items-center sm:gap-2">
+        <div className="ml-auto flex shrink-0 items-center">
+          <SocialLinks compact className="ml-4 hidden xl:flex" />
+          <Link
+            href="/contact"
+            className="hidden h-16 shrink-0 items-center whitespace-nowrap px-2.5 text-sm font-medium text-creco-black-soft no-underline transition-colors hover:text-creco-primary xl:inline-flex dark:text-foreground/80 dark:hover:text-creco-green-light"
+          >
+            {t.nav.contact}
+          </Link>
+          <span
+            className="mx-2 hidden h-4 w-px bg-creco-border xl:block dark:bg-border"
+            aria-hidden
+          />
+          <div className="hidden items-center gap-2 sm:flex">
             <ThemeSwitcher />
             <LanguageSwitcher />
           </div>
@@ -124,7 +127,7 @@ export function SiteHeader() {
 
           <button
             type="button"
-            className="inline-flex size-11 shrink-0 items-center justify-center rounded-lg text-creco-black transition hover:bg-creco-green-muted dark:text-foreground dark:hover:bg-muted lg:hidden"
+            className="inline-flex size-11 shrink-0 items-center justify-center rounded-lg text-creco-black transition hover:bg-creco-green-muted dark:text-foreground dark:hover:bg-muted xl:hidden"
             aria-label={t.nav.toggleNav}
             aria-expanded={open}
             aria-controls="mobile-primary-nav"
@@ -143,7 +146,7 @@ export function SiteHeader() {
         <nav
           id="mobile-primary-nav"
           aria-label={isLoggedIn ? t.nav.platformNav : t.nav.sectionNav}
-          className="border-t border-creco-border bg-background px-4 py-3 dark:border-border lg:hidden"
+          className="border-t border-creco-border bg-background px-4 py-3 dark:border-border xl:hidden"
         >
           <ul className="space-y-1">
             {navItems.map((item) => (
@@ -153,11 +156,22 @@ export function SiteHeader() {
                   label={item.label}
                   active={item.active}
                   onNavigate={() => setOpen(false)}
-                  className="block"
+                  className="h-11 border-b-0 px-1"
                 />
               </li>
             ))}
           </ul>
+
+          <div className="mt-2 flex items-center gap-1 border-t border-creco-border pt-2 dark:border-border">
+            <SocialLinks nested compact />
+            <Link
+              href="/contact"
+              onClick={() => setOpen(false)}
+              className="inline-flex min-h-11 items-center px-3 text-sm font-medium text-creco-black-soft no-underline transition-colors hover:text-creco-primary dark:text-foreground/80 dark:hover:text-creco-green-light"
+            >
+              {t.nav.contact}
+            </Link>
+          </div>
 
           {!isLoggedIn && (
             <>

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
@@ -32,23 +33,24 @@ export function HeroSideCards({ cards }: Props) {
         <Link
           key={card.href}
           href={card.href}
-          className="group flex min-h-[11rem] flex-col overflow-hidden rounded-[1.25rem] bg-white shadow-md ring-1 ring-black/5 no-underline transition hover:-translate-y-0.5 hover:shadow-lg lg:min-h-0 lg:flex-1"
+          className={`creco-rise${index > 0 ? " creco-rise-delay-1" : ""} group flex min-h-[11rem] flex-col overflow-hidden rounded-[1.25rem] bg-card shadow-md ring-1 ring-border no-underline transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-px hover:shadow-md motion-reduce:transition-none motion-reduce:hover:translate-y-0 lg:min-h-0 lg:flex-1`}
         >
           <div className="relative h-32 overflow-hidden sm:h-28 lg:h-[58%]">
-            <img
+            <Image
               src={CARD_IMAGES[index] ?? CARD_IMAGES[0]}
               alt={card.imageAlt}
-              className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-              loading="lazy"
+              fill
+              sizes="(min-width: 1024px) 20rem, (min-width: 640px) 50vw, 100vw"
+              className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
             />
           </div>
           <div
             className={`flex flex-1 flex-col justify-between gap-2 px-4 py-3.5 text-white ${toneClasses[card.tone as keyof typeof toneClasses] ?? toneClasses.green}`}
           >
             <h3 className="text-sm font-bold leading-snug sm:text-[0.95rem]">{card.title}</h3>
-            <span className="inline-flex items-center gap-2 text-[0.7rem] font-bold uppercase tracking-wide">
+            <span className="inline-flex min-h-11 items-center gap-2 text-[0.7rem] font-bold uppercase tracking-wide">
               {card.cta}
-              <span className="inline-flex size-7 items-center justify-center rounded-full bg-white/15">
+              <span className="inline-flex size-7 items-center justify-center rounded-full bg-white/15 transition-transform duration-300 group-hover:translate-x-0.5 motion-reduce:transition-none">
                 <ArrowRight className="size-3.5" aria-hidden />
               </span>
             </span>

@@ -21,7 +21,14 @@ export default async function TopicsPage() {
 
   return (
     <>
-      <PageHero eyebrow={t.topics.eyebrow} title={t.topics.title} lead={t.topics.lead} />
+      <PageHero
+        eyebrow={t.topics.eyebrow}
+        title={t.topics.title}
+        lead={t.topics.lead}
+        backgroundImage="/images/pages/topics-dialogue.jpg"
+        backgroundAlt={t.topics.imageAlt}
+        backgroundCredit="Photo: Mark Myles Mugambi / Wikimedia Commons"
+      />
       <section className="creco-section">
         <div className="creco-container">
           {wikiPages.length === 0 ? (

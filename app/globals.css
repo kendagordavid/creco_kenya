@@ -322,14 +322,117 @@ h4,
   pointer-events: none;
 }
 
-.creco-hero-inner {
-  position: relative;
-  z-index: 1;
+.creco-hero--photo {
+  background: transparent;
+}
+
+.creco-hero--photo::before {
+  display: none;
+}
+
+.creco-hero--photo::after {
+  z-index: 2;
+}
+
+.creco-parallax-layer {
+  will-change: transform;
+}
+
+.creco-parallax-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.creco-parallax-overlay--green {
+  background: linear-gradient(
+    165deg,
+    rgba(4, 64, 40, 0.78) 0%,
+    rgba(6, 90, 52, 0.62) 48%,
+    rgba(4, 64, 40, 0.74) 100%
+  );
+}
+
+.creco-parallax-overlay--dark {
+  background: linear-gradient(
+    180deg,
+    rgba(4, 64, 40, 0.72) 0%,
+    rgba(10, 10, 10, 0.58) 100%
+  );
+}
+
+.creco-parallax-copy,
+.creco-parallax-copy h2,
+.creco-hero--photo h1 {
+  color: #fff;
+}
+
+/* Hidden only after JS marks a below-fold block as pending. */
+@media (prefers-reduced-motion: no-preference) {
+  .creco-reveal.is-pending:not(.is-visible) {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+
+  .creco-reveal.is-pending {
+    transition:
+      opacity 0.5s ease-out,
+      transform 0.5s ease-out;
+  }
+
+  .creco-reveal.is-pending.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .creco-parallax-layer {
+    transform: none !important;
+    will-change: auto;
+  }
+
+  .creco-animate-in,
+  .creco-fade-in,
+  .creco-rise,
+  .creco-animate-in-delay-1,
+  .creco-animate-in-delay-2,
+  .creco-animate-in-delay-3,
+  .creco-rise-delay-1,
+  .creco-rise-delay-2,
+  .creco-reveal,
+  .creco-reveal.is-pending,
+  .creco-reveal.is-pending.is-visible {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+@media (scripting: none) {
+  .creco-reveal,
+  .creco-reveal.is-pending,
+  .creco-animate-in,
+  .creco-rise,
+  .creco-animate-in-delay-1,
+  .creco-animate-in-delay-2,
+  .creco-animate-in-delay-3,
+  .creco-rise-delay-1,
+  .creco-rise-delay-2 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 .creco-hero h1,
 .creco-hero .font-display {
   color: var(--creco-white);
+}
+
+.creco-hero-inner {
+  position: relative;
+  z-index: 1;
 }
 
 .creco-hero-lead {
@@ -375,6 +478,13 @@ h4,
     border-color 0.3s ease;
 }
 
+.creco-card-soft {
+  transition:
+    box-shadow 0.45s ease-out,
+    transform 0.45s ease-out,
+    border-color 0.45s ease-out;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .creco-card:hover {
     box-shadow: var(--creco-shadow);
@@ -382,10 +492,28 @@ h4,
     transform: translateY(-3px);
   }
 
+  .creco-card.creco-card-soft:hover {
+    transform: translateY(-2px);
+  }
+
   .creco-check-item:hover {
     border-color: rgba(239, 147, 52, 0.45);
     box-shadow: var(--creco-shadow-sm);
     transform: translateX(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .creco-card,
+  .creco-card-soft,
+  .creco-check-item {
+    transition: none;
+  }
+
+  .creco-card:hover,
+  .creco-card.creco-card-soft:hover,
+  .creco-check-item:hover {
+    transform: none;
   }
 }
 
@@ -808,31 +936,35 @@ h4,
 @keyframes creco-fade-in-up {
   from {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translate3d(0, 12px, 0);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
   }
 }
 
 .creco-animate-in {
-  animation: creco-fade-in-up 0.7s ease forwards;
+  animation: creco-fade-in-up 0.5s ease-out both;
 }
 
-.creco-animate-in-delay-1 {
-  animation-delay: 0.1s;
-  opacity: 0;
+/* backwards so the fill does not pin transform and block the later hover lift */
+.creco-rise {
+  animation: creco-fade-in-up 0.5s ease-out backwards;
 }
 
-.creco-animate-in-delay-2 {
-  animation-delay: 0.2s;
-  opacity: 0;
+.creco-animate-in-delay-1,
+.creco-rise-delay-1 {
+  animation-delay: 80ms;
+}
+
+.creco-animate-in-delay-2,
+.creco-rise-delay-2 {
+  animation-delay: 160ms;
 }
 
 .creco-animate-in-delay-3 {
-  animation-delay: 0.3s;
-  opacity: 0;
+  animation-delay: 240ms;
 }
 
 @keyframes creco-pulse-bar {

@@ -37,6 +37,9 @@ export default async function KnowledgeHubPage() {
         eyebrow={t.knowledgeHub.eyebrow}
         title={t.knowledgeHub.title}
         lead={t.knowledgeHub.lead}
+        backgroundImage="/images/pages/knowledge-discussion.jpg"
+        backgroundAlt={t.knowledgeHub.imageAlt}
+        backgroundCredit="Photo: Mark Myles Mugambi / Wikimedia Commons"
       />
       <section className="creco-section">
         <div className="creco-container">

@@ -245,7 +245,7 @@ export function RegisterForm() {
             />
             <Label htmlFor="terms" className="text-sm font-normal leading-snug text-muted-foreground">
               {termsParts[0]}
-              <Link href="/" className="font-medium text-[var(--creco-primary)] hover:underline">
+              <Link href="/privacy" className="font-medium text-[var(--creco-primary)] hover:underline">
                 {t.auth.register.privacyNotice}
               </Link>
               {termsParts[1]}

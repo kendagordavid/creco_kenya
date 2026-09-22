@@ -19,6 +19,9 @@ export default async function SourcesPage() {
         eyebrow={t.sources.eyebrow}
         title={t.sources.title}
         lead={t.sources.lead}
+        backgroundImage="/images/pages/sources-archive.jpg"
+        backgroundAlt={t.sources.imageAlt}
+        backgroundCredit="Photo: Ahmedshayo14 / Wikimedia Commons"
       />
       <section className="creco-section creco-section-alt">
         <div className="creco-container relative z-10">

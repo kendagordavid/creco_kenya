@@ -12,7 +12,7 @@ type Props = {
 
 export default function HomeHeroSection({ hero, sideCards, quickAccess }: Props) {
   return (
-    <section className="bg-background pb-8 pt-6 dark:bg-background">
+    <section className="bg-background pb-0 pt-6 dark:bg-background">
       <div className="creco-container creco-container--home">
         <div className="grid items-stretch gap-4 lg:h-[30rem] lg:grid-cols-[minmax(0,1fr)_minmax(16.5rem,20.5rem)]">
           <HeroCarousel copy={hero} />

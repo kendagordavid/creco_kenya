@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { useFormat, useTranslations } from "@/lib/i18n/client";
 
 const linkClassName =
-  "inline-flex min-h-11 items-center text-sm text-creco-muted no-underline transition hover:text-creco-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-creco-primary focus-visible:ring-offset-2 dark:text-muted-foreground dark:hover:text-creco-green-light";
+  "inline-flex min-h-8 items-center text-sm text-creco-muted no-underline transition hover:text-creco-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-creco-primary focus-visible:ring-offset-2 dark:text-muted-foreground dark:hover:text-creco-green-light";
 
 export function SiteFooter() {
   const t = useTranslations();
@@ -62,7 +62,7 @@ export function SiteFooter() {
 
   return (
     <footer className="mt-auto border-t border-creco-border bg-creco-surface dark:border-border dark:bg-card">
-      <div className="creco-container grid grid-cols-1 gap-10 py-12 sm:grid-cols-2 lg:grid-cols-[minmax(13rem,1.4fr)_repeat(5,minmax(0,1fr))]">
+      <div className="creco-container grid grid-cols-1 gap-6 py-8 sm:grid-cols-2 lg:grid-cols-[minmax(13rem,1.4fr)_repeat(5,minmax(0,1fr))]">
         <div>
           <div className="flex items-center gap-3">
             <span
@@ -83,7 +83,7 @@ export function SiteFooter() {
           </p>
           <Link
             href="/guidance?ask=1"
-            className="mt-2 inline-flex min-h-11 items-center gap-1 text-sm font-medium text-creco-primary no-underline transition hover:text-creco-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-creco-primary focus-visible:ring-offset-2 dark:hover:text-creco-green-light"
+            className="mt-1 inline-flex min-h-8 items-center gap-1 text-sm font-medium text-creco-primary no-underline transition hover:text-creco-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-creco-primary focus-visible:ring-offset-2 dark:hover:text-creco-green-light"
           >
             {t.footer.askCrecoCta}
             <ArrowRight className="size-4" aria-hidden />
@@ -95,7 +95,7 @@ export function SiteFooter() {
             <h2 className="text-sm font-semibold text-creco-black dark:text-foreground">
               {column.heading}
             </h2>
-            <ul className="mt-3">
+            <ul className="mt-2">
               {column.links.map((link) => (
                 <li key={`${column.heading}-${link.href}`}>
                   <Link href={link.href} className={linkClassName}>
@@ -109,7 +109,7 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-creco-border dark:border-border">
-        <div className="creco-container flex flex-col gap-3 py-5 text-xs text-creco-muted dark:text-muted-foreground">
+        <div className="creco-container flex flex-col gap-2 py-4 text-xs text-creco-muted dark:text-muted-foreground">
           <p>{t.footer.partnershipText}</p>
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <span>{format(t.footer.copyright, { year: new Date().getFullYear() })}</span>

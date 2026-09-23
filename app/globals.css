@@ -216,6 +216,10 @@ h4,
   padding-block: clamp(2.75rem, 6vw, 7rem);
 }
 
+.creco-section--after-hero {
+  padding-top: 1rem;
+}
+
 .creco-section-alt {
   background: var(--creco-surface);
   position: relative;

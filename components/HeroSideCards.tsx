@@ -47,7 +47,7 @@ export function HeroSideCards({ cards }: Props) {
           <div
             className={`flex flex-1 flex-col justify-between gap-2 px-4 py-3.5 text-white ${toneClasses[card.tone as keyof typeof toneClasses] ?? toneClasses.green}`}
           >
-            <h3 className="text-sm font-bold leading-snug sm:text-[0.95rem]">{card.title}</h3>
+            <h3 className="!text-white text-sm font-bold leading-snug sm:text-[0.95rem]">{card.title}</h3>
             <span className="inline-flex min-h-11 items-center gap-2 text-[0.7rem] font-bold uppercase tracking-wide">
               {card.cta}
               <span className="inline-flex size-7 items-center justify-center rounded-full bg-white/15 transition-transform duration-300 group-hover:translate-x-0.5 motion-reduce:transition-none">

@@ -39,7 +39,7 @@ export default async function HomePage() {
         quickAccess={t.home.quickAccess}
       />
 
-      <section className="creco-section">
+      <section className="creco-section creco-section--after-hero">
         <div className="creco-container creco-container--home">
           <RevealOnScroll className="text-center">
             <span className="creco-eyebrow creco-eyebrow-center">{t.home.howItWorks.eyebrow}</span>

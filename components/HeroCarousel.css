@@ -56,10 +56,6 @@
   );
 }
 
-.hero-carousel__pattern {
-  display: none;
-}
-
 .hero-carousel__copy {
   position: relative;
   z-index: 1;
@@ -288,17 +284,6 @@
     clip-path: polygon(0 0, 100% 0, 84% 100%, 0 100%);
   }
 
-  .hero-carousel__pattern {
-    display: block;
-    position: absolute;
-    inset: auto 0 0 0;
-    height: 3.25rem;
-    opacity: 0.28;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='21' viewBox='0 0 24 21'%3E%3Cpath fill='%23ffffff' fill-opacity='0.9' d='M12 0 24 21H0z'/%3E%3C/svg%3E");
-    background-size: 1.25rem 1.1rem;
-    pointer-events: none;
-  }
-
   .hero-carousel__copy {
     width: 100%;
     max-width: 28rem;
@@ -313,9 +298,10 @@
     width: auto;
     min-height: 0;
     align-self: stretch;
-    margin: 1.1rem 1.1rem 3.55rem -10%;
-    border-radius: 1.05rem;
-    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.24);
+    height: 100%;
+    margin: 0 0 0 -18%;
+    border-radius: 0;
+    box-shadow: none;
   }
 
   .hero-carousel__nav {
@@ -331,7 +317,7 @@
   }
 
   .hero-carousel__media {
-    margin: 1.25rem 1.25rem 3.65rem -8%;
+    margin: 0 0 0 -16%;
   }
 
   .hero-carousel__nav {

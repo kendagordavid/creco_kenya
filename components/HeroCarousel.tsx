@@ -197,7 +197,6 @@ export function HeroCarousel({ copy, className = "" }: Props) {
             aria-hidden={!isActive}
           >
             <div className="hero-carousel__panel">
-              <div className="hero-carousel__pattern" aria-hidden />
               <div className="hero-carousel__copy">
                 <p className="hero-carousel__eyebrow">{slide.eyebrow}</p>
                 <h2 className="hero-carousel__headline">{slide.headline}</h2>

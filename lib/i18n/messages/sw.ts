@@ -231,7 +231,6 @@ export const sw: Dictionary = {
     partnershipText:
       "Imeundwa na International Center for Not-for-Profit Law (ICNL) kama sehemu ya kazi ya kulinda nafasi ya kiraia nchini Kenya.",
     copyright: "© {year} CRECO Kenya",
-    disclaimer: "Mwongozo wa taarifa tu · Si ushauri wa kisheria",
   },
   questionComposer: {
     collapsedPrompt: "Uliza kuhusu Sheria ya PBO — usajili, utii, Kiingereza au Kiswahili…",

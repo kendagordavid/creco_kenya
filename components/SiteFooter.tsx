@@ -111,10 +111,7 @@ export function SiteFooter() {
       <div className="border-t border-creco-border dark:border-border">
         <div className="creco-container flex flex-col gap-2 py-4 text-xs text-creco-muted dark:text-muted-foreground">
           <p>{t.footer.partnershipText}</p>
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <span>{format(t.footer.copyright, { year: new Date().getFullYear() })}</span>
-            <span>{t.footer.disclaimer}</span>
-          </div>
+          <p>{format(t.footer.copyright, { year: new Date().getFullYear() })}</p>
         </div>
       </div>
     </footer>

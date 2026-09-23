@@ -62,7 +62,7 @@ export function SiteFooter() {
 
   return (
     <footer className="mt-auto border-t border-creco-border bg-creco-surface dark:border-border dark:bg-card">
-      <div className="creco-container grid grid-cols-1 gap-6 py-8 sm:grid-cols-2 lg:grid-cols-[minmax(13rem,1.4fr)_repeat(5,minmax(0,1fr))]">
+      <div className="creco-container creco-container--home grid grid-cols-1 gap-6 py-8 sm:grid-cols-2 lg:grid-cols-[minmax(13rem,1.4fr)_repeat(5,minmax(0,1fr))]">
         <div>
           <div className="flex items-center gap-3">
             <span
@@ -109,7 +109,7 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-creco-border dark:border-border">
-        <div className="creco-container flex flex-col gap-2 py-4 text-xs text-creco-muted dark:text-muted-foreground">
+        <div className="creco-container creco-container--home flex flex-col gap-2 py-4 text-xs text-creco-muted dark:text-muted-foreground">
           <p>{t.footer.partnershipText}</p>
           <p>{format(t.footer.copyright, { year: new Date().getFullYear() })}</p>
         </div>

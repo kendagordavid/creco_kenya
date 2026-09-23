@@ -229,7 +229,6 @@ export const en = {
     partnershipText:
       "Developed with the International Center for Not-for-Profit Law (ICNL) as part of civic space safeguarding work in Kenya.",
     copyright: "© {year} CRECO Kenya",
-    disclaimer: "Informational guidance only · Not legal advice",
   },
   questionComposer: {
     collapsedPrompt: "Ask about the PBO Act — registration, compliance, English or Kiswahili…",

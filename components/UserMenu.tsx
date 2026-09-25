@@ -74,13 +74,8 @@ export function UserMenu() {
     { href: "/profile", label: t.nav.dashboard },
     { href: "/monitoring/submissions", label: t.nav.submissions },
     { href: "/profile/account", label: t.nav.account },
-    ...(isSuperuser(session.user.role)
-      ? [
-          { href: "/admin/compliance", label: t.nav.orgProgress },
-          { href: "/admin/reports", label: t.nav.allReports },
-        ]
-      : []),
   ] as const;
+  const staff = isSuperuser(session.user.role);
 
   return (
     <div ref={menuRef} className="relative">
@@ -130,6 +125,23 @@ export function UserMenu() {
               {item.label}
             </Link>
           ))}
+
+          {staff && (
+            <>
+              <div className="my-1 border-t border-border" />
+              <p className="px-3 pt-2 text-[0.65rem] font-bold uppercase tracking-wider text-creco-orange-dark">
+                {t.adminConsole.staffOnly}
+              </p>
+              <Link
+                href="/admin"
+                role="menuitem"
+                onClick={() => setOpen(false)}
+                className="block px-3 py-2.5 text-sm font-semibold text-popover-foreground no-underline transition hover:bg-creco-orange-muted hover:text-creco-black"
+              >
+                {t.nav.staffConsole}
+              </Link>
+            </>
+          )}
 
           <div className="my-1 border-t border-border" />
 

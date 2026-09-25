@@ -22,7 +22,8 @@ export default async function FaqIndexPage({ searchParams }: Props) {
         eyebrow="Knowledge hub"
         title="Frequently asked questions"
         lead="Quick answers on registration, governance, reporting, and compliance."
-        variant="light"
+        backgroundImage="/images/pages/knowledge-discussion.jpg"
+        backgroundAlt="A Maasai woman speaking with a microphone to a community group in Kajiado County, Kenya"
       />
       <section className="creco-section">
         <div className="creco-container">

@@ -44,14 +44,18 @@ export function ChecklistPanel() {
   }
 
   return (
-    <div>
+    <div className="creco-print-sheet">
+      <div className="creco-print-only">
+        <p className="text-sm font-semibold">CRECO Kenya · PBO Act Platform</p>
+        <h1 className="mt-1 text-2xl font-bold">Organizational compliance checklist</h1>
+      </div>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <p className="text-sm font-semibold text-creco-muted">
           Progress: {completed} / {totalItems} items
         </p>
         <button
           type="button"
-          className="creco-btn creco-btn-secondary text-sm"
+          className="creco-btn creco-btn-secondary creco-no-print text-sm"
           onClick={() => window.print()}
         >
           Print

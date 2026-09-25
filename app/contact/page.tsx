@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Mail } from "lucide-react";
 import { ContactForm } from "@/components/ContactForm";
 import { PageHero } from "@/components/PageHero";
@@ -47,6 +48,12 @@ export default async function ContactPage() {
               {t.contact.formLead}
             </p>
             <ContactForm />
+            <p className="mt-6 text-sm leading-relaxed text-creco-muted dark:text-muted-foreground">
+              {t.contact.anonymousLead}{" "}
+              <Link href="/report" className="font-semibold text-creco-primary no-underline">
+                {t.contact.anonymousLink}
+              </Link>
+            </p>
           </div>
         </div>
       </section>

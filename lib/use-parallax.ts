@@ -35,7 +35,7 @@ export function useParallaxLayer(
     }
 
     const mobile = window.matchMedia("(max-width: 767px)").matches;
-    const factor = mobile ? Math.min(speed, 0.12) : speed;
+    const factor = mobile ? Math.min(speed, 0.3) : speed;
     let frame = 0;
 
     const update = () => {

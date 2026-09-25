@@ -90,6 +90,23 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+/* Staff console: amber and ink, so it never reads as the green organisation dashboard. */
+.creco-staff {
+  --creco-primary: #9a4e0a;
+  --creco-primary-dark: #6e3706;
+  --creco-green: #9a4e0a;
+  --creco-green-dark: #6e3706;
+  --creco-green-deep: #3d220c;
+  --creco-green-light: #f0b27a;
+  --creco-green-muted: #fff1e0;
+  --creco-surface: #fbf6ef;
+  --creco-surface-alt: #fff4e8;
+  --primary: #9a4e0a;
+  --ring: #ef9334;
+  background: #fbf6ef;
+  color: #2a2118;
+}
+
 @theme inline {
   --color-creco-primary: var(--creco-primary);
   --color-creco-primary-dark: var(--creco-primary-dark);
@@ -168,6 +185,7 @@ body {
   font-size: 1rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-wrap: break-word;
 }
 
 h1,
@@ -186,7 +204,7 @@ h4,
   width: 100%;
   max-width: var(--creco-content-max);
   margin-inline: auto;
-  padding-inline: 1.25rem;
+  padding-inline: max(1rem, env(safe-area-inset-left)) max(1rem, env(safe-area-inset-right));
 }
 
 @media (min-width: 640px) {
@@ -1057,8 +1075,9 @@ h4,
 
 .creco-input {
   width: 100%;
+  min-height: 2.75rem;
   padding: 0.625rem 0.875rem;
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-family: inherit;
   color: var(--creco-text);
   background: var(--creco-white);
@@ -1418,6 +1437,49 @@ h4,
 .dark .creco-login-card {
   background: oklch(0.205 0 0);
   border-color: var(--creco-border);
+}
+
+.creco-print-only {
+  display: none;
+}
+
+@media print {
+  header,
+  footer,
+  .creco-hero,
+  .creco-no-print {
+    display: none !important;
+  }
+
+  .creco-print-only {
+    display: block !important;
+    margin-bottom: 1.25rem;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  .creco-section {
+    padding: 0 !important;
+  }
+
+  .creco-print-sheet,
+  .creco-print-sheet * {
+    color: #111 !important;
+    background: #fff !important;
+    box-shadow: none !important;
+  }
+
+  .creco-print-sheet .creco-card {
+    break-inside: avoid;
+    border: 1px solid #ccc !important;
+    margin-bottom: 1rem;
+  }
+
+  .creco-print-sheet li {
+    break-inside: avoid;
+  }
 }
 
 @layer base {

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useFormat, useTranslations } from "@/lib/i18n/client";
@@ -54,15 +55,31 @@ export function SiteFooter() {
       heading: t.footer.columns.reportAnIssue,
       ariaLabel: t.a11y.footerReportNav,
       links: [
+        { href: "/report", label: t.footer.links.anonymousReport },
         { href: "/monitoring", label: t.footer.links.experiences },
         { href: "/monitoring/enabling", label: t.footer.links.evolvingPractices },
       ],
     },
+    {
+      heading: t.footer.columns.usefulLinks,
+      ariaLabel: t.a11y.footerUsefulNav,
+      links: [
+        { href: "https://www.pbora.go.ke/", label: t.footer.links.pbora, external: true },
+        { href: "https://crecokenya.org/", label: t.footer.links.creco, external: true },
+        { href: "https://www.icnl.org/", label: t.footer.links.icnl, external: true },
+      ],
+    },
+  ];
+
+  const partnerLogos = [
+    { href: "https://www.pbora.go.ke/", src: "/images/partners/pbora.png", label: t.footer.links.pbora, width: 180, height: 67 },
+    { href: "https://crecokenya.org/", src: "/images/partners/creco.png", label: t.footer.links.creco, width: 64, height: 64 },
+    { href: "https://www.icnl.org/", src: "/images/partners/icnl.png", label: t.footer.links.icnl, width: 132, height: 68 },
   ];
 
   return (
     <footer className="mt-auto border-t border-creco-border bg-creco-surface dark:border-border dark:bg-card">
-      <div className="creco-container creco-container--home grid grid-cols-1 gap-6 py-8 sm:grid-cols-2 lg:grid-cols-[minmax(13rem,1.4fr)_repeat(5,minmax(0,1fr))]">
+      <div className="creco-container creco-container--home grid grid-cols-1 gap-6 py-8 sm:grid-cols-2 lg:grid-cols-[minmax(13rem,1.2fr)_repeat(6,minmax(0,1fr))]">
         <div>
           <div className="flex items-center gap-3">
             <span
@@ -98,14 +115,43 @@ export function SiteFooter() {
             <ul className="mt-2">
               {column.links.map((link) => (
                 <li key={`${column.heading}-${link.href}`}>
-                  <Link href={link.href} className={linkClassName}>
-                    {link.label}
-                  </Link>
+                  {"external" in link && link.external ? (
+                    <a href={link.href} className={linkClassName} target="_blank" rel="noopener noreferrer">
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link href={link.href} className={linkClassName}>
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
           </nav>
         ))}
+      </div>
+
+      <div className="border-t border-creco-border dark:border-border">
+        <div className="creco-container creco-container--home flex flex-wrap items-center gap-4 py-5">
+          <p className="sr-only">{t.a11y.partnerLogos}</p>
+          {partnerLogos.map((logo) => (
+            <a
+              key={logo.href}
+              href={logo.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-16 items-center rounded-md bg-white px-3"
+            >
+              <Image
+                src={logo.src}
+                alt={logo.label}
+                width={logo.width}
+                height={logo.height}
+                className="h-10 w-auto object-contain"
+              />
+            </a>
+          ))}
+        </div>
       </div>
 
       <div className="border-t border-creco-border dark:border-border">

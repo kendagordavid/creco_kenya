@@ -22,17 +22,23 @@ export default function ComplianceHubPage() {
               title="Organizational checklist"
               description="Track compliance items online, print or save progress in your browser."
               href="/compliance/checklist"
+              imageSrc="/images/hero/stay-compliant.jpg"
+              imageAlt="Black professional preparing compliance documentation"
             />
             <ModuleCard
               title="Self-assessment"
               description="Automated scoring mapped to registration, governance, reporting, and operations."
               href="/compliance/assessment"
               accent="orange"
+              imageSrc="/images/hero/understand-the-law.jpg"
+              imageAlt="Kenyan community members gathered in Kargi, Kenya"
             />
             <ModuleCard
               title="Template library"
               description="Board resolutions, policies, and reporting formats for PBOs."
               href="/compliance/templates"
+              imageSrc="/images/pages/compliance-documents.jpg"
+              imageAlt="Hands signing a printed compliance document"
             />
           </div>
         </div>

@@ -5,7 +5,9 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { useFormat } from "@/lib/i18n/client";
+import { HERO_SLIDE_ASSETS } from "@/lib/hero-slides";
 import { usePrefersReducedMotion } from "@/lib/use-parallax";
+import { cn } from "@/lib/utils";
 import "./HeroCarousel.css";
 
 const AUTO_ADVANCE_MS = 6000;
@@ -28,14 +30,6 @@ export type HeroCarouselCopy = {
   slides: readonly HeroSlideCopy[];
 };
 
-const HERO_SLIDE_CONFIG = [
-  { id: "understand-the-law", ctaHref: "/topics", imageSrc: "/images/hero/understand-the-law.jpg" },
-  { id: "register-correctly", ctaHref: "/guidance", imageSrc: "/images/hero/register-correctly.jpg" },
-  { id: "stay-compliant", ctaHref: "/compliance", imageSrc: "/images/hero/stay-compliant.jpg" },
-  { id: "ask-a-question", ctaHref: "/guidance?ask=1", imageSrc: "/images/hero/ask-a-question.jpg" },
-  { id: "civic-space", ctaHref: "/monitoring", imageSrc: "/images/hero/civic-space.jpg" },
-] as const;
-
 type Props = {
   copy: HeroCarouselCopy;
   className?: string;
@@ -45,10 +39,8 @@ export function HeroCarousel({ copy, className = "" }: Props) {
   const format = useFormat();
   const slides = useMemo(
     () =>
-      HERO_SLIDE_CONFIG.map((config, index) => ({
-        id: config.id,
-        ctaHref: config.ctaHref,
-        imageSrc: config.imageSrc,
+      HERO_SLIDE_ASSETS.map((config, index) => ({
+        ...config,
         ...copy.slides[index],
       })),
     [copy.slides],
@@ -107,7 +99,7 @@ export function HeroCarousel({ copy, className = "" }: Props) {
     if (!section || reducedMotion) return;
 
     const mobile = window.matchMedia("(max-width: 767px)").matches;
-    const factor = mobile ? 0.12 : 0.22;
+    const factor = mobile ? 0.28 : 0.48;
     let frame = 0;
 
     const update = () => {
@@ -214,7 +206,12 @@ export function HeroCarousel({ copy, className = "" }: Props) {
               </div>
             </div>
 
-            <div className="hero-carousel__media">
+            <div
+              className={cn(
+                "hero-carousel__media",
+                slide.isGraphic && "hero-carousel__media--graphic",
+              )}
+            >
               <div className="hero-carousel__parallax">
                 <Image
                   src={slide.imageSrc}
@@ -222,7 +219,12 @@ export function HeroCarousel({ copy, className = "" }: Props) {
                   aria-hidden={!isActive}
                   fill
                   sizes="(min-width: 1024px) 42vw, 100vw"
-                  className="hero-carousel__photo"
+                  quality={90}
+                  className={cn(
+                    "hero-carousel__photo",
+                    slide.isGraphic && "hero-carousel__photo--graphic",
+                  )}
+                  style={{ objectPosition: slide.imagePosition }}
                   priority={index === 0}
                 />
               </div>

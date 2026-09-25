@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-
+import { HERO_SIDE_CARD_IMAGES } from "@/lib/hero-slides";
 export type HeroSideCardCopy = {
   title: string;
   cta: string;
@@ -15,11 +15,6 @@ export type HeroSideCardCopy = {
 type Props = {
   cards: readonly HeroSideCardCopy[];
 };
-
-const CARD_IMAGES = [
-  "/images/hero/stay-compliant.jpg",
-  "/images/hero/register-correctly.jpg",
-] as const;
 
 const toneClasses = {
   green: "bg-creco-primary",
@@ -37,11 +32,12 @@ export function HeroSideCards({ cards }: Props) {
         >
           <div className="relative h-32 overflow-hidden sm:h-28 lg:h-[58%]">
             <Image
-              src={CARD_IMAGES[index] ?? CARD_IMAGES[0]}
+              src={HERO_SIDE_CARD_IMAGES[index] ?? HERO_SIDE_CARD_IMAGES[0]}
               alt={card.imageAlt}
               fill
               sizes="(min-width: 1024px) 20rem, (min-width: 640px) 50vw, 100vw"
-              className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+              quality={90}
+              className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
             />
           </div>
           <div

@@ -12,7 +12,8 @@ export default function AskCrecoPage() {
         eyebrow="Guidance"
         title="Ask CRECO"
         lead="Request human follow-up when automated guidance does not fully address your situation."
-        variant="light"
+        backgroundImage="/images/pages/contact-conversation.jpg"
+        backgroundAlt="Two people in conversation across a table"
       />
       <section className="creco-section">
         <div className="creco-container max-w-xl">

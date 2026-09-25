@@ -25,7 +25,8 @@ export default async function SearchPage({ searchParams }: Props) {
         eyebrow={t.search.metaTitle}
         title={t.search.title}
         lead={t.search.lead}
-        variant="light"
+        backgroundImage="/images/pages/sources-archive.jpg"
+        backgroundAlt={t.sources.imageAlt}
       />
       <section className="creco-section" aria-label={t.search.resultsRegion}>
         <div className="creco-container max-w-3xl">

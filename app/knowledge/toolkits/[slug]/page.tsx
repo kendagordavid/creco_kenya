@@ -14,7 +14,13 @@ export default async function ToolkitDetailPage({ params }: Props) {
 
   return (
     <>
-      <PageHero eyebrow="Toolkit" title={toolkit.title} lead={toolkit.summary} variant="light" />
+      <PageHero
+        eyebrow="Toolkit"
+        title={toolkit.title}
+        lead={toolkit.summary}
+        backgroundImage="/images/pages/knowledge-discussion.jpg"
+        backgroundAlt="A Maasai woman speaking with a microphone to a community group in Kajiado County, Kenya"
+      />
       <section className="creco-section">
         <div className="creco-container max-w-3xl">
           <ol className="space-y-4">

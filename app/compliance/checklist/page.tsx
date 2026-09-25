@@ -16,11 +16,12 @@ export default async function ChecklistPage() {
         eyebrow="Compliance"
         title="Organizational compliance checklist"
         lead="Work through governance, registration, reporting, and operational items."
-        variant="light"
+        backgroundImage="/images/hero/stay-compliant.jpg"
+        backgroundAlt="Black professional preparing compliance documentation"
       />
       <section className="creco-section">
         <div className="creco-container max-w-3xl">
-          <p className="mb-6 text-sm text-creco-muted">
+          <p className="creco-no-print mb-6 text-sm text-creco-muted">
             {session?.user ? (
               <>Progress syncs to your CRECO account and stays available when you sign in on other devices.</>
             ) : (

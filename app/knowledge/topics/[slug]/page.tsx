@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AudioNarrationPlayer } from "@/components/AudioNarrationPlayer";
 import { PageHero } from "@/components/PageHero";
+import { TopicGraphics } from "@/components/TopicGraphics";
 import { WikiBody } from "@/components/WikiBody";
 import { textForSpeech } from "@/lib/a11y/text-for-speech";
 import { getCachedWikiPageBySlug } from "@/lib/cached-wiki";
@@ -32,11 +33,17 @@ export default async function TopicDetailPage({ params }: Props) {
 
   return (
     <>
-      <PageHero eyebrow={t.knowledgeHub.metaTitle} title={page.title} variant="light" />
+      <PageHero
+        eyebrow={t.knowledgeHub.metaTitle}
+        title={page.title}
+        backgroundImage="/images/pages/topics-dialogue.jpg"
+        backgroundAlt={t.topics.imageAlt}
+      />
       <section className="creco-section">
         <div className="creco-container max-w-3xl">
           <AudioNarrationPlayer text={textForSpeech(page.title, page.body)} className="mb-8" />
           <WikiBody body={page.body} />
+          <TopicGraphics slug={slug} />
           {showEnglish && (
             <details className="creco-card mt-10 p-6">
               <summary className="cursor-pointer text-sm font-semibold text-creco-primary">

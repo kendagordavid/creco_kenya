@@ -20,7 +20,12 @@ export default async function FaqDetailPage({ params }: Props) {
 
   return (
     <>
-      <PageHero eyebrow="FAQ" title={faq.question} variant="light" />
+      <PageHero
+        eyebrow="FAQ"
+        title={faq.question}
+        backgroundImage="/images/pages/knowledge-discussion.jpg"
+        backgroundAlt="A Maasai woman speaking with a microphone to a community group in Kajiado County, Kenya"
+      />
       <section className="creco-section">
         <div className="creco-container max-w-3xl">
           <div className="creco-prose">

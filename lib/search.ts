@@ -70,6 +70,7 @@ export function globalSearch(query: string, limit = 20): SearchResult[] {
     { title: "PBO Guidance", href: "/guidance", keywords: "ask question guidance q&a" },
     { title: "Compliance tools", href: "/compliance", keywords: "checklist assessment templates" },
     { title: "Monitoring reports", href: "/monitoring", keywords: "civic space incident registration barriers" },
+    { title: "Report anonymously", href: "/report", keywords: "anonymous report issue website problem feedback" },
     { title: "Knowledge hub", href: "/knowledge", keywords: "learn faq topics media" },
     { title: "Source documents", href: "/sources", keywords: "pdf act legal sources" },
   ];

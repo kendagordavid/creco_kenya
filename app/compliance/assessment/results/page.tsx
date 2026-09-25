@@ -8,7 +8,12 @@ export const metadata = {
 export default function AssessmentResultsPage() {
   return (
     <>
-      <PageHero eyebrow="Compliance" title="Your assessment results" variant="light" />
+      <PageHero
+        eyebrow="Compliance"
+        title="Your assessment results"
+        backgroundImage="/images/hero/stay-compliant.jpg"
+        backgroundAlt="Black professional preparing compliance documentation"
+      />
       <section className="creco-section">
         <div className="creco-container">
           <AssessmentResults />

@@ -45,8 +45,3 @@ export const HERO_SLIDE_ASSETS: readonly HeroSlideAsset[] = [
     isGraphic: false,
   },
 ] as const;
-
-export const HERO_SIDE_CARD_IMAGES = [
-  "/images/hero/stay-compliant.jpg",
-  "/images/hero/register-correctly.jpg",
-] as const;

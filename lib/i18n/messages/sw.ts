@@ -211,22 +211,6 @@ export const sw: Dictionary = {
         },
       ],
     },
-    sideCards: [
-      {
-        title: "Angalia hali yako ya uzingatiaji wa PBO",
-        cta: "Angalia orodha",
-        href: "/compliance/checklist",
-        imageAlt: "Mtaalamu Mweusi akijiandaa nyaraka za utii",
-        tone: "green" as const,
-      },
-      {
-        title: "Jisajili na simamia wasifu wa shirika lako",
-        cta: "Unda akaunti",
-        href: "/register",
-        imageAlt: "Mtaalamu Mweusi akikagua mahitaji ya usajili wa shirika",
-        tone: "navy" as const,
-      },
-    ] as const,
     quickAccess: {
       searchPlaceholder: "Tunaweza kukusaidia vipi leo?...",
       searchLabel: "Tafuta kwenye jukwaa",

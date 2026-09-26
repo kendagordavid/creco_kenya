@@ -35,11 +35,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <HomeHeroSection
-        hero={t.home.hero}
-        sideCards={t.home.sideCards}
-        quickAccess={t.home.quickAccess}
-      />
+      <HomeHeroSection hero={t.home.hero} quickAccess={t.home.quickAccess} />
 
       <section className="creco-section creco-section--after-hero">
         <div className="creco-container creco-container--home">

@@ -7,20 +7,21 @@
   border-radius: 1.25rem;
   background: var(--creco-green-deep);
   box-shadow: var(--creco-shadow-lg);
-  min-height: 22rem;
+  height: min(30rem, 68vh);
+  min-height: 24rem;
 }
 
 @media (min-width: 768px) {
   .hero-carousel {
-    height: 26rem;
-    min-height: 26rem;
+    height: min(32rem, 70vh);
+    min-height: 28rem;
   }
 }
 
 @media (min-width: 1024px) {
   .hero-carousel {
-    height: 30rem;
-    min-height: 30rem;
+    height: 32rem;
+    min-height: 32rem;
   }
 }
 

@@ -209,22 +209,6 @@ export const en = {
         },
       ],
     },
-    sideCards: [
-      {
-        title: "Check your PBO compliance status",
-        cta: "View checklist",
-        href: "/compliance/checklist",
-        imageAlt: "Black professional preparing compliance documentation",
-        tone: "green" as const,
-      },
-      {
-        title: "Register and manage your organisation profile",
-        cta: "Create account",
-        href: "/register",
-        imageAlt: "Black professional reviewing organisation registration requirements",
-        tone: "navy" as const,
-      },
-    ] as const,
     quickAccess: {
       searchPlaceholder: "How can we help you today?...",
       searchLabel: "Search the platform",

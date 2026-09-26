@@ -13,6 +13,7 @@ export default async function PrivacyPage() {
 
   const sections = [
     { title: t.privacy.accountsTitle, body: t.privacy.accountsBody },
+    { title: t.privacy.anonymousTitle, body: t.privacy.anonymousBody },
     { title: t.privacy.monitoringTitle, body: t.privacy.monitoringBody },
     { title: t.privacy.useTitle, body: t.privacy.useBody },
     { title: t.privacy.contactTitle, body: t.privacy.contactBody },

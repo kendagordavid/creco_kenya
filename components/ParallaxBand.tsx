@@ -5,13 +5,15 @@ import { useRef, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { useParallaxLayer, usePrefersReducedMotion } from "@/lib/use-parallax";
 
-type Overlay = "green" | "dark" | "none";
+type Overlay = "green" | "green-light" | "dark" | "none";
 
 type Props = {
   imageSrc: string;
   imageAlt?: string;
   speed?: number;
   overlay?: Overlay;
+  /** Taller background layer for multi-block sections */
+  tallBackground?: boolean;
   className?: string;
   priority?: boolean;
   children: ReactNode;
@@ -22,6 +24,7 @@ export function ParallaxBand({
   imageAlt = "",
   speed = 0.25,
   overlay = "green",
+  tallBackground = false,
   className,
   priority = false,
   children,
@@ -39,7 +42,13 @@ export function ParallaxBand({
   return (
     <section ref={sectionRef} className={cn("relative isolate overflow-hidden", className)}>
       <div className="pointer-events-none absolute inset-0" aria-hidden={decorative || undefined}>
-        <div ref={layerRef} className="creco-parallax-layer absolute inset-x-0 -top-[12%] h-[124%] will-change-transform">
+        <div
+          ref={layerRef}
+          className={cn(
+            "creco-parallax-layer absolute inset-x-0 will-change-transform",
+            tallBackground ? "-top-[16%] h-[132%]" : "-top-[12%] h-[124%]",
+          )}
+        >
           <Image
             src={imageSrc}
             alt={imageAlt}

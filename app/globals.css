@@ -92,6 +92,17 @@
 
 /* Staff console: amber and ink, so it never reads as the green organisation dashboard. */
 .creco-staff {
+  --creco-staff-bg: #fbf6ef;
+  --creco-staff-ink: #2a2118;
+  --creco-staff-nav-bg: #fffaf4;
+  --creco-staff-nav-text: #3d220c;
+  --creco-staff-nav-hover-bg: #fff1e0;
+  --creco-staff-nav-hover-text: #6e3706;
+  --creco-staff-pill-bg: #fff1e0;
+  --creco-staff-pill-text: #3d220c;
+  --creco-staff-pill-hover: #ffe4c4;
+  --creco-staff-accent: #9a4e0a;
+  --creco-staff-heading: #6e3706;
   --creco-primary: #9a4e0a;
   --creco-primary-dark: #6e3706;
   --creco-green: #9a4e0a;
@@ -103,8 +114,79 @@
   --creco-surface-alt: #fff4e8;
   --primary: #9a4e0a;
   --ring: #ef9334;
-  background: #fbf6ef;
-  color: #2a2118;
+  background: var(--creco-staff-bg);
+  color: var(--creco-staff-ink);
+}
+
+.creco-staff-sidebar {
+  border: 1px solid color-mix(in srgb, var(--creco-orange) 38%, transparent);
+  border-radius: var(--creco-radius-xl);
+  background: var(--creco-staff-nav-bg);
+  padding: 0.5rem;
+  box-shadow: var(--creco-shadow-sm);
+}
+
+.creco-staff-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: 0.5rem;
+  padding: 0.625rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  color: var(--creco-staff-nav-text);
+}
+
+.creco-staff-nav-link:hover:not(.is-active) {
+  background: var(--creco-staff-nav-hover-bg);
+  color: var(--creco-staff-nav-hover-text);
+}
+
+.creco-staff-nav-link.is-active {
+  background: var(--creco-staff-accent);
+  color: #fff;
+}
+
+.creco-staff-pill {
+  border-radius: 9999px;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  background: var(--creco-staff-pill-bg);
+  color: var(--creco-staff-pill-text);
+}
+
+.creco-staff-pill:hover:not(.is-active) {
+  background: var(--creco-staff-pill-hover);
+}
+
+.creco-staff-pill.is-active {
+  background: var(--creco-staff-accent);
+  color: #fff;
+}
+
+.creco-staff-heading {
+  color: var(--creco-staff-heading);
+}
+
+.creco-staff-text-btn {
+  display: inline-flex;
+  min-height: 2.25rem;
+  align-items: center;
+  gap: 0.375rem;
+  border-radius: 9999px;
+  padding-inline: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--creco-staff-heading);
+  transition: background-color 0.15s ease;
+}
+
+.creco-staff-text-btn:hover {
+  background: var(--creco-staff-pill-bg);
 }
 
 @theme inline {
@@ -371,6 +453,15 @@ h4,
     rgba(4, 64, 40, 0.78) 0%,
     rgba(6, 90, 52, 0.62) 48%,
     rgba(4, 64, 40, 0.74) 100%
+  );
+}
+
+.creco-parallax-overlay--green-light {
+  background: linear-gradient(
+    165deg,
+    rgba(4, 64, 40, 0.62) 0%,
+    rgba(6, 90, 52, 0.48) 48%,
+    rgba(4, 64, 40, 0.58) 100%
   );
 }
 
@@ -1312,6 +1403,35 @@ h4,
 
 .creco-login-back a:hover {
   color: var(--creco-green-light);
+}
+
+.dark .creco-staff {
+  --creco-staff-bg: #12100e;
+  --creco-staff-ink: #ece6df;
+  --creco-staff-nav-bg: oklch(0.205 0 0);
+  --creco-staff-nav-text: oklch(0.92 0 0 / 88%);
+  --creco-staff-nav-hover-bg: oklch(0.269 0 0);
+  --creco-staff-nav-hover-text: var(--creco-orange-light);
+  --creco-staff-pill-bg: #2a2018;
+  --creco-staff-pill-text: #e8dfd4;
+  --creco-staff-pill-hover: #3d2e22;
+  --creco-staff-accent: #c46812;
+  --creco-staff-heading: #f0b27a;
+  --creco-primary: #ef9334;
+  --creco-primary-dark: #f0b27a;
+  --creco-green-muted: #2a1810;
+  --creco-surface: #12100e;
+  --creco-surface-alt: #1a1612;
+  --creco-muted: #a89888;
+  --primary: #ef9334;
+  --ring: #ef9334;
+  background: var(--creco-staff-bg);
+  color: var(--creco-staff-ink);
+}
+
+.dark .creco-section:not(.creco-parallax-copy) h2,
+.dark .creco-section:not(.creco-parallax-copy) h3 {
+  color: var(--creco-heading);
 }
 
 .dark {

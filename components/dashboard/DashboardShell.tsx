@@ -12,14 +12,11 @@ import {
   Menu,
   Settings,
   Shield,
-  ShieldCheck,
-  BarChart3,
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { completeSignOut } from "@/lib/auth-session-client";
 import { useFormat, useTranslations } from "@/lib/i18n/client";
-import { isSuperuser } from "@/lib/authz";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -47,12 +44,6 @@ export function DashboardShell({ children, title, description }: Props) {
     { href: "/profile/account", label: t.nav.account, icon: Settings },
     { href: "/monitoring/submissions", label: t.nav.submissions, icon: ClipboardList },
     { href: "/monitoring", label: t.dashboard.submitReport, icon: FilePlus, exact: true },
-    ...(isSuperuser(session?.user?.role)
-      ? [
-          { href: "/admin/compliance", label: t.nav.orgProgress, icon: BarChart3, exact: true },
-          { href: "/admin/reports", label: t.nav.allReports, icon: ShieldCheck, exact: true },
-        ]
-      : []),
   ];
 
   const firstName = session?.user?.name?.split(" ")[0];
@@ -143,7 +134,7 @@ export function DashboardShell({ children, title, description }: Props) {
             <nav
               id="dashboard-mobile-nav"
               aria-label={t.dashboard.navLabel}
-              className="mt-3 rounded-xl border border-border bg-card p-2 shadow-sm ring-1 ring-border/60"
+              className="mt-3 rounded-xl border border-creco-primary/25 bg-creco-green-muted/50 p-2 shadow-sm ring-1 ring-creco-primary/15"
             >
               <ul className="space-y-1">
                 {NAV.map((item) => {
@@ -189,7 +180,7 @@ export function DashboardShell({ children, title, description }: Props) {
           <aside className="hidden lg:sticky lg:top-20 lg:block lg:self-start">
             <nav
               aria-label={t.dashboard.navLabel}
-              className="rounded-xl border border-border bg-card p-2 shadow-sm ring-1 ring-border/60"
+              className="rounded-xl border border-creco-primary/25 bg-creco-green-muted/50 p-2 shadow-sm ring-1 ring-creco-primary/15"
             >
               <ul className="space-y-1">
                 {NAV.map((item) => {

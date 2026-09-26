@@ -45,6 +45,22 @@ CREATE TABLE IF NOT EXISTS feedback (
 
 CREATE INDEX IF NOT EXISTS feedback_created_at_idx ON feedback (created_at DESC);
 
+CREATE TABLE IF NOT EXISTS anonymous_reports (
+  id TEXT PRIMARY KEY,
+  category TEXT NOT NULL CHECK (category IN ('system', 'other')),
+  subject TEXT NOT NULL,
+  details TEXT NOT NULL,
+  contact_email TEXT,
+  status TEXT NOT NULL DEFAULT 'received' CHECK (
+    status IN ('received', 'under_review', 'resolved', 'closed')
+  ),
+  staff_note TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS anonymous_reports_created_at_idx ON anonymous_reports (created_at DESC);
+
 CREATE TABLE IF NOT EXISTS user_data (
   user_id TEXT NOT NULL REFERENCES users (id) ON DELETE CASCADE,
   data_key TEXT NOT NULL,

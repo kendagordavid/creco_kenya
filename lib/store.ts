@@ -47,6 +47,22 @@ export type FeedbackRecord = {
   createdAt: string;
 };
 
+export type AnonymousReportCategory = "system" | "other";
+
+export type AnonymousReportStatus = "received" | "under_review" | "resolved" | "closed";
+
+export type AnonymousReportRecord = {
+  id: string;
+  category: AnonymousReportCategory;
+  subject: string;
+  details: string;
+  contactEmail?: string;
+  status: AnonymousReportStatus;
+  staffNote?: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 type UserRow = {
   id: string;
   email: string;
@@ -87,6 +103,18 @@ type FeedbackRow = {
   created_at: Date;
 };
 
+type AnonymousReportRow = {
+  id: string;
+  category: AnonymousReportCategory;
+  subject: string;
+  details: string;
+  contact_email: string | null;
+  status: AnonymousReportStatus;
+  staff_note: string | null;
+  created_at: Date;
+  updated_at: Date;
+};
+
 function mapUser(row: UserRow): UserRecord {
   return {
     id: row.id,
@@ -117,6 +145,20 @@ function mapSubmission(row: SubmissionRow): SubmissionRecord {
     consentGiven: row.consent_given,
     attachmentNote: row.attachment_note ?? undefined,
     reviewComment: row.review_comment ?? undefined,
+    createdAt: row.created_at.toISOString(),
+    updatedAt: row.updated_at.toISOString(),
+  };
+}
+
+function mapAnonymousReport(row: AnonymousReportRow): AnonymousReportRecord {
+  return {
+    id: row.id,
+    category: row.category,
+    subject: row.subject,
+    details: row.details,
+    contactEmail: row.contact_email ?? undefined,
+    status: row.status,
+    staffNote: row.staff_note ?? undefined,
     createdAt: row.created_at.toISOString(),
     updatedAt: row.updated_at.toISOString(),
   };
@@ -349,6 +391,76 @@ export async function createFeedback(
     RETURNING *
   `;
   return mapFeedback(rows[0]);
+}
+
+export async function createAnonymousReport(
+  input: Pick<AnonymousReportRecord, "category" | "subject" | "details" | "contactEmail">,
+): Promise<AnonymousReportRecord> {
+  const sql = getSql();
+  const id = randomUUID();
+  const rows = await sql<AnonymousReportRow[]>`
+    INSERT INTO anonymous_reports (id, category, subject, details, contact_email)
+    VALUES (
+      ${id},
+      ${input.category},
+      ${input.subject},
+      ${input.details},
+      ${input.contactEmail ?? null}
+    )
+    RETURNING *
+  `;
+  return mapAnonymousReport(rows[0]);
+}
+
+export async function listAnonymousReports(): Promise<AnonymousReportRecord[]> {
+  const sql = getSql();
+  const rows = await sql<AnonymousReportRow[]>`
+    SELECT *
+    FROM anonymous_reports
+    ORDER BY created_at DESC
+  `;
+  return rows.map(mapAnonymousReport);
+}
+
+export async function findAnonymousReportById(
+  id: string,
+): Promise<AnonymousReportRecord | undefined> {
+  const sql = getSql();
+  const rows = await sql<AnonymousReportRow[]>`
+    SELECT *
+    FROM anonymous_reports
+    WHERE id = ${id}
+    LIMIT 1
+  `;
+  return rows[0] ? mapAnonymousReport(rows[0]) : undefined;
+}
+
+export async function updateAnonymousReport(
+  id: string,
+  status: AnonymousReportStatus,
+  staffNote?: string | null,
+): Promise<AnonymousReportRecord | undefined> {
+  const sql = getSql();
+  const rows =
+    staffNote !== undefined
+      ? await sql<AnonymousReportRow[]>`
+          UPDATE anonymous_reports
+          SET
+            status = ${status},
+            staff_note = ${staffNote},
+            updated_at = NOW()
+          WHERE id = ${id}
+          RETURNING *
+        `
+      : await sql<AnonymousReportRow[]>`
+          UPDATE anonymous_reports
+          SET
+            status = ${status},
+            updated_at = NOW()
+          WHERE id = ${id}
+          RETURNING *
+        `;
+  return rows[0] ? mapAnonymousReport(rows[0]) : undefined;
 }
 
 export async function getUserData(userId: string, dataKey: string): Promise<unknown | null> {

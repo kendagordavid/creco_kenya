@@ -24,7 +24,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { DashboardShell } from "@/components/dashboard/DashboardShell";
+import { AdminShell } from "@/components/dashboard/AdminShell";
 import { useAuthQuery } from "@/hooks/useAuthQuery";
 import { CACHE_TTL } from "@/lib/browser-cache";
 import { CHECKLIST_SECTIONS } from "@/lib/content/checklist";
@@ -227,7 +227,7 @@ export function AdminComplianceDashboard() {
   const tierTotal = filtered.length || 1;
 
   return (
-    <DashboardShell
+    <AdminShell
       title={t.adminCompliance.title}
       description={t.adminCompliance.description}
     >
@@ -820,6 +820,6 @@ export function AdminComplianceDashboard() {
           </div>
         </div>
       )}
-    </DashboardShell>
+    </AdminShell>
   );
 }

@@ -155,8 +155,9 @@ export default async function HomePage() {
       <ParallaxBand
         imageSrc="/images/hero/civic-space.jpg"
         imageAlt={t.home.hero.slides[4]?.imageAlt ?? ""}
-        overlay="green"
+        overlay="green-light"
         speed={0.52}
+        tallBackground
         className="creco-section creco-parallax-copy"
       >
         <div className="creco-container creco-container--home relative z-10 grid items-center gap-14 lg:grid-cols-2">
@@ -165,7 +166,7 @@ export default async function HomePage() {
             <h2 className="text-3xl font-bold text-white sm:text-4xl lg:text-[2.75rem]">
               {t.home.why.title}
             </h2>
-            <p className="mt-5 leading-relaxed text-white/90">{t.home.why.lead}</p>
+            <p className="mt-5 leading-relaxed text-white">{t.home.why.lead}</p>
           </RevealOnScroll>
 
           <ul className="space-y-4">
@@ -174,28 +175,23 @@ export default async function HomePage() {
                 key={point}
                 as="li"
                 delayMs={80 + index * 80}
-                className="border-l-2 border-creco-orange pl-4 text-sm leading-relaxed text-white/90"
+                className="border-l-2 border-creco-orange pl-4 text-sm leading-relaxed text-white"
               >
                 {point}
               </RevealOnScroll>
             ))}
           </ul>
         </div>
-      </ParallaxBand>
 
-      <ParallaxBand
-        imageSrc="/images/hero/ask-a-question.jpg"
-        imageAlt={t.home.hero.slides[3]?.imageAlt ?? ""}
-        overlay="dark"
-        speed={0.52}
-        className="creco-section creco-parallax-copy !py-20"
-      >
-        <RevealOnScroll className="creco-container creco-container--home text-center">
+        <RevealOnScroll
+          delayMs={120}
+          className="creco-container creco-container--home relative z-10 mt-16 text-center sm:mt-20 lg:mt-24"
+        >
           <span className="creco-eyebrow creco-eyebrow-light creco-eyebrow-center">
             {t.common.getStarted}
           </span>
           <h2 className="text-2xl font-bold text-white sm:text-3xl lg:text-4xl">{t.home.cta.title}</h2>
-          <p className="mx-auto mt-4 max-w-lg leading-relaxed text-white/90">{t.home.cta.lead}</p>
+          <p className="mx-auto mt-4 max-w-lg leading-relaxed text-white">{t.home.cta.lead}</p>
           <Link
             href="/guidance?ask=1"
             className="creco-btn creco-btn-accent mt-9 hover:-translate-y-0.5 motion-reduce:hover:translate-y-0"

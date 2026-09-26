@@ -9,11 +9,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { DashboardShell } from "@/components/dashboard/DashboardShell";
+import { AdminShell } from "@/components/dashboard/AdminShell";
+import { ReportListFilters, useReportListFilters } from "@/components/dashboard/ReportListFilters";
 import { useAuthQuery } from "@/hooks/useAuthQuery";
 import { authFetch, invalidateAuthCache, peekCachedJson } from "@/lib/auth-client";
 import { CACHE_TTL } from "@/lib/browser-cache";
 import { useFormat, useTranslations } from "@/lib/i18n/client";
+import { inDateRange } from "@/lib/report-date";
 import type { Dictionary } from "@/lib/i18n/messages/en";
 
 type Reporter = {
@@ -83,7 +85,7 @@ export function AdminReportsDashboard() {
     commentDraftsFromSubmissions(cached?.error ? [] : (cached?.submissions ?? [])),
   );
   const [openCommentId, setOpenCommentId] = useState<string | null>(null);
-  const [statusFilter, setStatusFilter] = useState<string>("all");
+  const filters = useReportListFilters();
   const [updatingId, setUpdatingId] = useState<string | null>(null);
   const [savingCommentId, setSavingCommentId] = useState<string | null>(null);
   const [notice, setNotice] = useState("");
@@ -98,9 +100,25 @@ export function AdminReportsDashboard() {
   }, [data]);
 
   const filtered = useMemo(() => {
-    if (statusFilter === "all") return submissions;
-    return submissions.filter((item) => item.status === statusFilter);
-  }, [submissions, statusFilter]);
+    return submissions.filter((item) => {
+      if (filters.status !== "all" && item.status !== filters.status) return false;
+      if (filters.kind !== "all" && item.type !== filters.kind) return false;
+      if (
+        !filters.invalidRange &&
+        !inDateRange(item.createdAt, filters.from, filters.to)
+      ) {
+        return false;
+      }
+      return true;
+    });
+  }, [
+    submissions,
+    filters.status,
+    filters.kind,
+    filters.from,
+    filters.to,
+    filters.invalidRange,
+  ]);
 
   async function handleStatusChange(id: string, status: string) {
     setUpdatingId(id);
@@ -174,7 +192,7 @@ export function AdminReportsDashboard() {
   }
 
   return (
-    <DashboardShell title={t.admin.title} description={t.admin.description}>
+    <AdminShell title={t.admin.title} description={t.admin.description}>
       {loading && !data ? (
         <div className="flex items-center gap-2 py-16 text-muted-foreground">
           <Loader2 className="size-5 animate-spin" aria-hidden />
@@ -198,28 +216,36 @@ export function AdminReportsDashboard() {
         </Card>
       ) : (
         <div className="space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-sm text-muted-foreground">
-              {filtered.length === 1
+          <ReportListFilters
+            period={filters.period}
+            from={filters.from}
+            to={filters.to}
+            onPeriod={filters.selectPeriod}
+            onFrom={filters.selectFrom}
+            onTo={filters.selectTo}
+            onClear={filters.clear}
+            invalidRange={filters.invalidRange}
+            active={filters.active}
+            countLabel={
+              filtered.length === 1
                 ? format(t.common.reportCount, { count: filtered.length })
-                : format(t.common.reportsCount, { count: filtered.length })}
-            </p>
-            <label className="flex items-center gap-2 text-sm text-muted-foreground">
-              <span className="font-medium">{t.admin.filterLabel}</span>
-              <select
-                value={statusFilter}
-                onChange={(event) => setStatusFilter(event.target.value)}
-                className="h-11 rounded-lg border border-creco-border bg-background px-3 text-sm text-foreground"
-              >
-                <option value="all">{t.admin.filterAll}</option>
-                {STATUS_OPTIONS.map((status) => (
-                  <option key={status} value={status}>
-                    {statusLabel(t, status)}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
+                : format(t.common.reportsCount, { count: filtered.length })
+            }
+            status={filters.status}
+            onStatus={filters.setStatus}
+            statusOptions={STATUS_OPTIONS.map((status) => ({
+              value: status,
+              label: statusLabel(t, status),
+            }))}
+            kind={filters.kind}
+            onKind={filters.setKind}
+            kindLabel={t.reportFilters.reportType}
+            kindAllLabel={t.reportFilters.allTypes}
+            kindOptions={(["registration", "enabling", "incident"] as const).map((type) => ({
+              value: type,
+              label: typeLabel(t, type),
+            }))}
+          />
 
           {notice && (
             <p className="rounded-lg border border-creco-primary/20 bg-creco-green-muted px-4 py-3 text-sm text-creco-primary">
@@ -227,7 +253,16 @@ export function AdminReportsDashboard() {
             </p>
           )}
 
-          {filtered.map((item) => {
+          {filtered.length === 0 ? (
+            <Card className="border-0 shadow-sm ring-1 ring-black/5">
+              <CardContent className="px-6 py-10 text-center">
+                <h3 className="text-lg font-bold text-creco-primary">{t.reportFilters.noMatchesTitle}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {t.reportFilters.noMatchesLead}
+                </p>
+              </CardContent>
+            </Card>
+          ) : filtered.map((item) => {
             const commentDraft = commentDrafts[item.id] ?? item.reviewComment ?? "";
             const hasComment = Boolean(item.reviewComment?.trim());
             const commentOpen = openCommentId === item.id;
@@ -361,6 +396,6 @@ export function AdminReportsDashboard() {
           })}
         </div>
       )}
-    </DashboardShell>
+    </AdminShell>
   );
 }

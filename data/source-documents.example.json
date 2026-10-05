@@ -1,0 +1,9 @@
+[
+  {
+    "id": "example-guidance-note",
+    "title": "Example: CRECO guidance note (replace with your title)",
+    "url": "/documents/your-file-name.pdf",
+    "type": "reference",
+    "filename": "your-file-name.pdf"
+  }
+]

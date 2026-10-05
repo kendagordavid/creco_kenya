@@ -76,6 +76,8 @@ Place the approved source PDFs at the repo root before running `documents:sync`:
 
 They are copied to `public/documents/` as `pbo-act-2013.pdf` and `pbo-regulations-2026.pdf`.
 
+**Additional source PDFs:** place the file in `public/documents/`. It will appear on `/sources` automatically. For a custom title or type, copy `data/source-documents.example.json` to `data/source-documents.json` and add an entry (same `filename` as on disk).
+
 **Local Postgres:** create a database, then point `POSTGRES_URL` at it:
 
 ```bash

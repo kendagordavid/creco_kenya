@@ -4,55 +4,88 @@ export type TopicCopy = {
 };
 
 export const EN_TOPIC_COPY: Record<string, TopicCopy> = {
-  "what-is-a-pbo": {
-    title: "What is a Public Benefit Organization (PBO)?",
-    tags: ["public benefit organization", "PBO", "NGO", "civil society"],
+  "legal-framework": {
+    title: "Understanding the Public Benefits Organizations Legal Framework in Kenya",
+    tags: ["PBO Act", "PBO Regulations", "public benefit organization", "legal framework"],
   },
-  "objects-and-purpose-of-the-act": {
-    title: "Objects and purpose of the Public Benefit Organizations Act",
-    tags: ["PBO Act", "public benefit organizations", "nonprofit law", "Kenya law"],
+  registration: {
+    title: "Registration of Public Benefit Organizations",
+    tags: ["registration", "PBO Act", "name reservation", "public benefit test"],
   },
-  "registration-requirements": {
-    title: "Public Benefit Organization (PBO) registration requirements",
-    tags: ["PBO Act", "registration", "compliance", "nonprofit"],
+  bestowment: {
+    title: "Bestowment of Public Benefit Organization Status",
+    tags: ["bestowment", "PBO status", "existing organisations", "registration"],
   },
-  "registration-process-and-timeline": {
-    title: "Public Benefit Organization (PBO) registration process and timeline",
-    tags: ["PBO registration", "public benefit organizations", "compliance", "Kenya law"],
+  "international-pbos": {
+    title: "International Public Benefit Organizations and Exempt Organizations",
+    tags: ["international PBO", "exemption", "registration", "work permits"],
   },
-  "pbo-regulatory-authority": {
-    title: "Public Benefit Organizations Regulatory Authority and public registry",
-    tags: ["PBO Act", "regulatory authority", "public registry", "nonprofit governance"],
+  "rights-and-benefits": {
+    title: "Rights and Benefits of Registered Public Benefit Organizations",
+    tags: ["rights", "benefits", "tax incentives", "donations"],
   },
-  "pbo-regulations-overview": {
-    title: "Overview of the Public Benefit Organizations Regulations, 2026",
-    tags: ["PBO Act", "PBO Regulations", "NGO registration", "public benefit organizations"],
+  "governance-reporting-accountability": {
+    title: "Governance, Reporting and Accountability",
+    tags: ["governance", "reporting", "accountability", "annual returns"],
+  },
+  "suspension-cancellation-appeals": {
+    title: "Suspension, Cancellation, Appeals and Restoration",
+    tags: ["suspension", "cancellation", "appeals", "restoration"],
+  },
+  "self-regulation": {
+    title: "Self-Regulation Forums and Federations",
+    tags: ["self-regulation", "forums", "federations", "codes of conduct"],
+  },
+  "regulatory-authority-and-tribunal": {
+    title:
+      "The Public Benefits Organizations Regulatory Authority and the Public Benefit Organizations Disputes Tribunal",
+    tags: ["PBORA", "regulatory authority", "disputes tribunal", "public register"],
+  },
+  "practical-compliance": {
+    title: "Practical Guide to Compliance",
+    tags: ["compliance", "forms", "fees", "timelines", "material changes"],
   },
 };
 
 export const SW_TOPIC_COPY: Record<string, TopicCopy> = {
-  "what-is-a-pbo": {
-    title: "Shirika la Faida ya Umma (PBO) ni nini?",
-    tags: ["shirika la faida ya umma", "PBO", "NGO", "jamii ya kiraia"],
+  "legal-framework": {
+    title: "Kuelewa mfumo wa kisheria wa Mashirika ya Manufaa ya Umma nchini Kenya",
+    tags: ["Sheria ya PBO", "Kanuni za PBO", "shirika la manufaa ya umma", "mfumo wa kisheria"],
   },
-  "objects-and-purpose-of-the-act": {
-    title: "Malengo na kusudi la Sheria ya Mashirika ya Faida ya Umma",
-    tags: ["Sheria ya PBO", "mashirika ya faida ya umma", "sheria ya yasiyo ya faida", "sheria ya Kenya"],
+  registration: {
+    title: "Usajili wa Mashirika ya Manufaa ya Umma",
+    tags: ["usajili", "Sheria ya PBO", "uhifadhi wa jina", "kipimo cha manufaa ya umma"],
   },
-  "registration-requirements": {
-    title: "Mahitaji ya usajili wa Shirika la Faida ya Umma (PBO)",
-    tags: ["Sheria ya PBO", "usajili", "utii", "yasiyo ya faida"],
+  bestowment: {
+    title: "Kutunukiwa hadhi ya Shirika la Manufaa ya Umma",
+    tags: ["kutunukiwa hadhi", "hadhi ya PBO", "mashirika yaliyopo", "usajili"],
   },
-  "registration-process-and-timeline": {
-    title: "Mchakato na ratiba ya usajili wa Shirika la Faida ya Umma",
-    tags: ["usajili wa PBO", "mashirika ya faida ya umma", "utii", "sheria ya Kenya"],
+  "international-pbos": {
+    title: "Mashirika ya Kimataifa ya Manufaa ya Umma na mashirika yaliyosamehewa",
+    tags: ["PBO ya kimataifa", "kusamehewa", "usajili", "vibali vya kazi"],
   },
-  "pbo-regulatory-authority": {
-    title: "Mamlaka ya Kudhibiti Mashirika ya Faida ya Umma na sajili ya umma",
-    tags: ["Sheria ya PBO", "mamlaka ya udhibiti", "sajili ya umma", "utawala wa yasiyo ya faida"],
+  "rights-and-benefits": {
+    title: "Haki na manufaa ya Mashirika ya Manufaa ya Umma yaliyosajiliwa",
+    tags: ["haki", "manufaa", "motisha za kodi", "michango"],
   },
-  "pbo-regulations-overview": {
-    title: "Muhtasari wa Kanuni za Mashirika ya Faida ya Umma, 2026",
-    tags: ["Sheria ya PBO", "Kanuni za PBO", "usajili wa NGO", "mashirika ya faida ya umma"],
+  "governance-reporting-accountability": {
+    title: "Utawala, utoaji wa ripoti na uwajibikaji",
+    tags: ["utawala", "utoaji wa ripoti", "uwajibikaji", "ripoti za mwaka"],
+  },
+  "suspension-cancellation-appeals": {
+    title: "Kusimamishwa, kufutwa, rufaa na kurejeshwa",
+    tags: ["kusimamishwa", "kufutwa", "rufaa", "kurejeshwa"],
+  },
+  "self-regulation": {
+    title: "Vikao vya kujidhibiti na mashirikisho",
+    tags: ["kujidhibiti", "vikao", "mashirikisho", "kanuni za maadili"],
+  },
+  "regulatory-authority-and-tribunal": {
+    title: "Mamlaka ya Kudhibiti Mashirika ya Manufaa ya Umma na Baraza la Migogoro",
+    tags: ["PBORA", "mamlaka ya udhibiti", "baraza la migogoro", "sajili ya umma"],
+  },
+  "practical-compliance": {
+    title: "Mwongozo wa vitendo wa uzingatiaji",
+    tags: ["uzingatiaji", "fomu", "ada", "muda", "mabadiliko muhimu"],
   },
 };

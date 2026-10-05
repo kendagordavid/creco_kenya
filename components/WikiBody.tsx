@@ -1,7 +1,5 @@
 "use client";
 
-"use client";
-
 import { Fragment, type ReactNode } from "react";
 import { GLOSSARY, GLOSSARY_TERMS_SORTED } from "@/lib/a11y/glossary";
 import { GlossaryTerm } from "@/components/GlossaryTerm";
@@ -52,9 +50,107 @@ function linkGlossaryTerms(text: string): ReactNode[] {
 }
 
 function renderInline(text: string): ReactNode {
-  return linkGlossaryTerms(text).map((node, index) => (
-    <Fragment key={index}>{node}</Fragment>
-  ));
+  const pattern = /\[([^\]]+)\]\(([^)\s]+)\)|\*\*([^*]+)\*\*/g;
+  const nodes: ReactNode[] = [];
+  let lastIndex = 0;
+  let key = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = pattern.exec(text))) {
+    if (match.index > lastIndex) {
+      nodes.push(
+        <Fragment key={`text-${key++}`}>
+          {linkGlossaryTerms(text.slice(lastIndex, match.index))}
+        </Fragment>,
+      );
+    }
+
+    if (match[1] && match[2]) {
+      const external = match[2].startsWith("http");
+      nodes.push(
+        <a
+          key={`link-${key++}`}
+          href={match[2]}
+          className="font-semibold text-creco-primary underline"
+          {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        >
+          {match[1]}
+        </a>,
+      );
+    } else if (match[3]) {
+      nodes.push(<strong key={`strong-${key++}`}>{linkGlossaryTerms(match[3])}</strong>);
+    }
+
+    lastIndex = match.index + match[0].length;
+  }
+
+  if (lastIndex === 0) {
+    return linkGlossaryTerms(text).map((node, index) => <Fragment key={index}>{node}</Fragment>);
+  }
+
+  if (lastIndex < text.length) {
+    nodes.push(
+      <Fragment key={`text-${key++}`}>{linkGlossaryTerms(text.slice(lastIndex))}</Fragment>,
+    );
+  }
+
+  return nodes;
+}
+
+function isMarkdownTable(block: string): boolean {
+  const lines = block.split("\n").map((line) => line.trim()).filter(Boolean);
+  return lines.length >= 2 && lines.every((line) => line.startsWith("|"));
+}
+
+function parseTableRow(line: string): string[] {
+  return line
+    .trim()
+    .replace(/^\|/, "")
+    .replace(/\|$/, "")
+    .split("|")
+    .map((cell) => cell.trim());
+}
+
+function isSeparatorRow(cells: string[]): boolean {
+  return cells.every((cell) => /^:?-{3,}:?$/.test(cell.replace(/\s/g, "")));
+}
+
+function MarkdownTable({ block }: { block: string }) {
+  const rows = block
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map(parseTableRow)
+    .filter((cells) => !isSeparatorRow(cells));
+  if (rows.length === 0) return null;
+  const [head, ...body] = rows;
+
+  return (
+    <div className="mt-4 overflow-x-auto">
+      <table className="w-full min-w-[36rem] border-collapse text-sm">
+        <thead>
+          <tr className="border-b border-creco-border text-left">
+            {head.map((cell, index) => (
+              <th key={index} className="px-3 py-2 font-semibold text-creco-black">
+                {renderInline(cell)}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {body.map((row, rowIndex) => (
+            <tr key={rowIndex} className="border-b border-creco-border/70 align-top">
+              {row.map((cell, cellIndex) => (
+                <td key={cellIndex} className="px-3 py-2 text-creco-muted">
+                  {renderInline(cell)}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
 
 export function WikiBody({ body }: { body: string }) {
@@ -66,6 +162,10 @@ export function WikiBody({ body }: { body: string }) {
       {blocks.map((block, index) => {
         const trimmed = block.trim();
         if (!trimmed) return null;
+
+        if (isMarkdownTable(trimmed)) {
+          return <MarkdownTable key={index} block={trimmed} />;
+        }
 
         if (trimmed.startsWith("### ")) {
           return (

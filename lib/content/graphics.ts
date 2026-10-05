@@ -85,12 +85,15 @@ export const CRECO_GRAPHICS = {
 const g = CRECO_GRAPHICS;
 
 export const TOPIC_GRAPHICS: Record<string, readonly CrecoGraphic[]> = {
-  "what-is-a-pbo": [g.definingPbo, g.publicBenefit, g.notAPbo, g.difference],
-  "registration-requirements": [g.basics, g.myths],
-  "registration-process-and-timeline": [g.howToRegister, g.pathways, g.international],
-  "objects-and-purpose-of-the-act": [g.lifeCycle, g.synergy],
-  "pbo-regulations-overview": [g.actVsRegulations, g.timelines],
-  "pbo-regulatory-authority": [g.liability],
+  "legal-framework": [g.definingPbo, g.publicBenefit, g.notAPbo, g.difference, g.actVsRegulations],
+  registration: [g.howToRegister, g.basics, g.myths, g.pathways],
+  bestowment: [g.bestowment, g.pathways],
+  "international-pbos": [g.international],
+  "rights-and-benefits": [g.myths],
+  "governance-reporting-accountability": [g.liability, g.timelines],
+  "suspension-cancellation-appeals": [g.lifeCycle],
+  "self-regulation": [g.synergy],
+  "practical-compliance": [g.timelines],
 };
 
 export const ALL_CRECO_GRAPHICS: readonly CrecoGraphic[] = Object.values(CRECO_GRAPHICS);

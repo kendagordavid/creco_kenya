@@ -48,11 +48,9 @@ export default async function TopicsPage() {
                     })}
                   </span>
                   <h2 className="mt-3 text-xl font-bold text-creco-black">{page.title}</h2>
-                  {page.tags.length > 0 && (
-                    <p className="mt-3 flex-1 text-sm leading-relaxed text-creco-muted">
-                      {page.tags.join(" · ")}
-                    </p>
-                  )}
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-creco-muted">
+                    {page.lead || page.tags.join(" · ")}
+                  </p>
                   <div className="mt-6 flex flex-wrap gap-2">
                     <Link
                       href={`/knowledge/topics/${page.slug}`}

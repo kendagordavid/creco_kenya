@@ -12,6 +12,21 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    const topics: Record<string, string> = {
+      "what-is-a-pbo": "legal-framework",
+      "objects-and-purpose-of-the-act": "legal-framework",
+      "registration-requirements": "registration",
+      "registration-process-and-timeline": "registration",
+      "pbo-regulatory-authority": "regulatory-authority-and-tribunal",
+      "pbo-regulations-overview": "practical-compliance",
+    };
+    return Object.entries(topics).map(([from, to]) => ({
+      source: `/knowledge/topics/${from}`,
+      destination: `/knowledge/topics/${to}`,
+      permanent: true,
+    }));
+  },
   async headers() {
     // Aggressive Cache-Control on /_next/static breaks webpack HMR in development
     // and can serve stale client chunks (causing "Element type is invalid" crashes).

@@ -14,12 +14,16 @@ export const PUBLIC_NAV = [
 ] as const;
 
 export const TOPIC_NAV = [
-  { href: "/knowledge/topics/what-is-a-pbo", slug: "what-is-a-pbo" },
-  { href: "/knowledge/topics/objects-and-purpose-of-the-act", slug: "objects-and-purpose-of-the-act" },
-  { href: "/knowledge/topics/registration-requirements", slug: "registration-requirements" },
-  { href: "/knowledge/topics/registration-process-and-timeline", slug: "registration-process-and-timeline" },
-  { href: "/knowledge/topics/pbo-regulatory-authority", slug: "pbo-regulatory-authority" },
-  { href: "/knowledge/topics/pbo-regulations-overview", slug: "pbo-regulations-overview" },
+  { href: "/knowledge/topics/legal-framework", slug: "legal-framework" },
+  { href: "/knowledge/topics/registration", slug: "registration" },
+  { href: "/knowledge/topics/bestowment", slug: "bestowment" },
+  { href: "/knowledge/topics/international-pbos", slug: "international-pbos" },
+  { href: "/knowledge/topics/rights-and-benefits", slug: "rights-and-benefits" },
+  { href: "/knowledge/topics/governance-reporting-accountability", slug: "governance-reporting-accountability" },
+  { href: "/knowledge/topics/suspension-cancellation-appeals", slug: "suspension-cancellation-appeals" },
+  { href: "/knowledge/topics/self-regulation", slug: "self-regulation" },
+  { href: "/knowledge/topics/regulatory-authority-and-tribunal", slug: "regulatory-authority-and-tribunal" },
+  { href: "/knowledge/topics/practical-compliance", slug: "practical-compliance" },
 ] as const;
 
 export const NAV_MENUS = {

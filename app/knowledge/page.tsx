@@ -58,7 +58,7 @@ export default async function KnowledgeHubPage() {
                 <ModuleCard
                   key={topic.slug}
                   title={topic.title}
-                  description={topic.tags.join(" · ") || t.topicsPage.compiledGuidance}
+                  description={topic.lead || topic.tags.join(" · ") || t.topicsPage.compiledGuidance}
                   href={`/knowledge/topics/${topic.slug}`}
                 />
               ))}

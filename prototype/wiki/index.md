@@ -1,7 +1,7 @@
 ---
 title: CRECO PBO Act Knowledge Wiki
 description: Compiled knowledge base from the PBO Act 2013 and PBO Regulations 2026
-last_compiled: 2026-08-27
+last_compiled: 2026-10-05
 source_documents:
   - id: pbo-act-2013
     title: Public Benefit Organizations Act, 2013 (No. 18 of 2013)
@@ -24,12 +24,16 @@ Unlike RAG systems that retrieve raw document chunks at query time, knowledge is
 
 ## Topics
 
-- [[what-is-a-pbo]] — Definition and characteristics of a Public Benefit Organization
-- [[registration-requirements]] — Documents and criteria needed to register
-- [[registration-process-and-timeline]] — How registration works and time limits
-- [[objects-and-purpose-of-the-act]] — Why the PBO Act exists and what it aims to achieve
-- [[pbo-regulatory-authority]] — The Authority's role and public registry
-- [[pbo-regulations-overview]] — Key provisions of the 2026 PBO Regulations
+- [[legal-framework]] — Understanding the Public Benefits Organizations legal framework
+- [[registration]] — How to register a Public Benefit Organization
+- [[bestowment]] — Bestowment of Public Benefit Organization status
+- [[international-pbos]] — International PBOs and exempt organizations
+- [[rights-and-benefits]] — Rights and benefits of registered PBOs
+- [[governance-reporting-accountability]] — Governance, reporting and accountability
+- [[suspension-cancellation-appeals]] — Suspension, cancellation, appeals and restoration
+- [[self-regulation]] — Self-regulation forums and federations
+- [[regulatory-authority-and-tribunal]] — The Authority and the Disputes Tribunal
+- [[practical-compliance]] — Forms, timelines, fees and material changes
 
 ## How this works
 

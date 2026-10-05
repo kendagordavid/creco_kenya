@@ -27,9 +27,9 @@ export function SiteFooter() {
       heading: t.footer.columns.registerPbo,
       ariaLabel: t.a11y.footerRegisterNav,
       links: [
-        { href: "/knowledge/topics/registration-process-and-timeline", label: t.footer.links.process },
-        { href: "/knowledge/topics/what-is-a-pbo", label: t.footer.links.function },
-        { href: "/knowledge/topics/registration-requirements", label: t.footer.links.requirements },
+        { href: "/knowledge/topics/registration", label: t.footer.links.process },
+        { href: "/knowledge/topics/legal-framework", label: t.footer.links.function },
+        { href: "/knowledge/topics/practical-compliance", label: t.footer.links.requirements },
         { href: "/knowledge/toolkits/registration-starter-pack", label: t.footer.links.toolKit },
       ],
     },

@@ -11,14 +11,14 @@ export type HeroSlideAsset = {
 export const HERO_SLIDE_ASSETS: readonly HeroSlideAsset[] = [
   {
     id: "understand-the-law",
-    ctaHref: "/knowledge/topics/what-is-a-pbo",
+    ctaHref: "/knowledge/topics/legal-framework",
     imageSrc: "/images/graphics/defining-a-pbo.jpg",
     imagePosition: "center top",
     isGraphic: true,
   },
   {
     id: "register-correctly",
-    ctaHref: "/knowledge/topics/registration-process-and-timeline",
+    ctaHref: "/knowledge/topics/registration",
     imageSrc: "/images/graphics/how-to-register.png",
     imagePosition: "center top",
     isGraphic: true,

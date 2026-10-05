@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { PLATFORM_DOCUMENTS } from "./document-sources";
+import { listPlatformSourceDocuments } from "./document-sources";
 import { NO_GUIDANCE_REFUSAL } from "./topic-guard";
 
 export type SourceDocument = {
@@ -12,6 +12,7 @@ export type SourceDocument = {
 export type WikiPage = {
   slug: string;
   title: string;
+  lead: string;
   body: string;
   tags: string[];
   related: string[];
@@ -108,14 +109,17 @@ export function loadWikiPages(): WikiPage[] {
   return fs
     .readdirSync(wikiDir)
     .filter((f) => f.endsWith(".md"))
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
     .map((file) => {
       const raw = fs.readFileSync(path.join(wikiDir, file), "utf-8");
       const { meta, body } = parseFrontmatter(raw);
       const tags = meta.tags;
       const related = meta.related ?? meta.related_slugs;
+      const lead = meta.lead;
       return {
         slug: (meta.slug as string) || file.replace(/\.md$/, ""),
         title: (meta.title as string) || file.replace(/\.md$/, ""),
+        lead: typeof lead === "string" ? lead : "",
         body,
         tags: Array.isArray(tags) ? tags : [],
         related: Array.isArray(related) ? related : [],
@@ -172,8 +176,12 @@ export function searchWiki(question: string, limit = 3): WikiPage[] {
         score += 3;
       if (/(register|registration|sajili|mahitaji|document)/.test(q) && page.slug.includes("registration"))
         score += 5;
-      if (/(what is|definition|nini|pbo)/.test(q) && page.slug.includes("what-is")) score += 3;
-      if (/(how long|timeline|days|siku)/.test(q) && /timeline|process/.test(page.slug)) score += 5;
+      if (/(what is|definition|nini|framework)/.test(q) && page.slug === "legal-framework") score += 4;
+      if (/(how long|timeline|days|siku|fee|form|deadline)/.test(q) && page.slug === "practical-compliance")
+        score += 4;
+      if (/bestow/.test(q) && page.slug === "bestowment") score += 5;
+      if (/(tribunal|authority|pbora)/.test(q) && page.slug.includes("authority")) score += 4;
+      if (/(suspend|cancel|appeal)/.test(q) && page.slug.includes("suspension")) score += 4;
       return { page, score };
     })
     .filter((x) => x.score > 0)
@@ -242,7 +250,7 @@ export function askQuestionWiki(question: string) {
 }
 
 export function listSourceDocuments() {
-  return PLATFORM_DOCUMENTS.map((doc) => ({
+  return listPlatformSourceDocuments().map((doc) => ({
     id: doc.id,
     title: doc.title,
     url: doc.url,
@@ -256,5 +264,6 @@ export function listWikiPageSummaries() {
     title: p.title,
     tags: p.tags,
     related: p.related,
+    lead: p.lead,
   }));
 }

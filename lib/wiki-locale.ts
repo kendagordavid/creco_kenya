@@ -7,6 +7,7 @@ export type WikiSummary = {
   title: string;
   tags: string[];
   related: string[];
+  lead: string;
 };
 
 const SWAHILI_HEADING = /^## Muhtasari kwa Kiswahili\s*$/m;

@@ -1,3 +1,4 @@
+import { SW_TOPIC_BODIES } from "@/lib/content/sw/topic-bodies";
 import { EN_TOPIC_COPY, SW_TOPIC_COPY } from "@/lib/content/topics";
 import type { Locale } from "@/lib/i18n/config";
 import type { WikiPage } from "@/lib/wiki-server";
@@ -35,6 +36,7 @@ export function localizeWikiSummary(page: WikiSummary, locale: Locale): WikiSumm
     ...page,
     title: copy.title,
     tags: copy.tags.length > 0 ? copy.tags : page.tags,
+    lead: copy.lead ?? page.lead,
   };
 }
 
@@ -48,11 +50,24 @@ export function localizeWikiPage(page: WikiPage, locale: Locale): WikiPage & { e
     return { ...page, title, tags, body: english || page.body, englishBody: english || page.body };
   }
 
+  const compiledSwahili = SW_TOPIC_BODIES[page.slug];
+  if (compiledSwahili) {
+    return {
+      ...page,
+      title,
+      tags,
+      lead: copy?.lead ?? page.lead,
+      body: compiledSwahili,
+      englishBody: english || page.body,
+    };
+  }
+
   const swahiliBody = swahili ? `# ${title}\n\n${swahili}` : `# ${title}\n\n${english || page.body}`;
   return {
     ...page,
     title,
     tags,
+    lead: copy?.lead ?? page.lead,
     body: swahiliBody,
     englishBody: english || page.body,
   };

@@ -21,11 +21,18 @@ const nextConfig: NextConfig = {
       "pbo-regulatory-authority": "regulatory-authority-and-tribunal",
       "pbo-regulations-overview": "practical-compliance",
     };
-    return Object.entries(topics).map(([from, to]) => ({
-      source: `/knowledge/topics/${from}`,
-      destination: `/knowledge/topics/${to}`,
-      permanent: true,
-    }));
+    return [
+      {
+        source: "/knowledge/topics",
+        destination: "/topics",
+        permanent: true,
+      },
+      ...Object.entries(topics).map(([from, to]) => ({
+        source: `/knowledge/topics/${from}`,
+        destination: `/knowledge/topics/${to}`,
+        permanent: true,
+      })),
+    ];
   },
   async headers() {
     // Aggressive Cache-Control on /_next/static breaks webpack HMR in development

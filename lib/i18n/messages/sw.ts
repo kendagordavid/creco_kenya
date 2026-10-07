@@ -978,8 +978,10 @@ export const sw: Dictionary = {
     socialLinkedIn: "CRECO kwenye LinkedIn",
     audio: {
       title: "Sikiliza ukurasa huu",
-      description:
-        "Unapendelea kusikiliza? Tumia kicheza sauti kusikia maudhui haya kusomwa kwa sauti. Inafanya kazi na uwezo wa kifaa chako wa kusoma maandishi kwa sauti.",
+      description: "Unapendelea kusikiliza? Cheza kusikia mada hii ikisomwa kwa sauti iliyo wazi.",
+      preparing: "Inaandaa usomaji…",
+      deviceFallback:
+        "Sauti iliyo wazi haipatikani, kwa hivyo kivinjari hiki kinasoma ukurasa badala yake.",
       controlsLabel: "Vidhibiti vya usomaji wa sauti",
       play: "Cheza",
       pause: "Simamisha",

@@ -975,8 +975,10 @@ export const en = {
     socialLinkedIn: "CRECO on LinkedIn",
     audio: {
       title: "Listen to this page",
-      description:
-        "Prefer listening? Use the audio player to hear this content read aloud. Works with your device's text-to-speech.",
+      description: "Prefer listening? Play to hear this topic read in a clear voice.",
+      preparing: "Preparing the reading…",
+      deviceFallback:
+        "The clear reading voice is unavailable, so this browser is reading the page instead.",
       controlsLabel: "Audio narration controls",
       play: "Play",
       pause: "Pause",

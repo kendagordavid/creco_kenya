@@ -28,8 +28,10 @@ function menuForHref(
   href: string,
   topicItems: MenuItem[],
   labels: Record<string, string>,
+  loggedIn: boolean,
 ): MenuItem[] {
   if (href === "/knowledge") return [];
+  if (href === "/topics" && !loggedIn) return [];
   const menu = NAV_MENUS[href as keyof typeof NAV_MENUS];
   if (!menu) return [];
   const items = menu.map((item) => ({ href: item.href, label: labels[item.labelKey] ?? item.labelKey }));
@@ -188,7 +190,7 @@ export function SiteHeader() {
     active: isLoggedIn
       ? isPlatformNavActive(pathname, item.href)
       : isPublicNavActive(pathname, item.href),
-    items: menuForHref(item.href, topicItems, t.nav.menu),
+    items: menuForHref(item.href, topicItems, t.nav.menu, isLoggedIn),
   }));
 
   return (

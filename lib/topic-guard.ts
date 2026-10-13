@@ -1,99 +1,17 @@
 import "server-only";
 
 import { chatCompletion } from "./openai-client";
-import { openaiConfigured } from "./openai-config";
+import { chatConfigured } from "./openai-config";
+import { heuristicTopicScope, isOffTopicQuestion, type TopicScope } from "./topic-scope";
 
-export type TopicScope = "on_topic" | "off_topic" | "unclear";
-
-const ON_TOPIC_PATTERNS: RegExp[] = [
-  /\bpbo\b/i,
-  /\bngo\b/i,
-  /\bcso\b/i,
-  /\bcreco\b/i,
-  /\bicnl\b/i,
-  /public benefit/i,
-  /non[- ]?profit/i,
-  /nonprofit/i,
-  /registration/i,
-  /register/i,
-  /sajili/i,
-  /mahitaji/i,
-  /shirika/i,
-  /faida ya umma/i,
-  /pbo act/i,
-  /organizations act/i,
-  /organisations act/i,
-  /regulatory authority/i,
-  /compliance/i,
-  /governance/i,
-  /trustee/i,
-  /board member/i,
-  /civic space/i,
-  /civil society/i,
-  /kenya.*(act|law|legal)/i,
-  /(act|law).{0,20}kenya/i,
-  /tax exempt/i,
-  /fundraising/i,
-  /audit/i,
-  /annual return/i,
-  /by-?laws/i,
-  /constitution/i,
-  /memorandum/i,
-  /charitable/i,
-  /community organis/i,
-  /community organiz/i,
-];
-
-const OFF_TOPIC_PATTERNS: RegExp[] = [
-  /\bweather\b/i,
-  /\bfootball\b/i,
-  /\bsoccer\b/i,
-  /\brecipe\b/i,
-  /\bbitcoin\b/i,
-  /\bcrypto(currency)?\b/i,
-  /\bstock market\b/i,
-  /\bwrite (me )?(a )?(poem|story|essay|code)\b/i,
-  /\bpython\b/i,
-  /\bjavascript\b/i,
-  /\bhomework\b/i,
-  /\bcapital of\b/i,
-  /\bwho (is|was) (the )?(president|king|queen) of (?!kenya)/i,
-  /\bdating\b/i,
-  /\bmovie\b/i,
-  /\bnetflix\b/i,
-];
+export type { TopicScope };
+export { heuristicTopicScope, isOffTopicQuestion };
 
 export const OFF_TOPIC_REFUSAL =
   "I'm sorry — I can't answer questions outside the **Public Benefit Organizations Act, 2013** and related PBO registration and compliance in Kenya. Please ask about the PBO Act, registration, or compliance, browse **Topics**, or contact **CRECO Kenya**.";
 
 export const NO_GUIDANCE_REFUSAL =
   "I don't have specific guidance on that PBO Act topic yet. Try rephrasing with terms like registration, compliance, or the regulatory authority, browse **Topics**, or contact **CRECO Kenya** for help.";
-
-export function heuristicTopicScope(question: string, wikiMatchScore: number): TopicScope {
-  const q = question.trim();
-  if (q.length < 3) return "off_topic";
-
-  if (OFF_TOPIC_PATTERNS.some((re) => re.test(q))) {
-    return "off_topic";
-  }
-
-  if (wikiMatchScore >= 2) {
-    return "on_topic";
-  }
-
-  const onHits = ON_TOPIC_PATTERNS.filter((re) => re.test(q)).length;
-  if (onHits >= 1) {
-    return "on_topic";
-  }
-
-  const terms = q.toLowerCase().match(/\w{4,}/g) ?? [];
-  const genericNgOHints = ["organization", "organisation", "charity", "foundation", "association"];
-  if (terms.some((t) => genericNgOHints.some((h) => t.includes(h)))) {
-    return "unclear";
-  }
-
-  return "unclear";
-}
 
 async function classifyWithModel(question: string): Promise<TopicScope> {
   const reply = await chatCompletion(
@@ -128,7 +46,7 @@ export async function resolveTopicScope(
     return heuristic;
   }
 
-  if (!openaiConfigured()) {
+  if (!chatConfigured()) {
     return wikiMatchScore > 0 ? "on_topic" : "off_topic";
   }
 

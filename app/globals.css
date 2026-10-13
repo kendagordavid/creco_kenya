@@ -841,8 +841,18 @@ h4,
 
 .creco-prose ul {
   margin-top: 0.75rem;
-  padding-left: 1.25rem;
+  padding-left: 1.5rem;
   list-style: disc;
+}
+
+.creco-prose ol {
+  margin-top: 0.75rem;
+  padding-left: 1.5rem;
+  list-style: decimal;
+}
+
+.creco-prose li {
+  display: list-item;
 }
 
 .creco-prose li + li {

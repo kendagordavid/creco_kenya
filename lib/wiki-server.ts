@@ -1,7 +1,8 @@
 import fs from "fs";
 import path from "path";
 import { listPlatformSourceDocuments } from "./document-sources";
-import { NO_GUIDANCE_REFUSAL } from "./topic-guard";
+import { NO_GUIDANCE_REFUSAL, OFF_TOPIC_REFUSAL, isOffTopicQuestion } from "./topic-guard";
+import { excerptForQuestion, rankWikiPages } from "./wiki-rank";
 
 export type SourceDocument = {
   id: string;
@@ -161,40 +162,19 @@ function extractAnswerBody(body: string, maxChars = 1800): string {
   return text || firstParagraph(body);
 }
 
-export function searchWiki(question: string, limit = 3): WikiPage[] {
-  const pages = loadWikiPages();
-  const terms = question.toLowerCase().match(/\w{3,}/g) ?? [];
-  if (!terms.length) return [];
-
-  const q = question.toLowerCase();
-  const scored = pages
-    .map((page) => {
-      const slugText = page.slug.replace(/-/g, " ");
-      const haystack = `${page.title} ${page.body} ${page.tags.join(" ")} ${slugText}`.toLowerCase();
-      let score = terms.filter((t) => haystack.includes(t)).length;
-      if (terms.some((t) => slugText.includes(t) || page.title.toLowerCase().includes(t)))
-        score += 3;
-      if (/(register|registration|sajili|mahitaji|document)/.test(q) && page.slug.includes("registration"))
-        score += 5;
-      if (/(what is|definition|nini|framework)/.test(q) && page.slug === "legal-framework") score += 4;
-      if (/(how long|timeline|days|siku|fee|form|deadline)/.test(q) && page.slug === "practical-compliance")
-        score += 4;
-      if (/bestow/.test(q) && page.slug === "bestowment") score += 5;
-      if (/(tribunal|authority|pbora)/.test(q) && page.slug.includes("authority")) score += 4;
-      if (/(suspend|cancel|appeal)/.test(q) && page.slug.includes("suspension")) score += 4;
-      return { page, score };
-    })
-    .filter((x) => x.score > 0)
-    .sort((a, b) => b.score - a.score)
-    .slice(0, limit)
-    .map((x) => x.page);
-
-  return scored;
+export function searchWikiDetailed(question: string, limit = 3) {
+  return rankWikiPages(question, loadWikiPages(), limit);
 }
 
-export function composeAnswer(pages: WikiPage[]): string {
+export function searchWiki(question: string, limit = 3): WikiPage[] {
+  return searchWikiDetailed(question, limit).map((entry) => entry.page);
+}
+
+export function composeAnswer(pages: WikiPage[], question = ""): string {
   const primary = pages[0];
-  const body = extractAnswerBody(primary.body);
+  const body = question.trim()
+    ? excerptForQuestion(primary.body, question, 1800)
+    : extractAnswerBody(primary.body);
   const related = primary.related.slice(0, 3).map((s) => `[[${s}]]`).join(", ");
   let answer = `Based on the compiled topic **${primary.title}**:\n\n${body}\n\n*Source: [Wiki: ${primary.slug}]*`;
   if (pages.length > 1) {
@@ -210,6 +190,15 @@ export function askQuestionWiki(question: string) {
   if (!trimmed) {
     return {
       answer: "Please enter a question about the PBO Act.",
+      citations: [],
+      confidence: "low" as const,
+      refused: true,
+    };
+  }
+
+  if (isOffTopicQuestion(trimmed)) {
+    return {
+      answer: OFF_TOPIC_REFUSAL,
       citations: [],
       confidence: "low" as const,
       refused: true,
@@ -242,7 +231,7 @@ export function askQuestionWiki(question: string) {
   });
 
   return {
-    answer: composeAnswer(pages),
+    answer: composeAnswer(pages, trimmed),
     citations,
     confidence: (pages.length >= 2 ? "high" : "medium") as "high" | "medium",
     refused: false,

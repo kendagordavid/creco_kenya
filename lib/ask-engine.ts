@@ -1,13 +1,19 @@
 import "server-only";
 
 import { chatCompletion } from "./openai-client";
-import { openaiConfigured } from "./openai-config";
-import { NO_GUIDANCE_REFUSAL, OFF_TOPIC_REFUSAL, resolveTopicScope } from "./topic-guard";
+import { chatConfigured } from "./openai-config";
+import {
+  NO_GUIDANCE_REFUSAL,
+  OFF_TOPIC_REFUSAL,
+  isOffTopicQuestion,
+  resolveTopicScope,
+} from "./topic-guard";
+import { excerptForQuestion } from "./wiki-rank";
 import {
   WikiPage,
   composeAnswer,
   loadWikiPages,
-  searchWiki,
+  searchWikiDetailed,
 } from "./wiki-server";
 
 export type AskCitation = {
@@ -37,9 +43,10 @@ const WIKI_SYSTEM = `You are the CRECO Kenya PBO Act assistant. Answer using ONL
 Rules:
 1. Use only facts from the wiki content. Cite pages inline as [Wiki: slug].
 2. If the compiled material does not contain the answer, tell the user you do not have specific guidance on that detail — do not mention wikis or internal libraries.
-3. Use plain language for NGO staff who are not lawyers.
-4. End with a brief note that this is informational guidance, not legal advice.
-5. If asked in Kiswahili, respond in Kiswahili when the wiki supports it.`;
+3. Use plain language.
+4. When listing reasons, steps, or requirements, use one ordered list numbered 1. 2. 3. and so on. Never repeat 1. Do not put a blank line between items.
+5. End with a brief note that this is informational guidance, not legal advice.
+6. If asked in Kiswahili, respond in Kiswahili when the wiki supports it.`;
 
 const SUPPLEMENTAL_SYSTEM = `You are the CRECO Kenya PBO Act assistant. The question is ON TOPIC (Kenyan NGOs/PBOs/CRECO civic space) but not fully covered in the compiled library.
 
@@ -48,7 +55,8 @@ Rules:
 2. Do NOT answer if the user question is outside that scope. Say clearly that you can only help with the Kenyan PBO Act and related registration or compliance — do not mention wikis or compiled libraries.
 3. Do NOT invent section numbers or quotes. If unsure, say so and refer to CRECO Kenya or legal counsel.
 4. Clearly mark general context vs what must be verified with CRECO or a lawyer.
-5. End with a brief note that this is informational guidance, not legal advice.`;
+5. When listing reasons, steps, or requirements, use one ordered list numbered 1. 2. 3. and so on. Never repeat 1. Do not put a blank line between items.
+6. End with a brief note that this is informational guidance, not legal advice.`;
 
 const REFERENCE_CITATIONS: AskCitation[] = [
   {
@@ -100,23 +108,13 @@ function pagesToCitations(pages: WikiPage[]): AskCitation[] {
   });
 }
 
-function wikiMatchScore(question: string, pages: WikiPage[]): number {
-  if (!pages.length) return 0;
-  const terms = question.toLowerCase().match(/\w{3,}/g) ?? [];
-  const primary = pages[0];
-  const slugText = primary.slug.replace(/-/g, " ");
-  const haystack =
-    `${primary.title} ${primary.body} ${primary.tags.join(" ")} ${slugText}`.toLowerCase();
-  let score = terms.filter((t) => haystack.includes(t)).length;
-  if (terms.some((t) => slugText.includes(t) || primary.title.toLowerCase().includes(t))) {
-    score += 3;
-  }
-  return score;
-}
-
-function formatWikiContext(pages: WikiPage[]): string {
+function formatWikiContext(question: string, pages: WikiPage[]): string {
   return pages
-    .map((page) => `## Wiki page: ${page.title} (slug: ${page.slug})\n\n${page.body}`)
+    .slice(0, 1)
+    .map(
+      (page) =>
+        `## Wiki page: ${page.title} (slug: ${page.slug})\n\n${excerptForQuestion(page.body, question, 1100)}`,
+    )
     .join("\n\n---\n\n");
 }
 
@@ -132,7 +130,7 @@ async function generateWikiAnswer(question: string, pages: WikiPage[]): Promise<
       { role: "system", content: WIKI_SYSTEM },
       {
         role: "user",
-        content: `Question: ${question}\n\nCompiled wiki pages:\n\n${formatWikiContext(pages)}\n\nProvide a helpful answer citing [Wiki: slug] markers.`,
+        content: `Question: ${question}\n\nCompiled wiki pages:\n\n${formatWikiContext(question, pages)}\n\nProvide a helpful answer citing [Wiki: slug] markers.`,
       },
     ],
     0.2,
@@ -142,7 +140,7 @@ async function generateWikiAnswer(question: string, pages: WikiPage[]): Promise<
 async function generateSupplementalAnswer(question: string, weakPages: WikiPage[]): Promise<string | null> {
   const partial =
     weakPages.length > 0
-      ? `\n\nPartially related compiled topics (use only if truly relevant):\n${formatWikiContext(weakPages.slice(0, 2))}`
+      ? `\n\nPartially related compiled topics (use only if truly relevant):\n${formatWikiContext(question, weakPages.slice(0, 1))}`
       : "";
 
   return chatCompletion(
@@ -179,15 +177,20 @@ export async function askQuestionEngine(question: string): Promise<AskResult> {
     };
   }
 
-  const pages = searchWiki(trimmed);
-  const matchScore = wikiMatchScore(trimmed, pages);
+  if (isOffTopicQuestion(trimmed)) {
+    return offTopicResult();
+  }
+
+  const ranked = searchWikiDetailed(trimmed);
+  const pages = ranked.map((entry) => entry.page);
+  const matchScore = ranked[0]?.score ?? 0;
   const strongWiki = pages.length > 0 && matchScore >= WIKI_STRONG_SCORE;
 
   if (strongWiki) {
     const citations = pagesToCitations(pages);
     const confidence = pages.length >= 2 ? "high" : "medium";
 
-    if (openaiConfigured()) {
+    if (chatConfigured()) {
       const ai = await generateWikiAnswer(trimmed, pages);
       if (ai) {
         return {
@@ -201,7 +204,7 @@ export async function askQuestionEngine(question: string): Promise<AskResult> {
     }
 
     return {
-      answer: composeAnswer(pages),
+      answer: composeAnswer(pages, trimmed),
       citations,
       confidence,
       refused: false,
@@ -214,7 +217,7 @@ export async function askQuestionEngine(question: string): Promise<AskResult> {
     return offTopicResult();
   }
 
-  if (openaiConfigured()) {
+  if (chatConfigured()) {
     const ai = await generateSupplementalAnswer(trimmed, pages);
     if (ai) {
       const supplementalNote =
@@ -233,7 +236,7 @@ export async function askQuestionEngine(question: string): Promise<AskResult> {
   if (pages.length) {
     const citations = pagesToCitations(pages);
     return {
-      answer: composeAnswer(pages),
+      answer: composeAnswer(pages, trimmed),
       citations,
       confidence: "medium",
       refused: false,

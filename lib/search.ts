@@ -1,6 +1,8 @@
 import { FAQ_ITEMS } from "@/lib/content/faqs";
 import { TEMPLATE_ITEMS } from "@/lib/content/templates";
 import { TOOLKIT_ITEMS } from "@/lib/content/knowledge";
+import { contentTerms } from "@/lib/search-terms";
+import { rankWikiPages } from "@/lib/wiki-rank";
 import { listWikiPageSummaries, loadWikiPages } from "@/lib/wiki-server";
 
 export type SearchResult = {
@@ -11,59 +13,54 @@ export type SearchResult = {
 };
 
 export function globalSearch(query: string, limit = 20): SearchResult[] {
-  const q = query.trim().toLowerCase();
-  if (!q) return [];
+  const terms = contentTerms(query);
+  if (!terms.length) return [];
 
-  const terms = q.match(/\w{2,}/g) ?? [];
-  const results: SearchResult[] = [];
+  const scored: { result: SearchResult; score: number }[] = [];
 
-  for (const page of loadWikiPages()) {
-    const haystack = `${page.title} ${page.body} ${page.tags.join(" ")}`.toLowerCase();
-    const score = terms.filter((t) => haystack.includes(t)).length;
-    if (score > 0) {
-      results.push({
-        title: page.title,
-        excerpt: page.body.slice(0, 160).replace(/\n/g, " "),
-        href: `/knowledge/topics/${page.slug}`,
+  function consider(haystack: string, result: SearchResult) {
+    const hay = haystack.toLowerCase();
+    const score = terms.filter((term) => hay.includes(term)).length;
+    if (score > 0) scored.push({ result, score });
+  }
+
+  for (const entry of rankWikiPages(query, loadWikiPages(), 8)) {
+    scored.push({
+      score: entry.score,
+      result: {
+        title: entry.page.title,
+        excerpt: entry.page.body.slice(0, 160).replace(/\n/g, " "),
+        href: `/knowledge/topics/${entry.page.slug}`,
         type: "topic",
-      });
-    }
+      },
+    });
   }
 
   for (const faq of FAQ_ITEMS) {
-    const haystack = `${faq.question} ${faq.answer}`.toLowerCase();
-    if (terms.some((t) => haystack.includes(t))) {
-      results.push({
-        title: faq.question,
-        excerpt: faq.answer.slice(0, 160),
-        href: `/knowledge/faq/${faq.slug}`,
-        type: "faq",
-      });
-    }
+    consider(`${faq.question} ${faq.answer}`, {
+      title: faq.question,
+      excerpt: faq.answer.slice(0, 160),
+      href: `/knowledge/faq/${faq.slug}`,
+      type: "faq",
+    });
   }
 
   for (const template of TEMPLATE_ITEMS) {
-    const haystack = `${template.title} ${template.summary} ${template.body}`.toLowerCase();
-    if (terms.some((t) => haystack.includes(t))) {
-      results.push({
-        title: template.title,
-        excerpt: template.summary,
-        href: `/compliance/templates/${template.slug}`,
-        type: "template",
-      });
-    }
+    consider(`${template.title} ${template.summary} ${template.body}`, {
+      title: template.title,
+      excerpt: template.summary,
+      href: `/compliance/templates/${template.slug}`,
+      type: "template",
+    });
   }
 
   for (const toolkit of TOOLKIT_ITEMS) {
-    const haystack = `${toolkit.title} ${toolkit.summary} ${toolkit.sections.join(" ")}`.toLowerCase();
-    if (terms.some((t) => haystack.includes(t))) {
-      results.push({
-        title: toolkit.title,
-        excerpt: toolkit.summary,
-        href: `/knowledge/toolkits/${toolkit.slug}`,
-        type: "toolkit",
-      });
-    }
+    consider(`${toolkit.title} ${toolkit.summary} ${toolkit.sections.join(" ")}`, {
+      title: toolkit.title,
+      excerpt: toolkit.summary,
+      href: `/knowledge/toolkits/${toolkit.slug}`,
+      type: "toolkit",
+    });
   }
 
   const staticPages = [
@@ -76,23 +73,24 @@ export function globalSearch(query: string, limit = 20): SearchResult[] {
   ];
 
   for (const page of staticPages) {
-    if (terms.some((t) => `${page.title} ${page.keywords}`.toLowerCase().includes(t))) {
-      results.push({
-        title: page.title,
-        excerpt: page.keywords,
-        href: page.href,
-        type: "page",
-      });
-    }
+    consider(`${page.title} ${page.keywords}`, {
+      title: page.title,
+      excerpt: page.keywords,
+      href: page.href,
+      type: "page",
+    });
   }
 
-  // Dedupe by href
+  scored.sort((a, b) => b.score - a.score);
   const seen = new Set<string>();
-  return results.filter((r) => {
-    if (seen.has(r.href)) return false;
-    seen.add(r.href);
-    return true;
-  }).slice(0, limit);
+  const results: SearchResult[] = [];
+  for (const entry of scored) {
+    if (seen.has(entry.result.href)) continue;
+    seen.add(entry.result.href);
+    results.push(entry.result);
+    if (results.length >= limit) break;
+  }
+  return results;
 }
 
 export function listTopicSummaries() {

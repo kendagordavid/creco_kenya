@@ -81,3 +81,26 @@ CREATE TABLE IF NOT EXISTS user_data (
 );
 
 CREATE INDEX IF NOT EXISTS user_data_updated_at_idx ON user_data (updated_at DESC);
+
+CREATE TABLE IF NOT EXISTS news_posts (
+  id TEXT PRIMARY KEY,
+  category TEXT NOT NULL CHECK (
+    category IN ('legislative', 'regulation', 'court', 'guidance', 'other')
+  ),
+  published BOOLEAN NOT NULL DEFAULT FALSE,
+  published_at TIMESTAMPTZ NOT NULL,
+  title_en TEXT NOT NULL,
+  summary_en TEXT NOT NULL,
+  body_en TEXT NOT NULL,
+  title_sw TEXT,
+  summary_sw TEXT,
+  body_sw TEXT,
+  image_data BYTEA,
+  image_content_type TEXT,
+  author_user_id TEXT REFERENCES users (id) ON DELETE SET NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS news_posts_published_at_idx ON news_posts (published_at DESC);
+CREATE INDEX IF NOT EXISTS news_posts_published_idx ON news_posts (published, published_at DESC);

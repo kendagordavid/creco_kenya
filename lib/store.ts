@@ -2,6 +2,7 @@ import { randomUUID } from "crypto";
 import type { JSONValue } from "postgres";
 import type { UserRole } from "@/lib/authz";
 import { getSql } from "@/lib/db";
+import type { NewsCategory } from "@/lib/news";
 
 export type UserRecord = {
   id: string;
@@ -624,4 +625,369 @@ export async function countSubmissionsByUsers(userIds: string[]): Promise<Record
   `;
 
   return Object.fromEntries(rows.map((row) => [row.user_id, row.count]));
+}
+
+export type NewsPostRecord = {
+  id: string;
+  category: NewsCategory;
+  published: boolean;
+  publishedAt: string;
+  titleEn: string;
+  summaryEn: string;
+  bodyEn: string;
+  titleSw?: string;
+  summarySw?: string;
+  bodySw?: string;
+  hasImage: boolean;
+  imageContentType?: string;
+  authorUserId?: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+type NewsPostRow = {
+  id: string;
+  category: string;
+  published: boolean;
+  published_at: Date;
+  title_en: string;
+  summary_en: string;
+  body_en: string;
+  title_sw: string | null;
+  summary_sw: string | null;
+  body_sw: string | null;
+  image_data: Buffer | null;
+  image_content_type: string | null;
+  author_user_id: string | null;
+  created_at: Date;
+  updated_at: Date;
+};
+
+async function ensureNewsPostsTable(): Promise<void> {
+  const sql = getSql();
+  await sql.unsafe(`
+    CREATE TABLE IF NOT EXISTS news_posts (
+      id TEXT PRIMARY KEY,
+      category TEXT NOT NULL CHECK (
+        category IN ('legislative', 'regulation', 'court', 'guidance', 'other')
+      ),
+      published BOOLEAN NOT NULL DEFAULT FALSE,
+      published_at TIMESTAMPTZ NOT NULL,
+      title_en TEXT NOT NULL,
+      summary_en TEXT NOT NULL,
+      body_en TEXT NOT NULL,
+      title_sw TEXT,
+      summary_sw TEXT,
+      body_sw TEXT,
+      image_data BYTEA,
+      image_content_type TEXT,
+      author_user_id TEXT REFERENCES users (id) ON DELETE SET NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
+    CREATE INDEX IF NOT EXISTS news_posts_published_at_idx ON news_posts (published_at DESC);
+    CREATE INDEX IF NOT EXISTS news_posts_published_idx ON news_posts (published, published_at DESC);
+  `);
+}
+
+function mapNewsPostRow(row: {
+  id: string;
+  category: string;
+  published: boolean;
+  published_at: Date;
+  title_en: string;
+  summary_en: string;
+  body_en: string;
+  title_sw: string | null;
+  summary_sw: string | null;
+  body_sw: string | null;
+  has_image?: boolean;
+  image_data?: Buffer | null;
+  image_content_type: string | null;
+  author_user_id: string | null;
+  created_at: Date;
+  updated_at: Date;
+}): NewsPostRecord {
+  const hasImage =
+    typeof row.has_image === "boolean"
+      ? row.has_image
+      : row.image_data != null && row.image_data.length > 0;
+  return {
+    id: row.id,
+    category: row.category as NewsCategory,
+    published: row.published,
+    publishedAt: row.published_at.toISOString(),
+    titleEn: row.title_en,
+    summaryEn: row.summary_en,
+    bodyEn: row.body_en,
+    titleSw: row.title_sw ?? undefined,
+    summarySw: row.summary_sw ?? undefined,
+    bodySw: row.body_sw ?? undefined,
+    hasImage,
+    imageContentType: row.image_content_type ?? undefined,
+    authorUserId: row.author_user_id ?? undefined,
+    createdAt: row.created_at.toISOString(),
+    updatedAt: row.updated_at.toISOString(),
+  };
+}
+
+export type CreateNewsPostInput = {
+  category: NewsCategory;
+  published: boolean;
+  publishedAt: string;
+  titleEn: string;
+  summaryEn: string;
+  bodyEn: string;
+  titleSw?: string;
+  summarySw?: string;
+  bodySw?: string;
+  image?: { data: Buffer; contentType: string } | null;
+  removeImage?: boolean;
+  authorUserId?: string;
+};
+
+export async function listNewsPosts(options?: {
+  publishedOnly?: boolean;
+}): Promise<NewsPostRecord[]> {
+  await ensureNewsPostsTable();
+  const sql = getSql();
+  const publishedOnly = options?.publishedOnly ?? false;
+  const rows = publishedOnly
+    ? await sql<
+        (NewsPostRow & { has_image: boolean })[]
+      >`
+        SELECT
+          id,
+          category,
+          published,
+          published_at,
+          title_en,
+          summary_en,
+          body_en,
+          title_sw,
+          summary_sw,
+          body_sw,
+          (image_data IS NOT NULL) AS has_image,
+          image_content_type,
+          author_user_id,
+          created_at,
+          updated_at
+        FROM news_posts
+        WHERE published = TRUE
+        ORDER BY published_at DESC
+      `
+    : await sql<
+        (NewsPostRow & { has_image: boolean })[]
+      >`
+        SELECT
+          id,
+          category,
+          published,
+          published_at,
+          title_en,
+          summary_en,
+          body_en,
+          title_sw,
+          summary_sw,
+          body_sw,
+          (image_data IS NOT NULL) AS has_image,
+          image_content_type,
+          author_user_id,
+          created_at,
+          updated_at
+        FROM news_posts
+        ORDER BY published_at DESC, created_at DESC
+      `;
+  return rows.map(mapNewsPostRow);
+}
+
+export async function findNewsPostById(
+  id: string,
+  options?: { publishedOnly?: boolean },
+): Promise<NewsPostRecord | undefined> {
+  await ensureNewsPostsTable();
+  const sql = getSql();
+  const publishedOnly = options?.publishedOnly ?? false;
+  const rows = publishedOnly
+    ? await sql<
+        (NewsPostRow & { has_image: boolean })[]
+      >`
+        SELECT
+          id,
+          category,
+          published,
+          published_at,
+          title_en,
+          summary_en,
+          body_en,
+          title_sw,
+          summary_sw,
+          body_sw,
+          (image_data IS NOT NULL) AS has_image,
+          image_content_type,
+          author_user_id,
+          created_at,
+          updated_at
+        FROM news_posts
+        WHERE id = ${id}
+          AND published = TRUE
+        LIMIT 1
+      `
+    : await sql<
+        (NewsPostRow & { has_image: boolean })[]
+      >`
+        SELECT
+          id,
+          category,
+          published,
+          published_at,
+          title_en,
+          summary_en,
+          body_en,
+          title_sw,
+          summary_sw,
+          body_sw,
+          (image_data IS NOT NULL) AS has_image,
+          image_content_type,
+          author_user_id,
+          created_at,
+          updated_at
+        FROM news_posts
+        WHERE id = ${id}
+        LIMIT 1
+      `;
+  return rows[0] ? mapNewsPostRow(rows[0]) : undefined;
+}
+
+export async function getNewsPostImage(
+  id: string,
+  options?: { publishedOnly?: boolean },
+): Promise<{ data: Buffer; contentType: string } | undefined> {
+  await ensureNewsPostsTable();
+  const sql = getSql();
+  const publishedOnly = options?.publishedOnly ?? false;
+  const rows = publishedOnly
+    ? await sql<{ image_data: Buffer | null; image_content_type: string | null }[]>`
+        SELECT image_data, image_content_type
+        FROM news_posts
+        WHERE id = ${id}
+          AND published = TRUE
+          AND image_data IS NOT NULL
+        LIMIT 1
+      `
+    : await sql<{ image_data: Buffer | null; image_content_type: string | null }[]>`
+        SELECT image_data, image_content_type
+        FROM news_posts
+        WHERE id = ${id}
+          AND image_data IS NOT NULL
+        LIMIT 1
+      `;
+  const row = rows[0];
+  if (!row?.image_data?.length) return undefined;
+  return {
+    data: row.image_data,
+    contentType: row.image_content_type || "application/octet-stream",
+  };
+}
+
+export async function createNewsPost(input: CreateNewsPostInput): Promise<NewsPostRecord> {
+  await ensureNewsPostsTable();
+  const sql = getSql();
+  const id = randomUUID();
+  const publishedAt = new Date(input.publishedAt);
+  const imageData = input.image?.data ?? null;
+  const imageType = input.image?.contentType ?? null;
+
+  const rows = await sql<NewsPostRow[]>`
+    INSERT INTO news_posts (
+      id,
+      category,
+      published,
+      published_at,
+      title_en,
+      summary_en,
+      body_en,
+      title_sw,
+      summary_sw,
+      body_sw,
+      image_data,
+      image_content_type,
+      author_user_id
+    )
+    VALUES (
+      ${id},
+      ${input.category},
+      ${input.published},
+      ${publishedAt},
+      ${input.titleEn},
+      ${input.summaryEn},
+      ${input.bodyEn},
+      ${input.titleSw ?? null},
+      ${input.summarySw ?? null},
+      ${input.bodySw ?? null},
+      ${imageData},
+      ${imageType},
+      ${input.authorUserId ?? null}
+    )
+    RETURNING *
+  `;
+  return mapNewsPostRow(rows[0]);
+}
+
+export async function updateNewsPost(
+  id: string,
+  input: CreateNewsPostInput,
+): Promise<NewsPostRecord | undefined> {
+  await ensureNewsPostsTable();
+  const sql = getSql();
+  const existing = await findNewsPostById(id);
+  if (!existing) return undefined;
+
+  const publishedAt = new Date(input.publishedAt);
+
+  await sql`
+    UPDATE news_posts
+    SET
+      category = ${input.category},
+      published = ${input.published},
+      published_at = ${publishedAt},
+      title_en = ${input.titleEn},
+      summary_en = ${input.summaryEn},
+      body_en = ${input.bodyEn},
+      title_sw = ${input.titleSw ?? null},
+      summary_sw = ${input.summarySw ?? null},
+      body_sw = ${input.bodySw ?? null},
+      updated_at = NOW()
+    WHERE id = ${id}
+  `;
+
+  if (input.removeImage) {
+    await sql`
+      UPDATE news_posts
+      SET image_data = NULL, image_content_type = NULL, updated_at = NOW()
+      WHERE id = ${id}
+    `;
+  } else if (input.image) {
+    await sql`
+      UPDATE news_posts
+      SET
+        image_data = ${input.image.data},
+        image_content_type = ${input.image.contentType},
+        updated_at = NOW()
+      WHERE id = ${id}
+    `;
+  }
+
+  return findNewsPostById(id);
+}
+
+export async function deleteNewsPost(id: string): Promise<boolean> {
+  await ensureNewsPostsTable();
+  const sql = getSql();
+  const rows = await sql<{ id: string }[]>`
+    DELETE FROM news_posts
+    WHERE id = ${id}
+    RETURNING id
+  `;
+  return rows.length > 0;
 }

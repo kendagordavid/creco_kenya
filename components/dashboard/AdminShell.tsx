@@ -11,6 +11,7 @@ import {
   LogOut,
   Megaphone,
   Menu,
+  Newspaper,
   ShieldCheck,
   X,
 } from "lucide-react";
@@ -43,6 +44,7 @@ export function AdminShell({ children, title, description }: Props) {
     { href: "/admin/compliance", label: t.nav.orgProgress, icon: ClipboardCheck, exact: true },
     { href: "/admin/reports", label: t.nav.allReports, icon: ShieldCheck, exact: true },
     { href: "/admin/anonymous", label: t.nav.anonymousReports, icon: Megaphone, exact: true },
+    { href: "/admin/news", label: t.adminConsole.nav.news, icon: Newspaper, exact: true },
   ];
 
   const initials =

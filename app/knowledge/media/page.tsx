@@ -1,32 +1,40 @@
+import Image from "next/image";
 import { PageHero } from "@/components/PageHero";
-import { MEDIA_ITEMS } from "@/lib/content/knowledge";
+import { CRECO_GRAPHICS } from "@/lib/content/graphics";
+import { getServerTranslations } from "@/lib/i18n/server";
 
 export const metadata = {
-  title: "Media gallery",
+  title: "Media",
 };
 
-export default function MediaGalleryPage() {
+export default async function MediaGalleryPage() {
+  const { t } = await getServerTranslations();
+  const graphics = Object.values(CRECO_GRAPHICS);
+
   return (
     <>
       <PageHero
-        eyebrow="Knowledge hub"
-        title="Media gallery"
-        lead="Videos, infographics, and guides introducing the PBO Act and compliance basics."
-        variant="light"
+        eyebrow={t.knowledgeHub.eyebrow}
+        title={t.knowledgeHub.filters.media}
+        lead={t.knowledgeHub.lead}
+        backgroundImage="/images/pages/knowledge-discussion.jpg"
+        backgroundAlt={t.knowledgeHub.imageAlt}
       />
       <section className="creco-section">
         <div className="creco-container">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {MEDIA_ITEMS.map((item) => (
-              <article key={item.id} className="creco-card p-6">
-                <span className="text-xs font-bold uppercase tracking-wider text-creco-accent">
-                  {item.type}
-                  {item.duration ? ` · ${item.duration}` : ""}
-                </span>
-                <h2 className="mt-2 text-lg font-bold text-creco-black">{item.title}</h2>
-                <p className="mt-2 text-sm text-creco-muted">{item.summary}</p>
-                <div className="mt-4 flex h-32 items-center justify-center rounded-lg bg-creco-surface text-sm text-creco-muted">
-                  Media preview — connect CDN in production
+            {graphics.map((item) => (
+              <article key={item.src} className="creco-card overflow-hidden">
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  width={640}
+                  height={480}
+                  className="h-48 w-full object-cover"
+                />
+                <div className="p-5">
+                  <h2 className="text-lg font-bold text-creco-black dark:text-foreground">{item.title}</h2>
+                  <p className="mt-2 text-sm text-creco-muted">{item.alt}</p>
                 </div>
               </article>
             ))}

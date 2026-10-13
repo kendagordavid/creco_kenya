@@ -2,9 +2,6 @@ import type { Session } from "next-auth";
 import { isSuperuser } from "@/lib/authz";
 
 const PROTECTED_PREFIXES = [
-  "/monitoring/registration",
-  "/monitoring/enabling",
-  "/monitoring/incident",
   "/monitoring/upload",
   "/monitoring/confirmation",
   "/monitoring/submissions",

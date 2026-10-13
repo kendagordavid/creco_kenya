@@ -18,6 +18,7 @@ import type { Dictionary } from "@/lib/i18n/messages/en";
 type Submission = {
   id: string;
   type: string;
+  issueType?: string;
   status: string;
   county: string;
   narrative: string;
@@ -114,7 +115,7 @@ export function SubmissionsDashboard() {
               <CardHeader className="flex flex-row items-start justify-between gap-4 space-y-0 pb-3">
                 <div>
                   <CardTitle className="text-base font-bold text-creco-primary">
-                    {typeLabel(t, item.type)}
+                    {item.issueType || typeLabel(t, item.type)}
                   </CardTitle>
                   <CardDescription className="mt-1">
                     {item.county} ·{" "}

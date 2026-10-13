@@ -189,8 +189,13 @@ export function AudioNarrationPlayer({ text, title, className = "" }: Props) {
       return;
     }
 
-    if (modeRef.current === "device") {
-      playOnDevice();
+    if (locale === "sw" || modeRef.current === "device") {
+      if (locale === "sw") modeRef.current = "device";
+      if (playOnDevice()) {
+        if (locale === "sw") setStatusMessage(t.a11y.audio.kiswahiliDevice);
+        return;
+      }
+      setStatusMessage(t.a11y.audio.error);
       return;
     }
 
@@ -212,7 +217,7 @@ export function AudioNarrationPlayer({ text, title, className = "" }: Props) {
       setPlaybackState("idle");
       setStatusMessage(t.a11y.audio.error);
     });
-  }, [playOnDevice, playbackState, preparing, t.a11y.audio.deviceFallback, t.a11y.audio.error, t.a11y.audio.preparing, t.a11y.audio.resumed]);
+  }, [locale, playOnDevice, playbackState, preparing, t.a11y.audio.deviceFallback, t.a11y.audio.error, t.a11y.audio.kiswahiliDevice, t.a11y.audio.preparing, t.a11y.audio.resumed]);
 
   const skipBack = useCallback(() => {
     if (modeRef.current === "device") engineRef.current?.skipBack(SKIP_SECONDS);

@@ -14,10 +14,8 @@ import { completeSignOut } from "@/lib/auth-session-client";
 import { useCurrentLocale, useTranslations } from "@/lib/i18n/client";
 import {
   isPlatformNavActive,
-  isPublicNavActive,
+  MAIN_NAV,
   NAV_MENUS,
-  PLATFORM_NAV,
-  PUBLIC_NAV,
   TOPIC_NAV,
 } from "@/lib/nav";
 import { cn } from "@/lib/utils";
@@ -184,12 +182,10 @@ export function SiteHeader() {
     label: topicCopy[topic.slug]?.title ?? topic.slug,
   }));
 
-  const navItems = (isLoggedIn ? PLATFORM_NAV : PUBLIC_NAV).map((item) => ({
+  const navItems = MAIN_NAV.map((item) => ({
     href: item.href,
     label: t.nav[item.labelKey],
-    active: isLoggedIn
-      ? isPlatformNavActive(pathname, item.href)
-      : isPublicNavActive(pathname, item.href),
+    active: isPlatformNavActive(pathname, item.href),
     items: menuForHref(item.href, topicItems, t.nav.menu, isLoggedIn),
   }));
 

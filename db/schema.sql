@@ -31,6 +31,17 @@ CREATE TABLE IF NOT EXISTS submissions (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS submission_files (
+  id TEXT PRIMARY KEY,
+  submission_id TEXT NOT NULL REFERENCES submissions (id) ON DELETE CASCADE,
+  filename TEXT NOT NULL,
+  content_type TEXT NOT NULL,
+  data BYTEA NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS submission_files_submission_id_idx ON submission_files (submission_id);
+
 CREATE INDEX IF NOT EXISTS submissions_user_id_idx ON submissions (user_id);
 CREATE INDEX IF NOT EXISTS submissions_created_at_idx ON submissions (created_at DESC);
 

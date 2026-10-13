@@ -3,7 +3,7 @@
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { setLocale } from "@/app/actions/locale";
-import { localeNames, locales, type Locale } from "@/lib/i18n/config";
+import { LOCALE_COOKIE, localeNames, locales, type Locale } from "@/lib/i18n/config";
 import { useCurrentLocale, useFormat, useTranslations } from "@/lib/i18n/client";
 
 export function LanguageSwitcher() {
@@ -14,8 +14,9 @@ export function LanguageSwitcher() {
   const [pending, startTransition] = useTransition();
 
   function handleChange(nextLocale: Locale) {
-    if (nextLocale === locale || pending) return;
+    if (nextLocale === locale) return;
 
+    document.cookie = `${LOCALE_COOKIE}=${nextLocale}; Path=/; Max-Age=${60 * 60 * 24 * 365}; SameSite=Lax`;
     startTransition(async () => {
       await setLocale(nextLocale);
       router.refresh();
@@ -34,7 +35,7 @@ export function LanguageSwitcher() {
           <button
             key={code}
             type="button"
-            disabled={pending}
+            disabled={pending && active}
             aria-pressed={active}
             aria-label={format(t.language.switchTo, { language: localeNames[code] })}
             onClick={() => handleChange(code)}

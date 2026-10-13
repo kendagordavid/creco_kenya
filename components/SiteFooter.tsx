@@ -37,8 +37,8 @@ export function SiteFooter() {
       heading: t.footer.columns.stayCompliant,
       ariaLabel: t.a11y.footerCompliantNav,
       links: [
-        { href: "/compliance/checklist", label: t.footer.links.checklist },
-        { href: "/compliance/assessment", label: t.footer.links.selfAssessment },
+        { href: "/compliance/checklist", label: t.nav.menu.selfAssessmentChecklist },
+        { href: "/compliance#toolkit", label: t.nav.menu.toolkit },
         { href: "/compliance/templates", label: t.footer.links.templates },
       ],
     },
@@ -72,7 +72,6 @@ export function SiteFooter() {
   ];
 
   const partnerLogos = [
-    { href: "https://www.pbora.go.ke/", src: "/images/partners/pbora.png", label: t.footer.links.pbora, width: 180, height: 67 },
     { href: "https://crecokenya.org/", src: "/images/partners/creco.png", label: t.footer.links.creco, width: 64, height: 64 },
     { href: "https://www.icnl.org/", src: "/images/partners/icnl.png", label: t.footer.links.icnl, width: 132, height: 68 },
   ];
@@ -157,6 +156,7 @@ export function SiteFooter() {
       <div className="border-t border-creco-border dark:border-border">
         <div className="creco-container creco-container--home flex flex-col gap-2 py-4 text-xs text-creco-muted dark:text-muted-foreground">
           <p>{t.footer.partnershipText}</p>
+          <p>{t.footer.legalReviewed}</p>
           <p>{format(t.footer.copyright, { year: new Date().getFullYear() })}</p>
         </div>
       </div>

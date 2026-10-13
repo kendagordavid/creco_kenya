@@ -299,6 +299,33 @@ export async function createSubmission(
   return mapSubmission(rows[0]);
 }
 
+const MAX_ATTACHMENT_BYTES = 5 * 1024 * 1024;
+
+export async function saveSubmissionFiles(
+  submissionId: string,
+  files: { name: string; type: string; data: Buffer }[],
+): Promise<void> {
+  if (files.length === 0) return;
+  const sql = getSql();
+  await sql`
+    CREATE TABLE IF NOT EXISTS submission_files (
+      id TEXT PRIMARY KEY,
+      submission_id TEXT NOT NULL REFERENCES submissions (id) ON DELETE CASCADE,
+      filename TEXT NOT NULL,
+      content_type TEXT NOT NULL,
+      data BYTEA NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `;
+  for (const file of files) {
+    if (file.data.byteLength > MAX_ATTACHMENT_BYTES) continue;
+    await sql`
+      INSERT INTO submission_files (id, submission_id, filename, content_type, data)
+      VALUES (${randomUUID()}, ${submissionId}, ${file.name}, ${file.type || "application/octet-stream"}, ${file.data})
+    `;
+  }
+}
+
 export async function listSubmissionsForUser(userId: string): Promise<SubmissionRecord[]> {
   const sql = getSql();
   const rows = await sql<SubmissionRow[]>`

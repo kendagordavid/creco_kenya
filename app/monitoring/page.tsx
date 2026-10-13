@@ -1,59 +1,43 @@
 import Link from "next/link";
-import { ModuleCard } from "@/components/ModuleCard";
+import { MonitoringReportForm } from "@/components/MonitoringForms";
 import { PageHero } from "@/components/PageHero";
+import { getDictionary, getLocale, getServerTranslations } from "@/lib/i18n/server";
 
-export const metadata = {
-  title: "Monitoring",
-};
+export async function generateMetadata() {
+  const locale = await getLocale();
+  const t = getDictionary(locale);
+  return { title: t.monitoringHub.metaTitle };
+}
 
-export default function MonitoringHubPage() {
+export default async function MonitoringHubPage() {
+  const { t } = await getServerTranslations();
+
   return (
     <>
       <PageHero
-        eyebrow="Civic space monitoring"
-        title="Report your experience"
-        lead="Submissions are confidential. Moderated by CRECO staff before use in advocacy."
+        eyebrow={t.monitoringHub.eyebrow}
+        title={t.monitoringHub.title}
+        lead={t.monitoringHub.lead}
         backgroundImage="/images/hero/civic-space.jpg"
         backgroundAlt="Black Kenyans gathered in a civic space demonstration"
       />
       <section className="creco-section">
         <div className="creco-container">
-          <div className="grid gap-5 sm:grid-cols-2">
-            <ModuleCard
-              title="Registration experience"
-              description="Delays, barriers, and process issues with PBO registration."
-              href="/monitoring/registration"
-            />
-            <ModuleCard
-              title="Enabling practices"
-              description="Positive outcomes and good practices worth amplifying."
-              href="/monitoring/enabling"
-              accent="orange"
-            />
-            <ModuleCard
-              title="Civic space incident"
-              description="Report violations with severity classification."
-              href="/monitoring/incident"
-            />
-            <ModuleCard
-              title="My submissions"
-              description="View status of past reports — sign in required."
-              href="/monitoring/submissions"
-              accent="orange"
-            />
-          </div>
+          <MonitoringReportForm
+            title={t.nav.menu.reportExperience}
+            continueHref="/monitoring/upload"
+          />
           <p className="mt-8 text-center text-sm text-creco-muted">
-            Want to report a problem with this website, or share something without an account?{" "}
-            <Link href="/report" className="font-semibold text-creco-primary no-underline">
-              Send an anonymous report
+            <Link href="/monitoring/submissions" className="font-semibold text-creco-primary no-underline">
+              {t.monitoringHub.mySubmissions.title}
             </Link>
+            {" — "}
+            {t.monitoringHub.mySubmissions.description}
           </p>
           <p className="mt-3 text-center text-sm text-creco-muted">
-            New to the platform?{" "}
-            <Link href="/register" className="font-semibold text-creco-primary no-underline">
-              Register a PBO account
-            </Link>{" "}
-            before submitting reports.
+            <Link href="/report" className="font-semibold text-creco-primary no-underline">
+              {t.nav.menu.anonymousReport}
+            </Link>
           </p>
         </div>
       </section>

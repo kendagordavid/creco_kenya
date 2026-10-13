@@ -1,17 +1,14 @@
-export const PLATFORM_NAV = [
+/** Same main pages before and after sign-in. Sign in stays in the account control. */
+export const MAIN_NAV = [
   { href: "/", labelKey: "home" as const },
   { href: "/knowledge", labelKey: "knowledge" as const },
   { href: "/compliance", labelKey: "compliance" as const },
-  { href: "/guidance", labelKey: "guidance" as const },
   { href: "/monitoring", labelKey: "monitoring" as const },
+  { href: "/news", labelKey: "news" as const },
 ] as const;
 
-export const PUBLIC_NAV = [
-  { href: "/", labelKey: "home" as const },
-  { href: "/guidance", labelKey: "guidance" as const },
-  { href: "/topics", labelKey: "topics" as const },
-  { href: "/sources", labelKey: "sources" as const },
-] as const;
+export const PLATFORM_NAV = MAIN_NAV;
+export const PUBLIC_NAV = MAIN_NAV;
 
 export const TOPIC_NAV = [
   { href: "/knowledge/topics/legal-framework", slug: "legal-framework" },
@@ -29,28 +26,26 @@ export const TOPIC_NAV = [
 export const NAV_MENUS = {
   "/knowledge": [
     { href: "/knowledge", labelKey: "knowledgeHub" as const },
-    { href: "/topics", labelKey: "allTopics" as const },
+    { href: "/topics", labelKey: "frameworkSummaries" as const },
     { href: "/knowledge/faq", labelKey: "faqs" as const },
-    { href: "/knowledge?filter=toolkits", labelKey: "toolkits" as const },
     { href: "/knowledge/media", labelKey: "media" as const },
+    { href: "/sources", labelKey: "sources" as const },
+    { href: "/knowledge/forms", labelKey: "forms" as const },
+    { href: "/guidance", labelKey: "askGuidance" as const },
   ],
   "/compliance": [
     { href: "/compliance", labelKey: "complianceOverview" as const },
-    { href: "/compliance/checklist", labelKey: "checklist" as const },
-    { href: "/compliance/assessment", labelKey: "assessment" as const },
+    { href: "/compliance/checklist", labelKey: "selfAssessmentChecklist" as const },
+    { href: "/compliance#toolkit", labelKey: "toolkit" as const },
     { href: "/compliance/templates", labelKey: "templates" as const },
   ],
   "/guidance": [
     { href: "/guidance", labelKey: "askGuidance" as const },
     { href: "/guidance/ask-creco", labelKey: "askCreco" as const },
     { href: "/guidance/flag", labelKey: "flagFeedback" as const },
-    { href: "/sources", labelKey: "sources" as const },
   ],
   "/monitoring": [
-    { href: "/monitoring", labelKey: "monitoringOverview" as const },
-    { href: "/monitoring/registration", labelKey: "registration" as const },
-    { href: "/monitoring/enabling", labelKey: "enabling" as const },
-    { href: "/monitoring/incident", labelKey: "incident" as const },
+    { href: "/monitoring", labelKey: "reportExperience" as const },
     { href: "/monitoring/submissions", labelKey: "mySubmissions" as const },
     { href: "/report", labelKey: "anonymousReport" as const },
   ],
@@ -68,19 +63,22 @@ export function isPlatformNavActive(pathname: string, href: string): boolean {
         pathname === "/knowledge" ||
         pathname.startsWith("/knowledge/") ||
         pathname === "/topics" ||
-        pathname.startsWith("/topics/")
+        pathname.startsWith("/topics/") ||
+        pathname === "/sources" ||
+        pathname.startsWith("/sources/") ||
+        pathname === "/guidance" ||
+        pathname.startsWith("/guidance/")
       );
     case "/compliance":
       return pathname === "/compliance" || pathname.startsWith("/compliance/");
-    case "/guidance":
-      return (
-        pathname === "/guidance" ||
-        pathname.startsWith("/guidance/") ||
-        pathname === "/sources" ||
-        pathname.startsWith("/sources/")
-      );
     case "/monitoring":
-      return pathname === "/monitoring" || pathname.startsWith("/monitoring/");
+      return (
+        pathname === "/monitoring" ||
+        pathname.startsWith("/monitoring/") ||
+        pathname === "/report"
+      );
+    case "/news":
+      return pathname === "/news" || pathname.startsWith("/news/");
     default:
       return pathname === href || pathname.startsWith(`${href}/`);
   }

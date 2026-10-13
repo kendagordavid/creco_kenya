@@ -21,7 +21,7 @@ export default function AssessmentIntroPage() {
             <ul className="space-y-3 text-left text-sm text-creco-muted">
               <li className="creco-check-item">
                 <span className="creco-check-icon">✓</span>
-                Not a legal audit — a learning tool for staff and boards
+                Not a legal audit — a learning tool for organisations and their boards
               </li>
               <li className="creco-check-item">
                 <span className="creco-check-icon">✓</span>

@@ -14,21 +14,27 @@ export default async function HomePage() {
 
   const modules = [
     {
-      title: t.home.modules.guidance.title,
-      description: t.home.modules.guidance.description,
-      href: "/guidance",
-      accent: "orange" as const,
-    },
-    {
-      title: t.home.modules.topics.title,
-      description: t.home.modules.topics.description,
-      href: "/topics",
+      title: t.home.modules.awareness.title,
+      description: t.home.modules.awareness.description,
+      href: "/knowledge",
       accent: "green" as const,
     },
     {
-      title: t.home.modules.sources.title,
-      description: t.home.modules.sources.description,
-      href: "/sources",
+      title: t.home.modules.compliance.title,
+      description: t.home.modules.compliance.description,
+      href: "/compliance",
+      accent: "orange" as const,
+    },
+    {
+      title: t.home.modules.monitoring.title,
+      description: t.home.modules.monitoring.description,
+      href: "/monitoring",
+      accent: "green" as const,
+    },
+    {
+      title: t.home.modules.guidance.title,
+      description: t.home.modules.guidance.description,
+      href: "/guidance",
       accent: "orange" as const,
     },
   ];
@@ -38,6 +44,32 @@ export default async function HomePage() {
       <HomeHeroSection hero={t.home.hero} quickAccess={t.home.quickAccess} />
 
       <section className="creco-section creco-section--after-hero">
+        <div className="creco-container creco-container--home max-w-3xl">
+          <RevealOnScroll>
+            <span className="creco-eyebrow">{t.home.about.eyebrow}</span>
+            <h2 className="text-2xl font-bold sm:text-4xl">{t.home.about.title}</h2>
+            <p className="mt-5 leading-relaxed text-creco-muted">{t.home.about.purpose}</p>
+            <h3 className="mt-8 text-lg font-bold text-creco-primary">{t.home.about.usersTitle}</h3>
+            <p className="mt-3 leading-relaxed text-creco-muted">{t.home.about.users}</p>
+          </RevealOnScroll>
+          <div className="mt-10">
+            <RevealOnScroll>
+              <span className="creco-eyebrow">{t.home.history.eyebrow}</span>
+              <h2 className="text-2xl font-bold sm:text-3xl">{t.home.history.title}</h2>
+            </RevealOnScroll>
+            <div className="mt-6 space-y-5">
+              {t.home.history.paragraphs.map((paragraph) => (
+                <RevealOnScroll key={paragraph}>
+                  <p className="leading-relaxed text-creco-muted">{paragraph}</p>
+                </RevealOnScroll>
+              ))}
+            </div>
+          </div>
+          <p className="mt-8 text-sm text-creco-muted">{t.footer.legalReviewed}</p>
+        </div>
+      </section>
+
+      <section className="creco-section creco-section-alt">
         <div className="creco-container creco-container--home">
           <RevealOnScroll className="text-center">
             <span className="creco-eyebrow creco-eyebrow-center">{t.home.howItWorks.eyebrow}</span>
@@ -47,7 +79,7 @@ export default async function HomePage() {
             <p className="mx-auto mt-4 max-w-xl text-creco-muted">{t.home.howItWorks.lead}</p>
           </RevealOnScroll>
 
-          <div className="mt-8 grid gap-4 sm:mt-16 sm:gap-6 md:grid-cols-3">
+          <div className="mt-8 grid gap-4 sm:mt-16 sm:gap-6 md:grid-cols-2">
             {modules.map((module, index) => (
               <RevealOnScroll key={module.href} delayMs={index * 90} className="h-full">
                 <Link
@@ -81,55 +113,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="creco-section creco-section-alt">
-        <div className="creco-container creco-container--home max-w-3xl">
-          <RevealOnScroll>
-            <span className="creco-eyebrow">{t.home.history.eyebrow}</span>
-            <h2 className="text-2xl font-bold sm:text-4xl">{t.home.history.title}</h2>
-          </RevealOnScroll>
-          <div className="mt-8 space-y-5">
-            {t.home.history.paragraphs.map((paragraph) => (
-              <RevealOnScroll key={paragraph}>
-                <p className="leading-relaxed text-creco-muted">{paragraph}</p>
-              </RevealOnScroll>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="creco-section">
-        <div className="creco-container creco-container--home grid items-center gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-14">
-          <RevealOnScroll>
-            <span className="creco-eyebrow">{t.home.guides.register.eyebrow}</span>
-            <h2 className="text-2xl font-bold sm:text-4xl">{t.home.guides.registerPathwaysTitle}</h2>
-            <p className="mt-5 leading-relaxed text-creco-muted">{t.home.guides.registerPathwaysLead}</p>
-            <ul className="mt-6 space-y-4 border-l-2 border-creco-primary/30 pl-4">
-              {t.home.guides.registerPathwaysPoints.map((point) => (
-                <li key={point} className="text-sm leading-relaxed text-creco-muted sm:text-base">
-                  {point}
-                </li>
-              ))}
-            </ul>
-            <Link
-              href={t.home.guides.register.href}
-              className="mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-creco-primary no-underline hover:text-creco-accent"
-            >
-              {t.home.guides.register.link}
-              <ArrowRight className="size-3.5" aria-hidden />
-            </Link>
-          </RevealOnScroll>
-          <RevealOnScroll delayMs={90} className="flex justify-center lg:justify-end">
-            <ParallaxGraphic
-              src={CRECO_GRAPHICS.pathways.src}
-              alt={CRECO_GRAPHICS.pathways.alt}
-              speed={0.36}
-              className="w-full max-w-[17.5rem] sm:max-w-xs lg:max-w-sm"
-            />
-          </RevealOnScroll>
-        </div>
-      </section>
-
-      <section className="creco-section creco-section-alt">
         <div className="creco-container creco-container--home grid items-start gap-10 lg:grid-cols-2 lg:gap-14">
           <RevealOnScroll className="lg:order-2">
             <h2 className="text-2xl font-bold sm:text-4xl">{t.home.guides.notificationTitle}</h2>

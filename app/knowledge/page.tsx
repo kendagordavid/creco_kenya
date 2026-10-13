@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ModuleCard } from "@/components/ModuleCard";
 import { PageHero } from "@/components/PageHero";
 import { getCachedWikiSummaries } from "@/lib/cached-wiki";
-import { getFaqCategories, getToolkitItems, getMediaItems } from "@/lib/content/locale";
+import { getFaqCategories } from "@/lib/content/locale";
 import { interpolate, getDictionary, getLocale, getServerTranslations } from "@/lib/i18n/server";
 import { localizeWikiSummary } from "@/lib/wiki-locale";
 
@@ -21,14 +21,13 @@ export default async function KnowledgeHubPage() {
     localizeWikiSummary(topic, locale),
   );
   const faqCategories = getFaqCategories(locale);
-  const toolkitItems = getToolkitItems(locale);
-  const mediaItems = getMediaItems(locale);
   const filters = [
-    { id: "all" as const, href: "/knowledge", label: t.knowledgeHub.filters.all },
-    { id: "guides" as const, href: "/knowledge?filter=guides", label: t.knowledgeHub.filters.guides },
-    { id: "faqs" as const, href: "/knowledge/faq", label: t.knowledgeHub.filters.faqs },
-    { id: "toolkits" as const, href: "/knowledge?filter=toolkits", label: t.knowledgeHub.filters.toolkits },
-    { id: "media" as const, href: "/knowledge/media", label: t.knowledgeHub.filters.media },
+    { id: "summaries", href: "/topics", label: t.nav.menu.frameworkSummaries },
+    { id: "faqs", href: "/knowledge/faq", label: t.knowledgeHub.filters.faqs },
+    { id: "media", href: "/knowledge/media", label: t.knowledgeHub.filters.media },
+    { id: "sources", href: "/sources", label: t.nav.menu.sources },
+    { id: "forms", href: "/knowledge/forms", label: t.nav.menu.forms },
+    { id: "ask", href: "/guidance", label: t.nav.menu.askGuidance },
   ];
 
   return (
@@ -84,21 +83,25 @@ export default async function KnowledgeHubPage() {
               </div>
             </div>
             <div>
-              <h2 className="text-xl font-bold text-creco-primary">{t.knowledgeHub.toolkitsMedia}</h2>
+              <h2 className="text-xl font-bold text-creco-primary">{t.nav.menu.sources}</h2>
               <ul className="mt-4 space-y-3">
-                {toolkitItems.map((item) => (
-                  <li key={item.slug}>
-                    <Link href={`/knowledge/toolkits/${item.slug}`} className="font-semibold text-creco-primary no-underline">
-                      {item.title}
-                    </Link>
-                  </li>
-                ))}
+                <li>
+                  <Link href="/sources" className="font-semibold text-creco-primary no-underline">
+                    {t.sources.title}
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/knowledge/forms" className="font-semibold text-creco-primary no-underline">
+                    {t.formsPage.title}
+                  </Link>
+                </li>
                 <li>
                   <Link href="/knowledge/media" className="font-semibold text-creco-primary no-underline">
-                    {t.knowledgeHub.filters.media} ({mediaItems.length})
+                    {t.knowledgeHub.filters.media}
                   </Link>
                 </li>
               </ul>
+              <p className="mt-6 text-sm text-creco-muted">{t.footer.legalReviewed}</p>
             </div>
           </div>
         </div>

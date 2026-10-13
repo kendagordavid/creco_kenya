@@ -12,9 +12,10 @@ export const sw: Dictionary = {
     guidance: "Mwongozo",
     topics: "Mada",
     sources: "Vyanzo",
-    knowledge: "Maarifa",
+    knowledge: "Kituo cha Maarifa",
     compliance: "Uzingatiaji",
     monitoring: "Ufuatiliaji",
+    news: "Habari na Taarifa",
     dashboard: "Dashibodi",
     account: "Mipangilio ya akaunti",
     submissions: "Ripoti zangu",
@@ -25,7 +26,7 @@ export const sw: Dictionary = {
     signOut: "Toka",
     login: "Ingia",
     register: "Jisajili",
-    askQuestion: "Uliza swali",
+    askQuestion: "Uliza kuhusu Sheria ya PBO",
     contact: "Wasiliana nasi",
     toggleNav: "Fungua au funga menyu",
     sectionNav: "Urambazaji wa sehemu",
@@ -33,20 +34,25 @@ export const sw: Dictionary = {
     accountMenu: "Menyu ya akaunti",
     openMenu: "Fungua menyu ya {label}",
     menu: {
-      knowledgeHub: "Kituo cha maarifa",
+      knowledgeHub: "Kituo cha Maarifa",
       allTopics: "Mada zote",
+      frameworkSummaries: "Muhtasari wa Mfumo wa PBO",
       faqs: "Maswali",
       toolkits: "Zana",
-      media: "Video na vyombo vya habari",
+      media: "Vyombo vya habari",
+      forms: "Fomu",
       complianceOverview: "Zana za utiifu",
       checklist: "Orodha ya shirika",
       assessment: "Tathmini binafsi",
+      selfAssessmentChecklist: "Orodha ya tathmini binafsi",
+      toolkit: "Zana",
       templates: "Maktaba ya violezo",
-      askGuidance: "Uliza swali",
+      askGuidance: "Uliza kuhusu Sheria ya PBO",
       askCreco: "Uliza CRECO moja kwa moja",
       flagFeedback: "Ripoti au maoni",
       sources: "Nyaraka za chanzo",
       monitoringOverview: "Ufuatiliaji",
+      reportExperience: "Ripoti uzoefu",
       registration: "Uzoefu wa usajili",
       enabling: "Mbinu zinazowezesha",
       incident: "Tukio la nafasi ya kiraia",
@@ -77,37 +83,50 @@ export const sw: Dictionary = {
       languages: "Lugha",
       partner: "Mshirika",
     },
+    about: {
+      eyebrow: "Kuhusu jukwaa",
+      title: "Jukwaa hili ni la nini",
+      purpose:
+        "Jukwaa hili linaanzisha Sheria ya Mashirika ya Faida ya Umma, 2013 na Kanuni za Mashirika ya Faida ya Umma, 2026. CRECO inalichapisha ili mashirika yaelewe sheria, yakague uzingatiaji, yarekodi jinsi utekelezaji unavyoendelea, na yaulize maswali yanayobaki yamefungamanishwa na vyanzo vilivyoidhinishwa.",
+      usersTitle: "Ni kwa nani",
+      users:
+        "Mashirika ya faida ya umma, mashirika ya jamii, na washirika wanaohitaji maelezo ya vitendo kuhusu Sheria na Kanuni.",
+    },
     howItWorks: {
-      eyebrow: "Jinsi inavyofanya kazi",
-      title: "Njia tatu za kupata unachohitaji",
-      lead: "Anza na swali, vinjari mada, au nenda moja kwa moja kwenye nyaraka rasmi.",
+      eyebrow: "Kazi kuu",
+      title: "Unaweza kufanya nini hapa",
+      lead: "Uelewa wa kisheria, mwongozo na tathmini ya uzingatiaji, ufuatiliaji wa utekelezaji, na mwongozo wa kisheria wa moja kwa moja.",
       open: "Fungua",
     },
     modules: {
+      awareness: {
+        title: "Uelewa wa kisheria",
+        description:
+          "Soma Muhtasari wa Mfumo wa PBO, maswali, vyanzo, na fomu zilizowekwa katika Kanuni za 2026.",
+      },
+      compliance: {
+        title: "Mwongozo na tathmini ya uzingatiaji",
+        description: "Tumia orodha ya tathmini binafsi, zana, na maktaba ya violezo.",
+      },
+      monitoring: {
+        title: "Ufuatiliaji wa utekelezaji",
+        description:
+          "Ripoti uzoefu wa Sheria katika vitendo, ikiwa ni pamoja na usajili, mpito, na ushirikiano na Mamlaka.",
+      },
       guidance: {
-        title: "Mwongozo wa PBO",
-        description:
-          "Tafuta majibu ya maswali ya usajili na utii, pamoja na viungo vya nyaraka za chanzo.",
-      },
-      topics: {
-        title: "Maktaba ya mada",
-        description:
-          "Vinjari kurasa zilizokusanywa kuhusu usajili, mamlaka ya udhibiti, na madhumuni ya Sheria.",
-      },
-      sources: {
-        title: "Nyaraka za chanzo",
-        description: "Angalia PDF za Sheria ya PBO zilizoidhinishwa ambazo kila ukurasa wa mada unategemea.",
+        title: "Mwongozo wa kisheria wa moja kwa moja",
+        description: "Uliza kuhusu Sheria ya PBO, au tuma swali moja kwa moja kwa CRECO.",
       },
     },
     why: {
       eyebrow: "Kwa nini jukwaa hili",
       title: "Imejengwa kwa mashirika ya kweli",
-      lead: "Wafanyakazi wa PBO na mashirika ya jamii wanahitaji majibu ya vitendo — si istilahi za kisheria. Kila ukurasa wa mada unakusanywa kutoka nyaraka zilizoidhinishwa, unaweza kukaguliwa na CRECO kabla ya kuchapishwa, na unaweza kufuatiliwa hadi nyaraka za asili.",
+      lead: "Kila ukurasa wa mada unakusanywa kutoka Sheria, Kanuni za 2026, na muhtasari wa kisheria ulioidhinishwa, na unaweza kufuatiliwa hadi vyanzo hivyo.",
       points: [
         "Majibu yaliyounganishwa na vyanzo unayoweza kuthibitisha",
-        "Lugha rahisi kwa wasio wanasheria",
-        "Maswali ya Kiswahili yanatumika",
-        "Wafanyakazi wanaweza kusasisha mada kadri sheria zinavyobadilika",
+        "Kiingereza na Kiswahili",
+        "Kurasa za mada zinafuata muhtasari wa kisheria ulioidhinishwa",
+        "Habari na taarifa sheria au mwongozo rasmi unapobadilika",
       ],
     },
     history: {
@@ -194,11 +213,11 @@ export const sw: Dictionary = {
           imageAlt: "Mtaalamu Mweusi akijiandaa nyaraka za utii",
         },
         {
-          eyebrow: "Uliza Swali",
+          eyebrow: "Uliza kuhusu Sheria ya PBO",
           headline: "Pata Majibu Yaliyounganishwa na Vyanzo",
           description:
             "Uliza kuhusu usajili au uzingatiaji kwa Kiingereza au Kiswahili, na upate majibu yanayofuatiliwa hadi nyaraka za kisheria zilizoidhinishwa.",
-          ctaLabel: "Uliza sasa",
+          ctaLabel: "Uliza kuhusu Sheria ya PBO",
           imageAlt: "Wanawake Weusi wakishirikiana juu ya nyenzo za mwongozo kwenye meza ya mkutano",
         },
         {
@@ -216,18 +235,18 @@ export const sw: Dictionary = {
       searchLabel: "Tafuta kwenye jukwaa",
       browseLabel: "Au chunguza kwa:",
       links: [
-        { label: "Kituo cha maarifa", href: "/knowledge" },
+        { label: "Kituo cha Maarifa", href: "/knowledge" },
         { label: "Uzingatiaji", href: "/compliance" },
-        { label: "Zana ya mwongozo", href: "/guidance" },
         { label: "Ufuatiliaji", href: "/monitoring" },
+        { label: "Habari na Taarifa", href: "/news" },
         { label: "Ingia", href: "/login" },
       ],
     },
   },
   guidance: {
-    metaTitle: "Mwongozo wa PBO",
-    eyebrow: "Zana ya mwongozo",
-    title: "Mwongozo wa Sheria ya PBO",
+    metaTitle: "Uliza kuhusu Sheria ya PBO",
+    eyebrow: "Uliza kuhusu Sheria ya PBO",
+    title: "Uliza kuhusu Sheria ya PBO",
     lead: "Uliza swali kwa Kiingereza au Kiswahili. Majibu hutumia mada zilizokusanywa na CRECO zinapolingana, na AI (inapowekwa) kusintetiza mwongozo au kujaza mapengo kutoka muktadha wa jumla wa Sheria ya PBO.",
   },
   topics: {
@@ -260,7 +279,7 @@ export const sw: Dictionary = {
     ],
     control: {
       title: "Udhibiti wa nyaraka",
-      lead: "Nyaraka zilizoidhinishwa na CRECO pekee ndizo zinazokusanywa kwenye kurasa za mada. Wafanyakazi wanaweza kuongeza muhtasari wa Kiswahili, miongozo ya lugha rahisi, na kanuni zilizosasishwa zinapopatikana.",
+      lead: "Nyaraka zilizoidhinishwa na CRECO pekee ndizo zinazokusanywa kwenye kurasa za mada. Muhtasari wa Kiswahili na kanuni zilizosasishwa huongezwa CRECO inapozikubali.",
     },
   },
   footer: {
@@ -300,6 +319,8 @@ export const sw: Dictionary = {
     partnershipText:
       "Imeundwa na International Center for Not-for-Profit Law (ICNL) kama sehemu ya kazi ya kulinda nafasi ya kiraia nchini Kenya.",
     copyright: "© {year} CRECO Kenya",
+    legalReviewed:
+      "Maudhui ya kisheria yalikaguliwa mwisho tarehe 5 Oktoba 2026. Yanafuata Sheria ya PBO, 2013, Kanuni za PBO, 2026, na muhtasari wa kisheria ulioidhinishwa.",
   },
   questionComposer: {
     collapsedPrompt: "Uliza kuhusu Sheria ya PBO — usajili, utii, Kiingereza au Kiswahili…",
@@ -403,7 +424,7 @@ export const sw: Dictionary = {
       },
       plainLanguage: {
         title: "Lugha rahisi",
-        description: "Kiingereza na Kiswahili — imeundwa kwa wafanyakazi, si wanasheria.",
+        description: "Kiingereza na Kiswahili.",
       },
     },
     footer: "© {year} CRECO Kenya · Mwongozo wa taarifa tu",
@@ -794,19 +815,43 @@ export const sw: Dictionary = {
     approved: "imeidhinishwa",
     rejected: "imekataliwa",
   },
+  newsPage: {
+    metaTitle: "Habari na Taarifa",
+    eyebrow: "Habari na Taarifa",
+    title: "Habari na Taarifa",
+    lead: "Maendeleo mapya yanayoathiri utekelezaji wa Sheria ya PBO na Kanuni za 2026.",
+    empty:
+      "Bado hakuna taarifa zilizochapishwa. Ukurasa huu utabeba habari pale tu kunapokuwa na maendeleo halisi ya kuripoti.",
+    kindsTitle: "Kitakachochapishwa hapa",
+    kinds: [
+      "Mabadiliko ya sheria",
+      "Kanuni mpya",
+      "Maamuzi muhimu ya mahakama",
+      "Mwongozo rasmi wa mdhibiti",
+      "Maendeleo mengine yanayoathiri utekelezaji wa Sheria ya PBO",
+    ],
+  },
+  formsPage: {
+    metaTitle: "Fomu",
+    eyebrow: "Kituo cha Maarifa",
+    title: "Fomu zilizowekwa katika Kanuni za 2026",
+    lead: "Hizi ni fomu zilizotajwa katika muhtasari ulioidhinishwa wa Kanuni za Mashirika ya Faida ya Umma, 2026. Tumia toleo jipya zaidi linalotolewa na Mamlaka.",
+    sourceLink: "Soma muhtasari wa uzingatiaji wa vitendo",
+    regulationsLink: "Fungua Kanuni za 2026 (PDF)",
+  },
   knowledgeHub: {
     metaTitle: "Kituo cha maarifa",
     eyebrow: "Uelewa wa kisheria",
-    title: "Kituo cha maarifa",
-    lead: "Miongozo ya lugha rahisi, Maswali Yanayoulizwa Mara kwa Mara, zana, na vyombo vya habari kuhusu Sheria ya PBO ya Kenya — yamechaguliwa na CRECO.",
+    title: "Kituo cha Maarifa",
+    lead: "Muhtasari wa Mfumo wa PBO, maswali, vyombo vya habari, vyanzo, na fomu zilizowekwa katika Kanuni za 2026.",
     imageAlt: "Mwanamke wa Kimaasai akizungumza kwa kipaza sauti na kundi la jamii katika Kaunti ya Kajiado, Kenya",
-    featuredTopics: "Mada zilizoangaziwa",
+    featuredTopics: "Muhtasari wa Mfumo wa PBO",
     faqCategories: "Jamii za Maswali Yanayoulizwa Mara kwa Mara",
     questionsCount: "Maswali {count}",
     toolkitsMedia: "Zana na vyombo vya habari",
     filters: {
       all: "Zote",
-      guides: "Miongozo",
+      guides: "Muhtasari wa Mfumo wa PBO",
       faqs: "Maswali Yanayoulizwa Mara kwa Mara",
       toolkits: "Zana",
       media: "Video na vyombo vya habari",
@@ -816,14 +861,15 @@ export const sw: Dictionary = {
     metaTitle: "Zana za utii",
     eyebrow: "Msaada wa utii",
     title: "Zana za utii",
-    lead: "Orodha za ukaguzi, tathmini ya kibinafsi, na violezo vilivyopangwa kwa maeneo ya Sheria ya PBO.",
+    lead: "Orodha moja ya tathmini binafsi, zana tofauti, na violezo vilivyopangwa kwa Sheria ya PBO.",
     checklist: {
-      title: "Orodha ya shirika",
-      description: "Fuatilia mambo ya utii mtandaoni, chapisha au hifadhi maendeleo kwenye kivinjari chako.",
+      title: "Orodha ya tathmini binafsi",
+      description:
+        "Fanya orodha ya ukaguzi, kisha fanya tathmini fupi yenye alama. Vyote viwili viko katika zana hii moja. Maswali yatasasishwa, pamoja na mantiki ya kuruka, maswali mapya yatakapokuwa tayari.",
     },
     assessment: {
-      title: "Tathmini ya kibinafsi",
-      description: "Alama za kiotomatiki zilizopangwa kwa usajili, utawala, ripoti, na uendeshaji.",
+      title: "Sehemu yenye alama ya orodha",
+      description: "Maswali nane kuhusu usajili, utawala, ripoti, na uendeshaji.",
     },
     templates: {
       title: "Maktaba ya violezo",
@@ -851,6 +897,17 @@ export const sw: Dictionary = {
       title: "Ripoti zangu",
       description: "Angalia hali ya ripoti za zamani — unahitaji kuingia.",
     },
+    areaLabel: "Eneo",
+    areaPlaceholder: "Chagua eneo",
+    areas: [
+      { id: "registration", label: "Usajili" },
+      { id: "international", label: "PBO za kimataifa" },
+      { id: "suspension", label: "Kusimamishwa na kufutwa" },
+      { id: "appeals", label: "Rufaa" },
+      { id: "forums", label: "Vikao na mashirikisho" },
+      { id: "transition", label: "Mpito" },
+      { id: "authority", label: "Ushirikiano na Mamlaka" },
+    ],
     registerPrompt: "Mgeni kwenye jukwaa?",
     registerLink: "Sajili akaunti ya PBO",
     registerSuffix: "kabla ya kuwasilisha ripoti.",
@@ -971,7 +1028,7 @@ export const sw: Dictionary = {
     footerAnswersNav: "Viungo vya kupata majibu",
     footerReportNav: "Viungo vya kuripoti suala",
     footerUsefulNav: "Viungo muhimu",
-    partnerLogos: "Nembo za washirika na mdhibiti",
+    partnerLogos: "Nembo za washirika",
     socialNav: "CRECO kwenye mitandao ya kijamii",
     socialFacebook: "CRECO kwenye Facebook",
     socialX: "CRECO kwenye X",
@@ -997,6 +1054,8 @@ export const sw: Dictionary = {
       finished: "Usomaji wa sauti umekamilika",
       skippedBack: "Umerudi nyuma katika usomaji",
       error: "Usomaji wa sauti haukuweza kuchezwa kwenye kifaa hiki",
+      kiswahiliDevice:
+        "Kiswahili kinasomwa na sauti ya Kiswahili ya kifaa hiki, ili usomaji ubaki unaeleweka.",
       unsupported: "Usomaji wa maandishi kwa sauti haupatikani kwenye kivinjari hiki. Bado unaweza kusoma maudhui hapa chini.",
     },
     glossary: {

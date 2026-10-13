@@ -2,20 +2,24 @@ import Link from "next/link";
 import { auth } from "@/auth";
 import { ChecklistPanel } from "@/components/ChecklistPanel";
 import { PageHero } from "@/components/PageHero";
+import { getDictionary, getLocale, getServerTranslations } from "@/lib/i18n/server";
 
-export const metadata = {
-  title: "Compliance checklist",
-};
+export async function generateMetadata() {
+  const locale = await getLocale();
+  const t = getDictionary(locale);
+  return { title: t.complianceHub.checklist.title };
+}
 
 export default async function ChecklistPage() {
   const session = await auth();
+  const { t } = await getServerTranslations();
 
   return (
     <>
       <PageHero
         eyebrow="Compliance"
-        title="Organizational compliance checklist"
-        lead="Work through governance, registration, reporting, and operational items."
+        title={t.complianceHub.checklist.title}
+        lead={t.complianceHub.checklist.description}
         backgroundImage="/images/hero/stay-compliant.jpg"
         backgroundAlt="Black professional preparing compliance documentation"
       />
@@ -35,6 +39,13 @@ export default async function ChecklistPage() {
             )}
           </p>
           <ChecklistPanel />
+          <p className="mt-8 text-sm leading-relaxed text-creco-muted">
+            <Link href="/compliance/assessment" className="font-semibold text-creco-primary no-underline">
+              {t.complianceHub.assessment.title}
+            </Link>
+            {" — "}
+            {t.complianceHub.assessment.description}
+          </p>
         </div>
       </section>
     </>

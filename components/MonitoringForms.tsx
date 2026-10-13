@@ -4,12 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 import { FormField, FormSelect, FormTextarea } from "@/components/FormField";
-import {
-  INCIDENT_SEVERITIES,
-  ISSUE_TYPES,
-  KENYA_COUNTIES,
-  ORG_TYPES,
-} from "@/lib/content/constants";
+import { KENYA_COUNTIES, ORG_TYPES } from "@/lib/content/constants";
+import { useTranslations } from "@/lib/i18n/client";
 import {
   clearPersistedData,
   loadPersistedData,
@@ -17,8 +13,21 @@ import {
 } from "@/lib/persist-user-data";
 import { authFetch, invalidateAuthCache } from "@/lib/auth-client";
 
+const AREA_TYPE = {
+  registration: "registration",
+  international: "registration",
+  suspension: "incident",
+  appeals: "incident",
+  forums: "incident",
+  transition: "registration",
+  authority: "incident",
+} as const;
+
+export type MonitoringArea = keyof typeof AREA_TYPE;
+
 export type MonitoringDraft = {
   type: "registration" | "enabling" | "incident";
+  area?: MonitoringArea;
   county: string;
   issueType?: string;
   severity?: string;
@@ -32,15 +41,15 @@ export type MonitoringDraft = {
 const DRAFT_KEY = "creco-monitoring-draft";
 
 type Props = {
-  type: MonitoringDraft["type"];
   title: string;
   continueHref: string;
 };
 
-export function MonitoringReportForm({ type, title, continueHref }: Props) {
+export function MonitoringReportForm({ title, continueHref }: Props) {
+  const t = useTranslations();
   const router = useRouter();
   const [form, setForm] = useState<MonitoringDraft>({
-    type,
+    type: "registration",
     county: "",
     narrative: "",
     issueType: "",
@@ -53,13 +62,13 @@ export function MonitoringReportForm({ type, title, continueHref }: Props) {
   useEffect(() => {
     let active = true;
     void loadPersistedData<MonitoringDraft>(DRAFT_KEY, sessionStorage).then((draft) => {
-      if (!active || !draft || draft.type !== type) return;
-      setForm({ ...draft, type });
+      if (!active || !draft) return;
+      setForm(draft);
     });
     return () => {
       active = false;
     };
-  }, [type]);
+  }, []);
 
   function update(field: keyof MonitoringDraft, value: string) {
     setForm((prev) => {
@@ -71,6 +80,10 @@ export function MonitoringReportForm({ type, title, continueHref }: Props) {
 
   function onSubmit(e: FormEvent) {
     e.preventDefault();
+    if (!form.area) {
+      setError("Please choose the area you are reporting on.");
+      return;
+    }
     if (form.narrative.trim().length < 20) {
       setError("Please describe your experience in at least a few sentences.");
       return;
@@ -88,6 +101,27 @@ export function MonitoringReportForm({ type, title, continueHref }: Props) {
       <h1 className="text-2xl font-bold text-creco-primary">{title}</h1>
 
       <FormSelect
+        id="area"
+        label={t.monitoringHub.areaLabel}
+        required
+        value={form.area ?? ""}
+        onChange={(e) => {
+          const area = e.target.value as MonitoringArea;
+          const match = t.monitoringHub.areas.find((item) => item.id === area);
+          update("area", area);
+          update("type", AREA_TYPE[area] ?? "incident");
+          update("issueType", match?.label ?? area);
+        }}
+      >
+        <option value="">{t.monitoringHub.areaPlaceholder}</option>
+        {t.monitoringHub.areas.map((area) => (
+          <option key={area.id} value={area.id}>
+            {area.label}
+          </option>
+        ))}
+      </FormSelect>
+
+      <FormSelect
         id="county"
         label="County"
         required
@@ -101,38 +135,6 @@ export function MonitoringReportForm({ type, title, continueHref }: Props) {
           </option>
         ))}
       </FormSelect>
-
-      {type === "registration" && (
-        <FormSelect
-          id="issueType"
-          label="Type of issue"
-          value={form.issueType ?? ""}
-          onChange={(e) => update("issueType", e.target.value)}
-        >
-          <option value="">Select issue type</option>
-          {ISSUE_TYPES.map((issue) => (
-            <option key={issue} value={issue}>
-              {issue}
-            </option>
-          ))}
-        </FormSelect>
-      )}
-
-      {type === "incident" && (
-        <FormSelect
-          id="severity"
-          label="Severity"
-          value={form.severity ?? ""}
-          onChange={(e) => update("severity", e.target.value)}
-        >
-          <option value="">Select severity</option>
-          {INCIDENT_SEVERITIES.map((level) => (
-            <option key={level} value={level}>
-              {level}
-            </option>
-          ))}
-        </FormSelect>
-      )}
 
       <FormField
         id="experienceDate"
@@ -184,6 +186,7 @@ export function MonitoringUploadForm() {
   const router = useRouter();
   const [draft, setDraft] = useState<MonitoringDraft | null>(null);
   const [attachmentNote, setAttachmentNote] = useState("");
+  const [files, setFiles] = useState<File[]>([]);
   const [consent, setConsent] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -212,13 +215,22 @@ export function MonitoringUploadForm() {
     setLoading(true);
     setError("");
 
-    const res = await authFetch("/api/submissions", {
-      method: "POST",
-      body: JSON.stringify({
+    const names = files.map((file) => file.name).join(", ");
+    const note = [attachmentNote.trim(), names ? `Attached: ${names}` : ""].filter(Boolean).join("\n");
+    const payload = new FormData();
+    payload.set(
+      "payload",
+      JSON.stringify({
         ...draft,
-        attachmentNote,
+        attachmentNote: note,
         consentGiven: consent,
       }),
+    );
+    for (const file of files) payload.append("files", file);
+
+    const res = await authFetch("/api/submissions", {
+      method: "POST",
+      body: payload,
     });
 
     const data = await res.json();
@@ -249,8 +261,20 @@ export function MonitoringUploadForm() {
     <form onSubmit={onSubmit} className="mx-auto max-w-2xl space-y-4">
       <h1 className="text-2xl font-bold text-creco-primary">Upload & consent</h1>
       <p className="text-sm text-creco-muted">
-        Attach supporting documents in production. For now, note filenames or describe evidence below.
+        Attach supporting documents or other evidence. PDF, Word, and image files up to 5 MB each.
       </p>
+
+      <label className="block text-sm font-medium text-creco-black dark:text-foreground" htmlFor="evidence">
+        Supporting documents
+      </label>
+      <input
+        id="evidence"
+        type="file"
+        multiple
+        accept=".pdf,.png,.jpg,.jpeg,.webp,.doc,.docx,application/pdf,image/*"
+        className="block w-full text-sm text-creco-muted"
+        onChange={(e) => setFiles(Array.from(e.target.files ?? []))}
+      />
 
       <FormTextarea
         id="attachmentNote"

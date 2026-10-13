@@ -10,9 +10,10 @@ export const en = {
     guidance: "Guidance",
     topics: "Topics",
     sources: "Sources",
-    knowledge: "Knowledge",
+    knowledge: "Knowledge Hub",
     compliance: "Compliance",
     monitoring: "Monitoring",
+    news: "News & Updates",
     dashboard: "Dashboard",
     account: "Account settings",
     submissions: "My submissions",
@@ -23,7 +24,7 @@ export const en = {
     signOut: "Sign out",
     login: "Login",
     register: "Register",
-    askQuestion: "Ask a question",
+    askQuestion: "Ask About the PBO Act",
     contact: "Contact us",
     toggleNav: "Toggle navigation",
     sectionNav: "Section navigation",
@@ -31,20 +32,25 @@ export const en = {
     accountMenu: "Account menu",
     openMenu: "Open {label} menu",
     menu: {
-      knowledgeHub: "Knowledge hub",
+      knowledgeHub: "Knowledge Hub",
       allTopics: "All topics",
+      frameworkSummaries: "PBO Framework Summaries",
       faqs: "FAQs",
       toolkits: "Toolkits",
-      media: "Videos & media",
+      media: "Media",
+      forms: "Forms",
       complianceOverview: "Compliance tools",
       checklist: "Organizational checklist",
       assessment: "Self-assessment",
+      selfAssessmentChecklist: "Self-assessment checklist",
+      toolkit: "Toolkit",
       templates: "Template library",
-      askGuidance: "Ask a question",
+      askGuidance: "Ask About the PBO Act",
       askCreco: "Ask CRECO directly",
       flagFeedback: "Flag or feedback",
       sources: "Source documents",
       monitoringOverview: "Monitoring",
+      reportExperience: "Report an experience",
       registration: "Registration experience",
       enabling: "Enabling practices",
       incident: "Civic space incident",
@@ -75,37 +81,52 @@ export const en = {
       languages: "Languages",
       partner: "Partner",
     },
+    about: {
+      eyebrow: "About the platform",
+      title: "What this platform is for",
+      purpose:
+        "This platform introduces the Public Benefit Organizations Act, 2013 and the Public Benefit Organizations Regulations, 2026. CRECO publishes it so organisations can understand the law, check their compliance, record how implementation is working, and ask questions that stay tied to the approved sources.",
+      usersTitle: "Who it is for",
+      users:
+        "Public benefit organisations, community organisations, and partners who need a practical account of the Act and the Regulations.",
+    },
     howItWorks: {
-      eyebrow: "How it works",
-      title: "Three ways to find what you need",
-      lead: "Start with a question, browse topics, or go straight to the official documents.",
+      eyebrow: "Main functions",
+      title: "What you can do here",
+      lead: "Legal awareness, compliance guidance and assessment, implementation monitoring, and interactive legal guidance.",
       open: "Open",
     },
     modules: {
+      awareness: {
+        title: "Legal awareness",
+        description:
+          "Read the PBO Framework Summaries, FAQs, sources, and the forms prescribed in the 2026 Regulations.",
+      },
+      compliance: {
+        title: "Compliance guidance and assessment",
+        description:
+          "Use the self-assessment checklist, the toolkit, and the template library.",
+      },
+      monitoring: {
+        title: "Implementation monitoring",
+        description:
+          "Report an experience of the Act in practice, including registration, transition, and engagement with the Authority.",
+      },
       guidance: {
-        title: "PBO Guidance",
+        title: "Interactive legal guidance",
         description:
-          "Look up answers to registration and compliance questions, with links to source material.",
-      },
-      topics: {
-        title: "Topic library",
-        description:
-          "Browse compiled pages on registration, the regulatory authority, and the Act's purpose.",
-      },
-      sources: {
-        title: "Source documents",
-        description: "View the approved PBO Act PDFs that every topic page is built from.",
+          "Ask About the PBO Act, or send a question directly to CRECO.",
       },
     },
     why: {
       eyebrow: "Why this platform",
       title: "Built for organisations on the ground",
-      lead: "PBO staff and community organisations need practical answers — not legal jargon. Every topic page is compiled from approved materials, reviewable by CRECO before publication, and traceable to the original source documents.",
+      lead: "Every topic page is compiled from the Act, the 2026 Regulations, and the approved legal summaries, and can be traced back to those sources.",
       points: [
         "Source-linked responses you can verify",
-        "Plain language for non-lawyers",
-        "Kiswahili questions supported",
-        "Staff can update topics as laws change",
+        "English and Kiswahili",
+        "Topic pages follow the approved legal summaries",
+        "News and updates when the law or official guidance changes",
       ],
     },
     history: {
@@ -192,11 +213,11 @@ export const en = {
           imageAlt: "Black professional preparing compliance documentation",
         },
         {
-          eyebrow: "Ask a Question",
+          eyebrow: "Ask About the PBO Act",
           headline: "Get Source-Linked Answers",
           description:
             "Ask about registration or compliance in English or Kiswahili, and get answers traced back to approved legal documents.",
-          ctaLabel: "Ask now",
+          ctaLabel: "Ask About the PBO Act",
           imageAlt: "Black women collaborating over guidance materials at a meeting table",
         },
         {
@@ -214,18 +235,18 @@ export const en = {
       searchLabel: "Search the platform",
       browseLabel: "Or browse by:",
       links: [
-        { label: "Knowledge hub", href: "/knowledge" },
+        { label: "Knowledge Hub", href: "/knowledge" },
         { label: "Compliance", href: "/compliance" },
-        { label: "Guidance tool", href: "/guidance" },
         { label: "Monitoring", href: "/monitoring" },
+        { label: "News & Updates", href: "/news" },
         { label: "Sign in", href: "/login" },
       ],
     },
   },
   guidance: {
-    metaTitle: "PBO Guidance",
-    eyebrow: "Guidance tool",
-    title: "PBO Act guidance",
+    metaTitle: "Ask About the PBO Act",
+    eyebrow: "Ask About the PBO Act",
+    title: "Ask About the PBO Act",
     lead: "Ask a question in English or Kiswahili. Answers use CRECO's compiled topics when they match, and AI (when configured) to synthesize guidance or fill gaps from general PBO Act context.",
   },
   topics: {
@@ -258,7 +279,7 @@ export const en = {
     ],
     control: {
       title: "Document control",
-      lead: "Only CRECO-approved materials are compiled into topic pages. Staff can add Kiswahili summaries, plain-language guides, and updated regulations as they become available.",
+      lead: "Only CRECO-approved materials are compiled into topic pages. Kiswahili summaries and updated regulations are added when CRECO approves them.",
     },
   },
   footer: {
@@ -298,6 +319,8 @@ export const en = {
     partnershipText:
       "Developed with the International Center for Not-for-Profit Law (ICNL) as part of civic space safeguarding work in Kenya.",
     copyright: "© {year} CRECO Kenya",
+    legalReviewed:
+      "Legal content last reviewed on 5 October 2026. It follows the PBO Act, 2013, the PBO Regulations, 2026, and the approved legal summaries.",
   },
   questionComposer: {
     collapsedPrompt: "Ask about the PBO Act — registration, compliance, English or Kiswahili…",
@@ -401,7 +424,7 @@ export const en = {
       },
       plainLanguage: {
         title: "Plain language",
-        description: "English and Kiswahili — designed for staff, not lawyers.",
+        description: "English and Kiswahili.",
       },
     },
     footer: "© {year} CRECO Kenya · Informational guidance only",
@@ -791,19 +814,43 @@ export const en = {
     approved: "approved",
     rejected: "rejected",
   },
+  newsPage: {
+    metaTitle: "News & Updates",
+    eyebrow: "News & Updates",
+    title: "News & Updates",
+    lead: "New developments that affect implementation of the PBO Act and the 2026 Regulations.",
+    empty:
+      "No updates have been published yet. This page will carry items only when there is a real development to report.",
+    kindsTitle: "What will be published here",
+    kinds: [
+      "Legislative changes",
+      "New regulations",
+      "Relevant court decisions",
+      "Official regulatory guidance",
+      "Other developments that affect implementation of the PBO Act",
+    ],
+  },
+  formsPage: {
+    metaTitle: "Forms",
+    eyebrow: "Knowledge Hub",
+    title: "Forms prescribed in the 2026 Regulations",
+    lead: "These are the forms named in the approved summary of the Public Benefit Organizations Regulations, 2026. Use the latest version issued by the Authority.",
+    sourceLink: "Read the practical compliance summary",
+    regulationsLink: "Open the 2026 Regulations (PDF)",
+  },
   knowledgeHub: {
     metaTitle: "Knowledge hub",
     eyebrow: "Legal awareness",
-    title: "Knowledge hub",
-    lead: "Plain-language guides, FAQs, toolkits, and media on Kenya's PBO Act — curated by CRECO.",
+    title: "Knowledge Hub",
+    lead: "PBO Framework Summaries, FAQs, media, sources, and the forms prescribed in the 2026 Regulations.",
     imageAlt: "A Maasai woman speaking with a microphone to a community group in Kajiado County, Kenya",
-    featuredTopics: "Featured topics",
+    featuredTopics: "PBO Framework Summaries",
     faqCategories: "FAQ categories",
     questionsCount: "{count} questions",
     toolkitsMedia: "Toolkits & media",
     filters: {
       all: "All",
-      guides: "Guides",
+      guides: "PBO Framework Summaries",
       faqs: "FAQs",
       toolkits: "Toolkits",
       media: "Videos & media",
@@ -813,14 +860,15 @@ export const en = {
     metaTitle: "Compliance tools",
     eyebrow: "Compliance support",
     title: "Compliance tools",
-    lead: "Checklists, self-assessment, and templates mapped to PBO Act domains.",
+    lead: "One self-assessment checklist, a separate toolkit, and templates mapped to the PBO Act.",
     checklist: {
-      title: "Organizational checklist",
-      description: "Track compliance items online, print or save progress in your browser.",
+      title: "Self-assessment checklist",
+      description:
+        "Work through the checklist, then take the short scored assessment. Both sit in this one tool. The question set will be refined, including skip logic, when the updated questions are ready.",
     },
     assessment: {
-      title: "Self-assessment",
-      description: "Automated scoring mapped to registration, governance, reporting, and operations.",
+      title: "Scored part of the checklist",
+      description: "Eight questions across registration, governance, reporting, and operations.",
     },
     templates: {
       title: "Template library",
@@ -848,6 +896,17 @@ export const en = {
       title: "My submissions",
       description: "View status of past reports — sign in required.",
     },
+    areaLabel: "Area",
+    areaPlaceholder: "Select an area",
+    areas: [
+      { id: "registration", label: "Registration" },
+      { id: "international", label: "International PBOs" },
+      { id: "suspension", label: "Suspension and cancellation" },
+      { id: "appeals", label: "Appeals" },
+      { id: "forums", label: "Forums and federations" },
+      { id: "transition", label: "Transition" },
+      { id: "authority", label: "Engagement with the Authority" },
+    ],
     registerPrompt: "New to the platform?",
     registerLink: "Register a PBO account",
     registerSuffix: "before submitting reports.",
@@ -968,7 +1027,7 @@ export const en = {
     footerAnswersNav: "Get answers links",
     footerReportNav: "Report an issue links",
     footerUsefulNav: "Useful links",
-    partnerLogos: "Partner and regulator logos",
+    partnerLogos: "Partner logos",
     socialNav: "CRECO on social media",
     socialFacebook: "CRECO on Facebook",
     socialX: "CRECO on X",
@@ -994,6 +1053,8 @@ export const en = {
       finished: "Audio narration finished",
       skippedBack: "Skipped back in narration",
       error: "Audio narration could not play on this device",
+      kiswahiliDevice:
+        "Kiswahili is read by this device's Kiswahili voice, so the reading stays understandable.",
       unsupported: "Text-to-speech is not available in this browser. You can still read the content below.",
     },
     glossary: {

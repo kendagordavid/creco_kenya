@@ -27,7 +27,7 @@ export default async function ChecklistPage() {
         <div className="creco-container max-w-3xl">
           <p className="creco-no-print mb-6 text-sm text-creco-muted">
             {session?.user ? (
-              <>Progress syncs to your CRECO account and stays available when you sign in on other devices.</>
+              <>Progress syncs to your Mashariki Law account and stays available when you sign in on other devices.</>
             ) : (
               <>
                 Progress is saved in this browser.{" "}

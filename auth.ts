@@ -5,7 +5,7 @@ import { authConfig } from "@/auth.config";
 import { isGoogleAuthEnabled, provisionGoogleUser } from "@/lib/auth-oauth";
 import { createGoogleProvider } from "@/lib/google-provider";
 import { normalizeRole } from "@/lib/authz";
-import { findUserByEmail } from "@/lib/store";
+import { findUserByEmail, findUserById } from "@/lib/store";
 
 const providers = [
   ...(isGoogleAuthEnabled()
@@ -52,6 +52,35 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers,
   callbacks: {
     ...authConfig.callbacks,
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.orgName = user.orgName;
+        token.role = user.role;
+        if (user.name) token.name = user.name;
+        return token;
+      }
+
+      const label = `${token.name ?? ""} ${token.orgName ?? ""}`;
+      if (token.id && /creco/i.test(label)) {
+        const dbUser = await findUserById(String(token.id));
+        if (dbUser) {
+          token.name = dbUser.name;
+          token.orgName = dbUser.orgName;
+        }
+      }
+
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id as string;
+        session.user.orgName = token.orgName as string | undefined;
+        session.user.role = token.role;
+        if (typeof token.name === "string") session.user.name = token.name;
+      }
+      return session;
+    },
     async signIn({ user, account }) {
       if (account?.provider !== "google") return true;
 

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { BookOpen, Shield, Users } from "lucide-react";
+import { BrandLogo } from "@/components/BrandLogo";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { useFormat, useTranslations } from "@/lib/i18n/client";
 
@@ -54,11 +55,9 @@ export function AuthShell({ children }: Props) {
 
         <div className="relative z-10">
           <Link href="/" className="inline-flex items-center gap-3 no-underline">
-            <span className="flex size-11 items-center justify-center rounded-xl bg-white/10 text-lg font-bold ring-1 ring-white/20 backdrop-blur-sm">
-              C
-            </span>
+            <BrandLogo variant="full" className="h-32 w-auto" />
             <span>
-              <span className="block text-lg font-bold leading-none">CRECO Kenya</span>
+              <span className="block text-lg font-bold leading-none">Mashariki Law</span>
               <span className="mt-1 block text-[0.625rem] font-bold uppercase tracking-[0.2em] text-creco-green-light">
                 {t.authShell.platformLabel}
               </span>

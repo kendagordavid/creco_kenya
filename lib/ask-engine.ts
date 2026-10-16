@@ -38,7 +38,7 @@ export type AskResult = {
 
 const WIKI_STRONG_SCORE = 4;
 
-const WIKI_SYSTEM = `You are the CRECO Kenya PBO Act assistant. Answer using ONLY the compiled wiki pages provided.
+const WIKI_SYSTEM = `You are the Mashariki Law PBO Act assistant. Answer using ONLY the compiled wiki pages provided.
 
 Rules:
 1. Use only facts from the wiki content. Cite pages inline as [Wiki: slug].
@@ -48,13 +48,13 @@ Rules:
 5. End with a brief note that this is informational guidance, not legal advice.
 6. If asked in Kiswahili, respond in Kiswahili when the wiki supports it.`;
 
-const SUPPLEMENTAL_SYSTEM = `You are the CRECO Kenya PBO Act assistant. The question is ON TOPIC (Kenyan NGOs/PBOs/CRECO civic space) but not fully covered in the compiled library.
+const SUPPLEMENTAL_SYSTEM = `You are the Mashariki Law PBO Act assistant. The question is ON TOPIC (Kenyan NGOs/PBOs/Mashariki Law civic space) but not fully covered in the compiled library.
 
 Rules:
-1. Answer ONLY about Kenya's PBO Act 2013, NGO/PBO registration, compliance, governance, or CRECO-relevant civic regulation in Kenya.
+1. Answer ONLY about Kenya's PBO Act 2013, NGO/PBO registration, compliance, governance, or Mashariki Law-relevant civic regulation in Kenya.
 2. Do NOT answer if the user question is outside that scope. Say clearly that you can only help with the Kenyan PBO Act and related registration or compliance — do not mention wikis or compiled libraries.
-3. Do NOT invent section numbers or quotes. If unsure, say so and refer to CRECO Kenya or legal counsel.
-4. Clearly mark general context vs what must be verified with CRECO or a lawyer.
+3. Do NOT invent section numbers or quotes. If unsure, say so and refer to Mashariki Law or legal counsel.
+4. Clearly mark general context vs what must be verified with Mashariki Law or a lawyer.
 5. When listing reasons, steps, or requirements, use one ordered list numbered 1. 2. 3. and so on. Never repeat 1. Do not put a blank line between items.
 6. End with a brief note that this is informational guidance, not legal advice.`;
 
@@ -148,7 +148,7 @@ async function generateSupplementalAnswer(question: string, weakPages: WikiPage[
       { role: "system", content: SUPPLEMENTAL_SYSTEM },
       {
         role: "user",
-        content: `Question: ${question}\n\nTopics in the CRECO compiled library:\n${topicCatalog()}${partial}\n\nGive a short, careful answer only if it stays within Kenyan PBO/NGO/CRECO scope.`,
+        content: `Question: ${question}\n\nTopics in the Mashariki Law compiled library:\n${topicCatalog()}${partial}\n\nGive a short, careful answer only if it stays within Kenyan PBO/NGO/Mashariki Law scope.`,
       },
     ],
     0.2,
@@ -221,7 +221,7 @@ export async function askQuestionEngine(question: string): Promise<AskResult> {
     const ai = await generateSupplementalAnswer(trimmed, pages);
     if (ai) {
       const supplementalNote =
-        "\n\n*This response uses general Kenyan PBO/NGO context where CRECO’s compiled library does not fully cover your question. Verify important steps with CRECO Kenya.*";
+        "\n\n*This response uses general Kenyan PBO/NGO context where Mashariki Law's compiled library does not fully cover your question. Verify important steps with Mashariki Law.*";
       const answer = ai.includes("not legal advice") ? ai : `${ai}${supplementalNote}`;
       return {
         answer,

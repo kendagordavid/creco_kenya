@@ -29,8 +29,8 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     description: t.meta.description,
     icons: {
-      icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
-      apple: [{ url: "/icon.svg", type: "image/svg+xml" }],
+      icon: [{ url: "/icon.png", type: "image/png" }],
+      apple: [{ url: "/icon.png", type: "image/png" }],
     },
   };
 }

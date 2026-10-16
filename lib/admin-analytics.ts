@@ -270,7 +270,7 @@ function csvRow(values: Array<string | number>): string {
 
 export function analyticsToCsv(data: AdminAnalytics): string {
   const lines = [
-    csvRow(["CRECO staff analytics"]),
+    csvRow(["Mashariki Law staff analytics"]),
     csvRow(["From", "To", "Timezone", "Grain", "Days"]),
     csvRow([data.range.from, data.range.to, data.range.timezone, data.range.grain, data.range.days]),
     csvRow(["Previous from", "Previous to"]),

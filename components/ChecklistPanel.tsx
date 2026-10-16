@@ -46,7 +46,7 @@ export function ChecklistPanel() {
   return (
     <div className="creco-print-sheet">
       <div className="creco-print-only">
-        <p className="text-sm font-semibold">CRECO Kenya · PBO Act Platform</p>
+        <p className="text-sm font-semibold">Mashariki Law · PBO Act Platform</p>
         <h1 className="mt-1 text-2xl font-bold">Organizational compliance checklist</h1>
       </div>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">

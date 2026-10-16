@@ -51,7 +51,7 @@ const nextConfig: NextConfig = {
         headers: [{ key: "Cache-Control", value: immutableCache }],
       },
       {
-        source: "/icon.svg",
+        source: "/icon.png",
         headers: [{ key: "Cache-Control", value: immutableCache }],
       },
       {

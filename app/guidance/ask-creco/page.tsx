@@ -2,7 +2,7 @@ import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
 
 export const metadata = {
-  title: "Ask CRECO",
+  title: "Ask Mashariki Law",
 };
 
 export default function AskCrecoPage() {
@@ -10,7 +10,7 @@ export default function AskCrecoPage() {
     <>
       <PageHero
         eyebrow="Guidance"
-        title="Ask CRECO"
+        title="Ask Mashariki Law"
         lead="Request human follow-up when automated guidance does not fully address your situation."
         backgroundImage="/images/pages/contact-conversation.jpg"
         backgroundAlt="Two people in conversation across a table"
@@ -23,7 +23,7 @@ export default function AskCrecoPage() {
               <a href="mailto:info@crecokenya.org" className="font-semibold text-creco-primary">
                 info@crecokenya.org
               </a>{" "}
-              with your organisation name, county, and a brief description. CRECO staff respond when
+              with your organisation name, county, and a brief description. Mashariki Law staff respond when
               capacity allows — typically within a few working days.
             </p>
             <p className="mt-4 text-sm text-creco-muted">

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, LogOut, Menu, X } from "lucide-react";
+import { BrandLogo } from "@/components/BrandLogo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { SocialLinks } from "@/components/SocialLinks";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
@@ -75,7 +76,7 @@ function NavDropdown({
           if (rootRef.current) releaseStuckFocus(rootRef.current);
         }}
         className={cn(
-          "flex h-16 items-center gap-1 whitespace-nowrap border-b-2 px-2.5 text-sm font-medium no-underline transition-colors",
+          "flex h-20 items-center gap-1 whitespace-nowrap border-b-2 px-2.5 text-sm font-medium no-underline transition-colors",
           active
             ? "border-creco-primary text-creco-primary"
             : "border-transparent text-creco-black-soft hover:text-creco-primary dark:text-foreground/80 dark:hover:text-creco-green-light",
@@ -128,7 +129,7 @@ function NavLink({
       onClick={onNavigate}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "flex h-16 shrink-0 items-center whitespace-nowrap border-b-2 px-2.5 text-sm font-medium no-underline transition-colors",
+        "flex h-20 shrink-0 items-center whitespace-nowrap border-b-2 px-2.5 text-sm font-medium no-underline transition-colors",
         active
           ? "border-creco-primary text-creco-primary"
           : "border-transparent text-creco-black-soft hover:text-creco-primary dark:text-foreground/80 dark:hover:text-creco-green-light",
@@ -191,20 +192,17 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-creco-border/90 bg-background/90 shadow-[0_1px_2px_rgba(10,10,10,0.04)] backdrop-blur-md dark:border-border dark:bg-background/90 dark:shadow-none">
-      <div className="mx-auto flex h-16 w-full max-w-[90rem] items-center px-3 sm:px-8" style={{ paddingLeft: "max(0.75rem, env(safe-area-inset-left))", paddingRight: "max(0.75rem, env(safe-area-inset-right))" }}>
+      <div className="mx-auto flex h-20 w-full max-w-[90rem] items-center px-3 sm:px-8" style={{ paddingLeft: "max(0.75rem, env(safe-area-inset-left))", paddingRight: "max(0.75rem, env(safe-area-inset-right))" }}>
         <Link
           href="/"
           aria-label={t.a11y.homeLink}
           className="group flex shrink-0 items-center gap-2.5 no-underline"
         >
-          <span
-            className="flex size-10 items-center justify-center rounded-lg bg-creco-primary text-sm font-bold text-white"
-            aria-hidden
-          >
-            C
-          </span>
+          <BrandLogo priority variant="mark" className="h-16 w-16" />
           <span className="hidden sm:block">
-            <span className="block text-base font-bold leading-none text-creco-black dark:text-foreground">CRECO</span>
+            <span className="block text-base font-bold leading-none text-creco-black dark:text-foreground">
+              Mashariki Law
+            </span>
             <span className="mt-0.5 block text-[0.625rem] font-semibold uppercase tracking-wider text-creco-muted dark:text-muted-foreground">
               PBO Act Platform
             </span>
@@ -235,7 +233,7 @@ export function SiteHeader() {
           <SocialLinks compact className="ml-4 hidden xl:flex" />
           <Link
             href="/contact"
-            className="hidden h-16 shrink-0 items-center whitespace-nowrap px-2.5 text-sm font-medium text-creco-black-soft no-underline transition-colors hover:text-creco-primary xl:inline-flex dark:text-foreground/80 dark:hover:text-creco-green-light"
+            className="hidden h-20 shrink-0 items-center whitespace-nowrap px-2.5 text-sm font-medium text-creco-black-soft no-underline transition-colors hover:text-creco-primary xl:inline-flex dark:text-foreground/80 dark:hover:text-creco-green-light"
           >
             {t.nav.contact}
           </Link>
@@ -273,7 +271,7 @@ export function SiteHeader() {
         <nav
           id="mobile-primary-nav"
           aria-label={isLoggedIn ? t.nav.platformNav : t.nav.sectionNav}
-          className="max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-creco-border bg-background px-4 py-3 dark:border-border xl:hidden"
+          className="max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain border-t border-creco-border bg-background px-4 py-3 dark:border-border xl:hidden"
         >
           <ul className="space-y-1">
             {navItems.map((item) => (

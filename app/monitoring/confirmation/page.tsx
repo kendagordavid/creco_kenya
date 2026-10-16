@@ -20,7 +20,7 @@ export default async function MonitoringConfirmationPage({ searchParams }: Props
             <span className="creco-check-icon mx-auto !h-12 !w-12 text-lg">✓</span>
             <h1 className="mt-4 text-2xl font-bold text-creco-primary">Report submitted</h1>
             <p className="mt-3 text-sm text-creco-muted">
-              Reference <strong>{ref}</strong>. CRECO staff will review confidentially. You can
+              Reference <strong>{ref}</strong>. Mashariki Law staff will review confidentially. You can
               track status in My submissions.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">

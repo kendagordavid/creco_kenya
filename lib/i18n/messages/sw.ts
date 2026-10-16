@@ -2,8 +2,8 @@ import type { Dictionary } from "./en";
 
 export const sw: Dictionary = {
   meta: {
-    title: "Jukwaa la Sheria ya PBO la CRECO",
-    titleTemplate: "%s | Jukwaa la Sheria ya PBO la CRECO",
+    title: "Jukwaa la Sheria ya PBO la Mashariki Law",
+    titleTemplate: "%s | Jukwaa la Sheria ya PBO la Mashariki Law",
     description:
       "Ufikiaji wa kiraia na mwongozo kuhusu Sheria ya Mashirika ya Faida ya Umma, 2013 — kwa PBO, mashirika ya jamii, na washirika.",
   },
@@ -48,7 +48,7 @@ export const sw: Dictionary = {
       toolkit: "Zana",
       templates: "Maktaba ya violezo",
       askGuidance: "Uliza kuhusu Sheria ya PBO",
-      askCreco: "Uliza CRECO moja kwa moja",
+      askCreco: "Uliza Mashariki Law moja kwa moja",
       flagFeedback: "Ripoti au maoni",
       sources: "Nyaraka za chanzo",
       monitoringOverview: "Ufuatiliaji",
@@ -74,7 +74,7 @@ export const sw: Dictionary = {
   home: {
     eyebrow: "Ufikiaji wa kiraia kwa PBO · Kenya",
     title: "Elewa Sheria ya PBO kwa mwongozo wazi unaounganishwa na vyanzo",
-    lead: "CRECO Kenya huwasaidia Mashirika ya Faida ya Umma kuelewa Sheria ya Mashirika ya Faida ya Umma, 2013 — kupitia mada za lugha rahisi, mwongozo unaoweza kutafutwa, na marejeo ya nyaraka za kisheria zilizoidhinishwa.",
+    lead: "Mashariki Law huwasaidia Mashirika ya Faida ya Umma kuelewa Sheria ya Mashirika ya Faida ya Umma, 2013 — kupitia mada za lugha rahisi, mwongozo unaoweza kutafutwa, na marejeo ya nyaraka za kisheria zilizoidhinishwa.",
     lookUpGuidance: "Tafuta mwongozo",
     exploreTopics: "Chunguza mada",
     stats: {
@@ -87,7 +87,7 @@ export const sw: Dictionary = {
       eyebrow: "Kuhusu jukwaa",
       title: "Jukwaa hili ni la nini",
       purpose:
-        "Jukwaa hili linaanzisha Sheria ya Mashirika ya Faida ya Umma, 2013 na Kanuni za Mashirika ya Faida ya Umma, 2026. CRECO inalichapisha ili mashirika yaelewe sheria, yakague uzingatiaji, yarekodi jinsi utekelezaji unavyoendelea, na yaulize maswali yanayobaki yamefungamanishwa na vyanzo vilivyoidhinishwa.",
+        "Jukwaa hili linaanzisha Sheria ya Mashirika ya Faida ya Umma, 2013 na Kanuni za Mashirika ya Faida ya Umma, 2026. Mashariki Law inalichapisha ili mashirika yaelewe sheria, yakague uzingatiaji, yarekodi jinsi utekelezaji unavyoendelea, na yaulize maswali yanayobaki yamefungamanishwa na vyanzo vilivyoidhinishwa.",
       usersTitle: "Ni kwa nani",
       users:
         "Mashirika ya faida ya umma, mashirika ya jamii, na washirika wanaohitaji maelezo ya vitendo kuhusu Sheria na Kanuni.",
@@ -115,7 +115,7 @@ export const sw: Dictionary = {
       },
       guidance: {
         title: "Mwongozo wa kisheria wa moja kwa moja",
-        description: "Uliza kuhusu Sheria ya PBO, au tuma swali moja kwa moja kwa CRECO.",
+        description: "Uliza kuhusu Sheria ya PBO, au tuma swali moja kwa moja kwa Mashariki Law.",
       },
     },
     why: {
@@ -181,7 +181,7 @@ export const sw: Dictionary = {
       button: "Nenda kwenye zana ya mwongozo",
     },
     hero: {
-      ariaLabel: "Muhtasari wa jukwaa la Sheria ya PBO la CRECO",
+      ariaLabel: "Muhtasari wa jukwaa la Sheria ya PBO la Mashariki Law",
       previousSlide: "Slaidi iliyotangulia",
       nextSlide: "Slaidi inayofuata",
       chooseSlide: "Chagua slaidi",
@@ -194,7 +194,7 @@ export const sw: Dictionary = {
           description:
             "Mwongozo wa lugha rahisi kuhusu malengo na madhumuni ya Sheria, ili shirika lako lijue hasa mahali lilipo.",
           ctaLabel: "Chunguza mada",
-          imageAlt: "Mchoro wa CRECO unaoeleza shirika la faida ya umma",
+          imageAlt: "Mchoro wa Mashariki Law unaoeleza shirika la faida ya umma",
         },
         {
           eyebrow: "Jisajili Kwa Usahihi",
@@ -202,7 +202,7 @@ export const sw: Dictionary = {
           description:
             "Mwongozo wa hatua kwa hatua kuhusu mchakato wa usajili, ratiba, na mahitaji kwa Mashirika ya Faida ya Umma.",
           ctaLabel: "Anza mwongozo",
-          imageAlt: "Mchoro wa CRECO kuhusu jinsi ya kusajili PBO",
+          imageAlt: "Mchoro wa Mashariki Law kuhusu jinsi ya kusajili PBO",
         },
         {
           eyebrow: "Endelea Kuwa na Uzingatiaji",
@@ -247,7 +247,7 @@ export const sw: Dictionary = {
     metaTitle: "Uliza kuhusu Sheria ya PBO",
     eyebrow: "Uliza kuhusu Sheria ya PBO",
     title: "Uliza kuhusu Sheria ya PBO",
-    lead: "Uliza swali kwa Kiingereza au Kiswahili. Majibu hutumia mada zilizokusanywa na CRECO zinapolingana, na AI (inapowekwa) kusintetiza mwongozo au kujaza mapengo kutoka muktadha wa jumla wa Sheria ya PBO.",
+    lead: "Uliza swali kwa Kiingereza au Kiswahili. Majibu hutumia mada zilizokusanywa na Mashariki Law zinapolingana, na AI (inapowekwa) kusintetiza mwongozo au kujaza mapengo kutoka muktadha wa jumla wa Sheria ya PBO.",
   },
   topics: {
     metaTitle: "Mada",
@@ -279,13 +279,13 @@ export const sw: Dictionary = {
     ],
     control: {
       title: "Udhibiti wa nyaraka",
-      lead: "Nyaraka zilizoidhinishwa na CRECO pekee ndizo zinazokusanywa kwenye kurasa za mada. Muhtasari wa Kiswahili na kanuni zilizosasishwa huongezwa CRECO inapozikubali.",
+      lead: "Nyaraka zilizoidhinishwa na Mashariki Law pekee ndizo zinazokusanywa kwenye kurasa za mada. Muhtasari wa Kiswahili na kanuni zilizosasishwa huongezwa Mashariki Law inapozikubali.",
     },
   },
   footer: {
     tagline:
       "Kulinda nafasi ya kiraia kupitia uelewa wa kisheria na ufuatiliaji wa utekelezaji wa Sheria ya PBO nchini Kenya.",
-    askCrecoCta: "Uliza CRECO",
+    askCrecoCta: "Uliza Mashariki Law",
     columns: {
       aboutUs: "Kuhusu sisi",
       registerPbo: "Sajili PBO",
@@ -308,17 +308,17 @@ export const sw: Dictionary = {
       templates: "Violezo",
       guidanceTools: "Zana za mwongozo",
       faqs: "Maswali",
-      askCrecoDirectly: "Uliza CRECO moja kwa moja",
+      askCrecoDirectly: "Uliza Mashariki Law moja kwa moja",
       experiences: "Uzoefu",
       evolvingPractices: "Mbinu zinazoendelea",
       anonymousReport: "Ripoti bila kujulikana",
       pbora: "PBORA",
-      creco: "CRECO",
+      creco: "Mashariki Law",
       icnl: "ICNL",
     },
     partnershipText:
       "Imeundwa na International Center for Not-for-Profit Law (ICNL) kama sehemu ya kazi ya kulinda nafasi ya kiraia nchini Kenya.",
-    copyright: "© {year} CRECO Kenya",
+    copyright: "© {year} Mashariki Law",
     legalReviewed:
       "Maudhui ya kisheria yalikaguliwa mwisho tarehe 5 Oktoba 2026. Yanafuata Sheria ya PBO, 2013, Kanuni za PBO, 2026, na muhtasari wa kisheria ulioidhinishwa.",
   },
@@ -412,7 +412,7 @@ export const sw: Dictionary = {
     platformLabel: "Jukwaa la Sheria ya PBO",
     quote:
       "Kulinda nafasi ya kiraia kupitia uelewa wa kisheria na utii wa PBO kwa uwazi.",
-    quoteFooter: "— CRECO Kenya · Ushirikiano wa ICNL",
+    quoteFooter: "— Mashariki Law · Ushirikiano wa ICNL",
     highlights: {
       guidance: {
         title: "Mwongozo unaounganishwa na vyanzo",
@@ -427,7 +427,7 @@ export const sw: Dictionary = {
         description: "Kiingereza na Kiswahili.",
       },
     },
-    footer: "© {year} CRECO Kenya · Mwongozo wa taarifa tu",
+    footer: "© {year} Mashariki Law · Mwongozo wa taarifa tu",
   },
   auth: {
     login: {
@@ -472,7 +472,7 @@ export const sw: Dictionary = {
       county: "Kaunti",
       phone: "Simu (si lazima)",
       terms:
-        "Nakubali jinsi CRECO inavyoshughulikia data yangu kwa ufikiaji wa jukwaa na ukaguzi wa siri wa ufuatiliaji, kulingana na {privacyLink}.",
+        "Nakubali jinsi Mashariki Law inavyoshughulikia data yangu kwa ufikiaji wa jukwaa na ukaguzi wa siri wa ufuatiliaji, kulingana na {privacyLink}.",
       privacyNotice: "notisi ya faragha",
       submit: "Unda akaunti",
       submitting: "Inaunda akaunti…",
@@ -507,7 +507,7 @@ export const sw: Dictionary = {
     backToPlatform: "Rudi kwenye jukwaa",
     confidential: "Siri",
     confidentialNote:
-      "Ripoti za ufuatiliaji zinakaguliwa na wafanyakazi wa CRECO pekee na zinatumiwa kwa uhamasishaji.",
+      "Ripoti za ufuatiliaji zinakaguliwa na wafanyakazi wa Mashariki Law pekee na zinatumiwa kwa uhamasishaji.",
     loading: "Inapakia dashibodi yako…",
     stats: {
       organisation: "Shirika",
@@ -548,11 +548,11 @@ export const sw: Dictionary = {
     submissions: {
       metaTitle: "Ripoti zangu",
       title: "Ripoti zangu",
-      description: "Fuatilia hali ya ripoti za ufuatiliaji ulizowasilisha kwa CRECO.",
+      description: "Fuatilia hali ya ripoti za ufuatiliaji ulizowasilisha kwa Mashariki Law.",
       loading: "Inapakia ripoti…",
       emptyTitle: "Bado hakuna ripoti",
       emptyLead:
-        "Shiriki uzoefu wako wa usajili wa PBO, mazoea yanayowezesha, au matukio ya nafasi ya kiraia kwa siri na CRECO.",
+        "Shiriki uzoefu wako wa usajili wa PBO, mazoea yanayowezesha, au matukio ya nafasi ya kiraia kwa siri na Mashariki Law.",
       submitReport: "Wasilisha ripoti",
       newReport: "Ripoti mpya",
       reviewCommentLabel: "Uamuzi wa ukaguzi",
@@ -614,14 +614,14 @@ export const sw: Dictionary = {
     metaTitle: "Ripoti bila kujulikana",
     eyebrow: "Akaunti haihitajiki",
     title: "Ripoti suala",
-    lead: "Mwambie CRECO kuhusu tatizo kwenye tovuti hii, au shiriki jambo lingine lolote unalotaka timu lijue. Huhitaji kuingia wala kutoa jina lako.",
+    lead: "Mwambie Mashariki Law kuhusu tatizo kwenye tovuti hii, au shiriki jambo lingine lolote unalotaka timu lijue. Huhitaji kuingia wala kutoa jina lako.",
     imageAlt: "Mtu akiandika maelezo ya faragha kando ya daftari lililofungwa",
     noAccountTitle: "Wazi kwa mtu yeyote",
     noAccountBody:
-      "Tumia fomu hii kwa ukurasa uliovunjika, jibu lisilo sahihi, tatizo la kufikia, au jambo lingine lolote unalotaka CRECO likague. Akaunti haihitajiki.",
+      "Tumia fomu hii kwa ukurasa uliovunjika, jibu lisilo sahihi, tatizo la kufikia, au jambo lingine lolote unalotaka Mashariki Law likague. Akaunti haihitajiki.",
     privateTitle: "Jina lako halipo kwenye fomu",
     privateBody:
-      "Hatuulizi wewe ni nani. Ongeza barua pepe tu ikiwa unataka jibu. Ripoti zinaonekana na wafanyakazi wa CRECO na hazichapishwi kwenye tovuti.",
+      "Hatuulizi wewe ni nani. Ongeza barua pepe tu ikiwa unataka jibu. Ripoti zinaonekana na wafanyakazi wa Mashariki Law na hazichapishwi kwenye tovuti.",
     formTitle: "Ripoti yako",
     formLead: "Eleza ulichoona. Kichwa kifupi na sentensi chache zinatosha.",
     category: "Hii inahusu nini?",
@@ -629,7 +629,7 @@ export const sw: Dictionary = {
     selectCategory: "Chagua mada",
     categories: {
       system: "Tatizo kwenye tovuti au jukwaa hili",
-      other: "Jambo lingine nataka CRECO lijue",
+      other: "Jambo lingine nataka Mashariki Law lijue",
     },
     subject: "Kichwa",
     subjectHint: "Kichwa kifupi, angalau herufi 5.",
@@ -638,13 +638,13 @@ export const sw: Dictionary = {
       "Jumuisha ulichoona na ukurasa, ikiwa hili ni tatizo la tovuti. Acha majina ikiwa unataka kubaki bila kujulikana. Angalau herufi 20.",
     email: "Barua pepe kwa jibu",
     emailHint: "Acha wazi ili ubaki bila kujulikana kabisa. Tunaitumia tu ikiwa tunahitaji kujibu.",
-    privacyNote: "Hatuulizi jina lako. Wafanyakazi wa CRECO hukagua ripoti na hawazichapishi.",
+    privacyNote: "Hatuulizi jina lako. Wafanyakazi wa Mashariki Law hukagua ripoti na hawazichapishi.",
     submit: "Wasilisha ripoti",
     submitting: "Inawasilishwa…",
     successTitle: "Ripoti imepokelewa",
-    successBody: "Asante. Wafanyakazi wa CRECO watakagua ulichotuma. Rejeo yako ni {reference}.",
+    successBody: "Asante. Wafanyakazi wa Mashariki Law watakagua ulichotuma. Rejeo yako ni {reference}.",
     successAnonymous:
-      "Hukuacha barua pepe, kwa hiyo hatuwezi kujibu. Hifadhi rejeo ukiwasiliana na CRECO baadaye.",
+      "Hukuacha barua pepe, kwa hiyo hatuwezi kujibu. Hifadhi rejeo ukiwasiliana na Mashariki Law baadaye.",
     successEmail: "Ikiwa jibu linahitajika, wafanyakazi wanaweza kuandika kwenye barua pepe uliyotoa.",
     another: "Wasilisha ripoti nyingine",
     invalid: "Kagua mada, kichwa, na maelezo, kisha ujaribu tena.",
@@ -657,13 +657,13 @@ export const sw: Dictionary = {
     description: "Ripoti zilizotumwa bila akaunti — matatizo ya tovuti na mambo mengine watu walichagua kushiriki.",
     loading: "Inapakia ripoti…",
     emptyTitle: "Bado hakuna ripoti zisizojulikana",
-    emptyLead: "Mtu anapotumia fomu ya ripoti ya umma, itaonekana hapa kwa wafanyakazi wa CRECO.",
+    emptyLead: "Mtu anapotumia fomu ya ripoti ya umma, itaonekana hapa kwa wafanyakazi wa Mashariki Law.",
     filterLabel: "Chuja",
     filterAll: "Hali zote",
     contact: "Barua pepe ya kujibu",
     noContact: "Hakuna barua pepe — bila kujulikana kabisa",
     staffNoteLabel: "Maelezo ya wafanyakazi",
-    staffNotePlaceholder: "Maelezo ya ndani kwa wakaguzi wa CRECO…",
+    staffNotePlaceholder: "Maelezo ya ndani kwa wakaguzi wa Mashariki Law…",
     staffNoteHint: "Ya ndani tu. Mtu aliyeripoti haoni haya.",
     addStaffNote: "Ongeza maelezo ya wafanyakazi",
     saveNote: "Hifadhi maelezo",
@@ -685,7 +685,7 @@ export const sw: Dictionary = {
     metaTitle: "Uangalizi wa utiifu wa mashirika",
     title: "Uangalizi wa utiifu wa mashirika",
     description:
-      "Fuatilia maendeleo ya orodha ya ukaguzi na tathmini ya kujieleza kwa mashirika ya PBO — mtazamo wa kiwanda kwa wafanyakazi wa CRECO.",
+      "Fuatilia maendeleo ya orodha ya ukaguzi na tathmini ya kujieleza kwa mashirika ya PBO — mtazamo wa kiwanda kwa wafanyakazi wa Mashariki Law.",
     loading: "Inapakia data ya utiifu…",
     summaryLabel: "Muhtasari wa kiwanda",
     searchPlaceholder: "Tafuta shirika, mwasiliani, au kaunti…",
@@ -750,7 +750,7 @@ export const sw: Dictionary = {
     orgType: "Aina ya shirika",
   },
   adminConsole: {
-    eyebrow: "Wafanyakazi wa CRECO",
+    eyebrow: "Wafanyakazi wa Mashariki Law",
     title: "Dashibodi ya wafanyakazi",
     lead: "Takwimu za jukwaa, uangalizi wa utiifu, na ukaguzi wa ripoti. Eneo hili liko tofauti na dashibodi za mashirika.",
     staffOnly: "Wafanyakazi pekee",
@@ -877,12 +877,12 @@ export const sw: Dictionary = {
       "Mwongozo rasmi wa mdhibiti",
       "Maendeleo mengine yanayoathiri utekelezaji wa Sheria ya PBO",
     ],
-    dateline: "Mpya kutoka CRECO Kenya",
+    dateline: "Mpya kutoka Mashariki Law",
     featuredLabel: "Habari kuu",
     moreHeadlines: "Vichwa vingine vya habari",
     readStory: "Soma habari kamili",
     backToNews: "Rudi kwenye habari",
-    byline: "CRECO Kenya",
+    byline: "Mashariki Law",
     categories: {
       legislative: "Mabadiliko ya sheria",
       regulation: "Kanuni mpya",
@@ -940,7 +940,7 @@ export const sw: Dictionary = {
     metaTitle: "Ufuatiliaji",
     eyebrow: "Ufuatiliaji wa nafasi ya kiraia",
     title: "Ripoti uzoefu wako",
-    lead: "Ripoti ni za siri. Zinakaguliwa na wafanyakazi wa CRECO kabla ya kutumika katika uhamasishaji.",
+    lead: "Ripoti ni za siri. Zinakaguliwa na wafanyakazi wa Mashariki Law kabla ya kutumika katika uhamasishaji.",
     registration: {
       title: "Uzoefu wa usajili",
       description: "Ucheleweshaji, vikwazo, na matatizo ya mchakato wa usajili wa PBO.",
@@ -974,9 +974,9 @@ export const sw: Dictionary = {
   },
   guidancePage: {
     flagFeedback: "Ripoti maoni",
-    askCreco: "Uliza CRECO moja kwa moja",
+    askCreco: "Uliza Mashariki Law moja kwa moja",
     somethingWrong: "Kuna tatizo na jibu?",
-    lead: "Uliza maswali kwa Kiingereza au Kiswahili. Maswali ya ufuatiliaji hubaki kwenye mfuatano mmoja ili uweze kurudi kwenye majibu ya awali. Majibu hutumia mada zilizokusanywa na CRECO zinapolingana, na AI (inapowekwa) kusintetiza mwongozo au kujaza mapengo kutoka muktadha wa jumla wa Sheria ya PBO.",
+    lead: "Uliza maswali kwa Kiingereza au Kiswahili. Maswali ya ufuatiliaji hubaki kwenye mfuatano mmoja ili uweze kurudi kwenye majibu ya awali. Majibu hutumia mada zilizokusanywa na Mashariki Law zinapolingana, na AI (inapowekwa) kusintetiza mwongozo au kujaza mapengo kutoka muktadha wa jumla wa Sheria ya PBO.",
     conversation: {
       title: "Mazungumzo yako",
       summary: "Swali {count} kwenye mfuatano huu · majibu ya awali yanaonekana unapouliza maswali ya ufuatiliaji",
@@ -1013,15 +1013,15 @@ export const sw: Dictionary = {
   },
   about: {
     metaTitle: "Sisi ni nani",
-    eyebrow: "Kuhusu CRECO",
+    eyebrow: "Kuhusu Mashariki Law",
     title: "Sisi ni nani",
-    lead: "CRECO Kenya husaidia Mashirika ya Faida ya Umma kuelewa na kufanya kazi na Sheria ya PBO, 2013 — kupitia mwongozo wa lugha rahisi, zana za utii, na ufuatiliaji wa siri wa nafasi ya kiraia.",
+    lead: "Mashariki Law husaidia Mashirika ya Faida ya Umma kuelewa na kufanya kazi na Sheria ya PBO, 2013 — kupitia mwongozo wa lugha rahisi, zana za utii, na ufuatiliaji wa siri wa nafasi ya kiraia.",
     imageAlt: "Wanawake wamekusanyika kwenye mkutano wa jamii huko Kilimambogo, Kenya",
     whoWeAreTitle: "Wajibu wetu",
     whoWeAreP1:
-      "CRECO Kenya hulinda nafasi ya kiraia kwa kufanya Sheria ya Mashirika ya Faida ya Umma iwe rahisi kwa mashirika kwenye uwanja. Jukwaa hili linatoa mwongozo unaounganishwa na vyanzo, zana za usajili na utii, na njia ya kuripoti yanayoendelea wakati wa utekelezaji.",
+      "Mashariki Law hulinda nafasi ya kiraia kwa kufanya Sheria ya Mashirika ya Faida ya Umma iwe rahisi kwa mashirika kwenye uwanja. Jukwaa hili linatoa mwongozo unaounganishwa na vyanzo, zana za usajili na utii, na njia ya kuripoti yanayoendelea wakati wa utekelezaji.",
     whoWeAreP2:
-      "Maudhui ni ya taarifa. Yanakusanywa kutoka nyaraka za kisheria zilizoidhinishwa na kukaguliwa na wafanyakazi wa CRECO. Si mbadala wa ushauri wa kisheria, na hayachukui nafasi ya kuwasilisha nyaraka kwa Mamlaka ya Udhibiti wa Mashirika ya Faida ya Umma.",
+      "Maudhui ni ya taarifa. Yanakusanywa kutoka nyaraka za kisheria zilizoidhinishwa na kukaguliwa na wafanyakazi wa Mashariki Law. Si mbadala wa ushauri wa kisheria, na hayachukui nafasi ya kuwasilisha nyaraka kwa Mamlaka ya Udhibiti wa Mashirika ya Faida ya Umma.",
     partnershipTitle: "Ushirikiano wa ICNL",
     partnershipP1:
       "Jukwaa hili limeundwa na International Center for Not-for-Profit Law (ICNL) kama sehemu ya kazi ya kulinda nafasi ya kiraia nchini Kenya.",
@@ -1032,20 +1032,20 @@ export const sw: Dictionary = {
     metaTitle: "Faragha ya data",
     eyebrow: "Data yako",
     title: "Notisi ya faragha",
-    lead: "Jinsi CRECO Kenya inavyoshughulikia taarifa unazoshiriki kwenye jukwaa hili — kwa akaunti, mwongozo, na ukaguzi wa siri wa ufuatiliaji.",
+    lead: "Jinsi Mashariki Law inavyoshughulikia taarifa unazoshiriki kwenye jukwaa hili — kwa akaunti, mwongozo, na ukaguzi wa siri wa ufuatiliaji.",
     imageAlt: "Mtu akiandika maelezo ya faragha kando ya daftari lililofungwa",
     accountsTitle: "Akaunti za jukwaa",
     accountsBody:
-      "Ukiunda akaunti, tunahifadhi maelezo unayotoa — kama jina, barua pepe, jina la shirika, aina ya shirika, kaunti, na simu — ili uweze kuingia, kuhifadhi maendeleo ya utii, na kupokea majibu kutoka kwa wafanyakazi wa CRECO. Manenosiri yanahifadhiwa kwa umbo lililosimbwa, si maandishi wazi.",
+      "Ukiunda akaunti, tunahifadhi maelezo unayotoa — kama jina, barua pepe, jina la shirika, aina ya shirika, kaunti, na simu — ili uweze kuingia, kuhifadhi maendeleo ya utii, na kupokea majibu kutoka kwa wafanyakazi wa Mashariki Law. Manenosiri yanahifadhiwa kwa umbo lililosimbwa, si maandishi wazi.",
     anonymousTitle: "Ripoti zisizojulikana",
     anonymousBody:
-      "Fomu ya ripoti ya umma haiulizi jina lako wala akaunti. Tunahifadhi mada, kichwa, na maelezo unayoandika, pamoja na barua pepe tu ikiwa unachagua kuiacha ili tuweze kujibu. Wafanyakazi wa CRECO wanaweza kuongeza maelezo ya ndani. Ripoti hizi hazichapishwi.",
+      "Fomu ya ripoti ya umma haiulizi jina lako wala akaunti. Tunahifadhi mada, kichwa, na maelezo unayoandika, pamoja na barua pepe tu ikiwa unachagua kuiacha ili tuweze kujibu. Wafanyakazi wa Mashariki Law wanaweza kuongeza maelezo ya ndani. Ripoti hizi hazichapishwi.",
     monitoringTitle: "Ukaguzi wa siri wa ufuatiliaji",
     monitoringBody:
-      "Ripoti kuhusu uzoefu wa usajili, mbinu zinazowezesha, na matukio ya nafasi ya kiraia zinachukuliwa kuwa siri. Wafanyakazi wa CRECO hukagua mawasilisho kabla ya kutumika katika uhamasishaji. Usijumuishe taarifa ambazo huko tayari kushiriki na wakaguzi wa CRECO.",
+      "Ripoti kuhusu uzoefu wa usajili, mbinu zinazowezesha, na matukio ya nafasi ya kiraia zinachukuliwa kuwa siri. Wafanyakazi wa Mashariki Law hukagua mawasilisho kabla ya kutumika katika uhamasishaji. Usijumuishe taarifa ambazo huko tayari kushiriki na wakaguzi wa Mashariki Law.",
     useTitle: "Jinsi tunavyotumia taarifa",
     useBody:
-      "Tunatumia data ya akaunti na fomu kuendesha jukwaa, kujibu maswali, kuboresha mwongozo, na kuunga mkono ufuatiliaji wa nafasi ya kiraia. Hatuuzi data binafsi. Ufikiaji ni kwa wafanyakazi wa CRECO wanaohitaji kwa madhumuni hayo, na watoa huduma wanaohitajika kuendesha tovuti.",
+      "Tunatumia data ya akaunti na fomu kuendesha jukwaa, kujibu maswali, kuboresha mwongozo, na kuunga mkono ufuatiliaji wa nafasi ya kiraia. Hatuuzi data binafsi. Ufikiaji ni kwa wafanyakazi wa Mashariki Law wanaohitaji kwa madhumuni hayo, na watoa huduma wanaohitajika kuendesha tovuti.",
     contactTitle: "Maswali kuhusu faragha",
     contactBody:
       "Ikiwa unataka kusasisha au kufuta maelezo ya akaunti, au una swali kuhusu notisi hii, tuma barua pepe info@crecokenya.org. Notisi hii inaweza kusasishwa jukwaa linapokua; toleo kwenye ukurasa huu ndilo la sasa.",
@@ -1053,8 +1053,8 @@ export const sw: Dictionary = {
   contact: {
     metaTitle: "Wasiliana nasi",
     eyebrow: "Wasiliana",
-    title: "Wasiliana na CRECO",
-    lead: "Andika kwa CRECO Kenya kuhusu jukwaa la Sheria ya PBO, mwongozo, au maswali ya ushirikiano. Wafanyakazi hujibu kadri uwezo unavyoruhusu.",
+    title: "Wasiliana na Mashariki Law",
+    lead: "Andika kwa Mashariki Law kuhusu jukwaa la Sheria ya PBO, mwongozo, au maswali ya ushirikiano. Wafanyakazi hujibu kadri uwezo unavyoruhusu.",
     imageAlt: "Watu wawili wakizungumza wakiwa mezani",
     directTitle: "Tutumie barua pepe",
     directLead:
@@ -1069,13 +1069,13 @@ export const sw: Dictionary = {
     message: "Ujumbe",
     submit: "Fungua barua pepe kutuma",
     sent: "Programu yako ya barua pepe inapaswa kufunguka ikiwa na ujumbe tayari kutumwa.",
-    mailtoSubject: "Ulizo kuhusu jukwaa la PBO la CRECO",
+    mailtoSubject: "Ulizo kuhusu jukwaa la PBO la Mashariki Law",
     anonymousLead: "Unapendelea kutotoa jina lako?",
     anonymousLink: "Tuma ripoti bila kujulikana",
   },
   a11y: {
     skipToMain: "Ruka hadi maudhui kuu",
-    homeLink: "CRECO Kenya — Jukwaa la Sheria ya PBO, nenda ukurasa wa nyumbani",
+    homeLink: "Mashariki Law — Jukwaa la Sheria ya PBO, nenda ukurasa wa nyumbani",
     showPassword: "Onyesha nenosiri",
     hidePassword: "Ficha nenosiri",
     currentPage: "ukurasa wa sasa",
@@ -1089,10 +1089,10 @@ export const sw: Dictionary = {
     footerReportNav: "Viungo vya kuripoti suala",
     footerUsefulNav: "Viungo muhimu",
     partnerLogos: "Nembo za washirika",
-    socialNav: "CRECO kwenye mitandao ya kijamii",
-    socialFacebook: "CRECO kwenye Facebook",
-    socialX: "CRECO kwenye X",
-    socialLinkedIn: "CRECO kwenye LinkedIn",
+    socialNav: "Mashariki Law kwenye mitandao ya kijamii",
+    socialFacebook: "Mashariki Law kwenye Facebook",
+    socialX: "Mashariki Law kwenye X",
+    socialLinkedIn: "Mashariki Law kwenye LinkedIn",
     audio: {
       title: "Sikiliza ukurasa huu",
       description: "Unapendelea kusikiliza? Cheza kusikia mada hii ikisomwa kwa sauti iliyo wazi.",

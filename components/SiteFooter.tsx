@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { BrandLogo } from "@/components/BrandLogo";
 import { useFormat, useTranslations } from "@/lib/i18n/client";
 
 const linkClassName =
@@ -72,24 +73,21 @@ export function SiteFooter() {
   ];
 
   const partnerLogos = [
-    { href: "https://crecokenya.org/", src: "/images/partners/creco.png", label: t.footer.links.creco, width: 64, height: 64 },
+    { href: "https://crecokenya.org/", src: "/brand/mashariki-law-logo.png", label: t.footer.links.creco, width: 120, height: 148 },
     { href: "https://www.icnl.org/", src: "/images/partners/icnl.png", label: t.footer.links.icnl, width: 132, height: 68 },
   ];
 
   return (
     <footer className="mt-auto border-t border-creco-border bg-creco-surface dark:border-border dark:bg-card">
       <div className="creco-container creco-container--home grid grid-cols-1 gap-6 py-8 sm:grid-cols-2 lg:grid-cols-[minmax(13rem,1.2fr)_repeat(6,minmax(0,1fr))]">
-        <div>
-          <div className="flex items-center gap-3">
-            <span
-              className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-creco-primary text-sm font-bold text-white"
-              aria-hidden
-            >
-              C
-            </span>
-            <div>
-              <p className="text-lg font-bold text-creco-black dark:text-foreground">CRECO Kenya</p>
-              <p className="text-xs font-medium text-creco-muted dark:text-muted-foreground">
+        <div className="min-w-0">
+          <div className="flex items-center gap-2.5">
+            <BrandLogo variant="mark" className="h-11 w-11 shrink-0" />
+            <div className="min-w-0">
+              <p className="text-sm font-bold leading-tight text-creco-black dark:text-foreground">
+                Mashariki Law
+              </p>
+              <p className="mt-0.5 text-[0.6875rem] font-medium leading-tight text-creco-muted dark:text-muted-foreground">
                 PBO Act Platform
               </p>
             </div>
@@ -146,7 +144,7 @@ export function SiteFooter() {
                 alt={logo.label}
                 width={logo.width}
                 height={logo.height}
-                className="h-10 w-auto object-contain"
+                className="h-14 w-auto object-contain"
               />
             </a>
           ))}

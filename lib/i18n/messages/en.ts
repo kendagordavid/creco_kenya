@@ -1,7 +1,7 @@
 export const en = {
   meta: {
-    title: "CRECO PBO Act Platform",
-    titleTemplate: "%s | CRECO PBO Act Platform",
+    title: "Mashariki Law PBO Act Platform",
+    titleTemplate: "%s | Mashariki Law PBO Act Platform",
     description:
       "Civic access and guidance on Kenya's Public Benefit Organizations Act, 2013 — for PBOs, community organisations, and partners.",
   },
@@ -46,7 +46,7 @@ export const en = {
       toolkit: "Toolkit",
       templates: "Template library",
       askGuidance: "Ask About the PBO Act",
-      askCreco: "Ask CRECO directly",
+      askCreco: "Ask Mashariki Law directly",
       flagFeedback: "Flag or feedback",
       sources: "Source documents",
       monitoringOverview: "Monitoring",
@@ -72,7 +72,7 @@ export const en = {
   home: {
     eyebrow: "Civic access for PBOs · Kenya",
     title: "Navigate the PBO Act with clear, source-linked guidance",
-    lead: "CRECO Kenya helps Public Benefit Organizations understand the Public Benefit Organizations Act, 2013 — through plain-language topics, searchable guidance, and references to approved legal materials.",
+    lead: "Mashariki Law helps Public Benefit Organizations understand the Public Benefit Organizations Act, 2013 — through plain-language topics, searchable guidance, and references to approved legal materials.",
     lookUpGuidance: "Look up guidance",
     exploreTopics: "Explore topics",
     stats: {
@@ -85,7 +85,7 @@ export const en = {
       eyebrow: "About the platform",
       title: "What this platform is for",
       purpose:
-        "This platform introduces the Public Benefit Organizations Act, 2013 and the Public Benefit Organizations Regulations, 2026. CRECO publishes it so organisations can understand the law, check their compliance, record how implementation is working, and ask questions that stay tied to the approved sources.",
+        "This platform introduces the Public Benefit Organizations Act, 2013 and the Public Benefit Organizations Regulations, 2026. Mashariki Law publishes it so organisations can understand the law, check their compliance, record how implementation is working, and ask questions that stay tied to the approved sources.",
       usersTitle: "Who it is for",
       users:
         "Public benefit organisations, community organisations, and partners who need a practical account of the Act and the Regulations.",
@@ -115,7 +115,7 @@ export const en = {
       guidance: {
         title: "Interactive legal guidance",
         description:
-          "Ask About the PBO Act, or send a question directly to CRECO.",
+          "Ask About the PBO Act, or send a question directly to Mashariki Law.",
       },
     },
     why: {
@@ -181,7 +181,7 @@ export const en = {
       button: "Go to guidance tool",
     },
     hero: {
-      ariaLabel: "CRECO PBO Act platform highlights",
+      ariaLabel: "Mashariki Law PBO Act platform highlights",
       previousSlide: "Previous slide",
       nextSlide: "Next slide",
       chooseSlide: "Choose slide",
@@ -194,7 +194,7 @@ export const en = {
           description:
             "Plain-language guidance on the objects and purpose of the Act, so your organisation knows exactly where it stands.",
           ctaLabel: "Explore topics",
-          imageAlt: "CRECO infographic defining a public benefit organisation",
+          imageAlt: "Mashariki Law infographic defining a public benefit organisation",
         },
         {
           eyebrow: "Register Correctly",
@@ -202,7 +202,7 @@ export const en = {
           description:
             "Step-by-step guidance on the registration process, timelines, and requirements for Public Benefit Organizations.",
           ctaLabel: "Start guidance",
-          imageAlt: "CRECO infographic on how to register a PBO",
+          imageAlt: "Mashariki Law infographic on how to register a PBO",
         },
         {
           eyebrow: "Stay Compliant",
@@ -247,7 +247,7 @@ export const en = {
     metaTitle: "Ask About the PBO Act",
     eyebrow: "Ask About the PBO Act",
     title: "Ask About the PBO Act",
-    lead: "Ask a question in English or Kiswahili. Answers use CRECO's compiled topics when they match, and AI (when configured) to synthesize guidance or fill gaps from general PBO Act context.",
+    lead: "Ask a question in English or Kiswahili. Answers use Mashariki Law's compiled topics when they match, and AI (when configured) to synthesize guidance or fill gaps from general PBO Act context.",
   },
   topics: {
     metaTitle: "Topics",
@@ -279,13 +279,13 @@ export const en = {
     ],
     control: {
       title: "Document control",
-      lead: "Only CRECO-approved materials are compiled into topic pages. Kiswahili summaries and updated regulations are added when CRECO approves them.",
+      lead: "Only Mashariki Law-approved materials are compiled into topic pages. Kiswahili summaries and updated regulations are added when Mashariki Law approves them.",
     },
   },
   footer: {
     tagline:
       "Safeguarding civic space through legal awareness and monitoring of PBO Act implementation across Kenya.",
-    askCrecoCta: "Ask CRECO",
+    askCrecoCta: "Ask Mashariki Law",
     columns: {
       aboutUs: "About us",
       registerPbo: "Register PBO",
@@ -308,17 +308,17 @@ export const en = {
       templates: "Templates",
       guidanceTools: "Guidance tools",
       faqs: "FAQs",
-      askCrecoDirectly: "Ask Creco directly",
+      askCrecoDirectly: "Ask Mashariki Law directly",
       experiences: "Experiences",
       evolvingPractices: "Evolving practices",
       anonymousReport: "Report anonymously",
       pbora: "PBORA",
-      creco: "CRECO",
+      creco: "Mashariki Law",
       icnl: "ICNL",
     },
     partnershipText:
       "Developed with the International Center for Not-for-Profit Law (ICNL) as part of civic space safeguarding work in Kenya.",
-    copyright: "© {year} CRECO Kenya",
+    copyright: "© {year} Mashariki Law",
     legalReviewed:
       "Legal content last reviewed on 5 October 2026. It follows the PBO Act, 2013, the PBO Regulations, 2026, and the approved legal summaries.",
   },
@@ -412,7 +412,7 @@ export const en = {
     platformLabel: "PBO Act Platform",
     quote:
       "Safeguarding civic space through legal awareness and transparent PBO compliance.",
-    quoteFooter: "— CRECO Kenya · ICNL partnership",
+    quoteFooter: "— Mashariki Law · ICNL partnership",
     highlights: {
       guidance: {
         title: "Source-linked guidance",
@@ -427,7 +427,7 @@ export const en = {
         description: "English and Kiswahili.",
       },
     },
-    footer: "© {year} CRECO Kenya · Informational guidance only",
+    footer: "© {year} Mashariki Law · Informational guidance only",
   },
   auth: {
     login: {
@@ -471,7 +471,7 @@ export const en = {
       county: "County",
       phone: "Phone (optional)",
       terms:
-        "I agree to CRECO's handling of my data for platform access and confidential monitoring review, in line with the {privacyLink}.",
+        "I agree to Mashariki Law's handling of my data for platform access and confidential monitoring review, in line with the {privacyLink}.",
       privacyNotice: "privacy notice",
       submit: "Create account",
       submitting: "Creating account…",
@@ -506,7 +506,7 @@ export const en = {
     backToPlatform: "Back to platform",
     confidential: "Confidential",
     confidentialNote:
-      "Monitoring submissions are reviewed by CRECO staff only and used for advocacy.",
+      "Monitoring submissions are reviewed by Mashariki Law staff only and used for advocacy.",
     loading: "Loading your dashboard…",
     stats: {
       organisation: "Organisation",
@@ -547,11 +547,11 @@ export const en = {
     submissions: {
       metaTitle: "My submissions",
       title: "My submissions",
-      description: "Track the status of monitoring reports you have submitted to CRECO.",
+      description: "Track the status of monitoring reports you have submitted to Mashariki Law.",
       loading: "Loading submissions…",
       emptyTitle: "No reports yet",
       emptyLead:
-        "Share your PBO registration experience, enabling practices, or civic space incidents confidentially with CRECO.",
+        "Share your PBO registration experience, enabling practices, or civic space incidents confidentially with Mashariki Law.",
       submitReport: "Submit a report",
       newReport: "New report",
       reviewCommentLabel: "Review decision",
@@ -613,14 +613,14 @@ export const en = {
     metaTitle: "Report anonymously",
     eyebrow: "No account needed",
     title: "Report an issue",
-    lead: "Tell CRECO about a problem with this website, or share anything else you want the team to know. You do not need to sign in or give your name.",
+    lead: "Tell Mashariki Law about a problem with this website, or share anything else you want the team to know. You do not need to sign in or give your name.",
     imageAlt: "A person writing private notes beside a closed notebook",
     noAccountTitle: "Open to anyone",
     noAccountBody:
-      "Use this form for a broken page, a wrong answer, an access problem, or any other matter you want CRECO to review. An account is not required.",
+      "Use this form for a broken page, a wrong answer, an access problem, or any other matter you want Mashariki Law to review. An account is not required.",
     privateTitle: "Your name stays off the form",
     privateBody:
-      "We do not ask who you are. Add an email only if you want a reply. Reports are seen by CRECO staff and are not published on the site.",
+      "We do not ask who you are. Add an email only if you want a reply. Reports are seen by Mashariki Law staff and are not published on the site.",
     formTitle: "Your report",
     formLead: "Describe what you noticed. A short subject and a few sentences are enough.",
     category: "What is this about?",
@@ -628,7 +628,7 @@ export const en = {
     selectCategory: "Select a topic",
     categories: {
       system: "A problem with this website or platform",
-      other: "Something else I want CRECO to know",
+      other: "Something else I want Mashariki Law to know",
     },
     subject: "Subject",
     subjectHint: "A short title, at least 5 characters.",
@@ -637,13 +637,13 @@ export const en = {
       "Include what you saw and which page, if this is a website problem. Leave out names if you want to stay anonymous. At least 20 characters.",
     email: "Email for a reply",
     emailHint: "Leave this blank to stay fully anonymous. We only use it if we need to reply.",
-    privacyNote: "We do not ask for your name. CRECO staff review reports and do not publish them.",
+    privacyNote: "We do not ask for your name. Mashariki Law staff review reports and do not publish them.",
     submit: "Submit report",
     submitting: "Submitting…",
     successTitle: "Report received",
-    successBody: "Thank you. CRECO staff will review what you sent. Your reference is {reference}.",
+    successBody: "Thank you. Mashariki Law staff will review what you sent. Your reference is {reference}.",
     successAnonymous:
-      "You did not leave an email, so we cannot reply. Keep the reference if you contact CRECO later.",
+      "You did not leave an email, so we cannot reply. Keep the reference if you contact Mashariki Law later.",
     successEmail: "If a reply is needed, staff may write to the email you provided.",
     another: "Submit another report",
     invalid: "Check the topic, subject, and details, then try again.",
@@ -656,13 +656,13 @@ export const en = {
     description: "Reports sent without an account — website issues and anything else people chose to share.",
     loading: "Loading reports…",
     emptyTitle: "No anonymous reports yet",
-    emptyLead: "When someone uses the public report form, it will appear here for CRECO staff.",
+    emptyLead: "When someone uses the public report form, it will appear here for Mashariki Law staff.",
     filterLabel: "Filter",
     filterAll: "All statuses",
     contact: "Reply email",
     noContact: "No email — fully anonymous",
     staffNoteLabel: "Staff note",
-    staffNotePlaceholder: "Internal note for CRECO reviewers…",
+    staffNotePlaceholder: "Internal note for Mashariki Law reviewers…",
     staffNoteHint: "Internal only. The person who reported does not see this.",
     addStaffNote: "Add staff note",
     saveNote: "Save note",
@@ -684,7 +684,7 @@ export const en = {
     metaTitle: "Organisation compliance oversight",
     title: "Organisation compliance oversight",
     description:
-      "Monitor checklist and self-assessment progress across registered PBO organisations — portfolio view for CRECO staff.",
+      "Monitor checklist and self-assessment progress across registered PBO organisations — portfolio view for Mashariki Law staff.",
     loading: "Loading compliance data…",
     summaryLabel: "Portfolio summary",
     searchPlaceholder: "Search organisation, contact, or county…",
@@ -749,7 +749,7 @@ export const en = {
     orgType: "Organisation type",
   },
   adminConsole: {
-    eyebrow: "CRECO staff",
+    eyebrow: "Mashariki Law staff",
     title: "Staff console",
     lead: "Platform analytics, compliance oversight, and report review. This area is separate from organisation dashboards.",
     staffOnly: "Staff only",
@@ -875,12 +875,12 @@ export const en = {
       "Official regulatory guidance",
       "Other developments that affect implementation of the PBO Act",
     ],
-    dateline: "Latest from CRECO Kenya",
+    dateline: "Latest from Mashariki Law",
     featuredLabel: "Lead story",
     moreHeadlines: "More headlines",
     readStory: "Read full story",
     backToNews: "Back to news",
-    byline: "CRECO Kenya",
+    byline: "Mashariki Law",
     categories: {
       legislative: "Legislative change",
       regulation: "New regulation",
@@ -938,7 +938,7 @@ export const en = {
     metaTitle: "Monitoring",
     eyebrow: "Civic space monitoring",
     title: "Report your experience",
-    lead: "Submissions are confidential. Moderated by CRECO staff before use in advocacy.",
+    lead: "Submissions are confidential. Moderated by Mashariki Law staff before use in advocacy.",
     registration: {
       title: "Registration experience",
       description: "Delays, barriers, and process issues with PBO registration.",
@@ -972,9 +972,9 @@ export const en = {
   },
   guidancePage: {
     flagFeedback: "Flag feedback",
-    askCreco: "Ask CRECO directly",
+    askCreco: "Ask Mashariki Law directly",
     somethingWrong: "Something wrong with an answer?",
-    lead: "Ask questions in English or Kiswahili. Follow-ups stay in one thread so you can scroll back to earlier answers. Responses use CRECO's compiled topics when they match, and AI (when configured) to synthesize guidance or fill gaps from general PBO Act context.",
+    lead: "Ask questions in English or Kiswahili. Follow-ups stay in one thread so you can scroll back to earlier answers. Responses use Mashariki Law's compiled topics when they match, and AI (when configured) to synthesize guidance or fill gaps from general PBO Act context.",
     conversation: {
       title: "Your conversation",
       summary: "{count} question in this thread · earlier answers stay visible as you ask follow-ups",
@@ -1011,15 +1011,15 @@ export const en = {
   },
   about: {
     metaTitle: "Who we are",
-    eyebrow: "About CRECO",
+    eyebrow: "About Mashariki Law",
     title: "Who we are",
-    lead: "CRECO Kenya helps Public Benefit Organizations understand and work with the PBO Act, 2013 — through plain-language guidance, compliance tools, and confidential civic-space monitoring.",
+    lead: "Mashariki Law helps Public Benefit Organizations understand and work with the PBO Act, 2013 — through plain-language guidance, compliance tools, and confidential civic-space monitoring.",
     imageAlt: "Women gathered at a community meeting in Kilimambogo, Kenya",
     whoWeAreTitle: "Our role",
     whoWeAreP1:
-      "CRECO Kenya safeguards civic space by making the Public Benefit Organizations Act easier to use for organisations on the ground. This platform offers source-linked guidance, registration and compliance tools, and a way to report what is happening during implementation.",
+      "Mashariki Law safeguards civic space by making the Public Benefit Organizations Act easier to use for organisations on the ground. This platform offers source-linked guidance, registration and compliance tools, and a way to report what is happening during implementation.",
     whoWeAreP2:
-      "The content is informational. It is compiled from approved legal materials and reviewed by CRECO staff. It is not a substitute for legal advice, and it does not replace filings with the Public Benefit Organizations Regulatory Authority.",
+      "The content is informational. It is compiled from approved legal materials and reviewed by Mashariki Law staff. It is not a substitute for legal advice, and it does not replace filings with the Public Benefit Organizations Regulatory Authority.",
     partnershipTitle: "ICNL partnership",
     partnershipP1:
       "This platform is developed with the International Center for Not-for-Profit Law (ICNL) as part of civic space safeguarding work in Kenya.",
@@ -1030,20 +1030,20 @@ export const en = {
     metaTitle: "Data privacy",
     eyebrow: "Your data",
     title: "Privacy notice",
-    lead: "How CRECO Kenya handles information you share on this platform — for accounts, guidance, and confidential monitoring review.",
+    lead: "How Mashariki Law handles information you share on this platform — for accounts, guidance, and confidential monitoring review.",
     imageAlt: "A person writing private notes beside a closed notebook",
     accountsTitle: "Platform accounts",
     accountsBody:
-      "If you create an account, we store the details you provide — such as your name, email, organisation name, organisation type, county, and phone — so you can sign in, save compliance progress, and receive replies from CRECO staff. Passwords are stored in hashed form, not as plain text.",
+      "If you create an account, we store the details you provide — such as your name, email, organisation name, organisation type, county, and phone — so you can sign in, save compliance progress, and receive replies from Mashariki Law staff. Passwords are stored in hashed form, not as plain text.",
     anonymousTitle: "Anonymous reports",
     anonymousBody:
-      "The public report form does not ask for your name or an account. We store the topic, subject, and details you write, plus an email only if you choose to leave one so we can reply. CRECO staff can add internal notes. These reports are not published.",
+      "The public report form does not ask for your name or an account. We store the topic, subject, and details you write, plus an email only if you choose to leave one so we can reply. Mashariki Law staff can add internal notes. These reports are not published.",
     monitoringTitle: "Confidential monitoring review",
     monitoringBody:
-      "Reports about registration experiences, enabling practices, and civic space incidents are treated as confidential. CRECO staff moderate submissions before they are used in advocacy. Do not include information you are not willing to share with CRECO reviewers.",
+      "Reports about registration experiences, enabling practices, and civic space incidents are treated as confidential. Mashariki Law staff moderate submissions before they are used in advocacy. Do not include information you are not willing to share with Mashariki Law reviewers.",
     useTitle: "How we use information",
     useBody:
-      "We use account and form data to operate the platform, answer questions, improve guidance, and support civic-space monitoring. We do not sell personal data. Access is limited to CRECO staff who need it for those purposes, and to service providers required to host the site.",
+      "We use account and form data to operate the platform, answer questions, improve guidance, and support civic-space monitoring. We do not sell personal data. Access is limited to Mashariki Law staff who need it for those purposes, and to service providers required to host the site.",
     contactTitle: "Questions about privacy",
     contactBody:
       "If you want to update or remove account details, or you have a question about this notice, email info@crecokenya.org. This notice may be updated as the platform grows; the version on this page is the current one.",
@@ -1051,8 +1051,8 @@ export const en = {
   contact: {
     metaTitle: "Contact",
     eyebrow: "Get in touch",
-    title: "Contact CRECO",
-    lead: "Write to CRECO Kenya about the PBO Act platform, guidance, or partnership questions. Staff respond when capacity allows.",
+    title: "Contact Mashariki Law",
+    lead: "Write to Mashariki Law about the PBO Act platform, guidance, or partnership questions. Staff respond when capacity allows.",
     imageAlt: "Two people in conversation across a table",
     directTitle: "Email us",
     directLead:
@@ -1067,13 +1067,13 @@ export const en = {
     message: "Message",
     submit: "Open email to send",
     sent: "Your email app should open with the message ready to send.",
-    mailtoSubject: "CRECO PBO platform enquiry",
+    mailtoSubject: "Mashariki Law PBO platform enquiry",
     anonymousLead: "Prefer not to give your name?",
     anonymousLink: "Send an anonymous report",
   },
   a11y: {
     skipToMain: "Skip to main content",
-    homeLink: "CRECO Kenya — PBO Act Platform, go to homepage",
+    homeLink: "Mashariki Law — PBO Act Platform, go to homepage",
     showPassword: "Show password",
     hidePassword: "Hide password",
     currentPage: "current page",
@@ -1087,10 +1087,10 @@ export const en = {
     footerReportNav: "Report an issue links",
     footerUsefulNav: "Useful links",
     partnerLogos: "Partner logos",
-    socialNav: "CRECO on social media",
-    socialFacebook: "CRECO on Facebook",
-    socialX: "CRECO on X",
-    socialLinkedIn: "CRECO on LinkedIn",
+    socialNav: "Mashariki Law on social media",
+    socialFacebook: "Mashariki Law on Facebook",
+    socialX: "Mashariki Law on X",
+    socialLinkedIn: "Mashariki Law on LinkedIn",
     audio: {
       title: "Listen to this page",
       description: "Prefer listening? Play to hear this topic read in a clear voice.",

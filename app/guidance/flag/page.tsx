@@ -19,7 +19,7 @@ export default async function FlagFeedbackPage({ searchParams }: Props) {
       <PageHero
         eyebrow="Guidance"
         title="Flag or feedback"
-        lead="Help CRECO improve guidance answers when something looks wrong or unclear."
+        lead="Help Mashariki Law improve guidance answers when something looks wrong or unclear."
         backgroundImage="/images/hero/ask-a-question.jpg"
         backgroundAlt="Black women collaborating over guidance materials at a meeting table"
       />
@@ -29,7 +29,7 @@ export default async function FlagFeedbackPage({ searchParams }: Props) {
           <p className="mx-auto mt-8 max-w-xl text-center text-sm text-creco-muted">
             Need a human follow-up?{" "}
             <Link href="/guidance/ask-creco" className="font-semibold text-creco-primary no-underline">
-              Ask CRECO directly
+              Ask Mashariki Law directly
             </Link>
           </p>
         </div>

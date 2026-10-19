@@ -294,7 +294,7 @@ export function MonitoringUploadForm() {
           required
         />
         <span>
-          I consent to Mashariki Law staff reviewing this submission confidentially for advocacy and
+          I consent to Mashirika Law staff reviewing this submission confidentially for advocacy and
           monitoring purposes, in line with the platform privacy notice.
         </span>
       </label>

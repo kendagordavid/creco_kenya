@@ -57,7 +57,7 @@ export function AuthShell({ children }: Props) {
           <Link href="/" className="inline-flex items-center gap-3 no-underline">
             <BrandLogo variant="full" className="h-32 w-auto" />
             <span>
-              <span className="block text-lg font-bold leading-none">Mashariki Law</span>
+              <span className="block text-lg font-bold leading-none">Mashirika Law</span>
               <span className="mt-1 block text-[0.625rem] font-bold uppercase tracking-[0.2em] text-creco-green-light">
                 {t.authShell.platformLabel}
               </span>

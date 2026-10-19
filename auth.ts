@@ -62,7 +62,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
 
       const label = `${token.name ?? ""} ${token.orgName ?? ""}`;
-      if (token.id && /creco/i.test(label)) {
+      if (token.id && /creco|mashariki/i.test(label)) {
         const dbUser = await findUserById(String(token.id));
         if (dbUser) {
           token.name = dbUser.name;

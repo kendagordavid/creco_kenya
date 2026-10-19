@@ -39,7 +39,7 @@ export function FlagFeedbackForm({ defaultQuestion = "" }: { defaultQuestion?: s
       return;
     }
 
-    setMessage("Thank you — Mashariki Law staff will review your flag.");
+    setMessage("Thank you — Mashirika Law staff will review your flag.");
     setDetails("");
   }
 

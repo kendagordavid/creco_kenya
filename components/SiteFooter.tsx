@@ -73,7 +73,7 @@ export function SiteFooter() {
   ];
 
   const partnerLogos = [
-    { href: "https://crecokenya.org/", src: "/brand/mashariki-law-logo.png", label: t.footer.links.creco, width: 120, height: 148 },
+    { href: "https://crecokenya.org/", src: "/brand/mashirika-law-logo.png", label: t.footer.links.creco, width: 120, height: 148 },
     { href: "https://www.icnl.org/", src: "/images/partners/icnl.png", label: t.footer.links.icnl, width: 132, height: 68 },
   ];
 
@@ -85,7 +85,7 @@ export function SiteFooter() {
             <BrandLogo variant="mark" className="h-11 w-11 shrink-0" />
             <div className="min-w-0">
               <p className="text-sm font-bold leading-tight text-creco-black dark:text-foreground">
-                Mashariki Law
+                Mashirika Law
               </p>
               <p className="mt-0.5 text-[0.6875rem] font-medium leading-tight text-creco-muted dark:text-muted-foreground">
                 PBO Act Platform

@@ -2,8 +2,8 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 const sources = {
-  mark: { src: "/brand/mashariki-law-mark.png", width: 864, height: 752 },
-  full: { src: "/brand/mashariki-law-logo.png", width: 864, height: 896 },
+  mark: { src: "/brand/mashirika-law-mark.png", width: 864, height: 752 },
+  full: { src: "/brand/mashirika-law-logo.png", width: 864, height: 896 },
 } as const;
 
 type Props = {

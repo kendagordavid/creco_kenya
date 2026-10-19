@@ -8,18 +8,18 @@ export type { TopicScope };
 export { heuristicTopicScope, isOffTopicQuestion };
 
 export const OFF_TOPIC_REFUSAL =
-  "I'm sorry — I can't answer questions outside the **Public Benefit Organizations Act, 2013** and related PBO registration and compliance in Kenya. Please ask about the PBO Act, registration, or compliance, browse **Topics**, or contact **Mashariki Law**.";
+  "I'm sorry — I can't answer questions outside the **Public Benefit Organizations Act, 2013** and related PBO registration and compliance in Kenya. Please ask about the PBO Act, registration, or compliance, browse **Topics**, or contact **Mashirika Law**.";
 
 export const NO_GUIDANCE_REFUSAL =
-  "I don't have specific guidance on that PBO Act topic yet. Try rephrasing with terms like registration, compliance, or the regulatory authority, browse **Topics**, or contact **Mashariki Law** for help.";
+  "I don't have specific guidance on that PBO Act topic yet. Try rephrasing with terms like registration, compliance, or the regulatory authority, browse **Topics**, or contact **Mashirika Law** for help.";
 
 async function classifyWithModel(question: string): Promise<TopicScope> {
   const reply = await chatCompletion(
     [
       {
         role: "system",
-        content: `You gate questions for Mashariki Law's PBO Act guidance site.
-ON TOPIC: Kenya PBO Act 2013, PBO/NGO/CSO registration or compliance, Mashariki Law, ICNL, civic space, nonprofit governance in Kenya.
+        content: `You gate questions for Mashirika Law's PBO Act guidance site.
+ON TOPIC: Kenya PBO Act 2013, PBO/NGO/CSO registration or compliance, Mashirika Law, ICNL, civic space, nonprofit governance in Kenya.
 OFF TOPIC: all other subjects (other countries, general trivia, tech help, entertainment, unrelated personal advice).
 Reply with exactly one word: ON or OFF.`,
       },

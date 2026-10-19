@@ -198,10 +198,10 @@ export function SiteHeader() {
           aria-label={t.a11y.homeLink}
           className="group flex shrink-0 items-center gap-2.5 no-underline"
         >
-          <BrandLogo priority variant="mark" className="h-16 w-16" />
-          <span className="hidden sm:block">
-            <span className="block text-base font-bold leading-none text-creco-black dark:text-foreground">
-              Mashariki Law
+          <BrandLogo priority variant="mark" className="h-12 w-12 sm:h-16 sm:w-16" />
+          <span className="block min-w-0">
+            <span className="block text-sm font-bold leading-none text-creco-black sm:text-base dark:text-foreground">
+              Mashirika Law
             </span>
             <span className="mt-0.5 block text-[0.625rem] font-semibold uppercase tracking-wider text-creco-muted dark:text-muted-foreground">
               PBO Act Platform

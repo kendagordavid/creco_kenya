@@ -1,4 +1,4 @@
-# Mashariki Law — PBO Act platform
+# Mashirika Law — PBO Act platform
 
 > **Production deploy:** The live app must build from the **repository root**, not `prototype/web`.  
 > If https://creco-kenya.vercel.app still shows old home stats or a dark AI-style footer, follow **[DEPLOY.md](./DEPLOY.md)**.

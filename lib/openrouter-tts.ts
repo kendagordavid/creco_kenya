@@ -2,8 +2,8 @@ import "server-only";
 import { openaiConfigured } from "@/lib/openai-config";
 
 /** OpenRouter speech models (see /api/v1/models?output_modalities=speech). */
-const DEFAULT_MODEL = "google/gemini-3.8-flash-lite-tts";
-const DEFAULT_VOICE = "Kore";
+const DEFAULT_MODEL = "google/gemini-3.8-flash-tts";
+const DEFAULT_VOICE = "Charon";
 /** Legacy default; OpenAI mini TTS slug is not available on OpenRouter for many keys. */
 const DEPRECATED_OPENAI_TTS_MODEL = "openai/gpt-4o-mini-tts-2025-12-15";
 const OPENAI_TTS_DEFAULT_MODEL = "gpt-4o-mini-tts";
@@ -34,7 +34,8 @@ export function openrouterTtsModel(): string {
   if (
     raw === "gpt-4o-mini-tts" ||
     raw === "openai/gpt-4o-mini-tts" ||
-    raw === DEPRECATED_OPENAI_TTS_MODEL
+    raw === DEPRECATED_OPENAI_TTS_MODEL ||
+    raw === "google/gemini-3.8-flash-lite-tts"
   ) {
     return DEFAULT_MODEL;
   }
@@ -42,7 +43,7 @@ export function openrouterTtsModel(): string {
 }
 
 function defaultVoiceForModel(model: string): string {
-  if (model.includes("gemini")) return "Kore";
+  if (model.includes("gemini")) return "Charon";
   if (model.includes("voxtral")) return "en_paul_neutral";
   if (model.startsWith("openai/")) return "alloy";
   return DEFAULT_VOICE;
@@ -54,7 +55,7 @@ function voice(model: string): string {
     if (model.includes("voxtral") && /^(alloy|coral|nova|ash|echo|fable|onyx|shimmer)$/i.test(configured)) {
       return defaultVoiceForModel(model);
     }
-    if (model.includes("gemini") && configured === "en_paul_neutral") {
+    if (model.includes("gemini") && (configured === "en_paul_neutral" || configured === "Kore")) {
       return defaultVoiceForModel(model);
     }
     return configured;

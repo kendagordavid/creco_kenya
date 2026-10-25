@@ -528,7 +528,7 @@ export const sw: Dictionary = {
       },
       checklist: {
         title: "Orodha ya utii",
-        description: "Fuatilia mambo ya utawala na ripoti kwa shirika lako.",
+        description: "Pima shirika lako dhidi ya masharti ya Sheria ya PBO na Kanuni zake.",
       },
       askGuidance: {
         title: "Uliza mwongozo",
@@ -701,7 +701,7 @@ export const sw: Dictionary = {
     viewDetail: "Angalia maelezo",
     closeDetail: "Funga paneli ya maelezo",
     detailEyebrow: "Wasifu wa shirika",
-    checklistComplete: "Vipengele {done} kati ya {total} vimekamilika",
+    checklistComplete: "Masharti {done} kati ya {total} yanayohusika yametimizwa",
     lastUpdated: "Ilisasishwa mwisho",
     selfAssessment: "Alama ya tathmini ya kujieleza",
     stats: {
@@ -747,6 +747,9 @@ export const sw: Dictionary = {
     tierDistributionLead: "Jinsi mashirika yanavyoainishwa kwa kiwango cha ukamilishaji.",
     reportsSubmitted: "Ripoti {count} za ufuatiliaji",
     domainBreakdown: "Tathmini kwa kikoa",
+    statusLabel: "Hali ya shirika",
+    noStatus: "Bado haijachaguliwa",
+    notAnswered: "Haijajibiwa",
     orgType: "Aina ya shirika",
   },
   adminConsole: {
@@ -925,7 +928,27 @@ export const sw: Dictionary = {
     checklist: {
       title: "Orodha ya tathmini binafsi",
       description:
-        "Fanya orodha ya ukaguzi, kisha fanya tathmini fupi yenye alama. Vyote viwili viko katika zana hii moja. Maswali yatasasishwa, pamoja na mantiki ya kuruka, maswali mapya yatakapokuwa tayari.",
+        "Pima shirika lako dhidi ya masharti ya kisheria ya Sheria ya PBO, 2013 na Kanuni za PBO, 2026. Maswali yanabadilika kulingana na hali ya shirika lako.",
+    },
+    checklistTool: {
+      printHeader: "Mashirika Law · Jukwaa la Sheria ya PBO",
+      purposeTitle: "Madhumuni ya tathmini hii",
+      guidanceTitle: "Mwongozo kwa mtumiaji",
+      statusHeading: "Sehemu A: Wasifu wa shirika",
+      chooseStatus: "Chagua hali ya shirika lako hapo juu ili kuona maswali yanayokuhusu.",
+      yes: "Ndiyo",
+      no: "Hapana",
+      ifYes: "Ikiwa ndiyo",
+      actionNeeded: "Hatua inahitajika",
+      score: "Masharti {done} kati ya {total} yanayohusika yametimizwa",
+      answered: "Maswali {answered} kati ya {total} yamejibiwa",
+      print: "Chapisha",
+      reset: "Futa majibu",
+      resetConfirm: "Futa majibu yote katika orodha hii?",
+      gapsTitle: "Maeneo yanayohitaji hatua za kurekebisha",
+      gapsLead: "Maswali haya yalijibiwa \u201cHapana\u201d. Yapitie pamoja na bodi yako ya uongozi, au uliza mwongozo kuhusu kile sheria inachohitaji.",
+      noGaps: "Hakuna mapungufu yaliyorekodiwa bado. Maswali yaliyojibiwa \u201cHapana\u201d yataorodheshwa hapa.",
+      askGuidance: "Uliza kuhusu Sheria ya PBO \u2192",
     },
     assessment: {
       title: "Sehemu yenye alama ya orodha",

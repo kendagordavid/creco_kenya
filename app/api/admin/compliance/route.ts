@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { canViewAllReports } from "@/lib/authz";
 import { computeAssessmentProgress, computeChecklistProgress } from "@/lib/compliance-progress";
+import { normalizeChecklistState } from "@/lib/content/checklist";
 import { countSubmissionsByUsers, listComplianceSnapshots } from "@/lib/store";
 
 export async function GET() {
@@ -18,9 +19,7 @@ export async function GET() {
   const reportCounts = await countSubmissionsByUsers(snapshots.map((snapshot) => snapshot.user.id));
 
   const organisations = snapshots.map((snapshot) => {
-    const checklist = computeChecklistProgress(
-      snapshot.checklist as Record<string, boolean> | null,
-    );
+    const checklist = computeChecklistProgress(snapshot.checklist);
     const assessment = computeAssessmentProgress(
       snapshot.assessment as Record<string, number> | null,
     );
@@ -30,7 +29,7 @@ export async function GET() {
       reportCount: reportCounts[snapshot.user.id] ?? 0,
       checklist: {
         ...checklist,
-        items: (snapshot.checklist as Record<string, boolean> | null) ?? {},
+        answers: normalizeChecklistState(snapshot.checklist).answers,
         updatedAt: snapshot.checklistUpdatedAt,
       },
       assessment: assessment

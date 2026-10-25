@@ -527,7 +527,7 @@ export const en = {
       },
       checklist: {
         title: "Compliance checklist",
-        description: "Track governance and reporting items for your organisation.",
+        description: "Check your organisation against PBO Act and Regulations requirements.",
       },
       askGuidance: {
         title: "Ask guidance",
@@ -700,7 +700,7 @@ export const en = {
     viewDetail: "View detail",
     closeDetail: "Close detail panel",
     detailEyebrow: "Organisation profile",
-    checklistComplete: "{done} of {total} checklist items complete",
+    checklistComplete: "{done} of {total} applicable requirements met",
     lastUpdated: "Last updated",
     selfAssessment: "Self-assessment score",
     stats: {
@@ -746,6 +746,9 @@ export const en = {
     tierDistributionLead: "How filtered organisations cluster by checklist completion tier.",
     reportsSubmitted: "{count} monitoring report(s)",
     domainBreakdown: "Assessment by domain",
+    statusLabel: "Organisation status",
+    noStatus: "Not selected yet",
+    notAnswered: "Not answered",
     orgType: "Organisation type",
   },
   adminConsole: {
@@ -923,7 +926,27 @@ export const en = {
     checklist: {
       title: "Self-assessment checklist",
       description:
-        "Work through the checklist, then take the short scored assessment. Both sit in this one tool. The question set will be refined, including skip logic, when the updated questions are ready.",
+        "Check your organisation against the statutory requirements of the PBO Act, 2013 and the PBO Regulations, 2026. Questions adapt to your organisation's status.",
+    },
+    checklistTool: {
+      printHeader: "Mashirika Law · PBO Act Platform",
+      purposeTitle: "Purpose of this assessment",
+      guidanceTitle: "User guidance",
+      statusHeading: "Section A: Organisation profile",
+      chooseStatus: "Choose your organisation's status above to see the questions that apply to you.",
+      yes: "Yes",
+      no: "No",
+      ifYes: "If yes",
+      actionNeeded: "Action needed",
+      score: "{done} of {total} applicable requirements met",
+      answered: "{answered} of {total} questions answered",
+      print: "Print",
+      reset: "Clear answers",
+      resetConfirm: "Clear all answers in this checklist?",
+      gapsTitle: "Areas requiring corrective action",
+      gapsLead: "These questions were answered \u201cNo\u201d. Review them with your governing body, or ask for guidance on what the law requires.",
+      noGaps: "No gaps recorded so far. Questions answered \u201cNo\u201d will be listed here.",
+      askGuidance: "Ask about the PBO Act \u2192",
     },
     assessment: {
       title: "Scored part of the checklist",

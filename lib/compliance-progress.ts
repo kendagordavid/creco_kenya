@@ -1,5 +1,12 @@
 import { ASSESSMENT_QUESTIONS, scoreAssessment } from "@/lib/content/assessment";
-import { CHECKLIST_SECTIONS } from "@/lib/content/checklist";
+import {
+  CHECKLIST_SECTIONS,
+  normalizeChecklistState,
+  scoredQuestions,
+  sectionsForStatus,
+  visibleQuestions,
+  type OrgStatus,
+} from "@/lib/content/checklist";
 
 export const CHECKLIST_DATA_KEY = "creco-checklist-progress";
 export const ASSESSMENT_DATA_KEY = "creco-assessment-answers";
@@ -12,11 +19,28 @@ export type SectionProgress = {
   percent: number;
 };
 
+export type ChecklistGap = {
+  id: string;
+  label: string;
+  sectionId: string;
+};
+
+/**
+ * Compliance score for the statutory checklist: "Yes" answers out of the
+ * requirement questions that apply to the organisation's status.
+ */
 export type ChecklistProgress = {
+  status?: OrgStatus;
+  /** Requirement questions answered "Yes". */
   completed: number;
+  /** Requirement questions that apply, including opened follow-ups. */
   total: number;
   percent: number;
+  /** Visible questions answered, including triggers. */
+  answered: number;
+  questions: number;
   sections: SectionProgress[];
+  gaps: ChecklistGap[];
   started: boolean;
 };
 
@@ -30,35 +54,55 @@ export type AssessmentProgress = {
   started: boolean;
 } | null;
 
-export function computeChecklistProgress(
-  checked: Record<string, boolean> | null | undefined,
-): ChecklistProgress {
-  const total = CHECKLIST_SECTIONS.reduce((sum, section) => sum + section.items.length, 0);
-  const completed = checked
-    ? CHECKLIST_SECTIONS.reduce(
-        (sum, section) => sum + section.items.filter((item) => checked[item.id]).length,
-        0,
-      )
-    : 0;
+export function computeChecklistProgress(saved: unknown): ChecklistProgress {
+  const { status, answers } = normalizeChecklistState(saved);
+  const started = Boolean(status) || Object.keys(answers).length > 0;
+  if (!status) {
+    return { completed: 0, total: 0, percent: 0, answered: 0, questions: 0, sections: [], gaps: [], started };
+  }
 
-  const sections: SectionProgress[] = CHECKLIST_SECTIONS.map((section) => {
-    const sectionTotal = section.items.length;
-    const sectionCompleted = section.items.filter((item) => checked?.[item.id]).length;
+  let answered = 0;
+  let questions = 0;
+  const gaps: ChecklistGap[] = [];
+  const sections: SectionProgress[] = sectionsForStatus(CHECKLIST_SECTIONS, status).map((section) => {
+    const visible = visibleQuestions(section, answers);
+    questions += visible.length;
+    answered += visible.filter((question) => answers[question.id]).length;
+
+    const scored = scoredQuestions(section, answers);
+    const sectionCompleted = scored.filter((entry) => entry.answer === "yes").length;
+    for (const entry of scored) {
+      if (entry.answer === "no") {
+        gaps.push({ id: entry.question.id, label: entry.question.label, sectionId: section.id });
+      }
+    }
     return {
       id: section.id,
       title: section.title,
       completed: sectionCompleted,
-      total: sectionTotal,
-      percent: sectionTotal ? Math.round((sectionCompleted / sectionTotal) * 100) : 0,
+      total: scored.length,
+      // A section with no requirements open (e.g. no material changes) is complete once answered.
+      percent: scored.length
+        ? Math.round((sectionCompleted / scored.length) * 100)
+        : visible.every((question) => answers[question.id])
+          ? 100
+          : 0,
     };
   });
 
+  const completed = sections.reduce((sum, section) => sum + section.completed, 0);
+  const total = sections.reduce((sum, section) => sum + section.total, 0);
+
   return {
+    status,
     completed,
     total,
     percent: total ? Math.round((completed / total) * 100) : 0,
+    answered,
+    questions,
     sections,
-    started: completed > 0,
+    gaps,
+    started,
   };
 }
 

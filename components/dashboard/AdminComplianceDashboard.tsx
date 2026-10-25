@@ -4,7 +4,6 @@ import { useMemo, useState } from "react";
 import {
   AlertTriangle,
   Building2,
-  CheckCircle2,
   ChevronRight,
   ClipboardCheck,
   LayoutGrid,
@@ -27,7 +26,14 @@ import { Input } from "@/components/ui/input";
 import { AdminShell } from "@/components/dashboard/AdminShell";
 import { useAuthQuery } from "@/hooks/useAuthQuery";
 import { CACHE_TTL } from "@/lib/browser-cache";
-import { CHECKLIST_SECTIONS } from "@/lib/content/checklist";
+import {
+  CHECKLIST_INTRO,
+  CHECKLIST_SECTIONS,
+  sectionsForStatus,
+  visibleQuestions,
+  type ChecklistAnswer,
+  type OrgStatus,
+} from "@/lib/content/checklist";
 import { ASSESSMENT_QUESTIONS } from "@/lib/content/assessment";
 import {
   assessmentBandStyles,
@@ -50,12 +56,13 @@ type OrgRecord = {
   };
   reportCount: number;
   checklist: {
+    status?: OrgStatus;
     completed: number;
     total: number;
     percent: number;
     started: boolean;
     sections: { id: string; title: string; completed: number; total: number; percent: number }[];
-    items: Record<string, boolean>;
+    answers: Record<string, ChecklistAnswer>;
     updatedAt: string | null;
   };
   assessment: {
@@ -198,14 +205,14 @@ export function AdminComplianceDashboard() {
 
   const sectionAverages = useMemo(() => {
     if (filtered.length === 0) return [];
-    return CHECKLIST_SECTIONS.map((section) => {
-      const percent = Math.round(
-        filtered.reduce((sum, org) => {
-          const match = org.checklist.sections.find((entry) => entry.id === section.id);
-          return sum + (match?.percent ?? 0);
-        }, 0) / filtered.length,
+    // Sections depend on each organisation's status, so average only where a section applies.
+    return CHECKLIST_SECTIONS.flatMap((section) => {
+      const matches = filtered.flatMap((org) =>
+        org.checklist.sections.filter((entry) => entry.id === section.id),
       );
-      return { id: section.id, title: section.title, percent, tier: checklistTier(percent, percent > 0) };
+      if (matches.length === 0) return [];
+      const percent = Math.round(matches.reduce((sum, entry) => sum + entry.percent, 0) / matches.length);
+      return [{ id: section.id, title: section.title, percent, tier: checklistTier(percent, percent > 0) }];
     });
   }, [filtered]);
 
@@ -775,46 +782,61 @@ export function AdminComplianceDashboard() {
               )}
 
               <div className="mt-8 space-y-6">
-                {CHECKLIST_SECTIONS.map((section) => {
-                  const sectionProgress = selected.checklist.sections.find((s) => s.id === section.id);
-                  return (
-                    <div key={section.id}>
-                      <div className="mb-3 flex items-center justify-between">
-                        <h3 className="text-sm font-bold text-creco-primary">{section.title}</h3>
-                        <span className="text-xs font-semibold tabular-nums text-muted-foreground">
-                          {sectionProgress?.completed ?? 0}/{sectionProgress?.total ?? section.items.length}
-                        </span>
-                      </div>
-                      <ul className="space-y-2">
-                        {section.items.map((item) => {
-                          const done = Boolean(selected.checklist.items[item.id]);
-                          return (
-                            <li
-                              key={item.id}
-                              className={cn(
-                                "flex items-start gap-2 rounded-lg border px-3 py-2 text-sm",
-                                done
-                                  ? "border-creco-primary/20 bg-creco-green-muted/50"
-                                  : "border-border bg-background",
-                              )}
-                            >
-                              <CheckCircle2
+                <p className="text-sm">
+                  <span className="font-semibold text-foreground">{t.adminCompliance.statusLabel}: </span>
+                  <span className="text-muted-foreground">
+                    {CHECKLIST_INTRO.statusOptions.find((option) => option.value === selected.checklist.status)
+                      ?.label ?? t.adminCompliance.noStatus}
+                  </span>
+                </p>
+                {selected.checklist.status &&
+                  sectionsForStatus(CHECKLIST_SECTIONS, selected.checklist.status).map((section) => {
+                    const sectionProgress = selected.checklist.sections.find((s) => s.id === section.id);
+                    const answers = selected.checklist.answers;
+                    return (
+                      <div key={section.id}>
+                        <div className="mb-3 flex items-center justify-between">
+                          <h3 className="text-sm font-bold text-creco-primary">{section.title}</h3>
+                          <span className="text-xs font-semibold tabular-nums text-muted-foreground">
+                            {sectionProgress?.completed ?? 0}/{sectionProgress?.total ?? 0}
+                          </span>
+                        </div>
+                        <ul className="space-y-2">
+                          {visibleQuestions(section, answers).map((question) => {
+                            const answer = answers[question.id];
+                            const gap = answer === "no" && question.kind !== "trigger";
+                            return (
+                              <li
+                                key={question.id}
                                 className={cn(
-                                  "mt-0.5 size-4 shrink-0",
-                                  done ? "text-creco-primary" : "text-muted-foreground/40",
+                                  "flex items-start justify-between gap-3 rounded-lg border px-3 py-2 text-sm",
+                                  gap
+                                    ? "border-amber-300 bg-amber-50/60 dark:bg-amber-950/20"
+                                    : answer === "yes" && question.kind !== "trigger"
+                                      ? "border-creco-primary/20 bg-creco-green-muted/50"
+                                      : "border-border bg-background",
                                 )}
-                                aria-hidden
-                              />
-                              <span className={cn(done && "text-muted-foreground line-through")}>
-                                {item.label}
-                              </span>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
-                  );
-                })}
+                              >
+                                <span>{question.label}</span>
+                                <span
+                                  className={cn(
+                                    "shrink-0 text-xs font-semibold",
+                                    gap ? "text-amber-800" : "text-muted-foreground",
+                                  )}
+                                >
+                                  {answer === "yes"
+                                    ? t.complianceHub.checklistTool.yes
+                                    : answer === "no"
+                                      ? t.complianceHub.checklistTool.no
+                                      : t.adminCompliance.notAnswered}
+                                </span>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
+                    );
+                  })}
               </div>
             </div>
           </div>

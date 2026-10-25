@@ -1,13 +1,18 @@
 "use client";
 
-import { useTransition } from "react";
+import { useOptimistic, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { setLocale } from "@/app/actions/locale";
 import { LOCALE_COOKIE, localeNames, locales, type Locale } from "@/lib/i18n/config";
 import { useCurrentLocale, useFormat, useTranslations } from "@/lib/i18n/client";
 
+function writeLocaleCookie(locale: Locale) {
+  document.cookie = `${LOCALE_COOKIE}=${locale}; Path=/; Max-Age=${60 * 60 * 24 * 365}; SameSite=Lax`;
+}
+
 export function LanguageSwitcher() {
-  const locale = useCurrentLocale();
+  const serverLocale = useCurrentLocale();
+  // Highlight the chosen language straight away while the page re-renders.
+  const [locale, setOptimisticLocale] = useOptimistic(serverLocale);
   const t = useTranslations();
   const format = useFormat();
   const router = useRouter();
@@ -16,9 +21,10 @@ export function LanguageSwitcher() {
   function handleChange(nextLocale: Locale) {
     if (nextLocale === locale) return;
 
-    document.cookie = `${LOCALE_COOKIE}=${nextLocale}; Path=/; Max-Age=${60 * 60 * 24 * 365}; SameSite=Lax`;
-    startTransition(async () => {
-      await setLocale(nextLocale);
+    // The cookie is all the server needs, so one refresh is the only round trip.
+    writeLocaleCookie(nextLocale);
+    startTransition(() => {
+      setOptimisticLocale(nextLocale);
       router.refresh();
     });
   }
@@ -28,6 +34,7 @@ export function LanguageSwitcher() {
       className="flex items-center gap-1 rounded-lg border border-creco-border bg-creco-surface p-0.5 dark:border-border dark:bg-card"
       role="group"
       aria-label={t.language.label}
+      aria-busy={pending}
     >
       {locales.map((code) => {
         const active = code === locale;
@@ -35,7 +42,7 @@ export function LanguageSwitcher() {
           <button
             key={code}
             type="button"
-            disabled={pending && active}
+            disabled={pending}
             aria-pressed={active}
             aria-label={format(t.language.switchTo, { language: localeNames[code] })}
             onClick={() => handleChange(code)}

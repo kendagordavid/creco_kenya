@@ -1,5 +1,6 @@
 const CHARS_PER_SECOND_AT_RATE_1 = 14;
 const MAX_CHUNK_CHARS = 120;
+const BROWSER_VOICE_BASE_RATE = 0.9;
 
 export type SpeechChunk = {
   sentenceIndex: number;
@@ -389,7 +390,8 @@ export class SpeechPlaybackEngine {
     this.utteranceId = utteranceId;
 
     const utterance = new SpeechSynthesisUtterance(chunk.text);
-    utterance.rate = this.rate;
+    // Built-in voices run fast; a slightly slower base rate is easier to follow.
+    utterance.rate = this.rate * BROWSER_VOICE_BASE_RATE;
     utterance.lang = this.lang;
     const voice = pickVoice(this.lang);
     if (voice) utterance.voice = voice;

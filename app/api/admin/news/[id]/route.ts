@@ -1,8 +1,10 @@
 import { auth } from "@/auth";
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import { z } from "zod";
 import { canViewAllReports } from "@/lib/authz";
 import { parseNewsMultipart, serializeNewsPost, toCreateNewsInput } from "@/lib/news-api";
+import { emailNewsPostToSubscribers } from "@/lib/news-email";
+import { getRequestOrigin } from "@/lib/request-origin";
 import { deleteNewsPost, findNewsPostById, updateNewsPost } from "@/lib/store";
 
 type RouteContext = {
@@ -36,6 +38,9 @@ export async function PATCH(request: Request, context: RouteContext) {
     if (!post) {
       return NextResponse.json({ error: "News item not found." }, { status: 404 });
     }
+    // Publishing a draft emails subscribers after the response is sent.
+    const origin = await getRequestOrigin();
+    after(() => emailNewsPostToSubscribers(post, origin));
     return NextResponse.json({ post: serializeNewsPost(post) });
   } catch (error) {
     if (error instanceof z.ZodError) {

@@ -17,7 +17,7 @@ import {
 import { useAuthQuery } from "@/hooks/useAuthQuery";
 import { authFetch, invalidateAuthCache, peekCachedJson } from "@/lib/auth-client";
 import { CACHE_TTL } from "@/lib/browser-cache";
-import { useCurrentLocale, useTranslations } from "@/lib/i18n/client";
+import { useCurrentLocale, useFormat, useTranslations } from "@/lib/i18n/client";
 import { NEWS_CATEGORIES, type NewsCategory } from "@/lib/news";
 import {
   formatNewsDate,
@@ -82,11 +82,18 @@ function draftFromPost(post: NewsPostRow): Draft {
   };
 }
 
+type NewsListResponse = {
+  posts?: NewsPostRow[];
+  subscribers?: { count: number; emailConfigured: boolean };
+  error?: string;
+};
+
 export function AdminNewsDashboard() {
   const t = useTranslations();
+  const format = useFormat();
   const locale = useCurrentLocale();
-  const cached = peekCachedJson<{ posts?: NewsPostRow[]; error?: string }>("/api/admin/news");
-  const { data, loading, error: queryError } = useAuthQuery<{ posts?: NewsPostRow[]; error?: string }>(
+  const cached = peekCachedJson<NewsListResponse>("/api/admin/news");
+  const { data, loading, error: queryError } = useAuthQuery<NewsListResponse>(
     "/api/admin/news",
     { ttlMs: CACHE_TTL.admin },
   );
@@ -273,6 +280,12 @@ export function AdminNewsDashboard() {
               <CardDescription>
                 {loading && !posts.length ? t.adminNews.loading : `${sortedPosts.length} item(s)`}
               </CardDescription>
+              {data?.subscribers && (
+                <p className="mt-1 text-xs text-creco-muted">
+                  {format(t.adminNews.subscribers, { count: data.subscribers.count })}{" "}
+                  {data.subscribers.emailConfigured ? t.adminNews.emailOn : t.adminNews.emailOff}
+                </p>
+              )}
             </div>
             <Button type="button" size="sm" onClick={startCreate} className="gap-1.5">
               <Plus className="size-4" aria-hidden />

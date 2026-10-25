@@ -1,9 +1,11 @@
 import { auth } from "@/auth";
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import { z } from "zod";
 import { canViewAllReports } from "@/lib/authz";
 import { parseNewsMultipart, serializeNewsPost, toCreateNewsInput } from "@/lib/news-api";
-import { createNewsPost, listNewsPosts } from "@/lib/store";
+import { emailNewsPostToSubscribers, newsEmailConfigured } from "@/lib/news-email";
+import { getRequestOrigin } from "@/lib/request-origin";
+import { countActiveNewsSubscribers, createNewsPost, listNewsPosts } from "@/lib/store";
 
 export async function GET() {
   const session = await auth();
@@ -14,8 +16,11 @@ export async function GET() {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
-  const posts = await listNewsPosts();
-  return NextResponse.json({ posts: posts.map(serializeNewsPost) });
+  const [posts, subscriberCount] = await Promise.all([listNewsPosts(), countActiveNewsSubscribers()]);
+  return NextResponse.json({
+    posts: posts.map(serializeNewsPost),
+    subscribers: { count: subscriberCount, emailConfigured: newsEmailConfigured() },
+  });
 }
 
 export async function POST(request: Request) {
@@ -40,6 +45,8 @@ export async function POST(request: Request) {
         authorUserId: session.user.id,
       }),
     );
+    const origin = await getRequestOrigin();
+    after(() => emailNewsPostToSubscribers(post, origin));
     return NextResponse.json({ post: serializeNewsPost(post) }, { status: 201 });
   } catch (error) {
     if (error instanceof z.ZodError) {

@@ -28,7 +28,7 @@ source_documents:
 
 An effective and credible Public Benefit Organization (PBO) sector requires more than government oversight. It also depends on organizations taking responsibility for maintaining high standards of governance, accountability, transparency and ethical conduct. Recognizing this, the Public Benefits Organizations Act, 2013 introduces **self-regulation.** This allows PBOs to organize themselves into forums and federations that promote good practices and strengthen the sector from within.
 
-Self-regulation is based on the principle that organizations working in the public interest are often best placed to develop professional standards, encourage peer learning, address emerging challenges and promote voluntary compliance. Self- regulation does not replace the role of the Public Benefits Organizations Regulatory Authority (the Authority); rather, it complements statutory regulation by encouraging ownership of good governance within the sector.
+Self-regulation is based on the principle that organizations working in the public interest are often best placed to develop professional standards, encourage peer learning, address emerging challenges and promote voluntary compliance. Self- regulation does not replace the role of the Public Benefits Organizations Regulatory Authority (“the Authority”); rather, it complements statutory regulation by encouraging ownership of good governance within the sector.
 
 The Act establishes the legal framework for self-regulation, while the Public Benefits Organizations Regulations, 2026 prescribe the procedures for recognising Self-Regulation Forums (SRFs) and Federations, their reporting obligations and the conditions for maintaining recognition.
 

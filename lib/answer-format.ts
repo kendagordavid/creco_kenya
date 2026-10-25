@@ -1,3 +1,18 @@
+/**
+ * Removes internal source markers such as "[Wiki: registration]" or "[[registration]]".
+ * Sources are listed separately under each answer, so readers never need the slugs.
+ */
+export function stripSourceMarkers(text: string): string {
+  return text
+    .replace(/\s*[[(]\s*Wiki\s*:\s*[^\])]*[\])]/gi, "")
+    .replace(/[ \t]*\bWiki\s*:\s*[a-z0-9-]+/gi, "")
+    .replace(/\[\[([^\]]+)\]\]/g, (_, slug: string) => slug.replace(/-/g, " "))
+    .replace(/^\s*\*?Source:\s*\*?\s*$/gim, "")
+    .replace(/[ \t]+([.,;:])/g, "$1")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
 export type AnswerBlock =
   | { type: "paragraph"; text: string }
   | { type: "note"; text: string }

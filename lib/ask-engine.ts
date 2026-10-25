@@ -8,6 +8,7 @@ import {
   isOffTopicQuestion,
   resolveTopicScope,
 } from "./topic-guard";
+import { stripSourceMarkers } from "./answer-format";
 import { excerptForQuestion } from "./wiki-rank";
 import {
   WikiPage,
@@ -41,7 +42,7 @@ const WIKI_STRONG_SCORE = 4;
 const WIKI_SYSTEM = `You are the Mashirika Law PBO Act assistant. Answer using ONLY the compiled wiki pages provided.
 
 Rules:
-1. Use only facts from the wiki content. Cite pages inline as [Wiki: slug].
+1. Use only facts from the topic content. Do not write source markers, slugs, or the word "wiki"; the sources are listed separately under your answer.
 2. If the compiled material does not contain the answer, tell the user you do not have specific guidance on that detail — do not mention wikis or internal libraries.
 3. Use plain language.
 4. When listing reasons, steps, or requirements, use one ordered list numbered 1. 2. 3. and so on. Never repeat 1. Do not put a blank line between items.
@@ -113,14 +114,14 @@ function formatWikiContext(question: string, pages: WikiPage[]): string {
     .slice(0, 1)
     .map(
       (page) =>
-        `## Wiki page: ${page.title} (slug: ${page.slug})\n\n${excerptForQuestion(page.body, question, 1100)}`,
+        `## Topic: ${page.title}\n\n${excerptForQuestion(page.body, question, 1100)}`,
     )
     .join("\n\n---\n\n");
 }
 
 function topicCatalog(): string {
   return loadWikiPages()
-    .map((p) => `- ${p.title} (${p.slug})`)
+    .map((p) => `- ${p.title}`)
     .join("\n");
 }
 
@@ -130,7 +131,7 @@ async function generateWikiAnswer(question: string, pages: WikiPage[]): Promise<
       { role: "system", content: WIKI_SYSTEM },
       {
         role: "user",
-        content: `Question: ${question}\n\nCompiled wiki pages:\n\n${formatWikiContext(question, pages)}\n\nProvide a helpful answer citing [Wiki: slug] markers.`,
+        content: `Question: ${question}\n\nCompiled wiki pages:\n\n${formatWikiContext(question, pages)}\n\nProvide a helpful answer in plain language.`,
       },
     ],
     0.2,
@@ -194,7 +195,7 @@ export async function askQuestionEngine(question: string): Promise<AskResult> {
       const ai = await generateWikiAnswer(trimmed, pages);
       if (ai) {
         return {
-          answer: ai,
+          answer: stripSourceMarkers(ai),
           citations,
           confidence,
           refused: false,
@@ -222,7 +223,8 @@ export async function askQuestionEngine(question: string): Promise<AskResult> {
     if (ai) {
       const supplementalNote =
         "\n\n*This response uses general Kenyan PBO/NGO context where Mashirika Law's compiled library does not fully cover your question. Verify important steps with Mashirika Law.*";
-      const answer = ai.includes("not legal advice") ? ai : `${ai}${supplementalNote}`;
+      const cleaned = stripSourceMarkers(ai);
+      const answer = cleaned.includes("not legal advice") ? cleaned : `${cleaned}${supplementalNote}`;
       return {
         answer,
         citations: pages.length ? pagesToCitations(pages) : REFERENCE_CITATIONS,

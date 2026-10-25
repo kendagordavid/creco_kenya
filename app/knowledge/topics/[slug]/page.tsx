@@ -7,6 +7,7 @@ import { textForSpeech } from "@/lib/a11y/text-for-speech";
 import { getCachedWikiPageBySlug } from "@/lib/cached-wiki";
 import { localizeWikiPage } from "@/lib/wiki-locale";
 import { getServerTranslations } from "@/lib/i18n/server";
+import { splitKeyPoints } from "@/lib/topic-sections";
 import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
@@ -30,6 +31,7 @@ export default async function TopicDetailPage({ params }: Props) {
   if (!rawPage) notFound();
   const page = localizeWikiPage(rawPage, locale);
   const showEnglish = locale === "sw" && page.englishBody && page.englishBody !== page.body;
+  const { keyPoints, rest } = splitKeyPoints(page.body);
 
   return (
     <>
@@ -42,8 +44,34 @@ export default async function TopicDetailPage({ params }: Props) {
       <section className="creco-section">
         <div className="creco-container max-w-3xl">
           <AudioNarrationPlayer text={textForSpeech(page.title, page.body)} className="mb-8" />
-          <WikiBody body={page.body} />
-          <TopicGraphics slug={slug} />
+          {keyPoints ? (
+            <>
+              <section className="creco-card border-creco-primary/30 bg-creco-green-muted/40 p-6">
+                <h2 className="text-lg font-bold text-creco-primary">{t.topicsPage.atAGlance}</h2>
+                <div className="mt-3">
+                  <WikiBody body={keyPoints} />
+                </div>
+              </section>
+              <div className="mt-8">
+                <TopicGraphics slug={slug} openLabel={t.topicsPage.openGraphic} />
+              </div>
+              <details className="creco-card mt-8 p-6">
+                <summary className="cursor-pointer text-base font-semibold text-creco-primary">
+                  {t.topicsPage.readFull}
+                </summary>
+                <div className="mt-6">
+                  <WikiBody body={rest} />
+                </div>
+              </details>
+            </>
+          ) : (
+            <>
+              <div className="mb-8">
+                <TopicGraphics slug={slug} openLabel={t.topicsPage.openGraphic} />
+              </div>
+              <WikiBody body={page.body} />
+            </>
+          )}
           {showEnglish && (
             <details className="creco-card mt-10 p-6">
               <summary className="cursor-pointer text-sm font-semibold text-creco-primary">

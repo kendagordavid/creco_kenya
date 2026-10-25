@@ -1,4 +1,4 @@
-import { parseAnswer } from "@/lib/answer-format";
+import { parseAnswer, stripSourceMarkers } from "@/lib/answer-format";
 
 type Props = {
   content: string;
@@ -19,7 +19,8 @@ function renderInline(text: string) {
 }
 
 export function AnswerDisplay({ content }: Props) {
-  const blocks = parseAnswer(content);
+  // Also cleans answers saved before markers were removed at the source.
+  const blocks = parseAnswer(stripSourceMarkers(content));
 
   return (
     <div className="creco-prose text-[1.02rem]">

@@ -26,7 +26,7 @@ source_documents:
 
 ## Why this Summary Matters
 
-The Public Benefits Organizations Act, 2013 establishes an enabling legal framework that supports the work of Public Benefit Organizations while ensuring they are accountable and well governed. However, where a PBO fails to comply with the law, the Public Benefits Organizations Regulatory Authority (the Authority) is empowered to take regulatory action.
+The Public Benefits Organizations Act, 2013 establishes an enabling legal framework that supports the work of Public Benefit Organizations while ensuring they are accountable and well governed. However, where a PBO fails to comply with the law, the Public Benefits Organizations Regulatory Authority (“the Authority”) is empowered to take regulatory action.
 
 These enforcement powers are designed not to penalize organizations for minor administrative errors. Rather, they exist to protect the integrity of the PBO sector, safeguard public trust, and ensure that organizations continue for purposes that benefit the public.
 

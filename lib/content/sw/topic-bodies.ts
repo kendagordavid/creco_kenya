@@ -4,7 +4,7 @@ export const SW_TOPIC_BODIES: Record<string, string> = {
 
 ## Sheria ya PBO ni nini na inawashughulikia nani?
 
-Sheria ya Mashirika ya Manufaa ya Umma, 2013 (Sheria) ilibadilisha jinsi Kenya inavyodhibiti mashirika ya jamii. Badala ya kuwaangalia kama wapinzani, sheria inatambua mchango wa PBO katika maendeleo, haki za binadamu, huduma za umma na ustawi wa jamii. Kanuni za Mashirika ya Manufaa ya Umma, 2026 zinaeleza taratibu, fomu, ada, muda na mahitaji ya kiutendaji.
+Sheria ya Mashirika ya Manufaa ya Umma, 2013 (“Sheria”) ilibadilisha jinsi Kenya inavyodhibiti mashirika ya jamii. Badala ya kuwaangalia kama wapinzani, sheria inatambua mchango wa PBO katika maendeleo, haki za binadamu, huduma za umma na ustawi wa jamii. Kanuni za Mashirika ya Manufaa ya Umma, 2026 zinaeleza taratibu, fomu, ada, muda na mahitaji ya kiutendaji.
 
 ## Tofauti kati ya Sheria na Kanuni
 
@@ -78,7 +78,7 @@ Ukikataliwa, unapaswa kupata sababu za maamuzi na unaweza kukata rufaa. Ukikubal
 
 ## Maana ya kutunukiwa hadhi
 
-Shirika lililosajiliwa chini ya sheria nyingine (kwa mfano chama, uaminifu, au kampuni isiyo ya faida) linaweza kuomba **kutunukiwa** hadhi ya PBO bila kufuta usajili wake wa awali, iwapo linakidhi masharti ya manufaa ya umma.
+Shirika lililosajiliwa chini ya sheria nyingine (kwa mfano chama, amana, au kampuni isiyo ya faida) linaweza kuomba **kutunukiwa** hadhi ya PBO bila kufuta usajili wake wa awali, iwapo linakidhi masharti ya manufaa ya umma.
 
 ## Tofauti na usajili mpya
 

@@ -2,7 +2,7 @@
 slug: legal-framework
 title: "Understanding the Public Benefits Organizations Legal Framework in Kenya"
 order: 1
-lead: "The Public Benefits Organizations Act, 2013 (the Act) fundamentally changed how Kenya regulates civil society organizations (CSOs). Rather than treating CSOs primarily as entities to be controlled, the Act establishes an enabling legal framework that recognizes the…"
+lead: "The Public Benefits Organizations Act, 2013 — “the Act” for short — fundamentally changed how Kenya regulates civil society organizations (CSOs). Rather than treating CSOs primarily as entities to be controlled, the Act establishes an enabling legal framework that recognizes the…"
 tags:
   - PBO Act
   - PBO Regulations
@@ -25,9 +25,9 @@ source_documents:
 
 ## Why this Summary Matters
 
-The Public Benefits Organizations Act, 2013 (the Act) fundamentally changed how Kenya regulates civil society organizations (CSOs). Rather than treating CSOs primarily as entities to be controlled, the Act establishes an enabling legal framework that recognizes the contribution of public benefit organizations (PBOs) to national development, democracy, human rights, public service delivery and social welfare. It also creates a modern regulatory system founded on transparency, accountability, self-regulation and partnership between Government and civil society
+The Public Benefits Organizations Act, 2013 — “the Act” for short — fundamentally changed how Kenya regulates civil society organizations (CSOs). Rather than treating CSOs primarily as entities to be controlled, the Act establishes an enabling legal framework that recognizes the contribution of public benefit organizations (PBOs) to national development, democracy, human rights, public service delivery and social welfare. It also creates a modern regulatory system founded on transparency, accountability, self-regulation and partnership between Government and civil society
 
-The Public Benefits Organizations Regulations, 2026 (the Regulations) operationalize the Act by providing the practical procedures, forms, timelines, fees and administrative requirements necessary to implement the law. Together, the Act and the Regulations provide the complete legal framework governing registration, operation, oversight and regulation of PBOs in Kenya.
+The Public Benefits Organizations Regulations, 2026 — “the Regulations” for short — operationalize the Act by providing the practical procedures, forms, timelines, fees and administrative requirements necessary to implement the law. Together, the Act and the Regulations provide the complete legal framework governing registration, operation, oversight and regulation of PBOs in Kenya.
 
 This summary explains what the law is, whom it applies to and how the Act differs from the Regulations.
 
@@ -35,7 +35,7 @@ This summary explains what the law is, whom it applies to and how the Act differ
 
 One of the most common misconceptions is that the Act and the Regulations are the same document. They are not.
 
-The **Public Benefits Organizations (PBO) Act, 2013** is an Act of Parliament. It establishes the legal framework by defining what a Public Benefit Organization is, creating the Public Benefits Organizations Regulatory Authority (the Authority), establishing the Tribunal, setting out the rights and obligations of PBOs, and providing the legal powers under which the sector is regulated.
+The **Public Benefits Organizations (PBO) Act, 2013** is an Act of Parliament. It establishes the legal framework by defining what a Public Benefit Organization is, creating the Public Benefits Organizations Regulatory Authority (“the Authority”), establishing the Tribunal, setting out the rights and obligations of PBOs, and providing the legal powers under which the sector is regulated.
 
 The **Public Benefits Organizations Regulations, 2026** are subsidiary legislation made by the Cabinet Secretary through powers given under section 69 of the Act. Their purpose is to prescribe detailed rules necessary to implement and enforce the Act, including procedures, application forms, documentary requirements, fees, timelines and administrative processes. They do not replace the Act; rather, they give practical effect to it.
 
@@ -81,7 +81,7 @@ A PBO is a voluntary membership or non-membership organization that is:
 - not established for profit;
 - organized locally, nationally or internationally;
 - engaged in public benefit activities listed in the Sixth Schedule; and
-- registered by the Public Benefits Organizations Regulatory Authority (the Authority).
+- registered by the Public Benefits Organizations Regulatory Authority, known as “the Authority”.
 
 Several important elements emerge from this definition.
 
@@ -106,7 +106,7 @@ The Regulations further introduce a "public benefit test" under Regulation 6(1),
 
 ## Organizations that are NOT PBOs
 
-Not every organization that is not established for profit (Non Profit Organization) qualifies as a Public Benefit Organization.
+Not every organization that is non-profit organization qualifies as a Public Benefit Organization.
 
 Section 5(2) expressly excludes several entities, which exist to advance the interests of their members, including:
 
@@ -172,8 +172,8 @@ The Regulations ensure that provisions of the Act can be implemented consistentl
 
 ## Legal References
 
-**Public Benefits Organizations Act, 2013:** Sections 2–5; Section 3 (Objects); Section 4 (Government responsibility); Section 5 (Meaning of PBO); Sixth Schedule.
+**Public Benefits Organizations Act, 2013:** Sections 2–5, including Section 3 on objects, Section 4 on government responsibility and Section 5 on the meaning of a PBO; Sixth Schedule.
 
-**Public Benefits Organizations Regulations, 2026:** Regulations 1–6 (Citation, Interpretation, Objects, Name Reservation, Prohibited Names and Public Benefit Test).
+**Public Benefits Organizations Regulations, 2026:** Regulations 1–6, covering citation, interpretation, objects, name reservation, prohibited names and the public benefit test.
 
 This summary is general information, not legal advice. Read it with the [Public Benefit Organizations Act, 2013](/documents/pbo-act-2013.pdf) and the [Public Benefit Organizations Regulations, 2026](/documents/pbo-regulations-2026.pdf).

@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { listPlatformSourceDocuments } from "./document-sources";
 import { NO_GUIDANCE_REFUSAL, OFF_TOPIC_REFUSAL, isOffTopicQuestion } from "./topic-guard";
+import { stripSourceMarkers } from "./answer-format";
 import { excerptForQuestion, rankWikiPages } from "./wiki-rank";
 
 export type SourceDocument = {
@@ -175,8 +176,13 @@ export function composeAnswer(pages: WikiPage[], question = ""): string {
   const body = question.trim()
     ? excerptForQuestion(primary.body, question, 1800)
     : extractAnswerBody(primary.body);
-  const related = primary.related.slice(0, 3).map((s) => `[[${s}]]`).join(", ");
-  let answer = `Based on the compiled topic **${primary.title}**:\n\n${body}\n\n*Source: [Wiki: ${primary.slug}]*`;
+  const titles = new Map(loadWikiPages().map((page) => [page.slug, page.title]));
+  const related = primary.related
+    .slice(0, 3)
+    .map((slug) => titles.get(slug))
+    .filter(Boolean)
+    .join(", ");
+  let answer = `From the topic **${primary.title}**:\n\n${stripSourceMarkers(body)}`;
   if (pages.length > 1) {
     answer += `\n\n*Also see:* ${pages.slice(1, 3).map((p) => p.title).join(", ")}`;
   }

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { NewsCategoryBadge } from "@/components/news/NewsCategoryBadge";
+import { NewsSubscribeForm } from "@/components/news/NewsSubscribeForm";
 import { getDictionary, getLocale, getServerTranslations } from "@/lib/i18n/server";
 import { localizeNewsPost } from "@/lib/news-locale";
 import { formatNewsDate } from "@/lib/news-format";
@@ -148,6 +149,9 @@ export default async function NewsPage() {
               )}
             </>
           )}
+          <div className="mt-10 max-w-3xl">
+            <NewsSubscribeForm />
+          </div>
           <p className="mt-10 text-sm text-creco-muted">{t.footer.legalReviewed}</p>
         </div>
       </section>

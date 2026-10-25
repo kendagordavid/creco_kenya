@@ -687,6 +687,7 @@ async function ensureNewsPostsTable(): Promise<void> {
     );
     CREATE INDEX IF NOT EXISTS news_posts_published_at_idx ON news_posts (published_at DESC);
     CREATE INDEX IF NOT EXISTS news_posts_published_idx ON news_posts (published, published_at DESC);
+    ALTER TABLE news_posts ADD COLUMN IF NOT EXISTS emailed_at TIMESTAMPTZ;
   `);
 }
 
@@ -990,4 +991,84 @@ export async function deleteNewsPost(id: string): Promise<boolean> {
     RETURNING id
   `;
   return rows.length > 0;
+}
+
+/**
+ * Marks a published post as emailed and returns true only for the first caller,
+ * so subscribers never receive the same update twice.
+ */
+export async function claimNewsPostForEmail(id: string): Promise<boolean> {
+  await ensureNewsPostsTable();
+  const sql = getSql();
+  const rows = await sql`
+    UPDATE news_posts
+    SET emailed_at = NOW()
+    WHERE id = ${id} AND published AND emailed_at IS NULL
+    RETURNING id
+  `;
+  return rows.length > 0;
+}
+
+export type NewsSubscriber = {
+  email: string;
+  locale: "en" | "sw";
+  token: string;
+};
+
+async function ensureNewsSubscribersTable(): Promise<void> {
+  const sql = getSql();
+  await sql.unsafe(`
+    CREATE TABLE IF NOT EXISTS news_subscribers (
+      id TEXT PRIMARY KEY,
+      email TEXT NOT NULL UNIQUE,
+      locale TEXT NOT NULL DEFAULT 'en' CHECK (locale IN ('en', 'sw')),
+      token TEXT NOT NULL UNIQUE,
+      consented_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      unsubscribed_at TIMESTAMPTZ
+    );
+  `);
+}
+
+/** Adds or re-activates a subscriber. Emails are stored lower-cased. */
+export async function subscribeToNews(email: string, locale: "en" | "sw"): Promise<void> {
+  await ensureNewsSubscribersTable();
+  const sql = getSql();
+  await sql`
+    INSERT INTO news_subscribers (id, email, locale, token)
+    VALUES (${randomUUID()}, ${email.trim().toLowerCase()}, ${locale}, ${randomUUID()})
+    ON CONFLICT (email) DO UPDATE
+    SET locale = EXCLUDED.locale, consented_at = NOW(), unsubscribed_at = NULL
+  `;
+}
+
+export async function unsubscribeFromNews(token: string): Promise<boolean> {
+  await ensureNewsSubscribersTable();
+  const sql = getSql();
+  const rows = await sql`
+    UPDATE news_subscribers
+    SET unsubscribed_at = COALESCE(unsubscribed_at, NOW())
+    WHERE token = ${token}
+    RETURNING id
+  `;
+  return rows.length > 0;
+}
+
+export async function listActiveNewsSubscribers(): Promise<NewsSubscriber[]> {
+  await ensureNewsSubscribersTable();
+  const sql = getSql();
+  return sql<NewsSubscriber[]>`
+    SELECT email, locale, token
+    FROM news_subscribers
+    WHERE unsubscribed_at IS NULL
+    ORDER BY consented_at
+  `;
+}
+
+export async function countActiveNewsSubscribers(): Promise<number> {
+  await ensureNewsSubscribersTable();
+  const sql = getSql();
+  const [row] = await sql<{ count: number }[]>`
+    SELECT count(*)::int AS count FROM news_subscribers WHERE unsubscribed_at IS NULL
+  `;
+  return row?.count ?? 0;
 }

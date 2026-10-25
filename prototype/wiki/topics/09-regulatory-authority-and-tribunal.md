@@ -28,8 +28,8 @@ source_documents:
 
 A strong legal framework requires institutions that can implement the law fairly, efficiently and transparently. The Public Benefits Organizations Act, 2013 therefore establishes two key institutions to administer the legal framework governing Public Benefit Organizations (PBOs) in Kenya:
 
-- the **Public Benefits Organizations Regulatory Authority (the Authority)**; and
-- the **Public Benefits Organizations Disputes Tribunal (the Tribunal).**
+- the **Public Benefits Organizations Regulatory Authority**, known as “the Authority”; and
+- the **Public Benefits Organizations Disputes Tribunal**, known as “the Tribunal”.
 
 Although both institutions are created under the same Act, they perform very different functions. The Authority is the primary regulator responsible for registering and overseeing Public Benefit Organizations, while the Tribunal is an independent body that hears and determines disputes arising from any breach of the provisions of the Act; or from any appeal from decisions made under the Act; or disputes between PBOs, their members and the National Federation.
 

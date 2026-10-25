@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
 import { getCachedWikiSummaries } from "@/lib/cached-wiki";
 import { localizeWikiSummary } from "@/lib/wiki-locale";
+import { cardSummary } from "@/lib/topic-sections";
 import { getDictionary, getLocale, getServerTranslations, interpolate } from "@/lib/i18n/server";
 
 export const dynamic = "force-dynamic";
@@ -49,7 +50,7 @@ export default async function TopicsPage() {
                   </span>
                   <h2 className="mt-3 text-xl font-bold text-creco-black">{page.title}</h2>
                   <p className="mt-3 flex-1 text-sm leading-relaxed text-creco-muted">
-                    {page.lead || page.tags.join(" · ")}
+                    {page.lead ? cardSummary(page.lead) : page.tags.join(" · ")}
                   </p>
                   <div className="mt-6 flex flex-wrap gap-2">
                     <Link

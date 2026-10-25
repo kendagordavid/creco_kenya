@@ -85,53 +85,54 @@ export const en = {
       eyebrow: "About the platform",
       title: "What this platform is for",
       purpose:
-        "This platform introduces the Public Benefit Organizations Act, 2013 and the Public Benefit Organizations Regulations, 2026. Mashirika Law publishes it so organisations can understand the law, check their compliance, record how implementation is working, and ask questions that stay tied to the approved sources.",
+        "Understand the PBO Act and the 2026 Regulations, check your compliance, report what happens on the ground, and ask questions.",
       usersTitle: "Who it is for",
-      users:
-        "Public benefit organisations, community organisations, and partners who need a practical account of the Act and the Regulations.",
+      audiences: ["Public benefit organisations", "Community organisations", "Partners"],
     },
     howItWorks: {
       eyebrow: "Main functions",
       title: "What you can do here",
-      lead: "Legal awareness, compliance guidance and assessment, implementation monitoring, and interactive legal guidance.",
       open: "Open",
     },
     modules: {
       awareness: {
         title: "Legal awareness",
-        description:
-          "Read the PBO Framework Summaries, FAQs, sources, and the forms prescribed in the 2026 Regulations.",
+        description: "Topics, FAQs, forms and source documents.",
       },
       compliance: {
         title: "Compliance guidance and assessment",
-        description:
-          "Use the self-assessment checklist, the toolkit, and the template library.",
+        description: "Self-assessment checklist, toolkit and templates.",
       },
       monitoring: {
         title: "Implementation monitoring",
-        description:
-          "Report an experience of the Act in practice, including registration, transition, and engagement with the Authority.",
+        description: "Report what happens when you deal with the Act.",
       },
       guidance: {
         title: "Interactive legal guidance",
-        description:
-          "Ask About the PBO Act, or send a question directly to Mashirika Law.",
+        description: "Ask a question in English or Kiswahili.",
       },
     },
     why: {
       eyebrow: "Why this platform",
       title: "Built for organisations on the ground",
-      lead: "Every topic page is compiled from the Act, the 2026 Regulations, and the approved legal summaries, and can be traced back to those sources.",
       points: [
-        "Source-linked responses you can verify",
+        "Answers you can check against the law",
         "English and Kiswahili",
-        "Topic pages follow the approved legal summaries",
-        "News and updates when the law or official guidance changes",
+        "Based on the approved legal summaries",
+        "Updates when the law changes",
       ],
     },
     history: {
       eyebrow: "Historical journey",
-      title: "How registration reached the PBO Act",
+      title: "From the NGO Act to the PBO Act",
+      readMore: "Read the full history",
+      timeline: [
+        { year: "1990", text: "NGOs register under the NGO Co-ordination Act." },
+        { year: "2013", text: "Parliament passes the PBO Act: one law for all PBOs." },
+        { year: "2024", text: "The Act takes effect on 14 May. PBORA replaces the NGO Board." },
+        { year: "2026", text: "The PBO Regulations set out forms, fees and timelines." },
+        { year: "Now", text: "Registered NGOs move onto the PBO register, with no fresh application." },
+      ],
       paragraphs: [
         "For many years, Kenyan civil society registered under more than one law. Non-governmental organisations registered under the Non-Governmental Organizations Co-ordination Act, 1990. Community-based organisations were usually registered through the Department of Social Development. Other groups operated as societies or trusts under those separate laws.",
         "The NGO Co-ordination Board administered the 1990 Act. It registered NGOs, kept the register, and coordinated regulation of organisations that fell under that law. Community-based organisations stayed outside the Board and continued on the social-development registration route.",
@@ -172,12 +173,13 @@ export const en = {
         link: "Read the regulations overview",
       },
       notificationTitle: "When something changes, notify PBORA",
-      notificationLead:
-        "Constitution amendments and governing-body changes must be reported within 30 days. Address, banking, director, and other structural changes generally require notification within 60 days under the Regulations.",
+      deadlines: [
+        { days: "30", unit: "days", label: "Constitution or governing-body changes" },
+        { days: "60", unit: "days", label: "Address, banking and other changes" },
+      ],
     },
     cta: {
       title: "Have a question about PBO registration?",
-      lead: "Try a common question or type your own. Guidance draws from compiled topic pages and cites the sources used.",
       button: "Go to guidance tool",
     },
     hero: {
@@ -192,7 +194,7 @@ export const en = {
           eyebrow: "Understand the Law",
           headline: "Know the PBO Act, 2013",
           description:
-            "Plain-language guidance on the objects and purpose of the Act, so your organisation knows exactly where it stands.",
+            "What the Act means for your organisation, in plain language.",
           ctaLabel: "Explore topics",
           imageAlt: "Mashirika Law infographic defining a public benefit organisation",
         },
@@ -200,7 +202,7 @@ export const en = {
           eyebrow: "Register Correctly",
           headline: "Navigate PBO Registration",
           description:
-            "Step-by-step guidance on the registration process, timelines, and requirements for Public Benefit Organizations.",
+            "Steps, timelines and documents for registering.",
           ctaLabel: "Start guidance",
           imageAlt: "Mashirika Law infographic on how to register a PBO",
         },
@@ -208,7 +210,7 @@ export const en = {
           eyebrow: "Stay Compliant",
           headline: "Meet Your Compliance Duties",
           description:
-            "Understand the Regulatory Authority, the Public Registry, and what compliance looks like under the 2026 Regulations.",
+            "What PBORA expects from you, and when.",
           ctaLabel: "See compliance",
           imageAlt: "Black professional preparing compliance documentation",
         },
@@ -216,7 +218,7 @@ export const en = {
           eyebrow: "Ask About the PBO Act",
           headline: "Get Source-Linked Answers",
           description:
-            "Ask about registration or compliance in English or Kiswahili, and get answers traced back to approved legal documents.",
+            "Ask in English or Kiswahili. Answers point to the law.",
           ctaLabel: "Ask About the PBO Act",
           imageAlt: "Black women collaborating over guidance materials at a meeting table",
         },
@@ -224,7 +226,7 @@ export const en = {
           eyebrow: "Civic Space Monitoring",
           headline: "Safeguarding Civic Space",
           description:
-            "Monitoring PBO Act implementation across Kenya in partnership with ICNL, to protect the space for civic organisations.",
+            "Tracking how the Act works across Kenya, with ICNL.",
           ctaLabel: "Learn more",
           imageAlt: "Black Kenyans gathered in a civic space demonstration",
         },

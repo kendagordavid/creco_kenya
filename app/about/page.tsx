@@ -34,9 +34,21 @@ export default async function AboutPage() {
           </p>
         </div>
       </section>
+      <section id="history" className="creco-section creco-section-alt scroll-mt-24">
+        <div className="creco-container max-w-2xl">
+          <h2 className="text-2xl font-bold text-creco-black dark:text-foreground">
+            {t.home.history.title}
+          </h2>
+          {t.home.history.paragraphs.map((paragraph) => (
+            <p key={paragraph} className="mt-4 leading-relaxed text-creco-muted dark:text-muted-foreground">
+              {paragraph}
+            </p>
+          ))}
+        </div>
+      </section>
       <section
         id="partnership"
-        className="creco-section creco-section-alt scroll-mt-24"
+        className="creco-section scroll-mt-24"
       >
         <div className="creco-container max-w-2xl">
           <h2 className="text-2xl font-bold text-creco-black dark:text-foreground">

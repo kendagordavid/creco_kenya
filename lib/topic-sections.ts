@@ -17,3 +17,11 @@ export function splitKeyPoints(body: string): { keyPoints: string | null; rest: 
   const rest = `${body.slice(0, start).trimEnd()}\n\n${body.slice(end).trimStart()}`.trim();
   return { keyPoints: keyPoints || null, rest };
 }
+
+/** First sentence of a topic lead, for compact topic cards. */
+export function cardSummary(lead: string, maxChars = 140): string {
+  const text = lead.replace(/\s+/g, " ").trim();
+  const sentence = text.match(/^.+?[.!?](?=\s|$)/)?.[0] ?? text;
+  if (sentence.length <= maxChars) return sentence;
+  return `${sentence.slice(0, sentence.lastIndexOf(" ", maxChars - 1))}…`;
+}

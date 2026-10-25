@@ -87,51 +87,54 @@ export const sw: Dictionary = {
       eyebrow: "Kuhusu jukwaa",
       title: "Jukwaa hili ni la nini",
       purpose:
-        "Jukwaa hili linaanzisha Sheria ya Mashirika ya Faida ya Umma, 2013 na Kanuni za Mashirika ya Faida ya Umma, 2026. Mashirika Law inalichapisha ili mashirika yaelewe sheria, yakague uzingatiaji, yarekodi jinsi utekelezaji unavyoendelea, na yaulize maswali yanayobaki yamefungamanishwa na vyanzo vilivyoidhinishwa.",
+        "Elewa Sheria ya PBO na Kanuni za 2026, kagua utii wako, ripoti yanayotokea mashinani, na uliza maswali.",
       usersTitle: "Ni kwa nani",
-      users:
-        "Mashirika ya faida ya umma, mashirika ya jamii, na washirika wanaohitaji maelezo ya vitendo kuhusu Sheria na Kanuni.",
+      audiences: ["Mashirika ya manufaa ya umma", "Mashirika ya jamii", "Washirika"],
     },
     howItWorks: {
       eyebrow: "Kazi kuu",
       title: "Unaweza kufanya nini hapa",
-      lead: "Uelewa wa kisheria, mwongozo na tathmini ya uzingatiaji, ufuatiliaji wa utekelezaji, na mwongozo wa kisheria wa moja kwa moja.",
       open: "Fungua",
     },
     modules: {
       awareness: {
         title: "Uelewa wa kisheria",
-        description:
-          "Soma Muhtasari wa Mfumo wa PBO, maswali, vyanzo, na fomu zilizowekwa katika Kanuni za 2026.",
+        description: "Mada, maswali, fomu na nyaraka za vyanzo.",
       },
       compliance: {
         title: "Mwongozo na tathmini ya uzingatiaji",
-        description: "Tumia orodha ya tathmini binafsi, zana, na maktaba ya violezo.",
+        description: "Orodha ya tathmini binafsi, zana na violezo.",
       },
       monitoring: {
         title: "Ufuatiliaji wa utekelezaji",
-        description:
-          "Ripoti uzoefu wa Sheria katika vitendo, ikiwa ni pamoja na usajili, mpito, na ushirikiano na Mamlaka.",
+        description: "Ripoti yanayotokea unaposhughulika na Sheria.",
       },
       guidance: {
         title: "Mwongozo wa kisheria wa moja kwa moja",
-        description: "Uliza kuhusu Sheria ya PBO, au tuma swali moja kwa moja kwa Mashirika Law.",
+        description: "Uliza swali kwa Kiingereza au Kiswahili.",
       },
     },
     why: {
       eyebrow: "Kwa nini jukwaa hili",
       title: "Imejengwa kwa mashirika ya kweli",
-      lead: "Kila ukurasa wa mada unakusanywa kutoka Sheria, Kanuni za 2026, na muhtasari wa kisheria ulioidhinishwa, na unaweza kufuatiliwa hadi vyanzo hivyo.",
       points: [
-        "Majibu yaliyounganishwa na vyanzo unayoweza kuthibitisha",
+        "Majibu unayoweza kulinganisha na sheria",
         "Kiingereza na Kiswahili",
-        "Kurasa za mada zinafuata muhtasari wa kisheria ulioidhinishwa",
-        "Habari na taarifa sheria au mwongozo rasmi unapobadilika",
+        "Yanategemea muhtasari wa kisheria ulioidhinishwa",
+        "Taarifa sheria inapobadilika",
       ],
     },
     history: {
       eyebrow: "Safari ya kihistoria",
-      title: "Jinsi usajili ulivyofika kwenye Sheria ya PBO",
+      title: "Kutoka Sheria ya NGO hadi Sheria ya PBO",
+      readMore: "Soma historia kamili",
+      timeline: [
+        { year: "1990", text: "NGO zinasajiliwa chini ya Sheria ya Uratibu wa NGO." },
+        { year: "2013", text: "Bunge linapitisha Sheria ya PBO: sheria moja kwa PBO zote." },
+        { year: "2024", text: "Sheria inaanza kutumika 14 Mei. PBORA inachukua nafasi ya Bodi ya NGO." },
+        { year: "2026", text: "Kanuni za PBO zinaweka fomu, ada na muda." },
+        { year: "Sasa", text: "NGO zilizosajiliwa zinahamia daftari la PBO, bila maombi mapya." },
+      ],
       paragraphs: [
         "Kwa miaka mingi, mashirika ya kiraia nchini Kenya yalisajiliwa chini ya sheria zaidi ya moja. Mashirika yasiyo ya kiserikali yalisajiliwa chini ya Sheria ya Uratibu wa Mashirika Yasiyo ya Kiserikali, 1990. Mashirika ya kijamii kwa kawaida yalisajiliwa kupitia Idara ya Maendeleo ya Jamii. Makundi mengine yaliendesha shughuli kama vyama au amana chini ya sheria hizo tofauti.",
         "Bodi ya Uratibu wa NGO ilisimamia Sheria ya 1990. Ilisajili NGO, ilihifadhi daftari, na kuratibu udhibiti wa mashirika yaliyoangukia chini ya sheria hiyo. Mashirika ya kijamii yalibaki nje ya Bodi na kuendelea na njia ya usajili wa maendeleo ya jamii.",
@@ -172,12 +175,13 @@ export const sw: Dictionary = {
         link: "Soma muhtasari wa kanuni",
       },
       notificationTitle: "Kuna mabadiliko? Mjulie PBORA",
-      notificationLead:
-        "Mabadiliko ya katiba na wa bodi ya uongozi lazima yaripotiwe ndani ya siku 30. Mabadiliko ya anwani, benki, wakurugenzi, na muundo mwingine kwa kawaida yanahitaji taarifa ndani ya siku 60 chini ya Kanuni.",
+      deadlines: [
+        { days: "30", unit: "siku", label: "Mabadiliko ya katiba au ya bodi ya uongozi" },
+        { days: "60", unit: "siku", label: "Mabadiliko ya anwani, benki na mengineyo" },
+      ],
     },
     cta: {
       title: "Una swali kuhusu usajili wa PBO?",
-      lead: "Jaribu swali la kawaida au andika lako mwenyewe. Mwongozo unachukua kutoka kurasa za mada zilizokusanywa na unataja vyanzo vilivyotumika.",
       button: "Nenda kwenye zana ya mwongozo",
     },
     hero: {
@@ -192,7 +196,7 @@ export const sw: Dictionary = {
           eyebrow: "Elewa Sheria",
           headline: "Jua Sheria ya PBO, 2013",
           description:
-            "Mwongozo wa lugha rahisi kuhusu malengo na madhumuni ya Sheria, ili shirika lako lijue hasa mahali lilipo.",
+            "Maana ya Sheria kwa shirika lako, kwa lugha rahisi.",
           ctaLabel: "Chunguza mada",
           imageAlt: "Mchoro wa Mashirika Law unaoeleza shirika la faida ya umma",
         },
@@ -200,7 +204,7 @@ export const sw: Dictionary = {
           eyebrow: "Jisajili Kwa Usahihi",
           headline: "Elewa Usajili wa PBO",
           description:
-            "Mwongozo wa hatua kwa hatua kuhusu mchakato wa usajili, ratiba, na mahitaji kwa Mashirika ya Faida ya Umma.",
+            "Hatua, muda na nyaraka za kujisajili.",
           ctaLabel: "Anza mwongozo",
           imageAlt: "Mchoro wa Mashirika Law kuhusu jinsi ya kusajili PBO",
         },
@@ -208,7 +212,7 @@ export const sw: Dictionary = {
           eyebrow: "Endelea Kuwa na Uzingatiaji",
           headline: "Timiza Wajibu Wako wa Uzingatiaji",
           description:
-            "Elewa Mamlaka ya Udhibiti, Daftari la Umma, na uzingatiaji unavyoonekana chini ya Kanuni za 2026.",
+            "PBORA inatarajia nini kutoka kwako, na lini.",
           ctaLabel: "Angalia uzingatiaji",
           imageAlt: "Mtaalamu Mweusi akijiandaa nyaraka za utii",
         },
@@ -216,7 +220,7 @@ export const sw: Dictionary = {
           eyebrow: "Uliza kuhusu Sheria ya PBO",
           headline: "Pata Majibu Yaliyounganishwa na Vyanzo",
           description:
-            "Uliza kuhusu usajili au uzingatiaji kwa Kiingereza au Kiswahili, na upate majibu yanayofuatiliwa hadi nyaraka za kisheria zilizoidhinishwa.",
+            "Uliza kwa Kiingereza au Kiswahili. Majibu yanaonyesha sheria.",
           ctaLabel: "Uliza kuhusu Sheria ya PBO",
           imageAlt: "Wanawake Weusi wakishirikiana juu ya nyenzo za mwongozo kwenye meza ya mkutano",
         },
@@ -224,7 +228,7 @@ export const sw: Dictionary = {
           eyebrow: "Ufuatiliaji wa Nafasi ya Kiraia",
           headline: "Kulinda Nafasi ya Kiraia",
           description:
-            "Kufuatilia utekelezaji wa Sheria ya PBO nchini Kenya kwa ushirikiano na ICNL, ili kulinda nafasi ya mashirika ya kiraia.",
+            "Kufuatilia jinsi Sheria inavyofanya kazi nchini Kenya, pamoja na ICNL.",
           ctaLabel: "Jifunze zaidi",
           imageAlt: "Wakenya Weusi waliokusanyika katika maandamano ya nafasi ya kiraia",
         },

@@ -2,8 +2,6 @@ import NextAuth from "next-auth";
 import { NextResponse } from "next/server";
 import { authConfig } from "@/auth.config";
 import { isRouteAuthorized } from "@/lib/auth-routes";
-import { PUBLIC_CACHE } from "@/lib/cache/headers";
-import { isPublicCacheablePath } from "@/lib/cache/public-paths";
 import {
   LOCALE_COOKIE,
   LOCALE_HEADER,
@@ -27,19 +25,12 @@ export default NextAuth(authConfig).auth((request) => {
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set(LOCALE_HEADER, locale);
 
-  const response = NextResponse.next({
+  // Pages are not cached at the CDN: their language comes from the locale cookie,
+  // and Vercel's CDN cannot key a cache on cookies, so one cached copy would be
+  // served to every visitor whatever language they chose.
+  return NextResponse.next({
     request: { headers: requestHeaders },
   });
-
-  // HTML cache headers in development make Fast Refresh serve stale pages and
-  // look like the site "dies" then comes back.
-  if (process.env.NODE_ENV === "production" && isPublicCacheablePath(pathname) && !request.auth) {
-    response.headers.set("Cache-Control", PUBLIC_CACHE.publicPage);
-    response.headers.set("CDN-Cache-Control", PUBLIC_CACHE.publicPage);
-    response.headers.set("Vary", "Cookie");
-  }
-
-  return response;
 });
 
 export const config = {

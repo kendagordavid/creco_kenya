@@ -13,8 +13,6 @@ import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { CRECO_GRAPHICS } from "@/lib/content/graphics";
 import { getServerTranslations, interpolate } from "@/lib/i18n/server";
 
-export const revalidate = 3600;
-
 export default async function HomePage() {
   const { t } = await getServerTranslations();
 

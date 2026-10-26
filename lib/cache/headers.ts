@@ -6,9 +6,6 @@ export const PUBLIC_CACHE = {
   health: "public, s-maxage=120, stale-while-revalidate=300",
   privateShort: "private, max-age=60, stale-while-revalidate=120",
   immutable: "public, max-age=31536000, immutable",
-  /** Guest HTML — edge cache with locale cookie variance. */
-  publicPage:
-    "public, s-maxage=3600, stale-while-revalidate=86400, stale-if-error=86400",
 } as const;
 
 export function withCacheControl(init?: ResponseInit, cacheControl?: string): ResponseInit {

@@ -2,7 +2,8 @@
 
 import { createContext, useContext, type ReactNode } from "react";
 import { type Locale } from "./config";
-import { type Dictionary } from "./messages/en";
+import { en, type Dictionary } from "./messages/en";
+import { sw } from "./messages/sw";
 import { interpolate } from "./utils";
 
 type LocaleContextValue = {
@@ -15,16 +16,22 @@ const LocaleContext = createContext<LocaleContextValue | null>(null);
 
 type Props = {
   locale: Locale;
-  dictionary: Dictionary;
   children: ReactNode;
 };
 
-export function LocaleProvider({ locale, dictionary, children }: Props) {
+/**
+ * Both dictionaries ship in the client bundle, which the browser caches once.
+ * The server only passes the locale, so pages and language switches do not
+ * re-send ~55 KB of translations in every response.
+ */
+const dictionaries: Record<Locale, Dictionary> = { en, sw };
+
+export function LocaleProvider({ locale, children }: Props) {
   return (
     <LocaleContext.Provider
       value={{
         locale,
-        t: dictionary,
+        t: dictionaries[locale],
         format: interpolate,
       }}
     >

@@ -61,7 +61,7 @@ export default async function RootLayout({
         className="flex min-h-full flex-col bg-background font-sans text-foreground antialiased"
       >
         <ThemeProvider>
-          <LocaleProvider locale={locale} dictionary={dictionary}>
+          <LocaleProvider locale={locale}>
             <AuthProvider session={session}>
               <SiteChrome skipLinkLabel={dictionary.a11y.skipToMain}>{children}</SiteChrome>
             </AuthProvider>

@@ -4,8 +4,6 @@ import { getCachedSourceDocuments, getCachedWikiSummaries } from "@/lib/cached-w
 import { getServerTranslations } from "@/lib/i18n/server";
 import { localizeWikiSummary } from "@/lib/wiki-locale";
 
-export const revalidate = 3600;
-
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
   return { title: t.sources.metaTitle };

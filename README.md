@@ -105,24 +105,14 @@ Full project inception report — methodology, architecture, and **32-week work 
 |--------|----------|
 | Markdown (source) | [`docs/Inception-Report-CRECO-PBO-Platform.md`](docs/Inception-Report-CRECO-PBO-Platform.md) |
 | HTML (CRECO review) | [`docs/inception-report.html`](docs/inception-report.html) |
-| Wireframe site copy | https://creco-wireframe.vercel.app/docs/inception-report.html |
 
 Open the HTML version in a browser and use **Print → Save as PDF** for submission.
-
-## Wireframes (ToR Deliverable #2)
-
-Mid-fidelity UI/UX wireframes for CRECO sign-off — **hosted separately**:
-
-**https://creco-wireframe.vercel.app/**
-
-Source repo: [`kendagordavid/creco_wireframe`](https://github.com/kendagordavid/creco_wireframe)
 
 ## Repo layout
 
 | Path | Purpose |
 |------|---------|
 | `app/`, `components/`, `lib/` | Next.js frontend + Vercel API |
-| `wireframes/` | ToR wireframe deliverable (HTML + PDF export) |
 | `docs/` | Sitemap, user journeys, **full inception report** |
 | `prototype/wiki/` | PBO Act topic pages (bundled with deploy) |
 | `prototype/backend/` | Optional FastAPI server |

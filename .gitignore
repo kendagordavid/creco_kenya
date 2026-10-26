@@ -24,3 +24,8 @@ out/
 # OS / editor
 .DS_Store
 *.swp
+
+# Wireframes are a separate deliverable (kendagordavid/creco_wireframe), not part of this app
+wireframes/
+public/wireframes/
+docs/inception-report-wireframes.md

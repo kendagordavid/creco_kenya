@@ -1,12 +1,16 @@
 import { NextResponse } from "next/server";
-import { speechTtsConfigured, synthesizeSpeech } from "@/lib/openrouter-tts";
+import { speechSettings, speechTtsConfigured, synthesizeSpeech } from "@/lib/openrouter-tts";
 
 export const runtime = "nodejs";
 
 const MAX_CHARS = 1800;
 
+/** Reports whether read-aloud is set up and which model and voice each language uses (never the key). */
 export async function GET() {
-  return NextResponse.json({ configured: speechTtsConfigured() });
+  return NextResponse.json(
+    { configured: speechTtsConfigured(), settings: speechSettings() },
+    { headers: { "Cache-Control": "no-store" } },
+  );
 }
 
 export async function POST(request: Request) {
@@ -47,7 +51,7 @@ export async function POST(request: Request) {
       },
     });
   } catch (error) {
-    console.error(error instanceof Error ? error.message : "OpenRouter speech failed");
+    console.error(error instanceof Error ? error.message : "Read-aloud speech failed");
     return NextResponse.json({ error: "The reading voice could not be generated." }, { status: 502 });
   }
 }

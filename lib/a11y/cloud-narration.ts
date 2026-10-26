@@ -85,10 +85,11 @@ export class CloudNarration {
   }
 
   async play(): Promise<PlayResult> {
-    if (!this.audio || this.chunks.length === 0 || this.unavailable) {
-      return this.unavailable ? "unavailable" : "error";
-    }
+    if (!this.audio || this.chunks.length === 0) return "error";
 
+    // A failure is not remembered across plays: the next press of Play asks the
+    // server again, so fixing credits or settings works without a page reload.
+    this.unavailable = false;
     if (!(await this.cloudConfigured())) {
       this.unavailable = true;
       return "unavailable";
@@ -198,9 +199,9 @@ export class CloudNarration {
     return "ok";
   }
 
-  private cloudConfigured(): Promise<boolean> {
+  private async cloudConfigured(): Promise<boolean> {
     if (!this.availability) {
-      this.availability = fetch("/api/tts", { method: "GET" })
+      this.availability = fetch("/api/tts", { method: "GET", cache: "no-store" })
         .then(async (response) => {
           if (!response.ok) return false;
           const body = (await response.json()) as { configured?: unknown };
@@ -208,7 +209,10 @@ export class CloudNarration {
         })
         .catch(() => false);
     }
-    return this.availability;
+    const configured = await this.availability;
+    // Only a "yes" is kept for the page; a "no" is asked again next time.
+    if (!configured) this.availability = null;
+    return configured;
   }
 
   private urlFor(index: number): Promise<string | null> {

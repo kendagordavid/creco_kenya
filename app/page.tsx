@@ -49,7 +49,11 @@ export default async function HomePage() {
 
   return (
     <>
-      <HomeHeroSection hero={t.home.hero} quickAccess={t.home.quickAccess} />
+      <HomeHeroSection
+        hero={t.home.hero}
+        quickAccess={t.home.quickAccess}
+        ask={{ label: t.nav.askQuestion, description: t.home.modules.guidance.description }}
+      />
 
       <section className="creco-section creco-section--after-hero">
         <div className="creco-container creco-container--home max-w-3xl text-center">

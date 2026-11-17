@@ -90,7 +90,7 @@ export const sw: Dictionary = {
       eyebrow: "Kuhusu jukwaa",
       title: "Jukwaa hili ni la nini",
       purpose:
-        "Elewa Sheria ya PBO na Kanuni za 2026, kagua utii wako, ripoti yanayotokea mashinani, na uliza maswali.",
+        "Elewa Sheria ya PBO, 2013 na Kanuni za PBO, 2026, kagua kiwango cha utiifu wa shirika lako, ripoti yanayotokea mashinani, na uliza maswali.",
       usersTitle: "Ni kwa nani",
       audiences: ["Mashirika ya manufaa ya umma", "Mashirika ya jamii", "Washirika"],
     },
@@ -110,7 +110,7 @@ export const sw: Dictionary = {
       },
       monitoring: {
         title: "Ufuatiliaji wa utekelezaji",
-        description: "Ripoti yanayotokea unaposhughulika na Sheria.",
+        description: "Shiriki uzoefu wako wa jinsi Sheria inavyotekelezwa.",
       },
       guidance: {
         title: "Mwongozo wa kisheria wa moja kwa moja",
@@ -132,11 +132,11 @@ export const sw: Dictionary = {
       title: "Kutoka Sheria ya NGO hadi Sheria ya PBO",
       readMore: "Soma historia kamili",
       timeline: [
-        { year: "1990", text: "NGO zinasajiliwa chini ya Sheria ya Uratibu wa NGO." },
+        { year: "1990", text: "NGO zinasajiliwa chini ya Sheria ya Uratibu wa NGO, 1990." },
         { year: "2013", text: "Bunge linapitisha Sheria ya PBO: sheria moja kwa PBO zote." },
         { year: "2024", text: "Sheria inaanza kutumika 14 Mei. PBORA inachukua nafasi ya Bodi ya NGO." },
         { year: "2026", text: "Kanuni za PBO zinaweka fomu, ada na muda." },
-        { year: "Sasa", text: "NGO zilizosajiliwa zinahamia daftari la PBO, bila maombi mapya." },
+        { year: "Sasa", text: "NGO zilizosajiliwa zinahamia daftari la PBO bila kutuma maombi mapya." },
       ],
       paragraphs: [
         "Kwa miaka mingi, mashirika ya kiraia nchini Kenya yalisajiliwa chini ya sheria zaidi ya moja. Mashirika yasiyo ya kiserikali yalisajiliwa chini ya Sheria ya Uratibu wa Mashirika Yasiyo ya Kiserikali, 1990. Mashirika ya kijamii kwa kawaida yalisajiliwa kupitia Idara ya Maendeleo ya Jamii. Makundi mengine yaliendesha shughuli kama vyama au amana chini ya sheria hizo tofauti.",
@@ -167,13 +167,13 @@ export const sw: Dictionary = {
       registerPathwaysLead:
         "Si kila shirika linafuata njia moja ya kuingia katika mfumo wa PBO. Njia inategemea kama unaanzisha shirika jipya au tayari umesajiliwa chini ya sheria nyingine.",
       registerPathwaysPoints: [
-        "Usajili ni kwa PBO jipya: hifadhi jina kwa PBORA, pitia kipimo cha faida ya umma, kubali katiba, na wasilisha Fomu 1. Ukikubaliwa, shirika linasajiliwa kama chombo kipya cha kisheria chini ya Sheria ya PBO.",
+        "Usajili ni kwa PBO jipya: hifadhi jina kwa PBORA, pitia kipimo cha faida ya umma, kubali katiba, na wasilisha Fomu 1. Ukikubaliwa, shirika linasajiliwa kama chombo kipya cha kisheria chini ya Sheria ya PBO, 2013.",
         "Ruzuku ni kwa chombo kilichopo tayari — kama vile chama, amana, au kampuni yenye dhamana — ambacho tayari kina utambulisho wa kisheria. Kinatoa ombi la hadhi ya PBO huku kikihifadhi usajili na nyaraka za awali, kulingana na ukaguzi wa PBORA.",
       ],
       rules: {
         eyebrow: "Sheria na kanuni",
         title: "Sheria inaweka mfumo. Kanuni zinaonyesha hatua.",
-        lead: "Sheria ya PBO, 2013 ni Sheria ya Bunge: inafafanua PBO, inaanzisha PBORA, na inaweka mfumo wa kisheria. Kanuni za 2026 ni sheria za msaidizi zinazoweka fomu, ada, muda, na taratibu za utii wa kila siku.",
+        lead: "Sheria ya PBO, 2013 ni Sheria ya Bunge: inafafanua PBO, inaanzisha PBORA, na inaweka mfumo wa kisheria. Kanuni za PBO, 2026 ni sheria ndogo zinazoweka fomu, ada, muda, na taratibu za utii wa kila siku.",
         href: "/knowledge/topics/practical-compliance",
         link: "Soma muhtasari wa kanuni",
       },
@@ -238,7 +238,7 @@ export const sw: Dictionary = {
       ],
     },
     quickAccess: {
-      searchPlaceholder: "Tunaweza kukusaidia vipi leo?...",
+      searchPlaceholder: "Tunaweza kukusaidia vipi leo?",
       searchLabel: "Tafuta kwenye jukwaa",
       browseLabel: "Au chunguza kwa:",
       links: [

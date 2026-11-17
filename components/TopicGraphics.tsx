@@ -9,9 +9,13 @@ export function TopicGraphics({ slug, openLabel }: { slug: string; openLabel: st
   if (!graphics?.length) return null;
 
   return (
-    <div className="grid gap-6 sm:grid-cols-2">
+    <div className="grid items-start gap-6 sm:grid-cols-2">
       {graphics.map((graphic, index) => (
         <figure key={graphic.src} className={graphics.length === 1 ? "sm:col-span-2" : undefined}>
+          {/* The title sits above the graphic so readers know what it covers before they look. */}
+          <figcaption className="mb-2 text-base font-bold leading-snug text-creco-black dark:text-foreground">
+            {graphic.title}
+          </figcaption>
           <a href={graphic.src} target="_blank" rel="noopener noreferrer" className="block">
             {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized static infographic */}
             <img
@@ -21,12 +25,9 @@ export function TopicGraphics({ slug, openLabel }: { slug: string; openLabel: st
               className="block h-auto w-full rounded-xl border border-creco-border bg-white"
             />
           </a>
-          <figcaption className="mt-2 flex items-center justify-between gap-2 text-xs text-creco-muted">
-            <span className="font-semibold">{graphic.title}</span>
-            <a href={graphic.src} target="_blank" rel="noopener noreferrer" className="shrink-0 text-creco-primary no-underline">
-              {openLabel} ↗
-            </a>
-          </figcaption>
+          <a href={graphic.src} target="_blank" rel="noopener noreferrer" className="mt-2 inline-block text-xs text-creco-primary no-underline">
+            {openLabel} ↗
+          </a>
         </figure>
       ))}
     </div>

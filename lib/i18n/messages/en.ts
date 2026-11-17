@@ -88,7 +88,7 @@ export const en = {
       eyebrow: "About the platform",
       title: "What this platform is for",
       purpose:
-        "Understand the PBO Act and the 2026 Regulations, check your compliance, report what happens on the ground, and ask questions.",
+        "Understand the PBO Act, 2013 and the PBO Regulations, 2026, check how well your organisation complies, report what is happening on the ground, and ask questions.",
       usersTitle: "Who it is for",
       audiences: ["Public benefit organisations", "Community organisations", "Partners"],
     },
@@ -108,7 +108,7 @@ export const en = {
       },
       monitoring: {
         title: "Implementation monitoring",
-        description: "Report what happens when you deal with the Act.",
+        description: "Share your experience of how the Act is being applied.",
       },
       guidance: {
         title: "Interactive legal guidance",
@@ -130,11 +130,11 @@ export const en = {
       title: "From the NGO Act to the PBO Act",
       readMore: "Read the full history",
       timeline: [
-        { year: "1990", text: "NGOs register under the NGO Co-ordination Act." },
+        { year: "1990", text: "NGOs register under the NGO Co-ordination Act, 1990." },
         { year: "2013", text: "Parliament passes the PBO Act: one law for all PBOs." },
         { year: "2024", text: "The Act takes effect on 14 May. PBORA replaces the NGO Board." },
         { year: "2026", text: "The PBO Regulations set out forms, fees and timelines." },
-        { year: "Now", text: "Registered NGOs move onto the PBO register, with no fresh application." },
+        { year: "Now", text: "Registered NGOs move onto the PBO register without a fresh application." },
       ],
       paragraphs: [
         "For many years, Kenyan civil society registered under more than one law. Non-governmental organisations registered under the Non-Governmental Organizations Co-ordination Act, 1990. Community-based organisations were usually registered through the Department of Social Development. Other groups operated as societies or trusts under those separate laws.",
@@ -165,13 +165,13 @@ export const en = {
       registerPathwaysLead:
         "Not every organisation follows the same route into the PBO framework. The pathway depends on whether you are starting fresh or already incorporated under another law.",
       registerPathwaysPoints: [
-        "Registration is for a new PBO: reserve a name with PBORA, pass the public benefit test, adopt a constitution, and submit Form 1. On approval, the organisation is registered as a new legal entity under the PBO Act.",
+        "Registration is for a new PBO: reserve a name with PBORA, pass the public benefit test, adopt a constitution, and submit Form 1. On approval, the organisation is registered as a new legal entity under the PBO Act, 2013.",
         "Bestowment is for an existing body — such as a society, trust, or company limited by guarantee — that already has legal personality. It applies for PBO status while keeping its original incorporation and governing documents, subject to PBORA’s review.",
       ],
       rules: {
         eyebrow: "The Act and the Regulations",
         title: "The law sets the frame. The regulations show the steps.",
-        lead: "The PBO Act, 2013 is an Act of Parliament: it defines a PBO, establishes PBORA, and sets the legal framework. The 2026 Regulations are subsidiary legislation that prescribe forms, fees, timelines, and day-to-day compliance procedures.",
+        lead: "The PBO Act, 2013 is an Act of Parliament: it defines a PBO, establishes PBORA, and sets the legal framework. The PBO Regulations, 2026 are subsidiary legislation that prescribe forms, fees, timelines, and day-to-day compliance procedures.",
         href: "/knowledge/topics/practical-compliance",
         link: "Read the regulations overview",
       },
@@ -236,7 +236,7 @@ export const en = {
       ],
     },
     quickAccess: {
-      searchPlaceholder: "How can we help you today?...",
+      searchPlaceholder: "How can we help you today?",
       searchLabel: "Search the platform",
       browseLabel: "Or browse by:",
       links: [

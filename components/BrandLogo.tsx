@@ -1,26 +1,24 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-const sources = {
-  mark: { src: "/brand/mashirika-law-mark.png", width: 864, height: 752 },
-  full: { src: "/brand/mashirika-law-logo.png", width: 864, height: 896 },
-} as const;
+// The single Mashirika Law logo used across the site. To replace it, drop the new
+// artwork at this path (transparent PNG, roughly square, at least 512px wide) and
+// update width/height to its pixel size. app/icon.png (512x512) is the favicon and
+// should be regenerated from the same artwork.
+const logo = { src: "/brand/mashirika-law-mark.png", width: 864, height: 752 } as const;
 
 type Props = {
-  variant?: keyof typeof sources;
   className?: string;
   priority?: boolean;
 };
 
-export function BrandLogo({ variant = "mark", className, priority = false }: Props) {
-  const image = sources[variant];
-
+export function BrandLogo({ className, priority = false }: Props) {
   return (
     <Image
-      src={image.src}
+      src={logo.src}
       alt=""
-      width={image.width}
-      height={image.height}
+      width={logo.width}
+      height={logo.height}
       priority={priority}
       className={cn("object-contain", className)}
     />

@@ -198,7 +198,7 @@ export function SiteHeader() {
           aria-label={t.a11y.homeLink}
           className="group flex shrink-0 items-center gap-2.5 no-underline"
         >
-          <BrandLogo priority variant="mark" className="h-12 w-12 sm:h-16 sm:w-16" />
+          <BrandLogo priority className="h-12 w-12 sm:h-16 sm:w-16" />
           <span className="block min-w-0">
             <span className="block text-sm font-bold leading-none text-creco-black sm:text-base dark:text-foreground">
               Mashirika Law

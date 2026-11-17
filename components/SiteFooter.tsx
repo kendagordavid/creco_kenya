@@ -73,7 +73,7 @@ export function SiteFooter() {
   ];
 
   const partnerLogos = [
-    { href: "https://crecokenya.org/", src: "/brand/mashirika-law-logo.png", label: t.footer.links.creco, width: 120, height: 148 },
+    { href: "https://crecokenya.org/", src: "/images/partners/creco.png", label: t.footer.links.creco, width: 512, height: 512 },
     { href: "https://www.icnl.org/", src: "/images/partners/icnl.png", label: t.footer.links.icnl, width: 132, height: 68 },
   ];
 
@@ -82,7 +82,7 @@ export function SiteFooter() {
       <div className="creco-container creco-container--home grid grid-cols-1 gap-6 py-8 sm:grid-cols-2 lg:grid-cols-[minmax(13rem,1.2fr)_repeat(6,minmax(0,1fr))]">
         <div className="min-w-0">
           <div className="flex items-center gap-2.5">
-            <BrandLogo variant="mark" className="h-11 w-11 shrink-0" />
+            <BrandLogo className="h-11 w-11 shrink-0" />
             <div className="min-w-0">
               <p className="text-sm font-bold leading-tight text-creco-black dark:text-foreground">
                 Mashirika Law

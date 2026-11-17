@@ -203,7 +203,7 @@ export function SiteHeader() {
             <span className="block text-sm font-bold leading-none text-creco-black sm:text-base dark:text-foreground">
               Mashirika Law
             </span>
-            <span className="mt-0.5 block text-[0.625rem] font-semibold uppercase tracking-wider text-creco-muted dark:text-muted-foreground">
+            <span className="mt-0.5 block text-[0.6875rem] font-semibold tracking-wide text-creco-muted dark:text-muted-foreground">
               {t.brand.platformLabel}
             </span>
           </span>

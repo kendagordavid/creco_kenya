@@ -49,10 +49,11 @@ Usajili unatoa utambulisho wa kisheria kwa shirika kama PBO, uwezo wa kufanya mi
 
 ## Hatua za usajili
 
-1. **Hifadhi jina** — wasilisha ombi la kuhifadhi jina na epuka majina yaliyopigwa marufuku.
-2. **Kipimo cha manufaa ya umma** — onyesha kwamba malengo na shughuli zinalenga manufaa ya umma, si faida ya kibinafsi.
-3. **Andaa katiba** — iwe na angalau wanachama watano wa bodi wasio na uhusiano wa damu au ndoa.
-4. **Wasilisha maombi** — fomu sahihi, nyaraka za uthibitisho, ada na taarifa zilizohitajika.
+1. **Kutafuta na kuhifadhi jina** — omba Mamlaka itafute jina ulilopendekeza (angalau machaguo mawili). Jina linahifadhiwa kwa siku 60, na linaweza kuongezewa hadi siku 60 zaidi. Epuka majina yaliyopigwa marufuku.
+2. **Kupakia nyaraka** — pakia Fomu 1 pamoja na ada, katiba, uthibitisho wa kuhifadhi jina, kumbukumbu za kikao kilichoamua kusajili, maelezo ya wakurugenzi, na anwani za shirika. Katiba iwe na bodi ya uongozi ya angalau watu watano, ambapo angalau watatu hawana uhusiano.
+3. **Ukaguzi wa nyaraka** — Mamlaka hukagua maombi na kutumia kipimo cha manufaa ya umma ndani ya siku 60.
+4. **Uthibitishaji wa taarifa** — Mamlaka huthibitisha taarifa ulizotoa. Ikipata upungufu, itakuarifu kwa maandishi na kukupa hadi siku 30 kurekebisha (zinaweza kuongezwa mara moja kwa siku 21).
+5. **Cheti cha usajili** — Mamlaka ikiridhika, inasajili shirika na kutoa Cheti cha Usajili (Fomu 2).
 
 ## Nani anaweza kuomba?
 

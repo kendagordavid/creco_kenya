@@ -159,7 +159,7 @@ export const sw: Dictionary = {
       register: {
         eyebrow: "Usajili",
         title: "Jinsi shirika linavyokuwa PBO",
-        lead: "Hifadhi jina, pitia kipimo cha faida ya umma, andaa katiba yenye angalau wanachama watano wa bodi ya uongozi wasio na uhusiano wa karibu, na wasilisha Fomu 1 na nyaraka zinazohitajika.",
+        lead: "Hatua tano: kutafuta na kuhifadhi jina, kupakia nyaraka, ukaguzi wa nyaraka, uthibitishaji wa taarifa, na cheti cha usajili. Katiba lazima iweke bodi ya uongozi ya angalau watu watano, ambapo angalau watatu hawana uhusiano wa kifamilia.",
         href: "/knowledge/topics/registration",
         link: "Angalia hatua za usajili",
       },
@@ -167,7 +167,7 @@ export const sw: Dictionary = {
       registerPathwaysLead:
         "Si kila shirika linafuata njia moja ya kuingia katika mfumo wa PBO. Njia inategemea kama unaanzisha shirika jipya au tayari umesajiliwa chini ya sheria nyingine.",
       registerPathwaysPoints: [
-        "Usajili ni kwa PBO jipya: hifadhi jina kwa PBORA, pitia kipimo cha faida ya umma, kubali katiba, na wasilisha Fomu 1. Ukikubaliwa, shirika linasajiliwa kama chombo kipya cha kisheria chini ya Sheria ya PBO, 2013.",
+        "Usajili ni kwa PBO jipya: hifadhi jina kwa PBORA, kisha pakia Fomu 1 pamoja na katiba na nyaraka zinazohitajika. PBORA hukagua nyaraka, hutumia kipimo cha faida ya umma na huthibitisha taarifa. Ukikubaliwa, shirika linasajiliwa kama chombo kipya cha kisheria chini ya Sheria ya PBO, 2013.",
         "Ruzuku ni kwa chombo kilichopo tayari — kama vile chama, amana, au kampuni yenye dhamana — ambacho tayari kina utambulisho wa kisheria. Kinatoa ombi la hadhi ya PBO huku kikihifadhi usajili na nyaraka za awali, kulingana na ukaguzi wa PBORA.",
       ],
       rules: {

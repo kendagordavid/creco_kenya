@@ -157,7 +157,7 @@ export const en = {
       register: {
         eyebrow: "Registration",
         title: "How an organisation becomes a PBO",
-        lead: "Reserve a name, pass the public benefit test, draft a constitution with at least five unrelated governing-body members, and submit Form 1 with the supporting documents.",
+        lead: "Five steps: name search and reservation, upload of documents, review of documents, verification of information, and certificate of registration. The constitution must provide for a governing body of at least five people, at least three of them unrelated.",
         href: "/knowledge/topics/registration",
         link: "See the registration steps",
       },
@@ -165,7 +165,7 @@ export const en = {
       registerPathwaysLead:
         "Not every organisation follows the same route into the PBO framework. The pathway depends on whether you are starting fresh or already incorporated under another law.",
       registerPathwaysPoints: [
-        "Registration is for a new PBO: reserve a name with PBORA, pass the public benefit test, adopt a constitution, and submit Form 1. On approval, the organisation is registered as a new legal entity under the PBO Act, 2013.",
+        "Registration is for a new PBO: reserve a name with PBORA, then upload Form 1 with the constitution and supporting documents. PBORA reviews the documents, applies the public benefit test and verifies the information. On approval, the organisation is registered as a new legal entity under the PBO Act, 2013.",
         "Bestowment is for an existing body — such as a society, trust, or company limited by guarantee — that already has legal personality. It applies for PBO status while keeping its original incorporation and governing documents, subject to PBORA’s review.",
       ],
       rules: {

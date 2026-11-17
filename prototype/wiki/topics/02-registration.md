@@ -47,13 +47,19 @@ An organization may apply for registration as a public benefit organization if i
 - satisfies the constitutional and governance requirements prescribed by law; and
 - complies with the registration requirements set out in the Act and the Regulations.
 
-The registration process consists of the following stages:
+The registration process consists of the following five steps:
 
-## Step One: Reserve the Organization's Name
+1. Name search and reservation
+2. Upload of documents
+3. Review of documents
+4. Verification of information
+5. Certificate of registration
+
+## Step One: Name Search and Reservation
 
 A prospective applicant must first submit a request to the Public Benefits Organizations Regulatory Authority to conduct a search on the proposed name, including at least two name options and the required fee. If the name is available, the Authority will reserve it for **60 days**. If more time is needed, the applicant can request an extension, which can be granted for a further period not exceeding **60 days**.
 
-## Prohibited Names
+### Prohibited Names
 
 The Authority will refuse to reserve or register a name where it:
 
@@ -64,20 +70,25 @@ The Authority will refuse to reserve or register a name where it:
 
 These restrictions primarily help to protect the public from confusion and prevent organizations from misleading donors, beneficiaries or regulators.
 
-## Step Two: Meet the Public Benefit Test
+## Step Two: Upload of Documents
 
-Before registration, the Authority must be satisfied that the organization's proposed activities genuinely serve the public interest. Regulation 6 introduces five important considerations.
+Once the name is reserved, the applicant uploads the application and its supporting documents to the Authority.
 
-The activities must;
+Regulation 8 prescribes the application procedure.
 
-- fall within the public benefit categories listed in the Sixth Schedule to the Act;
-- have identifiable beneficiaries (that is, real people or groups who gain from the project)
-- directly and not incidentally or unexpectedly advance public benefit as defined under the Act;
-- not offer personal or private benefit to directors, officials, their immediate family members or close business associates.
+Applications must be submitted using **Form 1** contained in the Second Schedule to the Regulations and accompanied by the prescribed fee.
 
-Where an organization undertakes multiple activities, it cannot use one public benefit activity to justify, hide or excuse the lack of public benefit in another activity. Each activity must provide benefit to the public. .
+The following documents must accompany the application:
 
-## Step Three: Prepare the Organization's Constitution
+- the organization's constitution prepared in accordance with section 8(4) of the Act;
+- proof of reservation of the proposed name;
+- minutes of the meeting resolving to seek registration;
+- particulars of the directors;
+- the physical and postal addresses of the organization.
+
+The Act further requires that at least **one-third of the directors must be Kenyan citizens residing in Kenya,** if the applicant is an international organization that plans to implement activities directly in Kenya; or to operate from Kenya to implement activities in another country**;** or to fundraise in the country.
+
+### The Organization's Constitution
 
 The constitution is one of the most important registration documents.
 
@@ -98,23 +109,7 @@ Section 8(4) of the Act prescribes the minimum matters that every constitution m
 
 The constitution must also provide for a governing body consisting of **at least five persons**. At least **three of these must not be related.** This governance requirement promotes accountability and reduces the risk of organizations being controlled by a single family or small group.
 
-## Step Four: Submit the Application
-
-Regulation 8 prescribes the application procedure.
-
-Applications must be submitted using **Form 1** contained in the Second Schedule to the Regulations and accompanied by the prescribed fee.
-
-The following documents must accompany the application:
-
-- the organization's constitution prepared in accordance with section 8(4) of the Act;
-- proof of reservation of the proposed name;
-- minutes of the meeting resolving to seek registration;
-- particulars of the directors;
-- the physical and postal addresses of the organization.
-
-The Act further requires that at least **one-third of the directors must be Kenyan citizens residing in Kenya,** if the applicant is an international organization that plans to implement activities directly in Kenya; or to operate from Kenya to implement activities in another country**;** or to fundraise in the country.
-
-## Additional Information Required under the Act
+### Additional Information Required under the Act
 
 Section 8 of the Act also requires applicants to provide:
 
@@ -127,25 +122,38 @@ Section 8 of the Act also requires applicants to provide:
 
 The Regulations give further details regarding the statutory requirements contained in the Act.
 
-## Consideration of the Application
+## Step Three: Review of Documents
 
 Once a complete application has been submitted, the Authority considers whether all legal requirements have been met.
 
-Section 9 of the Act and Rule 8 of the Regulations require the Authority to determine the application within **60 days** of receiving it.
+Section 9 of the Act and Regulation 8 of the Regulations require the Authority to determine the application within **60 days** of receiving it.
 
-Upon satisfaction, the Authority registers the organization and issues a certificate of registration.
+As part of its review, the Authority applies the public benefit test. It must be satisfied that the organization's proposed activities genuinely serve the public interest. Regulation 6 sets out the considerations.
+
+The activities must:
+
+- fall within the public benefit categories listed in the Sixth Schedule to the Act;
+- have identifiable beneficiaries (that is, real people or groups who gain from the project)
+- directly and not incidentally or unexpectedly advance public benefit as defined under the Act;
+- not offer personal or private benefit to directors, officials, their immediate family members or close business associates.
+
+Where an organization undertakes multiple activities, it cannot use one public benefit activity to justify, hide or excuse the lack of public benefit in another activity. Each activity must provide benefit to the public.
+
+## Step Four: Verification of Information
+
+The Authority verifies the information and particulars provided in the application, and may ask for any further information it reasonably requires (section 8 of the Act).
 
 If the Authority identifies deficiencies, it must notify the applicant in writing and give reasons for the decision. It should explain what additional information or corrections are required, and provide a period, not exceeding **30 days** from the date of the notice for compliance. The Authority may extend this period once, for up to **21 additional days** upon good cause being shown.
 
 If the applicant complies within the specified period, the Authority must register the PBO within **14 days** after receiving the requested information.
 
-## Refusal to Register
+### Refusal to Register
 
 If the applicant does not meet the requirements set out in the notice, the Authority will refuse to register the PBO. The Authority will inform the applicant of this refusal in writing, within the remaining registration time limit, giving reasons for the decision.
 
-## Certificate of Registration
+## Step Five: Certificate of Registration
 
-Where the application is approved, the Authority issues a **Certificate of Registration**. The certificate is issued in **Form 2** contained in the Second Schedule of the Regulations.
+Once the Authority is satisfied that all requirements are met, it registers the organization and issues a **Certificate of Registration** in **Form 2** contained in the Second Schedule of the Regulations.
 
 Section 10 of the Act provides that the certificate constitutes conclusive evidence that the organization is legally registered under the Act.
 
@@ -196,7 +204,7 @@ Before submitting an application:
 - Confirm that your activities satisfy the public benefit test.
 - Keep accurate minutes authorising registration.
 - Verify that governance structures comply with statutory requirements.
-- Prepare complete supporting documentation before filing the application.
+- Prepare complete supporting documentation before uploading the application.
 - Maintain copies of all documents submitted to the Authority.
 
 Incomplete applications are among the most common causes of delays.
@@ -206,7 +214,7 @@ Incomplete applications are among the most common causes of delays.
 ## Key Takeaways
 
 - Registration under the PBO Act creates a distinct legal status as a Public Benefit Organization.
-- Registration begins with reservation of the proposed name.
+- Registration follows five steps: name search and reservation, upload of documents, review of documents, verification of information, and certificate of registration.
 - Applicants must satisfy requirements in both the Act and the Regulations.
 - A compliant constitution is central to successful registration.
 - The Act provides the Authority with a time limit of **60 days** to consider an application for registration.

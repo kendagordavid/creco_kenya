@@ -37,9 +37,9 @@ Understanding the distinct roles of these institutions helps organizations engag
 
 ## The Public Benefits Organizations Regulatory Authority
 
-The Public Benefits Organizations Regulatory Authority is the statutory body established under the PBO Act to administer and enforce the legal framework governing Public Benefit Organizations in Kenya.
+The Public Benefits Organizations Regulatory Authority is the statutory body established under the PBO Act, 2013 to administer and enforce the legal framework governing Public Benefit Organizations in Kenya.
 
-The Authority succeeds the former Non-Governmental Organizations Co-ordination Board and is responsible for implementing the objectives of the PBO Act within a more enabling, transparent and accountable regulatory framework.
+The Authority succeeds the former Non-Governmental Organizations Co-ordination Board and is responsible for implementing the objectives of the PBO Act, 2013 within a more enabling, transparent and accountable regulatory framework.
 
 Its role is not merely to regulate the sector but also to facilitate the growth and development of Public Benefit Organizations while ensuring compliance with the law.
 
@@ -148,7 +148,7 @@ This multidisciplinary composition helps ensure that disputes are considered fai
 
 ## Jurisdiction of the Tribunal
 
-The Tribunal hears disputes arising from decisions made under the PBO Act.
+The Tribunal hears disputes arising from decisions made under the PBO Act, 2013.
 
 Examples could include appeals against:
 
@@ -251,9 +251,9 @@ Good communication and timely compliance often prevent disputes from arising.
 
 ## Key Takeaways
 
-- The Public Benefits Organizations Regulatory Authority is the statutory regulator responsible for implementing the PBO Act.
+- The Public Benefits Organizations Regulatory Authority is the statutory regulator responsible for implementing the PBO Act, 2013.
 - Its functions include registration, oversight, monitoring compliance and maintaining the official register of PBOs.
-- The Authority must exercise its powers fairly, transparently and in accordance with the Constitution and the PBO Act.
+- The Authority must exercise its powers fairly, transparently and in accordance with the Constitution and the PBO Act, 2013.
 - The Public Benefits Organizations Disputes Tribunal provides an independent mechanism for hearing disputes arising under the Act.
 - The Authority and the Tribunal perform complementary but distinct roles that together promote accountability, fairness and effective regulation of the PBO sector.
 

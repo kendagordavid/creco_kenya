@@ -19,7 +19,7 @@ Pale panapokuwa na tofauti, Sheria inatangulia kwa sababu ndiyo sheria kuu.
 
 ## Kwa nini Sheria ya PBO ilipitishwa?
 
-Sheria ililenga kuunganisha mfumo uliogawanyika chini ya Sheria ya Uratibu wa NGO, kuweka mazingira yanayowezesha kazi ya PBO, na kuimarisha uwazi na uwajibikaji badala ya udhibiti mkali tu.
+Sheria ililenga kuunganisha mfumo uliogawanyika chini ya Sheria ya Uratibu wa NGO, 1990, kuweka mazingira yanayowezesha kazi ya PBO, na kuimarisha uwazi na uwajibikaji badala ya udhibiti mkali tu.
 
 ## PBO ni nini?
 
@@ -92,7 +92,7 @@ Maombi yanahitaji nyaraka za utawala, akaunti ziliodhibitiwa, ushahidi wa shughu
 
 Shirika linapata haki na wajibu wa PBO, lakini linabaki na muundo wake wa kisheria wa awali isipokuwa pale sheria inalazimisha mabadiliko.
 
-*Rejea: Sheria ya PBO na Kanuni za 2026 kuhusu fomu na nyaraka za kutunukiwa hadhi.*`,
+*Rejea: Sheria ya PBO, 2013 na Kanuni za PBO, 2026 kuhusu fomu na nyaraka za kutunukiwa hadhi.*`,
 
   "international-pbos": `# Mashirika ya Kimataifa ya Manufaa ya Umma na mashirika yaliyosamehewa
 

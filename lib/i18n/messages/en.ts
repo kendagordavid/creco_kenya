@@ -139,7 +139,7 @@ export const en = {
       paragraphs: [
         "For many years, Kenyan civil society registered under more than one law. Non-governmental organisations registered under the Non-Governmental Organizations Co-ordination Act, 1990. Community-based organisations were usually registered through the Department of Social Development. Other groups operated as societies or trusts under those separate laws.",
         "The NGO Co-ordination Board administered the 1990 Act. It registered NGOs, kept the register, and coordinated regulation of organisations that fell under that law. Community-based organisations stayed outside the Board and continued on the social-development registration route.",
-        "Parliament passed the Public Benefit Organizations Act in 2013 to replace that split system with one framework for public benefit organisations. The Act commenced on 14 May 2024. It repealed the NGO Co-ordination Act and established the Public Benefit Organizations Regulatory Authority (PBORA), which took over the functions of the NGO Co-ordination Board.",
+        "Parliament passed the Public Benefit Organizations Act in 2013 to replace that split system with one framework for public benefit organisations. The Act commenced on 14 May 2024. It repealed the NGO Co-ordination Act, 1990 and established the Public Benefit Organizations Regulatory Authority (PBORA), which took over the functions of the NGO Co-ordination Board.",
         "Organisations already registered under the repealed Act are treated as having moved into the PBO framework. PBORA’s public advisory is that they do not apply for a fresh registration. They submit updated particulars, a constitution aligned to the Act, and the minutes the Authority asks for, so they can be entered on the PBO register and issued a certificate. Confirm the current transition steps on PBORA’s website, because that process is still being implemented.",
       ],
     },
@@ -258,7 +258,7 @@ export const en = {
     metaTitle: "Topics",
     eyebrow: "Knowledge base",
     title: "PBO Act topics",
-    lead: "Summaries of the Public Benefit Organizations Act, 2013 and the 2026 Regulations. Each topic is drawn from those source documents.",
+    lead: "Summaries of the Public Benefit Organizations Act, 2013 and the PBO Regulations, 2026. Each topic is drawn from those source documents.",
     imageAlt: "Maasai women seated together for a community dialogue in Kajiado County, Kenya",
     empty: "No topics available.",
     topicLabel: "Topic {number}",
@@ -344,7 +344,7 @@ export const en = {
     askAnother: "Ask another question",
     starterQuestions: [
       "What documents do I need to register as a PBO?",
-      "What is a Public Benefit Organization under the PBO Act?",
+      "What is a Public Benefit Organization under the PBO Act, 2013?",
       "How long does the Authority have to decide on a registration application?",
       "Ni nini mahitaji ya kusajili shirika la faida ya umma?",
     ],
@@ -535,7 +535,7 @@ export const en = {
       },
       checklist: {
         title: "Compliance checklist",
-        description: "Check your organisation against PBO Act and Regulations requirements.",
+        description: "Check your organisation against the requirements of the PBO Act, 2013 and the PBO Regulations, 2026.",
       },
       askGuidance: {
         title: "Ask guidance",
@@ -878,7 +878,7 @@ export const en = {
     metaTitle: "News & Updates",
     eyebrow: "News & Updates",
     title: "News & Updates",
-    lead: "New developments that affect implementation of the PBO Act and the 2026 Regulations.",
+    lead: "New developments that affect implementation of the PBO Act, 2013 and the PBO Regulations, 2026.",
     empty:
       "No updates have been published yet. This page will carry items only when there is a real development to report.",
     kindsTitle: "What will be published here",
@@ -887,7 +887,7 @@ export const en = {
       "New regulations",
       "Relevant court decisions",
       "Official regulatory guidance",
-      "Other developments that affect implementation of the PBO Act",
+      "Other developments that affect implementation of the PBO Act, 2013",
     ],
     dateline: "Latest from Mashirika Law",
     featuredLabel: "Lead story",
@@ -905,7 +905,7 @@ export const en = {
   },
   newsSubscribe: {
     title: "Get updates by email",
-    lead: "We will email you when a new update about the PBO Act or the Regulations is published. No other messages.",
+    lead: "We will email you when a new update about the PBO Act, 2013 or the Regulations is published. No other messages.",
     emailLabel: "Email address",
     placeholder: "you@example.org",
     consent:
@@ -934,10 +934,10 @@ export const en = {
   formsPage: {
     metaTitle: "Forms",
     eyebrow: "Knowledge Hub",
-    title: "Forms prescribed in the 2026 Regulations",
+    title: "Forms prescribed in the PBO Regulations, 2026",
     lead: "The forms set out in the Public Benefit Organizations Regulations, 2026. Tap a form to see what it looks like. Use the latest version issued by the Authority.",
     sourceLink: "Read the practical compliance summary",
-    regulationsLink: "Open the 2026 Regulations (PDF)",
+    regulationsLink: "Open the PBO Regulations, 2026 (PDF)",
     viewForm: "See the form",
     pageCountOne: "1 page",
     pageCount: "{count} pages",
@@ -950,7 +950,7 @@ export const en = {
     metaTitle: "Knowledge hub",
     eyebrow: "Legal awareness",
     title: "Knowledge Hub",
-    lead: "PBO Framework Summaries, FAQs, media, sources, and the forms prescribed in the 2026 Regulations.",
+    lead: "PBO Framework Summaries, FAQs, media, sources, and the forms prescribed in the PBO Regulations, 2026.",
     imageAlt: "A Maasai woman speaking with a microphone to a community group in Kajiado County, Kenya",
     featuredTopics: "PBO Framework Summaries",
     faqCategories: "FAQ categories",
@@ -968,7 +968,7 @@ export const en = {
     metaTitle: "Compliance tools",
     eyebrow: "Compliance support",
     title: "Compliance tools",
-    lead: "One self-assessment checklist, a separate toolkit, and templates mapped to the PBO Act.",
+    lead: "One self-assessment checklist, a separate toolkit, and templates mapped to the PBO Act, 2013.",
     checklist: {
       title: "Self-assessment checklist",
       description:

@@ -87,7 +87,7 @@ Ilisasishwa mwisho: [TAREHE]`,
 2. Wanufaika waliowasiliwa (kwa makundi inapowezekana)
 3. Ushirikiano na eneo la kijiografia
 4. Changamoto na hatua za kuzishughulikia
-5. Uhusiano na malengo yaliyosajiliwa chini ya Sheria ya PBO
+5. Uhusiano na malengo yaliyosajiliwa chini ya Sheria ya PBO, 2013
 6. Muhtasari wa kifedha (kiwango cha juu)
 
 Iliandaliwa na: _____________  Imeidhinishwa na bodi: _____________`,

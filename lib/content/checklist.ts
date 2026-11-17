@@ -135,7 +135,7 @@ export const CHECKLIST_SECTIONS: ChecklistSection[] = [
         id: "c-1",
         group: "Registration",
         label:
-          "Is the organisation registered or legally recognised as a PBO under the PBO Act (registration certificate available)?",
+          "Is the organisation registered or legally recognised as a PBO under the PBO Act, 2013 (registration certificate available)?",
       },
       {
         id: "c-2",

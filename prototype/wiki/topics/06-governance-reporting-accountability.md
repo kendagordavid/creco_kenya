@@ -30,7 +30,7 @@ Public Benefit Organizations (PBOs) play an important role in advancing public w
 
 Good governance is not just a legal obligation - it is fundamental to an organization's credibility, sustainability and effectiveness. Sound governance systems help organizations make better decisions, manage resources responsibly, comply with donor and legal requirements and build trust among beneficiaries, partners, regulators and the public.
 
-The PBO Act outlines the core governance and accountability obligations, while the Public Benefits Organizations Regulations, 2026 prescribe the practical procedures for reporting, record-keeping, notifications and compliance.
+The PBO Act, 2013 outlines the core governance and accountability obligations, while the Public Benefits Organizations Regulations, 2026 prescribe the practical procedures for reporting, record-keeping, notifications and compliance.
 
 ## What is Good Governance?
 
@@ -45,7 +45,7 @@ Good governance requires an organization to:
 - maintain transparency in decision-making; and
 - remain accountable to its members, donors, beneficiaries, regulators and the public.
 
-The PBO Act therefore promotes governance as a means of protecting both organizations and the communities they serve.
+The PBO Act, 2013 therefore promotes governance as a means of protecting both organizations and the communities they serve.
 
 ## Governing Body
 

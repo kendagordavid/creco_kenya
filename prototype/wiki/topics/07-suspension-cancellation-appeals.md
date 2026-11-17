@@ -152,7 +152,7 @@ Once registration is cancelled:
 - the cancellation will be published in the Gazette and on the Authority’s website;
 - the organization remains responsible for obligations that arose while it was registered, including obligations relating to money, assets and reporting.
 
-Cancellation under the PBO Act does not dissolve an organization that was bestowed PBO status and incorporated under another law. For example, a company limited by guarantee that had been **bestowed PBO status** would continue to exist under the Companies Act unless separately dissolved under that Act. However, it would lose its recognition as a Public Benefit Organization.
+Cancellation under the PBO Act, 2013 does not dissolve an organization that was bestowed PBO status and incorporated under another law. For example, a company limited by guarantee that had been **bestowed PBO status** would continue to exist under the Companies Act, 2015 unless separately dissolved under that Act. However, it would lose its recognition as a Public Benefit Organization.
 
 ## Voluntary Cancellation
 
@@ -169,9 +169,9 @@ The Authority considers such requests in accordance with the Act and the Regulat
 
 ## Right of Appeal
 
-In addition to the requirement that regulatory action should be procedurally fair, the PBO Act also provides PBOs with the right of appeal. Cancellation decisions should be reviewable by a court or independent body.
+In addition to the requirement that regulatory action should be procedurally fair, the PBO Act, 2013 also provides PBOs with the right of appeal. Cancellation decisions should be reviewable by a court or independent body.
 
-The PBO Act recognises that organizations may disagree with decisions made by the Authority.
+The PBO Act, 2013 recognises that organizations may disagree with decisions made by the Authority.
 
 A person or organization affected by cancellation or suspension of a certificate or permit may appeal to the **Public Benefits Organizations Disputes Tribunal** within 30 days of the Authority’s decision under Regulation 21.
 
@@ -222,9 +222,9 @@ No. The legal framework encourages corrective action where deficiencies can reas
 
 No. Suspension is temporary and does not automatically dissolve the organization. The Authority can lift the suspension and reinstate the organization, if the underlying compliance issue or breach is corrected.
 
-## "Cancellation under the PBO Act always ends the legal existence of the organization?"
+## "Cancellation under the PBO Act, 2013 always ends the legal existence of the organization?"
 
-Not necessarily. The effect of cancellation depends on whether the organization was directly incorporated under the PBO Act. An organization that bestowed PBO status, and that was already incorporated under another law (e.g. the Companies Act)will continue to exist under that law but lose its PBO status. An organization that was established primarily through registration under the PBO Act will lose its legal identity and cease to exist.
+Not necessarily. The effect of cancellation depends on whether the organization was directly incorporated under the PBO Act, 2013. An organization that bestowed PBO status, and that was already incorporated under another law (e.g. the Companies Act, 2015) will continue to exist under that law but lose its PBO status. An organization that was established primarily through registration under the PBO Act will lose its legal identity and cease to exist.
 
 ## Practical Compliance Checklist
 

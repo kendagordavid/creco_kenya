@@ -60,9 +60,9 @@ The key prescribed forms include:
 
 Organizations should always ensure that they use the latest prescribed forms issued by the Authority.
 
-**Important Transition Note:** Form 1 is used for fresh registration applications. It may also be used by organizations transitioning from the NGO framework into the PBO framework, to provide updated information to the Authority for purposes of compliance. This transition process should be distinguished from the registration of a completely new organization. A recent High Court decision affirmed that NGOs previously registered under the repealed NGO Co-ordination Act will automatically transition into the PBO framework without losing their legal identity.
+**Important Transition Note:** Form 1 is used for fresh registration applications. It may also be used by organizations transitioning from the NGO framework into the PBO framework, to provide updated information to the Authority for purposes of compliance. This transition process should be distinguished from the registration of a completely new organization. A recent High Court decision affirmed that NGOs previously registered under the repealed NGO Co-ordination Act, 1990 will automatically transition into the PBO framework without losing their legal identity.
 
-**Important Note on Forums and Federations:** Membership of Self-Regulation Forums and Federations under the Regulations is not compulsory. A Public Benefit Organization may choose whether or not to join a forum or federation. Non-membership should not, by itself, affect a PBO’s registration status, rights or compliance standing. A recent High Court decision confirmed that compulsory federation membership is inconsistent with the freedom of association. The provisions of the PBO Act on membership of the National Federation of PBOs should be interpreted in line with this decision.
+**Important Note on Forums and Federations:** Membership of Self-Regulation Forums and Federations under the Regulations is not compulsory. A Public Benefit Organization may choose whether or not to join a forum or federation. Non-membership should not, by itself, affect a PBO’s registration status, rights or compliance standing. A recent High Court decision confirmed that compulsory federation membership is inconsistent with the freedom of association. The provisions of the PBO Act, 2013 on membership of the National Federation of PBOs should be interpreted in line with this decision.
 
 ## Supporting Documents
 
@@ -231,7 +231,7 @@ Most compliance issues can be avoided through timely reporting, accurate record-
 
 ## Practical Compliance Checklist
 
-Every registered Public Benefit Organization should ensure that it complies with the PBO Act and Regulations. It can keep track of its compliance through:
+Every registered Public Benefit Organization should ensure that it complies with the PBO Act, 2013 and Regulations. It can keep track of its compliance through:
 
 - Keeping its constitution and governance documents up to date.
 - Holding regular governing body meetings and record minutes.
@@ -270,7 +270,7 @@ Ultimately, compliance is part of good organizational leadership.
 
 ## Key Takeaways
 
-- The Regulations provide the practical procedures that implement the PBO Act.
+- The Regulations provide the practical procedures that implement the PBO Act, 2013.
 - Organizations should use the prescribed forms for all statutory applications and notifications.
 - Annual reports must be submitted within six months after the end of the financial year.
 - Material changes must be reported promptly using the prescribed procedures.

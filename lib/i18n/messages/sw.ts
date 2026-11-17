@@ -141,7 +141,7 @@ export const sw: Dictionary = {
       paragraphs: [
         "Kwa miaka mingi, mashirika ya kiraia nchini Kenya yalisajiliwa chini ya sheria zaidi ya moja. Mashirika yasiyo ya kiserikali yalisajiliwa chini ya Sheria ya Uratibu wa Mashirika Yasiyo ya Kiserikali, 1990. Mashirika ya kijamii kwa kawaida yalisajiliwa kupitia Idara ya Maendeleo ya Jamii. Makundi mengine yaliendesha shughuli kama vyama au amana chini ya sheria hizo tofauti.",
         "Bodi ya Uratibu wa NGO ilisimamia Sheria ya 1990. Ilisajili NGO, ilihifadhi daftari, na kuratibu udhibiti wa mashirika yaliyoangukia chini ya sheria hiyo. Mashirika ya kijamii yalibaki nje ya Bodi na kuendelea na njia ya usajili wa maendeleo ya jamii.",
-        "Bunge lilipitisha Sheria ya Mashirika ya Faida ya Umma mwaka 2013 ili kubadilisha mfumo huo uliogawanyika na kuwa mfumo mmoja wa mashirika ya faida ya umma. Sheria ilianza kutumika tarehe 14 Mei 2024. Ilifuta Sheria ya Uratibu wa NGO na kuanzisha Mamlaka ya Udhibiti wa Mashirika ya Faida ya Umma (PBORA), iliyochukua majukumu ya Bodi ya Uratibu wa NGO.",
+        "Bunge lilipitisha Sheria ya Mashirika ya Faida ya Umma mwaka 2013 ili kubadilisha mfumo huo uliogawanyika na kuwa mfumo mmoja wa mashirika ya faida ya umma. Sheria ilianza kutumika tarehe 14 Mei 2024. Ilifuta Sheria ya Uratibu wa NGO, 1990 na kuanzisha Mamlaka ya Udhibiti wa Mashirika ya Faida ya Umma (PBORA), iliyochukua majukumu ya Bodi ya Uratibu wa NGO.",
         "Mashirika yaliyokuwa yamesajiliwa chini ya sheria iliyofutwa yanachukuliwa kuwa yameingia katika mfumo wa PBO. Taarifa ya umma ya PBORA ni kwamba hayahitaji kuomba usajili mpya. Yanawasilisha maelezo yaliyosasishwa, katiba iliyolinganishwa na Sheria, na kumbukumbu za dakika ambazo Mamlaka inahitaji, ili yaingizwe kwenye daftari la PBO na kupewa cheti. Thibitisha hatua za sasa za mpito kwenye tovuti ya PBORA, kwa sababu mchakato huo bado unaendelea kutekelezwa.",
       ],
     },
@@ -260,7 +260,7 @@ export const sw: Dictionary = {
     metaTitle: "Mada",
     eyebrow: "Hifadhi ya maarifa",
     title: "Mada za Sheria ya PBO",
-    lead: "Muhtasari wa Sheria ya Mashirika ya Manufaa ya Umma, 2013 na Kanuni za 2026. Kila mada inatolewa kutoka nyaraka hizo za chanzo.",
+    lead: "Muhtasari wa Sheria ya Mashirika ya Manufaa ya Umma, 2013 na Kanuni za PBO, 2026. Kila mada inatolewa kutoka nyaraka hizo za chanzo.",
     imageAlt: "Wanawake wa Kimaasai wameketi pamoja kwa mazungumzo ya jamii katika Kaunti ya Kajiado, Kenya",
     empty: "Hakuna mada zinazopatikana.",
     topicLabel: "Mada {number}",
@@ -281,7 +281,7 @@ export const sw: Dictionary = {
     disclaimerTitle: "Tahadhari ya kisheria",
     disclaimer: [
       "Chapisho hili ni taarifa ya jumla na nyenzo ya elimu kwa umma kuhusu Sheria ya Mashirika ya Manufaa ya Umma, 2013 na Kanuni za Mashirika ya Manufaa ya Umma, 2026.",
-      "Si ushauri wa kisheria na haisichukuliwe badala ya ushauri wa wakili. Ingawa juhudi zimefanywa kuhakikisha usahihi, wasomaji wanashauriwa kusoma Sheria ya Mashirika ya Manufaa ya Umma, 2013, Kanuni za 2026, mwongozo rasmi wa Mamlaka ya Kudhibiti, na kuomba ushauri wa kisheria wanapofanya maamuzi kuhusu usajili, utawala, uzingatiaji, ripoti, utekelezaji au kodi.",
+      "Si ushauri wa kisheria na haisichukuliwe badala ya ushauri wa wakili. Ingawa juhudi zimefanywa kuhakikisha usahihi, wasomaji wanashauriwa kusoma Sheria ya Mashirika ya Manufaa ya Umma, 2013, Kanuni za PBO, 2026, mwongozo rasmi wa Mamlaka ya Kudhibiti, na kuomba ushauri wa kisheria wanapofanya maamuzi kuhusu usajili, utawala, uzingatiaji, ripoti, utekelezaji au kodi.",
       "Marejeo ya maamuzi ya mahakama yanatolewa kwa taarifa tu na yasomwe pamoja na hukumu husika na mabadiliko yoyote ya kisheria yaliyofuata.",
     ],
     control: {
@@ -882,7 +882,7 @@ export const sw: Dictionary = {
     metaTitle: "Habari na Taarifa",
     eyebrow: "Habari na Taarifa",
     title: "Habari na Taarifa",
-    lead: "Maendeleo mapya yanayoathiri utekelezaji wa Sheria ya PBO na Kanuni za 2026.",
+    lead: "Maendeleo mapya yanayoathiri utekelezaji wa Sheria ya PBO, 2013 na Kanuni za PBO, 2026.",
     empty:
       "Bado hakuna taarifa zilizochapishwa. Ukurasa huu utabeba habari pale tu kunapokuwa na maendeleo halisi ya kuripoti.",
     kindsTitle: "Kitakachochapishwa hapa",
@@ -938,10 +938,10 @@ export const sw: Dictionary = {
   formsPage: {
     metaTitle: "Fomu",
     eyebrow: "Kituo cha Maarifa",
-    title: "Fomu zilizowekwa katika Kanuni za 2026",
+    title: "Fomu zilizowekwa katika Kanuni za PBO, 2026",
     lead: "Fomu zilizowekwa katika Kanuni za Mashirika ya Manufaa ya Umma, 2026. Gusa fomu kuona inavyoonekana. Tumia toleo jipya zaidi linalotolewa na Mamlaka.",
     sourceLink: "Soma muhtasari wa uzingatiaji wa vitendo",
-    regulationsLink: "Fungua Kanuni za 2026 (PDF)",
+    regulationsLink: "Fungua Kanuni za PBO, 2026 (PDF)",
     viewForm: "Ona fomu",
     pageCountOne: "Ukurasa 1",
     pageCount: "Kurasa {count}",
@@ -954,7 +954,7 @@ export const sw: Dictionary = {
     metaTitle: "Kituo cha maarifa",
     eyebrow: "Uelewa wa kisheria",
     title: "Kituo cha Maarifa",
-    lead: "Muhtasari wa Mfumo wa PBO, maswali, vyombo vya habari, vyanzo, na fomu zilizowekwa katika Kanuni za 2026.",
+    lead: "Muhtasari wa Mfumo wa PBO, maswali, vyombo vya habari, vyanzo, na fomu zilizowekwa katika Kanuni za PBO, 2026.",
     imageAlt: "Mwanamke wa Kimaasai akizungumza kwa kipaza sauti na kundi la jamii katika Kaunti ya Kajiado, Kenya",
     featuredTopics: "Muhtasari wa Mfumo wa PBO",
     faqCategories: "Jamii za Maswali Yanayoulizwa Mara kwa Mara",

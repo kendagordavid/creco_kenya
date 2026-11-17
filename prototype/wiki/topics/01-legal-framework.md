@@ -21,7 +21,7 @@ source_documents:
 
 # Understanding the Public Benefits Organizations Legal Framework in Kenya
 
-## What is the Public Benefits Organizations Act and Who Does It Apply To?
+## What is the Public Benefits Organizations Act, 2013 and Who Does It Apply To?
 
 ## Why this Summary Matters
 
@@ -48,7 +48,7 @@ Whenever there appears to be uncertainty between the Act and the Regulations, th
 
 ## Why Was the PBO Act Enacted?
 
-The PBO Act recognizes that public benefit organizations are essential partners in Kenya's development. The preamble acknowledges that these organizations contribute to the public through various means, including public service delivery, democratic governance, accountability, social cohesion, environmental protection, and the realization of constitutional rights. It also recognizes that neither Government nor the private sector can, on their own, address every societal challenge.
+The PBO Act, 2013 recognizes that public benefit organizations are essential partners in Kenya's development. The preamble acknowledges that these organizations contribute to the public through various means, including public service delivery, democratic governance, accountability, social cohesion, environmental protection, and the realization of constitutional rights. It also recognizes that neither Government nor the private sector can, on their own, address every societal challenge.
 
 Section 3 therefore establishes several key objectives of the Act, including:
 
@@ -60,7 +60,7 @@ Section 3 therefore establishes several key objectives of the Act, including:
 - providing transparent registration procedures; and
 - strengthening civil society's contribution to Kenya's development.
 
-These objectives distinguish the PBO Act from the repealed NGO legal framework by placing greater emphasis on facilitating PBOs, rather than controlling them.
+These objectives distinguish the PBO Act, 2013 from the repealed NGO legal framework by placing greater emphasis on facilitating PBOs, rather than controlling them.
 
 ## Government's Responsibility under the Act
 
@@ -114,7 +114,7 @@ Section 5(2) expressly excludes several entities, which exist to advance the int
 - public bodies established by law;
 - political parties;
 - religious organizations primarily devoted to worship or religious teaching;
-- societies registered under the Societies Act;
+- societies registered under the Societies Act (Cap. 108);
 - cooperative societies;
 - SACCOs;
 - microfinance institutions; and
@@ -168,7 +168,7 @@ The Regulations ensure that provisions of the Act can be implemented consistentl
 - The legal framework promotes transparency, accountability, self-regulation and partnership rather than restrictive control.
 - Understanding the distinction between the Act and the Regulations is essential for compliance with Kenya's PBO legal framework.
 
-**Important Legal Update on Transition:** NGOs that were registered under the repealed NGO Coordination Act will not lose their legal status simply because they have not registered a fresh under the PBO Act. In the case of Otieno & 2 others v Attorney General & another (2025), the High Court decided that Paragraph 5(1) and 5(2) of the Fifth Schedule to the Public Benefit Organizations Act, 2013 are unconstitutional as they would violate Article 36 of the Constitution, which protects the freedom of association. Therefore, validly registered NGOs (national and international) will automatically be recognized as PBOs without needing to re-register under the PBO Act. They will however need to provide updated information about their organisations and meet the transition requirements outlined in the PBO Regulations, Rule 43. The deadline for compliance with the transition provisions is May 13, 2027.
+**Important Legal Update on Transition:** NGOs that were registered under the repealed NGO Coordination Act, 1990 will not lose their legal status simply because they have not registered a fresh under the PBO Act, 2013. In the case of Otieno & 2 others v Attorney General & another (2025), the High Court decided that Paragraph 5(1) and 5(2) of the Fifth Schedule to the Public Benefit Organizations Act, 2013 are unconstitutional as they would violate Article 36 of the Constitution, which protects the freedom of association. Therefore, validly registered NGOs (national and international) will automatically be recognized as PBOs without needing to re-register under the PBO Act, 2013. They will however need to provide updated information about their organisations and meet the transition requirements outlined in the PBO Regulations, Rule 43. The deadline for compliance with the transition provisions is May 13, 2027.
 
 ## Legal References
 

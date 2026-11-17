@@ -2,7 +2,7 @@
 slug: registration
 title: "Registration of Public Benefit Organizations"
 order: 2
-lead: "Registration is the legal process through which an organization gains official recognition as a Public Benefit Organization (PBO) under Kenyan law. Registration gives an organization legal personality under the PBO Act, enabling it to enjoy the rights, protections and…"
+lead: "Registration is the legal process through which an organization gains official recognition as a Public Benefit Organization (PBO) under Kenyan law. Registration gives an organization legal personality under the PBO Act, 2013, enabling it to enjoy the rights, protections and…"
 tags:
   - registration
   - PBO Act
@@ -26,17 +26,17 @@ source_documents:
 
 ## Why this Summary Matters
 
-Registration is the legal process through which an organization gains official recognition as a Public Benefit Organization (PBO) under Kenyan law. Registration gives an organization legal personality under the PBO Act, enabling it to enjoy the rights, protections and benefits provided to legal entities by the law, while also assuming the responsibilities and obligations applicable to registered PBOs.
+Registration is the legal process through which an organization gains official recognition as a Public Benefit Organization (PBO) under Kenyan law. Registration gives an organization legal personality under the PBO Act, 2013, enabling it to enjoy the rights, protections and benefits provided to legal entities by the law, while also assuming the responsibilities and obligations applicable to registered PBOs.
 
 The Public Benefits Organizations Act, 2013 establishes who may register, the legal requirements for registration, and the Authority's powers in considering applications. The Public Benefits Organizations Regulations, 2026 complement the Act by prescribing the practical procedures, forms, supporting documents, timelines and fees required for registration.
 
 This summary explains the registration process from start to finish.
 
-## Registration under the PBO Act
+## Registration under the PBO Act, 2013
 
 Section 6 of the Act provides that in order to enjoy the rights and benefits available under the Act, an organization must register under it. Upon registration under the Act, an organization gains a distinct legal status as a Public Benefit Organization.
 
-It is important to note that an organization cannot be registered under both the PBO Act and another Kenyan registration law at the same time. Once an organization is registered under the PBO Act, this registration takes priority and supersedes any previous registrations which become invalid. The Act in section 7, however, grants the Authority the power to bestow Public Benefit Organization status to an organization that is registered under another law.
+It is important to note that an organization cannot be registered under both the PBO Act, 2013 and another Kenyan registration law at the same time. Once an organization is registered under the PBO Act, 2013, this registration takes priority and supersedes any previous registrations which become invalid. The Act in section 7, however, grants the Authority the power to bestow Public Benefit Organization status to an organization that is registered under another law.
 
 ## Who Can Apply for Registration?
 
@@ -172,7 +172,7 @@ Registration does not expire unless:
 - the organization voluntarily deregisters;
 - the organization is dissolved or wound up according to law.
 
-Registration is therefore not subject to periodic renewal under the PBO Act.
+Registration is therefore not subject to periodic renewal under the PBO Act, 2013.
 
 ## Can the Authority Refuse Registration?
 
@@ -199,7 +199,7 @@ Before submitting an application:
 
 Incomplete applications are among the most common causes of delays.
 
-**Important Legal Update for Existing NGOs:** The transition process for existing NGOs should be distinguished from registration of new organizations. NGOs that were registered under the repealed NGO Coordination Act are not required to apply for fresh registration but will transition automatically under the PBO Act. However, they will need to submit updated information to the Authority to ensure that their records are aligned with the PBO framework. Transition to the PBO Act should be understood in light of the High Court decision in Otieno & 2 others v Attorney General & another (2025) and Article 36 of the Constitution.
+**Important Legal Update for Existing NGOs:** The transition process for existing NGOs should be distinguished from registration of new organizations. NGOs that were registered under the repealed NGO Coordination Act, 1990 are not required to apply for fresh registration but will transition automatically under the PBO Act, 2013. However, they will need to submit updated information to the Authority to ensure that their records are aligned with the PBO framework. Transition to the PBO Act, 2013 should be understood in light of the High Court decision in Otieno & 2 others v Attorney General & another (2025) and Article 36 of the Constitution.
 
 ## Key Takeaways
 

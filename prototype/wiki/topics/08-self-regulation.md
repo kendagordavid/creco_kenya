@@ -62,7 +62,7 @@ The Act acknowledges self-regulation as an important means of improving the qual
 Self-Regulation Forums may pursue objectives such as:
 
 - promoting ethical conduct among members;
-- encouraging compliance with the PBO Act and other applicable laws;
+- encouraging compliance with the PBO Act, 2013 and other applicable laws;
 - developing voluntary codes of conduct;
 - strengthening governance practices;
 - supporting organizational capacity development;
@@ -73,9 +73,9 @@ Self-Regulation Forums may pursue objectives such as:
 
 By encouraging organizations to learn from one another, self-regulation helps reduce governance challenges and improves public confidence in the sector.
 
-**Important Legal Update on Voluntary Membership:** Membership in a National Federation or Self-Regulation Forum should remain voluntary. A PBO should not lose its legal status, benefits or recognition merely because it chooses not to join a federation or forum. This reflects the guarantee of the freedom of association in Article 36 of the Constitution, along with the High Court’s clarification in the Petition on the PBO Act.
+**Important Legal Update on Voluntary Membership:** Membership in a National Federation or Self-Regulation Forum should remain voluntary. A PBO should not lose its legal status, benefits or recognition merely because it chooses not to join a federation or forum. This reflects the guarantee of the freedom of association in Article 36 of the Constitution, along with the High Court’s clarification in the Petition on the PBO Act, 2013.
 
-In the PBO Act case, the court declared that section 21(1) and 21(9) of the PBO Act are inconsistent with the freedom of association in the Constitution, to the extent that they compel membership of PBOs to the National Federation of PBOs. In that regard, membership or affiliation of a PBO to the National Federation of PBOs is strictly voluntary, and no PBO shall suffer any disadvantage or sanction for choosing not to join the Federation.
+In the PBO Act case, the court declared that section 21(1) and 21(9) of the PBO Act, 2013 are inconsistent with the freedom of association in the Constitution, to the extent that they compel membership of PBOs to the National Federation of PBOs. In that regard, membership or affiliation of a PBO to the National Federation of PBOs is strictly voluntary, and no PBO shall suffer any disadvantage or sanction for choosing not to join the Federation.
 
 ## What is a Federation?
 
@@ -93,7 +93,7 @@ The Act provides that Self-Regulation Forums and the Authority shall enter a Rec
 
 The Regulations provide an outline of requirements that self regulation forums or federations should meet to gain recognition from the Authority. This includes requirements on the minimum number of organizations that the forum or federation should have.
 
-Note: The petition on the PBO Act case held that Section 23(2) of the PBO Act, which restricts recognition to self-regulation forums that represent a “significant number” of organizations, violates Article 36 and 24 of the Constitution and is therefore invalid.Recognition does **not** transform the forum into a regulator. The statutory regulatory mandate remains with the Authority.
+Note: The petition on the PBO Act case held that Section 23(2) of the PBO Act, 2013, which restricts recognition to self-regulation forums that represent a “significant number” of organizations, violates Article 36 and 24 of the Constitution and is therefore invalid.Recognition does **not** transform the forum into a regulator. The statutory regulatory mandate remains with the Authority.
 
 Rather, recognised forums complement the Authority in promoting voluntary compliance and strengthening governance across the sector.
 
@@ -225,7 +225,7 @@ No. The Authority remains the statutory regulator established under the Act. Sel
 
 No. Registration can only be granted by the Public Benefits Organizations Regulatory Authority under the Act.
 
-## "Codes of conduct have the same legal status as the PBO Act?"
+## "Codes of conduct have the same legal status as the PBO Act, 2013?"
 
 No. Codes of conduct are voluntary standards developed by the sector. They supplement but do not replace statutory obligations.
 
@@ -248,7 +248,7 @@ Participation demonstrates a commitment to good governance and continuous improv
 
 ## Key Takeaways
 
-- The PBO Act recognises self-regulation as an important component of an accountable and effective nonprofit sector.
+- The PBO Act, 2013 recognises self-regulation as an important component of an accountable and effective nonprofit sector.
 - Self-Regulation Forums promote ethical conduct, good governance and voluntary compliance among Public Benefit Organizations.
 - Self-Regulation Federations help to coordinate and represent networks of Self-Regulation Forums and PBOs.
 - The Authority remains the statutory regulator; self-regulation complements rather than replaces government oversight.

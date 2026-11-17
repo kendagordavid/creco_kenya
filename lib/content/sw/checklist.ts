@@ -82,7 +82,7 @@ export const CHECKLIST_SECTIONS: ChecklistSection[] = [
         id: "c-1",
         group: "Usajili",
         label:
-          "Je, shirika limesajiliwa au kutambuliwa kisheria kama PBO chini ya Sheria ya PBO (cheti cha usajili kinapatikana)?",
+          "Je, shirika limesajiliwa au kutambuliwa kisheria kama PBO chini ya Sheria ya PBO, 2013 (cheti cha usajili kinapatikana)?",
       },
       {
         id: "c-2",

@@ -94,7 +94,7 @@ Last updated: [DATE]`,
 2. Beneficiaries reached (disaggregated where possible)
 3. Partnerships and geographic coverage
 4. Challenges and mitigation
-5. Link to registered objects under the PBO Act
+5. Link to registered objects under the PBO Act, 2013
 6. Financial summary (high level)
 
 Prepared by: _____________  Approved by board: _____________`,

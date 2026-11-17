@@ -2,7 +2,7 @@
 slug: bestowment
 title: "Bestowment of Public Benefit Organization Status"
 order: 3
-lead: "Kenya's nonprofit sector is diverse, with many organizations pursuing public benefit objectives. Some nonprofit organizations (NPOs) are legally incorporated under the Public Benefit Organizations (PBO) Act, while others are registered under laws such as the Companies Act,…"
+lead: "Kenya's nonprofit sector is diverse, with many organizations pursuing public benefit objectives. Some nonprofit organizations (NPOs) are legally incorporated under the Public Benefit Organizations (PBO) Act, 2013, while others are registered under laws such as the Companies Act, 2015,…"
 tags:
   - bestowment
   - PBO status
@@ -26,15 +26,15 @@ source_documents:
 
 ## Why this Summary Matters
 
-Kenya's nonprofit sector is diverse, with many organizations pursuing public benefit objectives. Some nonprofit organizations (NPOs) are legally incorporated under the Public Benefit Organizations (PBO) Act, while others are registered under laws such as the **Companies Act**, the **Trustees (Perpetual Succession) Act**, **the Societies Act and the Community Groups Registration Act**. Although these organizations already have legal personality, they may wish to receive the benefits, and recognition offered under the Public Benefits Organizations Act, 2013.
+Kenya's nonprofit sector is diverse, with many organizations pursuing public benefit objectives. Some nonprofit organizations (NPOs) are legally incorporated under the Public Benefit Organizations (PBO) Act, 2013, while others are registered under laws such as the **Companies Act, 2015**, the **Trustees (Perpetual Succession) Act**, **the Societies Act (Cap. 108) and the Community Groups Registration Act**. Although these organizations already have legal personality, they may wish to receive the benefits, and recognition offered under the Public Benefits Organizations Act, 2013.
 
-To facilitate this, the Act introduces the concept of “**bestowment of Public Benefit Organization status”**. This approach allows an existing organization to retain its original legal identity while being formally recognized as a Public Benefit Organization, without the need to dissolve and re-register under the PBO Act.
+To facilitate this, the Act introduces the concept of “**bestowment of Public Benefit Organization status”**. This approach allows an existing organization to retain its original legal identity while being formally recognized as a Public Benefit Organization, without the need to dissolve and re-register under the PBO Act, 2013.
 
 The Act provides the legal basis for this bestowment process, while the Public Benefits Organizations Regulations, 2026 prescribe the application procedure, documentation, timelines and forms.
 
 ## What is Bestowment of Public Benefit Organization Status?
 
-Bestowment of PBO Status is the legal process through which the Authority formally grants public benefit status to nonprofit organizations incorporated under other laws, such as the Companies Act. This means that NPOs that are not registered as PBOs may still be recognized by the Authority as public benefit organizations.
+Bestowment of PBO Status is the legal process through which the Authority formally grants public benefit status to nonprofit organizations incorporated under other laws, such as the Companies Act, 2015. This means that NPOs that are not registered as PBOs may still be recognized by the Authority as public benefit organizations.
 
 ## Distinction between Registration and Bestowment
 
@@ -126,7 +126,7 @@ If additional information is required, the Authority may request clarification o
 
 Where the Authority is satisfied that all legal requirements have been met, it grants the organization **Public Benefit Organization status** and issues the prescribed certificate.
 
-The certificate serves as official confirmation that the organization has received public benefit organization status under the PBO Act while retaining its original legal incorporation.
+The certificate serves as official confirmation that the organization has received public benefit organization status under the PBO Act, 2013 while retaining its original legal incorporation.
 
 Unlike organizations registered directly under the Act, the organization continues to derive its legal personality from the law under which it was originally incorporated.
 
@@ -137,8 +137,8 @@ Bestowment has important legal consequences.
 The organization:
 
 - retains its existing legal identity;
-- continues to be governed by its incorporating statute except where the PBO Act imposes additional obligations;
-- becomes subject to the oversight framework established under the PBO Act;
+- continues to be governed by its incorporating statute except where the PBO Act, 2013 imposes additional obligations;
+- becomes subject to the oversight framework established under the PBO Act, 2013;
 - acquires the rights and benefits available to Public Benefit Organizations under the Act; and
 - assumes the reporting and accountability obligations applicable to PBOs.
 
@@ -180,7 +180,7 @@ No. The organization retains its original legal status under the relevant law. B
 
 ## "Bestowment exempts an organization from complying with its original law?"
 
-No. The organization must continue to comply with the law under which it was incorporated as well as the applicable provisions of the PBO Act.
+No. The organization must continue to comply with the law under which it was incorporated as well as the applicable provisions of the PBO Act, 2013.
 
 ## Practical Tips
 

@@ -41,7 +41,7 @@ The Public Benefits Organizations Regulations, 2026 provide the procedures, docu
 
 An International Public Benefit Organization is an organization that is **incorporated outside Kenya** and carries out public benefit activities within Kenya.
 
-Before operating in Kenya, an IPBO must comply with the requirements established under the PBO Act. Registration under the Act does not create the organization. Rather, it confirms that the organization has met the registration requirements, is incorporated outside Kenya, and is authorised to lawfully undertake public benefit activities in Kenya.
+Before operating in Kenya, an IPBO must comply with the requirements established under the PBO Act, 2013. Registration under the Act does not create the organization. Rather, it confirms that the organization has met the registration requirements, is incorporated outside Kenya, and is authorised to lawfully undertake public benefit activities in Kenya.
 
 ## Why is it important for International Organizations to Register?
 
@@ -103,11 +103,11 @@ The certificate authorises the organization to operate within Kenya in accordanc
 
 ## Work Permits and Immigration Compliance
 
-Registration under the PBO Act is distinct from immigration approval.
+Registration under the PBO Act, 2013 is distinct from immigration approval.
 
 Foreign nationals working for an International PBO must comply with Kenya's immigration laws, including obtaining any required work permits or entry permits.
 
-Similarly, registration under the PBO Act does not automatically authorise foreign personnel to reside or work in Kenya.
+Similarly, registration under the PBO Act, 2013 does not automatically authorise foreign personnel to reside or work in Kenya.
 
 Organizations should therefore ensure compliance with both the PBO legal framework and immigration requirements.
 
@@ -167,17 +167,17 @@ Ideally, in line with good practice, such partnerships should be governed by wri
 
 ## Common Misconceptions: Is it true that...
 
-## "Registration under the PBO Act automatically gives an international organization diplomatic status?"
+## "Registration under the PBO Act, 2013 automatically gives an international organization diplomatic status?"
 
-No. Diplomatic status is granted under international law or diplomatic agreements, not under the PBO Act.
+No. Diplomatic status is granted under international law or diplomatic agreements, not under the PBO Act, 2013.
 
 ## "International organizations do not have to comply with Kenyan law?"
 
-Incorrect. Unless specifically exempt under another legal instrument, international PBOs operating in Kenya are subject to the PBO Act and other applicable Kenyan laws.
+Incorrect. Unless specifically exempt under another legal instrument, international PBOs operating in Kenya are subject to the PBO Act, 2013 and other applicable Kenyan laws.
 
 ## "An exempt organization is exempt from all regulation?"
 
-No. The exemption relates only to registration under the PBO Act. Exempt organizations remain subject to the legal instruments under which they operate and other applicable laws.
+No. The exemption relates only to registration under the PBO Act, 2013. Exempt organizations remain subject to the legal instruments under which they operate and other applicable laws.
 
 ## Practical Tips
 
@@ -193,8 +193,8 @@ Before commencing operations in Kenya, an international organization should:
 ## Key Takeaways
 
 - International public benefit organizations are organizations incorporated outside Kenya that undertake public benefit activities within Kenya.
-- They must generally register under the PBO Act before commencing operations.
-- Registration under the PBO Act does not replace compliance with immigration, employment, taxation or other applicable laws.
+- They must generally register under the PBO Act, 2013 before commencing operations.
+- Registration under the PBO Act, 2013 does not replace compliance with immigration, employment, taxation or other applicable laws.
 - International organizations that do not directly implement activities in or from Kenya, and instead provide indirect support such as grants, policy guidance or technical assistance, may qualify for a permit for operation as an exempt international public benefit organization.
 - Exemption from registration does not mean exemption from accountability or compliance with Kenyan law.
 

@@ -34,7 +34,7 @@ This chapter primarily contains references from the Public Benefits Organization
 
 ## An Enabling Legal Framework
 
-One of the defining features of the PBO Act is its recognition that Public Benefit Organizations are partners in national development rather than entities requiring control.
+One of the defining features of the PBO Act, 2013 is its recognition that Public Benefit Organizations are partners in national development rather than entities requiring control.
 
 Section 3 identifies one of the principal objectives of the Act as creating an enabling environment for the establishment, growth and operation of Public Benefit Organizations. The Act also seeks to encourage transparency, accountability and cooperation between the Government and the PBO sector while safeguarding constitutional freedoms.
 
@@ -272,7 +272,7 @@ To maximise the benefits of registration:
 
 ## Key Takeaways
 
-- The PBO Act is both a regulatory and an enabling law.
+- The PBO Act, 2013 is both a regulatory and an enabling law.
 - Registration gives a PBO its own legal personality and corporate status.
 - Registered PBOs may own property, enter contracts and institute legal proceedings.
 - Since PBOs are recognized as separate legal entities, their directors and officials cannot be held personally liable for actions taken in good faith on behalf of the organization.

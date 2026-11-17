@@ -204,7 +204,7 @@ export function SiteHeader() {
               Mashirika Law
             </span>
             <span className="mt-0.5 block text-[0.625rem] font-semibold uppercase tracking-wider text-creco-muted dark:text-muted-foreground">
-              PBO Act Platform
+              {t.brand.platformLabel}
             </span>
           </span>
         </Link>

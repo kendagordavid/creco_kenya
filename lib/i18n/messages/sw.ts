@@ -1,9 +1,12 @@
 import type { Dictionary } from "./en";
 
 export const sw: Dictionary = {
+  brand: {
+    platformLabel: "Jukwaa la PBO",
+  },
   meta: {
-    title: "Jukwaa la Sheria ya PBO la Mashirika Law",
-    titleTemplate: "%s | Jukwaa la Sheria ya PBO la Mashirika Law",
+    title: "Jukwaa la PBO la Mashirika Law",
+    titleTemplate: "%s | Jukwaa la PBO la Mashirika Law",
     description:
       "Ufikiaji wa kiraia na mwongozo kuhusu Sheria ya Mashirika ya Faida ya Umma, 2013 — kwa PBO, mashirika ya jamii, na washirika.",
   },
@@ -185,7 +188,7 @@ export const sw: Dictionary = {
       button: "Nenda kwenye zana ya mwongozo",
     },
     hero: {
-      ariaLabel: "Muhtasari wa jukwaa la Sheria ya PBO la Mashirika Law",
+      ariaLabel: "Muhtasari wa Jukwaa la PBO la Mashirika Law",
       previousSlide: "Slaidi iliyotangulia",
       nextSlide: "Slaidi inayofuata",
       chooseSlide: "Chagua slaidi",
@@ -416,7 +419,7 @@ export const sw: Dictionary = {
     getStarted: "Anza",
   },
   authShell: {
-    platformLabel: "Jukwaa la Sheria ya PBO",
+    platformLabel: "Jukwaa la PBO",
     quote:
       "Kulinda nafasi ya kiraia kupitia uelewa wa kisheria na utii wa PBO kwa uwazi.",
     quoteFooter: "— Mashirika Law · Ushirikiano wa ICNL",
@@ -976,7 +979,7 @@ export const sw: Dictionary = {
         "Pima shirika lako dhidi ya masharti ya kisheria ya Sheria ya PBO, 2013 na Kanuni za PBO, 2026. Maswali yanabadilika kulingana na hali ya shirika lako.",
     },
     checklistTool: {
-      printHeader: "Mashirika Law · Jukwaa la Sheria ya PBO",
+      printHeader: "Mashirika Law · Jukwaa la PBO",
       purposeTitle: "Madhumuni ya tathmini hii",
       guidanceTitle: "Mwongozo kwa mtumiaji",
       statusHeading: "Sehemu A: Wasifu wa shirika",
@@ -1122,7 +1125,7 @@ export const sw: Dictionary = {
     metaTitle: "Wasiliana nasi",
     eyebrow: "Wasiliana",
     title: "Wasiliana na Mashirika Law",
-    lead: "Andika kwa Mashirika Law kuhusu jukwaa la Sheria ya PBO, mwongozo, au maswali ya ushirikiano. Wafanyakazi hujibu kadri uwezo unavyoruhusu.",
+    lead: "Andika kwa Mashirika Law kuhusu jukwaa, mwongozo, au maswali ya ushirikiano. Wafanyakazi hujibu kadri uwezo unavyoruhusu.",
     imageAlt: "Watu wawili wakizungumza wakiwa mezani",
     directTitle: "Tutumie barua pepe",
     directLead:
@@ -1143,7 +1146,7 @@ export const sw: Dictionary = {
   },
   a11y: {
     skipToMain: "Ruka hadi maudhui kuu",
-    homeLink: "Mashirika Law — Jukwaa la Sheria ya PBO, nenda ukurasa wa nyumbani",
+    homeLink: "Mashirika Law — Jukwaa la PBO, nenda ukurasa wa nyumbani",
     showPassword: "Onyesha nenosiri",
     hidePassword: "Ficha nenosiri",
     currentPage: "ukurasa wa sasa",

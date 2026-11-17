@@ -1,7 +1,10 @@
 export const en = {
+  brand: {
+    platformLabel: "PBOs Platform",
+  },
   meta: {
-    title: "Mashirika Law PBO Act Platform",
-    titleTemplate: "%s | Mashirika Law PBO Act Platform",
+    title: "Mashirika Law PBOs Platform",
+    titleTemplate: "%s | Mashirika Law PBOs Platform",
     description:
       "Civic access and guidance on Kenya's Public Benefit Organizations Act, 2013 — for PBOs, community organisations, and partners.",
   },
@@ -183,7 +186,7 @@ export const en = {
       button: "Go to guidance tool",
     },
     hero: {
-      ariaLabel: "Mashirika Law PBO Act platform highlights",
+      ariaLabel: "Mashirika Law PBOs Platform highlights",
       previousSlide: "Previous slide",
       nextSlide: "Next slide",
       chooseSlide: "Choose slide",
@@ -414,7 +417,7 @@ export const en = {
     getStarted: "Get started",
   },
   authShell: {
-    platformLabel: "PBO Act Platform",
+    platformLabel: "PBOs Platform",
     quote:
       "Safeguarding civic space through legal awareness and transparent PBO compliance.",
     quoteFooter: "— Mashirika Law · ICNL partnership",
@@ -972,7 +975,7 @@ export const en = {
         "Check your organisation against the statutory requirements of the PBO Act, 2013 and the PBO Regulations, 2026. Questions adapt to your organisation's status.",
     },
     checklistTool: {
-      printHeader: "Mashirika Law · PBO Act Platform",
+      printHeader: "Mashirika Law · PBOs Platform",
       purposeTitle: "Purpose of this assessment",
       guidanceTitle: "User guidance",
       statusHeading: "Section A: Organisation profile",
@@ -1118,7 +1121,7 @@ export const en = {
     metaTitle: "Contact",
     eyebrow: "Get in touch",
     title: "Contact Mashirika Law",
-    lead: "Write to Mashirika Law about the PBO Act platform, guidance, or partnership questions. Staff respond when capacity allows.",
+    lead: "Write to Mashirika Law about the platform, guidance, or partnership questions. Staff respond when capacity allows.",
     imageAlt: "Two people in conversation across a table",
     directTitle: "Email us",
     directLead:
@@ -1139,7 +1142,7 @@ export const en = {
   },
   a11y: {
     skipToMain: "Skip to main content",
-    homeLink: "Mashirika Law — PBO Act Platform, go to homepage",
+    homeLink: "Mashirika Law — PBOs Platform, go to homepage",
     showPassword: "Show password",
     hidePassword: "Hide password",
     currentPage: "current page",

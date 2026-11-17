@@ -88,7 +88,7 @@ export function SiteFooter() {
                 Mashirika Law
               </p>
               <p className="mt-0.5 text-[0.6875rem] font-medium leading-tight text-creco-muted dark:text-muted-foreground">
-                PBO Act Platform
+                {t.brand.platformLabel}
               </p>
             </div>
           </div>

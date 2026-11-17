@@ -320,11 +320,11 @@ export const sw: Dictionary = {
       evolvingPractices: "Mbinu zinazoendelea",
       anonymousReport: "Ripoti bila kujulikana",
       pbora: "PBORA",
-      creco: "Mashirika Law",
+      creco: "CRECO Kenya",
       icnl: "ICNL",
     },
     partnershipText:
-      "Imeundwa na International Center for Not-for-Profit Law (ICNL) kama sehemu ya kazi ya kulinda nafasi ya kiraia nchini Kenya.",
+      "Limeundwa kwa ushirikiano na International Center for Not-for-Profit Law (ICNL) kama sehemu ya kazi yetu ya pamoja ya kulinda nafasi ya kiraia nchini Kenya.",
     copyright: "© {year} Mashirika Law",
     legalReviewed:
       "Maudhui ya kisheria yalikaguliwa mwisho tarehe 5 Oktoba 2026. Yanafuata Sheria ya PBO, 2013, Kanuni za PBO, 2026, na muhtasari wa kisheria ulioidhinishwa.",
@@ -1086,7 +1086,7 @@ export const sw: Dictionary = {
     metaTitle: "Sisi ni nani",
     eyebrow: "Kuhusu Mashirika Law",
     title: "Sisi ni nani",
-    lead: "Mashirika Law husaidia Mashirika ya Faida ya Umma kuelewa na kufanya kazi na Sheria ya PBO, 2013 — kupitia mwongozo wa lugha rahisi, zana za utii, na ufuatiliaji wa siri wa nafasi ya kiraia.",
+    lead: "Mashirika Law ni mpango wa CRECO Kenya unaosaidia Mashirika ya Faida ya Umma kuelewa na kutekeleza Sheria ya PBO, 2013 na Kanuni, 2026. Tunatoa mwongozo kwa lugha rahisi, zana za vitendo za utiifu, na ufuatiliaji wa siri wa nafasi ya kiraia.",
     imageAlt: "Wanawake wamekusanyika kwenye mkutano wa jamii huko Kilimambogo, Kenya",
     whoWeAreTitle: "Wajibu wetu",
     whoWeAreP1:
@@ -1095,15 +1095,15 @@ export const sw: Dictionary = {
       "Maudhui ni ya taarifa. Yanakusanywa kutoka nyaraka za kisheria zilizoidhinishwa na kukaguliwa na wafanyakazi wa Mashirika Law. Si mbadala wa ushauri wa kisheria, na hayachukui nafasi ya kuwasilisha nyaraka kwa Mamlaka ya Udhibiti wa Mashirika ya Faida ya Umma.",
     partnershipTitle: "Ushirikiano wa ICNL",
     partnershipP1:
-      "Jukwaa hili limeundwa na International Center for Not-for-Profit Law (ICNL) kama sehemu ya kazi ya kulinda nafasi ya kiraia nchini Kenya.",
+      "Limeundwa kwa ushirikiano na International Center for Not-for-Profit Law (ICNL) kama sehemu ya kazi yetu ya pamoja ya kulinda nafasi ya kiraia nchini Kenya.",
     partnershipP2:
-      "Pamoja tunaunga mkono PBO, mashirika ya jamii, na washirika kwa zana za vitendo, kwa lugha mbili, ili waweze kujisajili, kudumisha utiifu, na kushiriki uzoefu wa usajili na mbinu zinazowezesha kwa siri.",
+      "Kwa pamoja, tunawapa PBO, mashirika ya jamii na washirika zana za vitendo kwa lugha mbili ili wajisajili, wadumishe utiifu, na washiriki kwa siri uzoefu wao wa usajili na mbinu bora.",
   },
   privacy: {
-    metaTitle: "Faragha ya data",
+    metaTitle: "Faragha Yako katika Mashirika Law",
     eyebrow: "Data yako",
-    title: "Notisi ya faragha",
-    lead: "Jinsi Mashirika Law inavyoshughulikia taarifa unazoshiriki kwenye jukwaa hili — kwa akaunti, mwongozo, na ukaguzi wa siri wa ufuatiliaji.",
+    title: "Faragha Yako katika Mashirika Law",
+    lead: "Katika Mashirika Law, tunachukulia taarifa unazotushirikisha kama amana. Unapofungua akaunti, unapotafuta mwongozo, au unapowasilisha taarifa kwa ukaguzi wa siri wa ufuatiliaji, tunakusanya tu kile tunachohitaji kukuhudumia, na tunakitumia kwa madhumuni hayo pekee. Taarifa zako zinalindwa kwa usiri mkali na hushughulikiwa na wafanyakazi walioidhinishwa pekee. Hatuziuzi kamwe, na hatuzishiriki na wahusika wengine bila idhini yako, isipokuwa pale sheria inapotaka.",
     imageAlt: "Mtu akiandika maelezo ya faragha kando ya daftari lililofungwa",
     accountsTitle: "Akaunti za jukwaa",
     accountsBody:
@@ -1116,7 +1116,7 @@ export const sw: Dictionary = {
       "Ripoti kuhusu uzoefu wa usajili, mbinu zinazowezesha, na matukio ya nafasi ya kiraia zinachukuliwa kuwa siri. Wafanyakazi wa Mashirika Law hukagua mawasilisho kabla ya kutumika katika uhamasishaji. Usijumuishe taarifa ambazo huko tayari kushiriki na wakaguzi wa Mashirika Law.",
     useTitle: "Jinsi tunavyotumia taarifa",
     useBody:
-      "Tunatumia data ya akaunti na fomu kuendesha jukwaa, kujibu maswali, kuboresha mwongozo, na kuunga mkono ufuatiliaji wa nafasi ya kiraia. Hatuuzi data binafsi. Ufikiaji ni kwa wafanyakazi wa Mashirika Law wanaohitaji kwa madhumuni hayo, na watoa huduma wanaohitajika kuendesha tovuti.",
+      "Tunatumia data ya akaunti na fomu kwa ajili ya kuendesha jukwaa, kujibu maswali yako, kuboresha mwongozo, na kuunga mkono ufuatiliaji wa nafasi ya kiraia pekee. Ni wafanyakazi walioidhinishwa wa Mashirika Law pekee wanaoweza kuifikia. Hatuuzi data binafsi kamwe, na hatuishiriki na wahusika wengine bila idhini yako, isipokuwa pale sheria inapotaka.",
     contactTitle: "Maswali kuhusu faragha",
     contactBody:
       "Ikiwa unataka kusasisha au kufuta maelezo ya akaunti, au una swali kuhusu notisi hii, tuma barua pepe info@crecokenya.org. Notisi hii inaweza kusasishwa jukwaa linapokua; toleo kwenye ukurasa huu ndilo la sasa.",
@@ -1129,7 +1129,7 @@ export const sw: Dictionary = {
     imageAlt: "Watu wawili wakizungumza wakiwa mezani",
     directTitle: "Tutumie barua pepe",
     directLead:
-      "Njia ya haraka zaidi ya kufikia shirika ni barua pepe fupi. Jumuisha jina la shirika lako na kaunti ukiweza — inatusaidia kujibu kwa muktadha.",
+      "Kwa jibu la haraka zaidi, tutumie barua pepe fupi. Jumuisha jina la shirika lako na kaunti ili kutusaidia kujibu kwa muktadha sahihi.",
     formTitle: "Tuma ujumbe",
     formLead:
       "Fomu hii hufungua programu yako ya barua pepe ikiwa na maelezo yaliyojazwa. Hakuna kinachohifadhiwa kwenye jukwaa hadi utume ujumbe.",

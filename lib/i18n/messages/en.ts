@@ -318,11 +318,11 @@ export const en = {
       evolvingPractices: "Evolving practices",
       anonymousReport: "Report anonymously",
       pbora: "PBORA",
-      creco: "Mashirika Law",
+      creco: "CRECO Kenya",
       icnl: "ICNL",
     },
     partnershipText:
-      "Developed with the International Center for Not-for-Profit Law (ICNL) as part of civic space safeguarding work in Kenya.",
+      "Developed in partnership with the International Center for Not-for-Profit Law (ICNL) as part of our shared work to safeguard civic space in Kenya.",
     copyright: "© {year} Mashirika Law",
     legalReviewed:
       "Legal content last reviewed on 5 October 2026. It follows the PBO Act, 2013, the PBO Regulations, 2026, and the approved legal summaries.",
@@ -1082,7 +1082,7 @@ export const en = {
     metaTitle: "Who we are",
     eyebrow: "About Mashirika Law",
     title: "Who we are",
-    lead: "Mashirika Law helps Public Benefit Organizations understand and work with the PBO Act, 2013 — through plain-language guidance, compliance tools, and confidential civic-space monitoring.",
+    lead: "Mashirika Law is a CRECO Kenya initiative which helps Public Benefit Organizations understand and apply the PBO Act, 2013 and the Regulations, 2026. We offer plain-language guidance, practical compliance tools, and confidential civic-space monitoring.",
     imageAlt: "Women gathered at a community meeting in Kilimambogo, Kenya",
     whoWeAreTitle: "Our role",
     whoWeAreP1:
@@ -1091,15 +1091,15 @@ export const en = {
       "The content is informational. It is compiled from approved legal materials and reviewed by Mashirika Law staff. It is not a substitute for legal advice, and it does not replace filings with the Public Benefit Organizations Regulatory Authority.",
     partnershipTitle: "ICNL partnership",
     partnershipP1:
-      "This platform is developed with the International Center for Not-for-Profit Law (ICNL) as part of civic space safeguarding work in Kenya.",
+      "Developed in partnership with the International Center for Not-for-Profit Law (ICNL) as part of our shared work to safeguard civic space in Kenya.",
     partnershipP2:
-      "Together we support PBOs, community organisations, and partners with practical, bilingual tools so they can register, stay compliant, and share registration experiences and enabling practices in confidence.",
+      "Together, we equip PBOs, community organisations and partners with practical bilingual tools to register, stay compliant, and confidentially share their registration experiences and good practices.",
   },
   privacy: {
-    metaTitle: "Data privacy",
+    metaTitle: "Your Privacy at Mashirika Law",
     eyebrow: "Your data",
-    title: "Privacy notice",
-    lead: "How Mashirika Law handles information you share on this platform — for accounts, guidance, and confidential monitoring review.",
+    title: "Your Privacy at Mashirika Law",
+    lead: "At Mashirika Law, we treat the information you share with us as a trust. When you create an account, seek guidance, or submit material for confidential monitoring review, we collect only what we need to serve you, and we use it only for that purpose. Your information is protected by strict confidentiality and handled by authorized personnel only. We never sell it, and we do not share it with third parties without your consent, except where the law requires.",
     imageAlt: "A person writing private notes beside a closed notebook",
     accountsTitle: "Platform accounts",
     accountsBody:
@@ -1112,7 +1112,7 @@ export const en = {
       "Reports about registration experiences, enabling practices, and civic space incidents are treated as confidential. Mashirika Law staff moderate submissions before they are used in advocacy. Do not include information you are not willing to share with Mashirika Law reviewers.",
     useTitle: "How we use information",
     useBody:
-      "We use account and form data to operate the platform, answer questions, improve guidance, and support civic-space monitoring. We do not sell personal data. Access is limited to Mashirika Law staff who need it for those purposes, and to service providers required to host the site.",
+      "We use account and form data only to operate the platform, answer your questions, improve guidance, and support civic-space monitoring. Only authorized Mashirika Law personnel can access it. We never sell personal data, and we do not share it with third parties without your consent, except where the law requires.",
     contactTitle: "Questions about privacy",
     contactBody:
       "If you want to update or remove account details, or you have a question about this notice, email info@crecokenya.org. This notice may be updated as the platform grows; the version on this page is the current one.",
@@ -1125,7 +1125,7 @@ export const en = {
     imageAlt: "Two people in conversation across a table",
     directTitle: "Email us",
     directLead:
-      "The fastest way to reach the organisation is a short email. Include your organisation name and county if you can — it helps us reply in context.",
+      "For the fastest response, send us a brief email. Include your organisation's name and county to help us reply with the right context.",
     formTitle: "Send a message",
     formLead:
       "This form opens your email app with the details filled in. Nothing is stored on the platform until you send the message.",

@@ -164,6 +164,21 @@ Mamlaka inaweza kusimamisha shirika pale ambapo kuna ukiukaji mkubwa au uchunguz
 
 Kufutwa hutokea pale ambapo ukiukaji umendelea, au shirika halijibu mahitaji ya sheria.
 
+## Sababu za kufutwa kwa usajili wa PBO
+
+Chini ya Kanuni ya 34(1) ya Kanuni za PBO, 2026, Mamlaka inaweza kufuta usajili wa PBO ambayo:
+
+- imeshindwa kutii Sheria au Kanuni;
+- imeshindwa kutekeleza lengo la manufaa ya umma ililosajiliwa kwalo kwa kipindi cha miaka mitatu;
+- inajihusisha na utakatishaji wa fedha au uhalifu mwingine wa kiuchumi; au
+- imekiuka sheria nyingine yoyote iliyoandikwa ya Kenya.
+
+Chini ya kifungu cha 19 cha Sheria ya PBO, 2013, cheti cha usajili kinaweza pia kufutwa pale ambapo PBO imekiuka Sheria, au kuna ushahidi wa kutosha na wa kuaminika kwamba shirika halipo tena. Kifungu cha 19(1)(b) kilitangazwa kuwa kinyume cha Katiba katika Petition No. E519 ya 2024.
+
+Mahakama inaweza pia kuiagiza Mamlaka kufuta usajili (Kanuni ya 35). PBO inaweza kujiondoa kwa hiari kwa azimio la theluthi mbili ya wanachama, au uamuzi wa bodi ya uongozi kwa shirika lisilo la wanachama, na kuiarifu Mamlaka ndani ya siku 14 (kifungu cha 61 na Kanuni ya 33).
+
+Kabla ya kufuta usajili, Mamlaka lazima iliarifu shirika kwa maandishi ikieleza sababu, ilipe nafasi ya kusikilizwa, na ieleze hatua za kurekebisha pamoja na muda wa kuzitekeleza.
+
 ## Haki ya kukata rufaa
 
 Shirika lina haki ya kupinga maamuzi ya Mamlaka kupitia taratibu za rufaa na, inapofaa, Baraza la Migogoro la PBO.

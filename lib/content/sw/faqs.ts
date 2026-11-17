@@ -4,7 +4,7 @@ export const FAQ_CATEGORIES = [
   { slug: "registration", title: "Usajili", count: 6 },
   { slug: "governance", title: "Utawala", count: 4 },
   { slug: "reporting", title: "Utoaji ripoti", count: 4 },
-  { slug: "penalties", title: "Adabu na utii wa sheria", count: 3 },
+  { slug: "penalties", title: "Adabu na utii wa sheria", count: 4 },
 ] as const;
 
 export const FAQ_ITEMS: FaqItem[] = [
@@ -126,6 +126,13 @@ export const FAQ_ITEMS: FaqItem[] = [
     question: "Je, tunaweza kufanya kazi kabla ya usajili kukamilika?",
     answer:
       "Mashirika hayapaswi kujitambulisha kama PBO zilizosajiliwa hadi Mamlaka ithibitishe usajili. Shughuli za muda wa kati zinaweza kuendelea chini ya fomu za kisheria za awali pale zinatumika.",
+  },
+  {
+    slug: "deregistration-reasons",
+    category: "penalties",
+    question: "Ni kwa sababu gani usajili wa PBO unaweza kufutwa?",
+    answer:
+      "Chini ya Kanuni ya 34 ya Kanuni za PBO, 2026, Mamlaka inaweza kufuta usajili wa PBO inayoshindwa kutii Sheria au Kanuni, inayoshindwa kutekeleza lengo lake la manufaa ya umma kwa miaka mitatu, inayojihusisha na utakatishaji wa fedha au uhalifu mwingine wa kiuchumi, au inayokiuka sheria nyingine yoyote iliyoandikwa ya Kenya. Kifungu cha 19 cha Sheria ya PBO, 2013 pia kinaruhusu kufutwa kwa kukiuka Sheria au pale shirika limekoma kuwepo. Mahakama inaweza kuagiza usajili ufutwe, na PBO inaweza kujiondoa kwa hiari. Kabla ya kufuta usajili, Mamlaka lazima itoe sababu kwa maandishi, nafasi ya kusikilizwa, na muda wa kuchukua hatua za kurekebisha.",
   },
 ];
 

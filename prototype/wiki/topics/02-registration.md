@@ -172,6 +172,8 @@ Registration does not expire unless:
 - the organization voluntarily deregisters;
 - the organization is dissolved or wound up according to law.
 
+The reasons for deregistration are set out in the topic on suspension, cancellation, appeals and restoration.
+
 Registration is therefore not subject to periodic renewal under the PBO Act, 2013.
 
 ## Can the Authority Refuse Registration?

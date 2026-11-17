@@ -9,7 +9,7 @@ export const FAQ_CATEGORIES = [
   { slug: "registration", title: "Registration", count: 6 },
   { slug: "governance", title: "Governance", count: 4 },
   { slug: "reporting", title: "Reporting", count: 4 },
-  { slug: "penalties", title: "Penalties & compliance", count: 3 },
+  { slug: "penalties", title: "Penalties & compliance", count: 4 },
 ] as const;
 
 export const FAQ_ITEMS: FaqItem[] = [
@@ -131,6 +131,13 @@ export const FAQ_ITEMS: FaqItem[] = [
     question: "Can we operate before registration is complete?",
     answer:
       "Organisations should not represent themselves as registered PBOs until the Authority confirms registration. Interim activities may continue under prior legal forms where applicable.",
+  },
+  {
+    slug: "deregistration-reasons",
+    category: "penalties",
+    question: "For what reasons can a PBO be deregistered?",
+    answer:
+      "Under Regulation 34 of the PBO Regulations, 2026, the Authority may deregister a PBO that fails to comply with the Act or the Regulations, fails to carry out its public benefit purpose for three years, engages in money laundering or other economic crimes, or contravenes any other written law of Kenya. Section 19 of the PBO Act, 2013 also allows cancellation for violations of the Act or where the organization has ceased to exist. A court may order deregistration, and a PBO may deregister voluntarily. Before deregistering, the Authority must give written reasons, a chance to be heard, and time to take remedial action.",
   },
 ];
 

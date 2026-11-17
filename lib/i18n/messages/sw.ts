@@ -88,7 +88,7 @@ export const sw: Dictionary = {
     },
     about: {
       eyebrow: "Kuhusu jukwaa",
-      title: "Jukwaa hili ni la nini",
+      title: "Jukwaa hili linafanya nini?",
       purpose:
         "Elewa Sheria ya PBO, 2013 na Kanuni za PBO, 2026, kagua kiwango cha utiifu wa shirika lako, ripoti yanayotokea mashinani, na uliza maswali.",
       usersTitle: "Ni kwa nani",

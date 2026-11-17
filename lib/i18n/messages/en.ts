@@ -86,7 +86,7 @@ export const en = {
     },
     about: {
       eyebrow: "About the platform",
-      title: "What this platform is for",
+      title: "What does this platform do?",
       purpose:
         "Understand the PBO Act, 2013 and the PBO Regulations, 2026, check how well your organisation complies, report what is happening on the ground, and ask questions.",
       usersTitle: "Who it is for",

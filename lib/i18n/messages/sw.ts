@@ -129,20 +129,46 @@ export const sw: Dictionary = {
     },
     history: {
       eyebrow: "Safari ya kihistoria",
-      title: "Kutoka Sheria ya NGO hadi Sheria ya PBO",
+      title: "Mabadiliko ya Usajili na Uratibu wa NGO nchini Kenya",
       readMore: "Soma historia kamili",
       timeline: [
-        { year: "1990", text: "NGO zinasajiliwa chini ya Sheria ya Uratibu wa NGO, 1990." },
-        { year: "2013", text: "Bunge linapitisha Sheria ya PBO: sheria moja kwa PBO zote." },
-        { year: "2024", text: "Sheria inaanza kutumika 14 Mei. PBORA inachukua nafasi ya Bodi ya NGO." },
-        { year: "2026", text: "Kanuni za PBO zinaweka fomu, ada na muda." },
-        { year: "Sasa", text: "NGO zilizosajiliwa zinahamia daftari la PBO bila kutuma maombi mapya." },
+        { year: "Kabla ya 1990", text: "NGO zinasajiliwa chini ya sheria mbalimbali, bila mfumo mmoja wa uratibu." },
+        { year: "1990", text: "Sheria ya Uratibu wa NGO inaanzisha Bodi ya Uratibu wa NGO." },
+        { year: "2013", text: "Bunge linapitisha Sheria ya PBO, 2013, lakini haianzi kutumika kwa zaidi ya muongo mmoja." },
+        { year: "2024", text: "Sheria ya PBO inaanza kutumika tarehe 14 Mei. PBORA inachukua nafasi ya Bodi ya Uratibu wa NGO." },
+        { year: "2026", text: "Kanuni za PBO, 2026 zinachapishwa tarehe 18 Machi." },
+        { year: "Sasa", text: "NGO zilizopo zinahamia kiotomatiki na kuwasilisha nyaraka zilizosasishwa kwa PBORA." },
       ],
-      paragraphs: [
-        "Kwa miaka mingi, mashirika ya kiraia nchini Kenya yalisajiliwa chini ya sheria zaidi ya moja. Mashirika yasiyo ya kiserikali yalisajiliwa chini ya Sheria ya Uratibu wa Mashirika Yasiyo ya Kiserikali, 1990. Mashirika ya kijamii kwa kawaida yalisajiliwa kupitia Idara ya Maendeleo ya Jamii. Makundi mengine yaliendesha shughuli kama vyama au amana chini ya sheria hizo tofauti.",
-        "Bodi ya Uratibu wa NGO ilisimamia Sheria ya 1990. Ilisajili NGO, ilihifadhi daftari, na kuratibu udhibiti wa mashirika yaliyoangukia chini ya sheria hiyo. Mashirika ya kijamii yalibaki nje ya Bodi na kuendelea na njia ya usajili wa maendeleo ya jamii.",
-        "Bunge lilipitisha Sheria ya Mashirika ya Faida ya Umma mwaka 2013 ili kubadilisha mfumo huo uliogawanyika na kuwa mfumo mmoja wa mashirika ya faida ya umma. Sheria ilianza kutumika tarehe 14 Mei 2024. Ilifuta Sheria ya Uratibu wa NGO, 1990 na kuanzisha Mamlaka ya Udhibiti wa Mashirika ya Faida ya Umma (PBORA), iliyochukua majukumu ya Bodi ya Uratibu wa NGO.",
-        "Mashirika yaliyokuwa yamesajiliwa chini ya sheria iliyofutwa yanachukuliwa kuwa yameingia katika mfumo wa PBO. Taarifa ya umma ya PBORA ni kwamba hayahitaji kuomba usajili mpya. Yanawasilisha maelezo yaliyosasishwa, katiba iliyolinganishwa na Sheria, na kumbukumbu za dakika ambazo Mamlaka inahitaji, ili yaingizwe kwenye daftari la PBO na kupewa cheti. Thibitisha hatua za sasa za mpito kwenye tovuti ya PBORA, kwa sababu mchakato huo bado unaendelea kutekelezwa.",
+      stages: [
+        {
+          heading: "Kabla ya 1990: usajili uliogawanyika",
+          body: "NGO zilisajiliwa chini ya sheria mbalimbali, kama vile Sheria ya Vyama, Sheria ya Wadhamini (Urithi wa Kudumu) na Sheria ya Kampuni, bila mfumo mmoja wa uratibu.",
+        },
+        {
+          heading: "1990: Sheria ya Uratibu wa NGO (Sheria Na. 19 ya 1990)",
+          body: "Bunge liliunda mfumo maalum na Bodi ya Uratibu wa NGO ili kusajili na kusimamia NGO. Kanuni za Uratibu wa NGO, 1992 baadaye ziliweka sheria za kina.",
+        },
+        {
+          heading: "2013: Sheria ya Mashirika ya Manufaa ya Umma (PBO)",
+          body: "Bunge lilipitisha sheria moja ya kisasa kwa mashirika yote ya manufaa ya umma, yenye mdhibiti mpya na masharti ya kujidhibiti. Sheria hii haikuanza kutumika kwa zaidi ya muongo mmoja, kwa hivyo Sheria ya NGO iliendelea kutumika.",
+        },
+        {
+          heading: "14 Mei 2024: Sheria ya PBO inaanza kutumika",
+          body: "Tangazo la Kisheria Na. 78 la 2024 liliweka tarehe 14 Mei 2024 kuwa tarehe ya kuanza kutumika. Sheria ya 1990 ilifutwa, na Mamlaka ya Udhibiti wa PBO (PBORA) ilichukua nafasi ya Bodi ya Uratibu wa NGO kama mdhibiti. NGO zilizokuwa zimesamehewa usajili, kama baadhi ya NGO za kimataifa, zilitakiwa kujisajili ndani ya miezi mitatu.",
+        },
+        {
+          heading: "18 Machi 2026: Kanuni za PBO, 2026 zinachapishwa",
+          body: "Waziri wa Usalama wa Ndani na Utawala wa Kitaifa alichapisha Kanuni tarehe 18 Machi 2026. Bunge liliziidhinisha mwezi Aprili 2026. Zinaweka fomu, ada, muda na masharti ya utawala, na zinafuta Kanuni za Uratibu wa NGO za 1992.",
+        },
+        {
+          heading: "Sasa: kuhamia kwa NGO zilizopo",
+          body: "Mashirika yaliyosajiliwa chini ya Sheria ya zamani hayahitaji kuomba upya. Yanahamia kiotomatiki chini ya Kanuni ya 43. Bado lazima yawasilishe nyaraka zilizosasishwa kwa PBORA: katiba iliyorekebishwa kulingana na Sheria ya PBO, maelezo ya utawala, kumbukumbu za kikao kilichoidhinisha kuhamia, na cheti cha awali cha NGO. Kisha PBORA inatoa cheti kipya kinachoonyesha hadhi ya PBO.",
+        },
+      ],
+      notesTitle: "Mambo ya kuzingatia",
+      notes: [
+        "Uamuzi wa mahakama: Mahakama Kuu (Petition E519 ya 2024) ilitangaza baadhi ya vifungu vya Sheria ya PBO kuwa kinyume cha Katiba, ikiwemo usajili upya wa lazima kwa NGO zilizosajiliwa chini ya Sheria iliyofutwa. Ndiyo sababu kuhamia ni kiotomatiki badala ya kuomba upya.",
+        "Istilahi: “Kuhamia” ni sahihi zaidi kuliko “kuingia kwenye daftari”, kwa sababu nyaraka bado lazima ziwasilishwe.",
       ],
     },
     guides: {

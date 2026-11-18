@@ -126,7 +126,7 @@ export default async function HomePage() {
             <span className="creco-eyebrow creco-eyebrow-center">{t.home.history.eyebrow}</span>
             <h2 className="text-2xl font-bold sm:text-4xl">{t.home.history.title}</h2>
           </RevealOnScroll>
-          <ol className="relative mt-10 grid gap-6 md:grid-cols-5 md:gap-4">
+          <ol className="relative mt-10 grid gap-6 md:grid-cols-3 md:gap-4 lg:grid-cols-6">
             {t.home.history.timeline.map((step, index) => (
               <RevealOnScroll
                 key={step.year}

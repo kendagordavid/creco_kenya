@@ -39,11 +39,20 @@ export default async function AboutPage() {
           <h2 className="text-2xl font-bold text-creco-black dark:text-foreground">
             {t.home.history.title}
           </h2>
-          {t.home.history.paragraphs.map((paragraph) => (
-            <p key={paragraph} className="mt-4 leading-relaxed text-creco-muted dark:text-muted-foreground">
-              {paragraph}
-            </p>
+          {t.home.history.stages.map((stage) => (
+            <div key={stage.heading} className="mt-6">
+              <h3 className="text-lg font-bold text-creco-black dark:text-foreground">{stage.heading}</h3>
+              <p className="mt-2 leading-relaxed text-creco-muted dark:text-muted-foreground">{stage.body}</p>
+            </div>
           ))}
+          <h3 className="mt-8 text-lg font-bold text-creco-black dark:text-foreground">
+            {t.home.history.notesTitle}
+          </h3>
+          <ul className="mt-2 list-disc space-y-2 pl-5 leading-relaxed text-creco-muted dark:text-muted-foreground">
+            {t.home.history.notes.map((note) => (
+              <li key={note}>{note}</li>
+            ))}
+          </ul>
         </div>
       </section>
       <section

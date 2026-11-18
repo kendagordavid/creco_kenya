@@ -127,20 +127,46 @@ export const en = {
     },
     history: {
       eyebrow: "Historical journey",
-      title: "From the NGO Act to the PBO Act",
+      title: "Evolution of NGO Registration and Coordination in Kenya",
       readMore: "Read the full history",
       timeline: [
-        { year: "1990", text: "NGOs register under the NGO Co-ordination Act, 1990." },
-        { year: "2013", text: "Parliament passes the PBO Act: one law for all PBOs." },
-        { year: "2024", text: "The Act takes effect on 14 May. PBORA replaces the NGO Board." },
-        { year: "2026", text: "The PBO Regulations set out forms, fees and timelines." },
-        { year: "Now", text: "Registered NGOs move onto the PBO register without a fresh application." },
+        { year: "Before 1990", text: "NGOs register under a patchwork of laws, with no single coordinating framework." },
+        { year: "1990", text: "The NGO Co-ordination Act creates the NGO Co-ordination Board." },
+        { year: "2013", text: "Parliament passes the PBO Act, 2013, but it is not brought into force for over a decade." },
+        { year: "2024", text: "The PBO Act commences on 14 May. PBORA replaces the NGO Co-ordination Board." },
+        { year: "2026", text: "The PBO Regulations, 2026 are published on 18 March." },
+        { year: "Now", text: "Existing NGOs transition automatically and file updated documents with PBORA." },
       ],
-      paragraphs: [
-        "For many years, Kenyan civil society registered under more than one law. Non-governmental organisations registered under the Non-Governmental Organizations Co-ordination Act, 1990. Community-based organisations were usually registered through the Department of Social Development. Other groups operated as societies or trusts under those separate laws.",
-        "The NGO Co-ordination Board administered the 1990 Act. It registered NGOs, kept the register, and coordinated regulation of organisations that fell under that law. Community-based organisations stayed outside the Board and continued on the social-development registration route.",
-        "Parliament passed the Public Benefit Organizations Act in 2013 to replace that split system with one framework for public benefit organisations. The Act commenced on 14 May 2024. It repealed the NGO Co-ordination Act, 1990 and established the Public Benefit Organizations Regulatory Authority (PBORA), which took over the functions of the NGO Co-ordination Board.",
-        "Organisations already registered under the repealed Act are treated as having moved into the PBO framework. PBORA’s public advisory is that they do not apply for a fresh registration. They submit updated particulars, a constitution aligned to the Act, and the minutes the Authority asks for, so they can be entered on the PBO register and issued a certificate. Confirm the current transition steps on PBORA’s website, because that process is still being implemented.",
+      stages: [
+        {
+          heading: "Before 1990: fragmented registration",
+          body: "NGOs registered under a patchwork of laws, such as the Societies Act, the Trustees (Perpetual Succession) Act and the Companies Act, with no single coordinating framework.",
+        },
+        {
+          heading: "1990: NGO Co-ordination Act (Act No. 19 of 1990)",
+          body: "Parliament created a dedicated regime and the NGO Co-ordination Board to register and oversee NGOs. The NGO Co-ordination Regulations, 1992 later set out the detailed rules.",
+        },
+        {
+          heading: "2013: Public Benefit Organizations (PBO) Act",
+          body: "Parliament passed a single modern law for all public benefit organisations, with a new regulator and self-regulation provisions. The Act was not brought into force for more than a decade, so the NGO Act continued to apply.",
+        },
+        {
+          heading: "14 May 2024: PBO Act commences",
+          body: "Legal Notice No. 78 of 2024 set 14 May 2024 as the commencement date. The 1990 Act was repealed, and the PBO Regulatory Authority (PBORA) replaced the NGO Co-ordination Board as regulator. NGOs previously exempt from registration, such as certain international NGOs, had to register within three months.",
+        },
+        {
+          heading: "18 March 2026: PBO Regulations, 2026 published",
+          body: "The Cabinet Secretary for Interior and National Administration published the Regulations on 18 March 2026. Parliament approved them in April 2026. They set out the forms, fees, timelines and governance requirements, and revoke the 1992 NGO Co-ordination Regulations.",
+        },
+        {
+          heading: "Now: transition of existing NGOs",
+          body: "Organisations registered under the old Act do not need to apply afresh. They transition automatically under Regulation 43. They must still submit updated documents to PBORA: a revised constitution aligned with the PBO Act, governance details, minutes approving the transition and their previous NGO certificate. PBORA then issues a new certificate reflecting PBO status.",
+        },
+      ],
+      notesTitle: "Points to note",
+      notes: [
+        "Court ruling: The High Court (Petition E519 of 2024) declared certain PBO Act provisions unconstitutional, including mandatory re-registration for NGOs registered under the repealed Act. This is why the transition is automatic rather than a re-application.",
+        "Terminology: “Transition” or “migration” is more accurate than “move onto the register”, because documents still have to be filed.",
       ],
     },
     guides: {

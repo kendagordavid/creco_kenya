@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
 import { SearchForm } from "@/components/SearchForm";
-import { FAQ_CATEGORIES, FAQ_ITEMS, getFaqsByCategory } from "@/lib/content/faqs";
+import { FAQ_CATEGORIES, FAQ_ITEMS, faqSummary, getFaqsByCategory } from "@/lib/content/faqs";
 
 export const metadata = {
   title: "FAQs",
@@ -21,7 +21,7 @@ export default async function FaqIndexPage({ searchParams }: Props) {
       <PageHero
         eyebrow="Knowledge hub"
         title="Frequently asked questions"
-        lead="Quick answers on registration, governance, reporting, and compliance."
+        lead="Practical answers to help Kenyan PBOs understand their rights, meet their obligations, and strengthen transparency, accountability and good governance."
         backgroundImage="/images/pages/knowledge-discussion.jpg"
         backgroundAlt="A Maasai woman speaking with a microphone to a community group in Kajiado County, Kenya"
       />
@@ -57,7 +57,7 @@ export default async function FaqIndexPage({ searchParams }: Props) {
                   className="creco-card block p-5 no-underline transition hover:border-creco-primary/30"
                 >
                   <h2 className="font-bold text-creco-black">{faq.question}</h2>
-                  <p className="mt-2 line-clamp-4 text-sm text-creco-muted">{faq.answer}</p>
+                  <p className="mt-2 line-clamp-4 text-sm text-creco-muted">{faqSummary(faq.answer)}</p>
                 </Link>
               </li>
             ))}

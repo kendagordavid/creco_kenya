@@ -1,4 +1,4 @@
-import { FAQ_ITEMS } from "@/lib/content/faqs";
+import { FAQ_ITEMS, faqSummary } from "@/lib/content/faqs";
 import { TEMPLATE_ITEMS } from "@/lib/content/templates";
 import { TOOLKIT_ITEMS } from "@/lib/content/knowledge";
 import { contentTerms } from "@/lib/search-terms";
@@ -39,7 +39,7 @@ export function globalSearch(query: string, limit = 20): SearchResult[] {
   for (const faq of FAQ_ITEMS) {
     consider(`${faq.question} ${faq.answer}`, {
       title: faq.question,
-      excerpt: faq.answer.slice(0, 160),
+      excerpt: faqSummary(faq.answer).slice(0, 160),
       href: `/knowledge/faq/${faq.slug}`,
       type: "faq",
     });

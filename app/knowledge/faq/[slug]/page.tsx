@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHero } from "@/components/PageHero";
+import { WikiBody } from "@/components/WikiBody";
 import { getFaqBySlug } from "@/lib/content/faqs";
 
 type Props = {
@@ -28,9 +29,7 @@ export default async function FaqDetailPage({ params }: Props) {
       />
       <section className="creco-section">
         <div className="creco-container max-w-3xl">
-          <div className="creco-prose">
-            <p>{faq.answer}</p>
-          </div>
+          <WikiBody body={faq.answer} />
           <div className="mt-10 flex flex-wrap gap-3">
             <Link
               href={`/guidance?q=${encodeURIComponent(faq.question)}`}

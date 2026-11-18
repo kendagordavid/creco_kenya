@@ -166,7 +166,16 @@
 .hero-carousel__photo--graphic {
   object-fit: contain;
   object-position: center top;
-  padding: 0.35rem;
+  padding: 0.75rem 0.75rem 0.35rem;
+}
+
+/* Infographics stay still and fit the frame exactly; the oversized parallax
+   layer would push part of a wide graphic out of view. */
+.hero-carousel__media--graphic .hero-carousel__parallax {
+  inset: 0;
+  height: 100%;
+  transform: none !important;
+  will-change: auto;
 }
 
 .hero-carousel__slide--active .hero-carousel__photo--graphic {
@@ -341,6 +350,14 @@
     margin: 0 0 0 -18%;
     border-radius: 0;
     box-shadow: none;
+  }
+
+  /* Keep graphics clear of the slanted copy panel on the left and the
+     slide controls at the bottom right. */
+  .hero-carousel__media--graphic .hero-carousel__photo--graphic {
+    padding: 1rem 1.25rem 3.75rem 17%;
+    /* Overrides the per-slide inline position, which is tuned for phones. */
+    object-position: center !important;
   }
 
   .hero-carousel__nav {

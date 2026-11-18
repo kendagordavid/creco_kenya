@@ -69,20 +69,18 @@ Under section 19 of the Act, cancellation may occur where a PBO has violated the
 
 Cancellation should only be used in cases where the breach is serious or when the organization continues to be non-compliant after receiving warnings, to the extent that it no longer qualifies to remain on the PBO register
 
-## Reasons for Deregistration of a PBO
+## Reasons for Deregistration of a Public Benefit Organization
 
-Deregistration means the organization's name is struck off the register of public benefit organizations. Under the PBO Act, 2013 and the PBO Regulations, 2026, this can happen for the following reasons.
+Under Regulation 34(1) of the PBO Regulations, 2026, the Public Benefit Organizations Regulatory Authority (PBORA) may deregister a Public Benefit Organization (PBO) if the organization:
 
-**1. Deregistration by the Authority (Regulation 34(1))**
+1. Fails to comply with the requirements of the Act or its Regulations.
+2. Fails to carry out the public benefit activities or objectives for which it was registered for a continuous period of three years.
+3. Engages in activities involving money laundering or other economic crimes.
+4. Violates or contravenes any other applicable written law in Kenya.
 
-The Authority may deregister a PBO that:
+## Other Ways a PBO Can Leave the Register
 
-- has failed to comply with the Act or the Regulations;
-- has failed to undertake the public benefit purpose for which it was registered for a period of three years;
-- is engaged in activities involving money laundering or other economic crimes; or
-- has contravened any other written law of Kenya.
-
-**2. Cancellation of the certificate of registration (section 19 of the Act)**
+**Cancellation of the certificate of registration (section 19 of the Act)**
 
 The Authority may cancel a certificate of registration where:
 
@@ -91,19 +89,19 @@ The Authority may cancel a certificate of registration where:
 
 Section 19(1)(b), which allowed cancellation where a PBO acts contrary to its own constitution, was declared unconstitutional in Petition No. E519 of 2024 and should not be relied on as a ground.
 
-**3. Deregistration ordered by a court (Regulation 35)**
+**Deregistration ordered by a court (Regulation 35)**
 
 Where a court orders the Authority to deregister a PBO, the Authority does so following the procedure in Regulation 34.
 
-**4. Voluntary deregistration (section 61 of the Act and Regulation 33)**
+**Voluntary deregistration (section 61 of the Act and Regulation 33)**
 
 A PBO may choose to deregister, wind up or dissolve. A membership organization passes a resolution by at least two-thirds of its members; a non-membership organization acts through a decision of its governing body under its constitution. The resolution states the reasons and a date, not more than two months away, when deregistration takes effect. The PBO notifies the Authority within 14 days of the resolution, attaching its certificate of registration, the minutes containing the resolution, the reasons, and its reports for the period up to the resolution. A PBO wound up or dissolved under another law must notify the Authority within one month of completion.
 
-**Before the Authority deregisters a PBO**
+## Before the Authority Deregisters a PBO
 
 Under Regulation 34(2), the Authority must notify the organization in writing of its intention and the reasons, give it a reasonable opportunity to be heard, and specify the remedial actions and the period for compliance. The organization is deregistered only if it fails to take those remedial measures. The Authority publishes the list of deregistered PBOs in the Gazette at least once a year.
 
-**After deregistration**
+## After Deregistration
 
 Any assets remaining after liabilities are paid are transferred to another PBO with similar objectives that is in good standing with the Authority (section 61(4) of the Act and Regulation 37). Deregistration ends the benefits of PBO status, but obligations relating to money or assets obtained while registered, and the related reporting, continue (section 19(4) of the Act).
 

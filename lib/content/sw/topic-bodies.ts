@@ -167,12 +167,12 @@ Kufutwa hutokea pale ambapo ukiukaji umendelea, au shirika halijibu mahitaji ya 
 
 ## Sababu za kufutwa kwa usajili wa PBO
 
-Chini ya Kanuni ya 34(1) ya Kanuni za PBO, 2026, Mamlaka inaweza kufuta usajili wa PBO ambayo:
+Chini ya Kanuni ya 34(1) ya Kanuni za PBO, 2026, Mamlaka ya Udhibiti wa Mashirika ya Manufaa ya Umma (PBORA) inaweza kufuta usajili wa Shirika la Manufaa ya Umma (PBO) ikiwa shirika hilo:
 
-- imeshindwa kutii Sheria au Kanuni;
-- imeshindwa kutekeleza lengo la manufaa ya umma ililosajiliwa kwalo kwa kipindi cha miaka mitatu;
-- inajihusisha na utakatishaji wa fedha au uhalifu mwingine wa kiuchumi; au
-- imekiuka sheria nyingine yoyote iliyoandikwa ya Kenya.
+1. Linashindwa kutii masharti ya Sheria au Kanuni zake.
+2. Linashindwa kutekeleza shughuli au malengo ya manufaa ya umma ambayo lilisajiliwa kwayo kwa kipindi mfululizo cha miaka mitatu.
+3. Linajihusisha na shughuli za utakatishaji wa fedha au uhalifu mwingine wa kiuchumi.
+4. Linakiuka sheria nyingine yoyote iliyoandikwa inayotumika nchini Kenya.
 
 Chini ya kifungu cha 19 cha Sheria ya PBO, 2013, cheti cha usajili kinaweza pia kufutwa pale ambapo PBO imekiuka Sheria, au kuna ushahidi wa kutosha na wa kuaminika kwamba shirika halipo tena. Kifungu cha 19(1)(b) kilitangazwa kuwa kinyume cha Katiba katika Petition No. E519 ya 2024.
 

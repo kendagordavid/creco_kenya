@@ -132,7 +132,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     category: "penalties",
     question: "Ni kwa sababu gani usajili wa PBO unaweza kufutwa?",
     answer:
-      "Chini ya Kanuni ya 34 ya Kanuni za PBO, 2026, Mamlaka inaweza kufuta usajili wa PBO inayoshindwa kutii Sheria au Kanuni, inayoshindwa kutekeleza lengo lake la manufaa ya umma kwa miaka mitatu, inayojihusisha na utakatishaji wa fedha au uhalifu mwingine wa kiuchumi, au inayokiuka sheria nyingine yoyote iliyoandikwa ya Kenya. Kifungu cha 19 cha Sheria ya PBO, 2013 pia kinaruhusu kufutwa kwa kukiuka Sheria au pale shirika limekoma kuwepo. Mahakama inaweza kuagiza usajili ufutwe, na PBO inaweza kujiondoa kwa hiari. Kabla ya kufuta usajili, Mamlaka lazima itoe sababu kwa maandishi, nafasi ya kusikilizwa, na muda wa kuchukua hatua za kurekebisha.",
+      "Chini ya Kanuni ya 34(1) ya Kanuni za PBO, 2026, PBORA inaweza kufuta usajili wa PBO ikiwa inashindwa kutii masharti ya Sheria au Kanuni zake; inashindwa kutekeleza shughuli au malengo ya manufaa ya umma ambayo ilisajiliwa kwayo kwa kipindi mfululizo cha miaka mitatu; inajihusisha na shughuli za utakatishaji wa fedha au uhalifu mwingine wa kiuchumi; au inakiuka sheria nyingine yoyote iliyoandikwa inayotumika nchini Kenya. Kifungu cha 19 cha Sheria ya PBO, 2013 pia kinaruhusu kufutwa kwa kukiuka Sheria au pale shirika limekoma kuwepo. Mahakama inaweza kuagiza usajili ufutwe, na PBO inaweza kujiondoa kwa hiari. Kabla ya kufuta usajili, Mamlaka lazima itoe sababu kwa maandishi, nafasi ya kusikilizwa, na muda wa kuchukua hatua za kurekebisha.",
   },
 ];
 

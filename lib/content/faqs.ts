@@ -137,7 +137,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     category: "penalties",
     question: "For what reasons can a PBO be deregistered?",
     answer:
-      "Under Regulation 34 of the PBO Regulations, 2026, the Authority may deregister a PBO that fails to comply with the Act or the Regulations, fails to carry out its public benefit purpose for three years, engages in money laundering or other economic crimes, or contravenes any other written law of Kenya. Section 19 of the PBO Act, 2013 also allows cancellation for violations of the Act or where the organization has ceased to exist. A court may order deregistration, and a PBO may deregister voluntarily. Before deregistering, the Authority must give written reasons, a chance to be heard, and time to take remedial action.",
+      "Under Regulation 34(1) of the PBO Regulations, 2026, PBORA may deregister a PBO if it fails to comply with the requirements of the Act or its Regulations; fails to carry out the public benefit activities or objectives for which it was registered for a continuous period of three years; engages in activities involving money laundering or other economic crimes; or violates or contravenes any other applicable written law in Kenya. Section 19 of the PBO Act, 2013 also allows cancellation for violations of the Act or where the organization has ceased to exist. A court may order deregistration, and a PBO may deregister voluntarily. Before deregistering, the Authority must give written reasons, a chance to be heard, and time to take remedial action.",
   },
 ];
 

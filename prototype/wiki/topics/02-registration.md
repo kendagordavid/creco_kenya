@@ -55,9 +55,13 @@ The registration process consists of the following five steps:
 4. Verification of information
 5. Certificate of registration
 
+### Applying through eCitizen
+
+PBORA services are accessed through your eCitizen account. The registration forms are filled in and the documents uploaded on eCitizen, and the fees are paid there. Create or sign in to your eCitizen account before you start, and keep the payment receipts and acknowledgements it generates.
+
 ## Step One: Name Search and Reservation
 
-A prospective applicant must first submit a request to the Public Benefits Organizations Regulatory Authority to conduct a search on the proposed name, including at least two name options and the required fee. If the name is available, the Authority will reserve it for **60 days**. If more time is needed, the applicant can request an extension, which can be granted for a further period not exceeding **60 days**.
+A prospective applicant must first apply to the Public Benefits Organizations Regulatory Authority for a search on the proposed name, and pay the fee of **KES 1,000**. Applicants submit **three proposed names in order of priority**. (Regulation 4(2) sets the legal minimum at two names.) Once a name is available, the Authority reserves it for **60 days**. If more time is needed, the applicant can request an extension, which can be granted for a further period not exceeding **60 days**.
 
 ### Prohibited Names
 
@@ -85,6 +89,23 @@ The following documents must accompany the application:
 - minutes of the meeting resolving to seek registration;
 - particulars of the directors;
 - the physical and postal addresses of the organization.
+
+### Documents to Upload
+
+PBORA asks applicants to upload the following:
+
+1. Personal particulars (contacts and addresses) of the proposed top three officials (Chairperson, Secretary and Treasurer) and the board members, in the prescribed format.
+2. A scanned copy of the proposed constitution, signed by all the board members (PDF, not more than 2.5 MB).
+3. Sample signatures of all the board members, in blue ink on a plain white background.
+4. Scanned copies of current coloured passport-size photographs of the intended officials (2 × 2, taken on a white background).
+5. A valid police clearance certificate (not more than one year old), or a notarised police clearance certificate from the country of residence for non-Kenyans.
+6. A scanned copy of the bio-data page of the passport of any foreign official.
+7. Scanned minutes of the meeting resolving to register the PBO and electing the interim officials, signed by the top three officials. The minutes must not be more than 14 days old from the date of the meeting.
+8. Contact details and the physical and postal address of the proposed organization.
+9. A list of the counties the PBO intends to operate in (a maximum of five). Expanding to more counties needs a separate application to the Authority after registration.
+10. A one-year estimated budget of the intended operations of the PBO.
+
+The registration fee is **KES 25,000** for a national PBO and **KES 45,000** for an international PBO.
 
 The Act further requires that at least **one-third of the directors must be Kenyan citizens residing in Kenya,** if the applicant is an international organization that plans to implement activities directly in Kenya; or to operate from Kenya to implement activities in another country**;** or to fundraise in the country.
 

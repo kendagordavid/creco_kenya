@@ -318,6 +318,7 @@ export const en = {
       evolvingPractices: "Evolving practices",
       anonymousReport: "Report anonymously",
       pbora: "PBORA",
+      ecitizen: "eCitizen (PBORA services)",
       creco: "CRECO Kenya",
       icnl: "ICNL",
     },

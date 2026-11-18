@@ -49,8 +49,8 @@ Usajili unatoa utambulisho wa kisheria kwa shirika kama PBO, uwezo wa kufanya mi
 
 ## Hatua za usajili
 
-1. **Kutafuta na kuhifadhi jina** — omba Mamlaka itafute jina ulilopendekeza (angalau machaguo mawili). Jina linahifadhiwa kwa siku 60, na linaweza kuongezewa hadi siku 60 zaidi. Epuka majina yaliyopigwa marufuku.
-2. **Kupakia nyaraka** — pakia Fomu 1 pamoja na ada, katiba, uthibitisho wa kuhifadhi jina, kumbukumbu za kikao kilichoamua kusajili, maelezo ya wakurugenzi, na anwani za shirika. Katiba iwe na bodi ya uongozi ya angalau watu watano, ambapo angalau watatu hawana uhusiano.
+1. **Kutafuta na kuhifadhi jina** — omba Mamlaka itafute jina kupitia akaunti yako ya eCitizen na ulipe KES 1,000. Wasilisha majina matatu yaliyopendekezwa kwa mpangilio wa kipaumbele. Jina likipatikana, linahifadhiwa kwa siku 60, na linaweza kuongezewa hadi siku 60 zaidi. Epuka majina yaliyopigwa marufuku.
+2. **Kupakia nyaraka** — kwenye eCitizen, jaza Fomu 1 na ulipe ada (KES 25,000 kwa PBO ya kitaifa, KES 45,000 kwa PBO ya kimataifa). Pakia: maelezo ya maafisa watatu wakuu na wanachama wa bodi; katiba iliyotiwa saini na wanachama wote wa bodi (PDF isiyozidi MB 2.5); sampuli za saini kwa wino wa bluu kwenye karatasi nyeupe; picha za pasipoti za rangi (2 × 2, mandhari nyeupe); cheti halali cha polisi (kisichozidi mwaka mmoja); ukurasa wa taarifa wa pasipoti ya afisa yeyote wa kigeni; kumbukumbu za kikao kilichoamua kusajili na kuchagua maafisa wa muda (zisizozidi siku 14); anwani za shirika; orodha ya kaunti (zisizozidi tano); na bajeti ya makadirio ya mwaka mmoja. Katiba iwe na bodi ya uongozi ya angalau watu watano, ambapo angalau watatu hawana uhusiano.
 3. **Ukaguzi wa nyaraka** — Mamlaka hukagua maombi na kutumia kipimo cha manufaa ya umma ndani ya siku 60.
 4. **Uthibitishaji wa taarifa** — Mamlaka huthibitisha taarifa ulizotoa. Ikipata upungufu, itakuarifu kwa maandishi na kukupa hadi siku 30 kurekebisha (zinaweza kuongezwa mara moja kwa siku 21).
 5. **Cheti cha usajili** — Mamlaka ikiridhika, inasajili shirika na kutoa Cheti cha Usajili (Fomu 2).

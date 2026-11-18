@@ -66,6 +66,7 @@ export function SiteFooter() {
       ariaLabel: t.a11y.footerUsefulNav,
       links: [
         { href: "https://www.pbora.go.ke/", label: t.footer.links.pbora, external: true },
+        { href: "https://www.ecitizen.go.ke/", label: t.footer.links.ecitizen, external: true },
         { href: "https://crecokenya.org/", label: t.footer.links.creco, external: true },
         { href: "https://www.icnl.org/", label: t.footer.links.icnl, external: true },
       ],

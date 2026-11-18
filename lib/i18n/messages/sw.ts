@@ -320,6 +320,7 @@ export const sw: Dictionary = {
       evolvingPractices: "Mbinu zinazoendelea",
       anonymousReport: "Ripoti bila kujulikana",
       pbora: "PBORA",
+      ecitizen: "eCitizen (huduma za PBORA)",
       creco: "CRECO Kenya",
       icnl: "ICNL",
     },

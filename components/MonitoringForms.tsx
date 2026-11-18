@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 import { FormField, FormSelect, FormTextarea } from "@/components/FormField";
-import { KENYA_COUNTIES, ORG_TYPES } from "@/lib/content/constants";
+import { KENYA_COUNTIES } from "@/lib/content/constants";
 import { useTranslations } from "@/lib/i18n/client";
 import {
   clearPersistedData,
@@ -34,6 +34,7 @@ export type MonitoringDraft = {
   experienceDate?: string;
   narrative: string;
   orgType?: string;
+  sector?: string;
   consentGiven?: boolean;
   attachmentNote?: string;
 };
@@ -43,13 +44,15 @@ const DRAFT_KEY = "creco-monitoring-draft";
 type Props = {
   title: string;
   continueHref: string;
+  /** Set to "enabling" on the evolving-practices page so the report keeps that type. */
+  initialType?: MonitoringDraft["type"];
 };
 
-export function MonitoringReportForm({ title, continueHref }: Props) {
+export function MonitoringReportForm({ title, continueHref, initialType }: Props) {
   const t = useTranslations();
   const router = useRouter();
   const [form, setForm] = useState<MonitoringDraft>({
-    type: "registration",
+    type: initialType ?? "registration",
     county: "",
     narrative: "",
     issueType: "",
@@ -63,12 +66,12 @@ export function MonitoringReportForm({ title, continueHref }: Props) {
     let active = true;
     void loadPersistedData<MonitoringDraft>(DRAFT_KEY, sessionStorage).then((draft) => {
       if (!active || !draft) return;
-      setForm(draft);
+      setForm(initialType ? { ...draft, type: initialType } : draft);
     });
     return () => {
       active = false;
     };
-  }, []);
+  }, [initialType]);
 
   function update(field: keyof MonitoringDraft, value: string) {
     setForm((prev) => {
@@ -92,6 +95,14 @@ export function MonitoringReportForm({ title, continueHref }: Props) {
       setError("Please select a county.");
       return;
     }
+    if (!form.orgType) {
+      setError(t.monitoringHub.pboTypeRequired);
+      return;
+    }
+    if (!form.sector) {
+      setError(t.monitoringHub.sectorRequired);
+      return;
+    }
     void savePersistedData(DRAFT_KEY, form, sessionStorage);
     router.push(continueHref);
   }
@@ -102,21 +113,52 @@ export function MonitoringReportForm({ title, continueHref }: Props) {
 
       <FormSelect
         id="area"
-        label={t.monitoringHub.areaLabel}
+        label={t.monitoringHub.serviceLabel}
         required
         value={form.area ?? ""}
         onChange={(e) => {
           const area = e.target.value as MonitoringArea;
           const match = t.monitoringHub.areas.find((item) => item.id === area);
           update("area", area);
-          update("type", AREA_TYPE[area] ?? "incident");
+          if (!initialType) update("type", AREA_TYPE[area] ?? "incident");
           update("issueType", match?.label ?? area);
         }}
       >
-        <option value="">{t.monitoringHub.areaPlaceholder}</option>
+        <option value="">{t.monitoringHub.servicePlaceholder}</option>
         {t.monitoringHub.areas.map((area) => (
           <option key={area.id} value={area.id}>
             {area.label}
+          </option>
+        ))}
+      </FormSelect>
+
+      <FormSelect
+        id="orgType"
+        label={t.monitoringHub.pboTypeLabel}
+        required
+        value={form.orgType ?? ""}
+        onChange={(e) => update("orgType", e.target.value)}
+      >
+        <option value="">{t.monitoringHub.pboTypePlaceholder}</option>
+        {t.monitoringHub.pboTypes.map((type) => (
+          <option key={type} value={type}>
+            {type}
+          </option>
+        ))}
+      </FormSelect>
+
+      <FormSelect
+        id="sector"
+        label={t.monitoringHub.sectorLabel}
+        hint={t.monitoringHub.sectorHint}
+        required
+        value={form.sector ?? ""}
+        onChange={(e) => update("sector", e.target.value)}
+      >
+        <option value="">{t.monitoringHub.sectorPlaceholder}</option>
+        {t.monitoringHub.sectors.map((sector) => (
+          <option key={sector} value={sector}>
+            {sector}
           </option>
         ))}
       </FormSelect>
@@ -153,20 +195,6 @@ export function MonitoringReportForm({ title, continueHref }: Props) {
         onChange={(e) => update("narrative", e.target.value)}
         hint="Structured narrative — what occurred, who was involved, and any reference numbers if applicable."
       />
-
-      <FormSelect
-        id="orgType"
-        label="Organisation type (optional)"
-        value={form.orgType ?? ""}
-        onChange={(e) => update("orgType", e.target.value)}
-      >
-        <option value="">Select type</option>
-        {ORG_TYPES.map((org) => (
-          <option key={org} value={org}>
-            {org}
-          </option>
-        ))}
-      </FormSelect>
 
       {error && <p className="creco-form-error">{error}</p>}
 
@@ -222,6 +250,8 @@ export function MonitoringUploadForm() {
       "payload",
       JSON.stringify({
         ...draft,
+        // Submissions have no sector column, so the sector travels with the service reported on.
+        issueType: [draft.issueType, draft.sector ? `Sector: ${draft.sector}` : ""].filter(Boolean).join(" · "),
         attachmentNote: note,
         consentGiven: consent,
       }),

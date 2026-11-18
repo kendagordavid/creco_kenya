@@ -23,6 +23,19 @@ export default async function MonitoringHubPage() {
       />
       <section className="creco-section">
         <div className="creco-container">
+          <div className="creco-card mx-auto mb-10 max-w-2xl p-6">
+            <h2 className="text-lg font-bold text-creco-black dark:text-foreground">
+              {t.monitoringHub.intro.title}
+            </h2>
+            <p className="mt-2 leading-relaxed text-creco-muted dark:text-muted-foreground">
+              {t.monitoringHub.intro.body}
+            </p>
+            <ul className="mt-3 list-disc space-y-1 pl-5 text-sm leading-relaxed text-creco-muted dark:text-muted-foreground">
+              {t.monitoringHub.intro.points.map((point) => (
+                <li key={point}>{point}</li>
+              ))}
+            </ul>
+          </div>
           <MonitoringReportForm
             title={t.nav.menu.reportExperience}
             continueHref="/monitoring/upload"

@@ -26,9 +26,9 @@ export const CRECO_GRAPHICS = {
     alt: "Infographic explaining the difference between a CSO, a PBO, and an NPO.",
   },
   howToRegister: {
-    src: "/images/graphics/how-to-register.jpg",
+    src: "/images/graphics/how-to-register-5-steps.jpg",
     title: "How to register a PBO",
-    alt: "Infographic of four registration steps: reserve a name, pass the public benefit test, draft a constitution, and submit Form 1 with documents.",
+    alt: "Infographic of the five registration steps: name search, upload documents, review of documents, verification, and certificate of registration.",
   },
   pathways: {
     src: "/images/graphics/registration-pathways.jpg",

@@ -19,7 +19,7 @@ export const HERO_SLIDE_ASSETS: readonly HeroSlideAsset[] = [
   {
     id: "register-correctly",
     ctaHref: "/knowledge/topics/registration",
-    imageSrc: "/images/graphics/how-to-register.jpg",
+    imageSrc: "/images/graphics/how-to-register-5-steps.jpg",
     imagePosition: "center top",
     isGraphic: true,
   },

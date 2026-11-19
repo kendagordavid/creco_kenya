@@ -8,6 +8,8 @@ type Props = {
   accent?: "green" | "orange";
   imageSrc?: string;
   imageAlt?: string;
+  /** Width / height of a banner image, so the whole banner shows instead of a cropped strip. */
+  imageAspect?: number;
 };
 
 export function ModuleCard({
@@ -17,6 +19,7 @@ export function ModuleCard({
   accent = "green",
   imageSrc,
   imageAlt = "",
+  imageAspect,
 }: Props) {
   return (
     <Link
@@ -26,7 +29,10 @@ export function ModuleCard({
       }`}
     >
       {imageSrc && (
-        <div className="relative h-40 w-full">
+        <div
+          className={imageAspect ? "relative w-full bg-[#f3f3f3]" : "relative h-40 w-full"}
+          style={imageAspect ? { aspectRatio: imageAspect } : undefined}
+        >
           <Image
             src={imageSrc}
             alt={imageAlt}

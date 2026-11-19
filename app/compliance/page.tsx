@@ -30,16 +30,18 @@ export default async function ComplianceHubPage() {
               title={t.complianceHub.checklist.title}
               description={t.complianceHub.checklist.description}
               href="/compliance/checklist"
-              imageSrc="/images/hero/stay-compliant.jpg"
-              imageAlt="Black professional preparing compliance documentation"
+              imageSrc="/images/pages/compliance-checklist-banner.png"
+              imageAlt="Mashirika Law banner with checklist, form and review icons"
+              imageAspect={532 / 160}
             />
             <ModuleCard
               title={t.complianceHub.templates.title}
               description={t.complianceHub.templates.description}
               href="/compliance/templates"
               accent="orange"
-              imageSrc="/images/pages/compliance-documents.jpg"
-              imageAlt="Hands signing a printed compliance document"
+              imageSrc="/images/pages/compliance-templates-banner.png"
+              imageAlt="Mashirika Law banner with template, document, search and new-document icons"
+              imageAspect={532 / 160}
             />
           </div>
 

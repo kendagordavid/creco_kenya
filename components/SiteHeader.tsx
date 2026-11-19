@@ -147,6 +147,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const navRef = useRef<HTMLElement>(null);
+  const mobileNavRef = useRef<HTMLElement>(null);
   const t = useTranslations();
   const locale = useCurrentLocale();
   const isLoggedIn = Boolean(session?.user);
@@ -160,9 +161,11 @@ export function SiteHeader() {
     if (!openMenu) return;
 
     function handleClick(event: MouseEvent) {
-      if (navRef.current && !navRef.current.contains(event.target as Node)) {
-        setOpenMenu(null);
-      }
+      const target = event.target as Node;
+      // Taps inside the phone menu must reach its links; collapsing the submenu
+      // on mousedown would remove the link before the tap lands.
+      if (navRef.current?.contains(target) || mobileNavRef.current?.contains(target)) return;
+      setOpenMenu(null);
     }
 
     function handleKeyDown(event: KeyboardEvent) {
@@ -176,6 +179,24 @@ export function SiteHeader() {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [openMenu]);
+
+  // While the phone menu is open it covers the page: stop the page behind it
+  // scrolling and let Escape close it.
+  useEffect(() => {
+    if (!open) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpen(false);
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [open]);
 
   const topicCopy = locale === "sw" ? SW_TOPIC_COPY : EN_TOPIC_COPY;
   const topicItems = TOPIC_NAV.map((topic) => ({
@@ -268,10 +289,21 @@ export function SiteHeader() {
       </div>
 
       {open && (
+        <button
+          type="button"
+          aria-label={t.nav.toggleNav}
+          tabIndex={-1}
+          onClick={() => setOpen(false)}
+          className="absolute inset-x-0 top-full z-40 h-[calc(100dvh-5rem)] bg-black/40 xl:hidden"
+        />
+      )}
+
+      {open && (
         <nav
+          ref={mobileNavRef}
           id="mobile-primary-nav"
           aria-label={isLoggedIn ? t.nav.platformNav : t.nav.sectionNav}
-          className="max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain border-t border-creco-border bg-background px-4 py-3 dark:border-border xl:hidden"
+          className="absolute inset-x-0 top-full z-50 max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain border-t border-creco-border bg-background px-4 py-3 shadow-lg dark:border-border xl:hidden"
         >
           <ul className="space-y-1">
             {navItems.map((item) => (

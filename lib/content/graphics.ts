@@ -61,9 +61,9 @@ export const CRECO_GRAPHICS = {
     alt: "Infographic comparing the PBO Act, 2013 with the PBO Regulations, 2026.",
   },
   timelines: {
-    src: "/images/graphics/notification-timelines.jpg",
-    title: "PBORA notification timelines",
-    alt: "Infographic of the 30-day and 60-day deadlines for notifying PBORA when organisation details change.",
+    src: "/images/graphics/key-notification-timelines.jpg",
+    title: "Key notification timelines",
+    alt: "Infographic titled Key notification timelines, showing the 30-day and 60-day periods for notifying PBORA of changes.",
   },
   lifeCycle: {
     src: "/images/graphics/life-cycle.jpg",

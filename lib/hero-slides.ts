@@ -33,9 +33,9 @@ export const HERO_SLIDE_ASSETS: readonly HeroSlideAsset[] = [
   {
     id: "ask-a-question",
     ctaHref: "/guidance?ask=1",
-    imageSrc: "/images/hero/ask-a-question.jpg",
-    imagePosition: "center",
-    isGraphic: false,
+    imageSrc: "/images/graphics/query-source-linked-answers.jpg",
+    imagePosition: "center top",
+    isGraphic: true,
   },
   {
     id: "civic-space",

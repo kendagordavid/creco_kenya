@@ -249,7 +249,7 @@ export const en = {
           description:
             "Ask in English or Kiswahili. Answers point to the law.",
           ctaLabel: "Ask About the PBO Act",
-          imageAlt: "Black women collaborating over guidance materials at a meeting table",
+          imageAlt: "Mashirika Law: query for source-linked answers, with AI",
         },
         {
           eyebrow: "Civic Space Monitoring",

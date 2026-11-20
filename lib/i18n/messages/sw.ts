@@ -251,7 +251,7 @@ export const sw: Dictionary = {
           description:
             "Uliza kwa Kiingereza au Kiswahili. Majibu yanaonyesha sheria.",
           ctaLabel: "Uliza kuhusu Sheria ya PBO",
-          imageAlt: "Wanawake Weusi wakishirikiana juu ya nyenzo za mwongozo kwenye meza ya mkutano",
+          imageAlt: "Mashirika Law: uliza upate majibu yanayounganishwa na vyanzo, kwa msaada wa AI",
         },
         {
           eyebrow: "Ufuatiliaji wa Nafasi ya Kiraia",

@@ -12,7 +12,7 @@ export const HERO_SLIDE_ASSETS: readonly HeroSlideAsset[] = [
   {
     id: "understand-the-law",
     ctaHref: "/knowledge/topics/legal-framework",
-    imageSrc: "/images/graphics/defining-a-pbo.jpg",
+    imageSrc: "/images/graphics/why-mashirika-law.jpg",
     imagePosition: "center top",
     isGraphic: true,
   },

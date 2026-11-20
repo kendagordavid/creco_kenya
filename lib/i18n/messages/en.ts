@@ -225,7 +225,7 @@ export const en = {
           description:
             "What the Act means for your organisation, in plain language.",
           ctaLabel: "Explore topics",
-          imageAlt: "Mashirika Law infographic defining a public benefit organisation",
+          imageAlt: "Why Mashirika Law? Know the PBO Act, 2013: your organisation knows exactly where it stands.",
         },
         {
           eyebrow: "Register Correctly",

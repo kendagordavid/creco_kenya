@@ -227,7 +227,7 @@ export const sw: Dictionary = {
           description:
             "Maana ya Sheria kwa shirika lako, kwa lugha rahisi.",
           ctaLabel: "Chunguza mada",
-          imageAlt: "Mchoro wa Mashirika Law unaoeleza shirika la faida ya umma",
+          imageAlt: "Kwa nini Mashirika Law? Ijue Sheria ya PBO, 2013: shirika lako linajua hasa lilipo.",
         },
         {
           eyebrow: "Jisajili Kwa Usahihi",

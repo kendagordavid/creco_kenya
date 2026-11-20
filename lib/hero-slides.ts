@@ -26,9 +26,9 @@ export const HERO_SLIDE_ASSETS: readonly HeroSlideAsset[] = [
   {
     id: "stay-compliant",
     ctaHref: "/compliance",
-    imageSrc: "/images/hero/stay-compliant.jpg",
-    imagePosition: "center",
-    isGraphic: false,
+    imageSrc: "/images/graphics/from-obligation-to-action.jpg",
+    imagePosition: "center top",
+    isGraphic: true,
   },
   {
     id: "ask-a-question",

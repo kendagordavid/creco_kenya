@@ -243,7 +243,7 @@ export const sw: Dictionary = {
           description:
             "PBORA inatarajia nini kutoka kwako, na lini.",
           ctaLabel: "Angalia uzingatiaji",
-          imageAlt: "Mtaalamu Mweusi akijiandaa nyaraka za utii",
+          imageAlt: "Kutoka Wajibu hadi Hatua: jua mahitaji, timiza muda uliowekwa, chukua hatua, dumisha utiifu",
         },
         {
           eyebrow: "Uliza kuhusu Sheria ya PBO",

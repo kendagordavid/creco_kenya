@@ -241,7 +241,7 @@ export const en = {
           description:
             "What PBORA expects from you, and when.",
           ctaLabel: "See compliance",
-          imageAlt: "Black professional preparing compliance documentation",
+          imageAlt: "From Obligation to Action: know requirements, meet deadlines, take action, stay compliant",
         },
         {
           eyebrow: "Ask About the PBO Act",

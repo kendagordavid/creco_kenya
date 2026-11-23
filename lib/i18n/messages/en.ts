@@ -1030,6 +1030,10 @@ export const en = {
     byStatus: "Reports by status",
     byCounty: "Reports by county",
     byAnonymous: "Anonymous reports",
+    topPages: "Most viewed pages",
+    topReferrers: "Visitors arriving from",
+    visitorsNote:
+      "Visitors are counted once per day, without cookies. Staff pages, bots and browsers that ask not to be tracked are not counted.",
     presets: {
       "7d": "7 days",
       "30d": "30 days",
@@ -1044,6 +1048,8 @@ export const en = {
       month: "Month",
     },
     metrics: {
+      visitors: "Visitors",
+      pageViews: "Page views",
       newOrganisations: "New organisations",
       submissions: "Monitoring reports",
       anonymousReports: "Anonymous reports",
@@ -1326,6 +1332,9 @@ export const en = {
     monitoringTitle: "Confidential monitoring review",
     monitoringBody:
       "Reports about registration experiences, enabling practices, and civic space incidents are treated as confidential. Mashirika Law staff moderate submissions before they are used in advocacy. Do not include information you are not willing to share with Mashirika Law reviewers.",
+    statsTitle: "Visit statistics",
+    statsBody:
+      "To see how the platform is used, we count page views. We do not set cookies for this and we do not store your IP address. Your IP address and browser are turned into a code that changes every day, so we can count daily visitors without recognising you on another day. If your browser sends a Do Not Track or Global Privacy Control signal, your visits are not counted.",
     useTitle: "How we use information",
     useBody:
       "We use account and form data only to operate the platform, answer your questions, improve guidance, and support civic-space monitoring. Only authorized Mashirika Law personnel can access it. We never sell personal data, and we do not share it with third parties without your consent, except where the law requires.",

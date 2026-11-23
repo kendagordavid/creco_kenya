@@ -6,8 +6,11 @@ import {
   type AnalyticsGrain,
 } from "@/lib/analytics-range";
 import { getSql } from "@/lib/db";
+import { ensurePageViewsTable } from "@/lib/page-views";
 
 export type AnalyticsSummary = {
+  visitors: number;
+  pageViews: number;
   newOrganisations: number;
   submissions: number;
   anonymousReports: number;
@@ -38,6 +41,8 @@ export type AdminAnalytics = {
   submissionsByCounty: AnalyticsBreakdown[];
   anonymousByCategory: AnalyticsBreakdown[];
   anonymousByStatus: AnalyticsBreakdown[];
+  topPages: AnalyticsBreakdown[];
+  topReferrers: AnalyticsBreakdown[];
 };
 
 type CountRow = { count: number };
@@ -45,6 +50,8 @@ type BreakdownRow = { key: string; count: number };
 type SeriesRow = { metric: string; bucket: Date | string; count: number };
 
 const METRICS = [
+  "visitors",
+  "pageViews",
   "newOrganisations",
   "submissions",
   "anonymousReports",
@@ -60,6 +67,8 @@ function bucketKey(value: Date | string): string {
 
 function emptySummary(): AnalyticsSummary {
   return {
+    visitors: 0,
+    pageViews: 0,
     newOrganisations: 0,
     submissions: 0,
     anonymousReports: 0,
@@ -71,8 +80,13 @@ function emptySummary(): AnalyticsSummary {
 
 async function loadSummary(from: string, to: string): Promise<AnalyticsSummary> {
   const sql = getSql();
-  const [organisations, submissions, anonymousReports, feedback, checklist, assessment] =
+  const [visits, organisations, submissions, anonymousReports, feedback, checklist, assessment] =
     await Promise.all([
+      sql<Array<{ visitors: number; page_views: number }>>`
+        SELECT count(DISTINCT visitor_id)::int AS visitors, count(*)::int AS page_views
+        FROM page_views
+        WHERE (viewed_at AT TIME ZONE 'Africa/Nairobi')::date BETWEEN ${from}::date AND ${to}::date
+      `,
       sql<CountRow[]>`
         SELECT count(*)::int AS count
         FROM users
@@ -109,6 +123,8 @@ async function loadSummary(from: string, to: string): Promise<AnalyticsSummary> 
     ]);
 
   return {
+    visitors: visits[0]?.visitors ?? 0,
+    pageViews: visits[0]?.page_views ?? 0,
     newOrganisations: organisations[0]?.count ?? 0,
     submissions: submissions[0]?.count ?? 0,
     anonymousReports: anonymousReports[0]?.count ?? 0,
@@ -128,6 +144,7 @@ export async function loadAdminAnalytics(
   const includeSeries = options?.includeSeries !== false;
   const sql = getSql();
   const prior = previousRange(from, to);
+  await ensurePageViewsTable();
 
   const [
     summary,
@@ -138,12 +155,28 @@ export async function loadAdminAnalytics(
     submissionsByCounty,
     anonymousByCategory,
     anonymousByStatus,
+    topPages,
+    topReferrers,
   ] = await Promise.all([
     loadSummary(from, to),
     loadSummary(prior.from, prior.to),
     includeSeries
       ? sql<SeriesRow[]>`
-      SELECT 'newOrganisations' AS metric,
+      SELECT 'visitors' AS metric,
+             to_char(date_trunc(${grain}, viewed_at AT TIME ZONE 'Africa/Nairobi'), 'YYYY-MM-DD') AS bucket,
+             count(DISTINCT visitor_id)::int AS count
+      FROM page_views
+      WHERE (viewed_at AT TIME ZONE 'Africa/Nairobi')::date BETWEEN ${from}::date AND ${to}::date
+      GROUP BY 2
+      UNION ALL
+      SELECT 'pageViews',
+             to_char(date_trunc(${grain}, viewed_at AT TIME ZONE 'Africa/Nairobi'), 'YYYY-MM-DD'),
+             count(*)::int
+      FROM page_views
+      WHERE (viewed_at AT TIME ZONE 'Africa/Nairobi')::date BETWEEN ${from}::date AND ${to}::date
+      GROUP BY 2
+      UNION ALL
+      SELECT 'newOrganisations',
              to_char(date_trunc(${grain}, created_at AT TIME ZONE 'Africa/Nairobi'), 'YYYY-MM-DD') AS bucket,
              count(*)::int AS count
       FROM users
@@ -225,6 +258,23 @@ export async function loadAdminAnalytics(
       GROUP BY status
       ORDER BY count DESC, status ASC
     `,
+    sql<BreakdownRow[]>`
+      SELECT path AS key, count(*)::int AS count
+      FROM page_views
+      WHERE (viewed_at AT TIME ZONE 'Africa/Nairobi')::date BETWEEN ${from}::date AND ${to}::date
+      GROUP BY path
+      ORDER BY count DESC, path ASC
+      LIMIT 10
+    `,
+    sql<BreakdownRow[]>`
+      SELECT referrer_host AS key, count(*)::int AS count
+      FROM page_views
+      WHERE referrer_host IS NOT NULL
+        AND (viewed_at AT TIME ZONE 'Africa/Nairobi')::date BETWEEN ${from}::date AND ${to}::date
+      GROUP BY referrer_host
+      ORDER BY count DESC, referrer_host ASC
+      LIMIT 10
+    `,
   ]);
 
   const byBucket = new Map<string, AnalyticsSummary>();
@@ -255,6 +305,8 @@ export async function loadAdminAnalytics(
     submissionsByCounty,
     anonymousByCategory,
     anonymousByStatus,
+    topPages,
+    topReferrers,
   };
 }
 
@@ -277,6 +329,8 @@ export function analyticsToCsv(data: AdminAnalytics): string {
     csvRow([data.previousRange.from, data.previousRange.to]),
     "",
     csvRow(["Metric", "Selected period", "Previous period"]),
+    csvRow(["Visitors (unique per day)", data.summary.visitors, data.previous.visitors]),
+    csvRow(["Page views", data.summary.pageViews, data.previous.pageViews]),
     csvRow(["New organisations", data.summary.newOrganisations, data.previous.newOrganisations]),
     csvRow(["Monitoring reports", data.summary.submissions, data.previous.submissions]),
     csvRow(["Anonymous reports", data.summary.anonymousReports, data.previous.anonymousReports]),
@@ -286,6 +340,8 @@ export function analyticsToCsv(data: AdminAnalytics): string {
     "",
     csvRow([
       "Period start",
+      "Visitors (unique per day)",
+      "Page views",
       "New organisations",
       "Monitoring reports",
       "Anonymous reports",
@@ -296,6 +352,8 @@ export function analyticsToCsv(data: AdminAnalytics): string {
     ...data.series.map((point) =>
       csvRow([
         point.bucket,
+        point.visitors,
+        point.pageViews,
         point.newOrganisations,
         point.submissions,
         point.anonymousReports,
@@ -319,6 +377,12 @@ export function analyticsToCsv(data: AdminAnalytics): string {
     "",
     csvRow(["Anonymous status", "Count"]),
     ...data.anonymousByStatus.map((row) => csvRow([row.key, row.count])),
+    "",
+    csvRow(["Page", "Views"]),
+    ...data.topPages.map((row) => csvRow([row.key, row.count])),
+    "",
+    csvRow(["Referring site", "Views"]),
+    ...data.topReferrers.map((row) => csvRow([row.key, row.count])),
     "",
   ];
 

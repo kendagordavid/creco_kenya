@@ -1034,6 +1034,10 @@ export const sw: Dictionary = {
     byStatus: "Ripoti kwa hali",
     byCounty: "Ripoti kwa kaunti",
     byAnonymous: "Ripoti zisizojulikana",
+    topPages: "Kurasa zinazotazamwa zaidi",
+    topReferrers: "Wageni wanaotoka",
+    visitorsNote:
+      "Wageni huhesabiwa mara moja kwa siku, bila vidakuzi. Kurasa za wafanyakazi, roboti na vivinjari vinavyoomba kutofuatiliwa havihesabiwi.",
     presets: {
       "7d": "Siku 7",
       "30d": "Siku 30",
@@ -1048,6 +1052,8 @@ export const sw: Dictionary = {
       month: "Mwezi",
     },
     metrics: {
+      visitors: "Wageni",
+      pageViews: "Kurasa zilizotazamwa",
       newOrganisations: "Mashirika mapya",
       submissions: "Ripoti za ufuatiliaji",
       anonymousReports: "Ripoti zisizojulikana",
@@ -1330,6 +1336,9 @@ export const sw: Dictionary = {
     monitoringTitle: "Ukaguzi wa siri wa ufuatiliaji",
     monitoringBody:
       "Ripoti kuhusu uzoefu wa usajili, mbinu zinazowezesha, na matukio ya nafasi ya kiraia zinachukuliwa kuwa siri. Wafanyakazi wa Mashirika Law hukagua mawasilisho kabla ya kutumika katika uhamasishaji. Usijumuishe taarifa ambazo huko tayari kushiriki na wakaguzi wa Mashirika Law.",
+    statsTitle: "Takwimu za ziara",
+    statsBody:
+      "Ili kuona jinsi jukwaa linavyotumika, tunahesabu kurasa zinazotazamwa. Hatuweki vidakuzi kwa ajili ya hili na hatuhifadhi anwani yako ya IP. Anwani yako ya IP na kivinjari chako hubadilishwa kuwa msimbo unaobadilika kila siku, ili tuweze kuhesabu wageni wa kila siku bila kukutambua siku nyingine. Ikiwa kivinjari chako kinatuma ishara ya Do Not Track au Global Privacy Control, ziara zako hazihesabiwi.",
     useTitle: "Jinsi tunavyotumia taarifa",
     useBody:
       "Tunatumia data ya akaunti na fomu kwa ajili ya kuendesha jukwaa, kujibu maswali yako, kuboresha mwongozo, na kuunga mkono ufuatiliaji wa nafasi ya kiraia pekee. Ni wafanyakazi walioidhinishwa wa Mashirika Law pekee wanaoweza kuifikia. Hatuuzi data binafsi kamwe, na hatuishiriki na wahusika wengine bila idhini yako, isipokuwa pale sheria inapotaka.",

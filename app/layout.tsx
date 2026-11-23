@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Poppins, Geist } from "next/font/google";
 import { auth } from "@/auth";
 import { AuthProvider } from "@/components/AuthProvider";
+import { PageViewTracker } from "@/components/PageViewTracker";
 import { SiteChrome } from "@/components/SiteChrome";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { LocaleProvider } from "@/lib/i18n/client";
@@ -64,6 +65,7 @@ export default async function RootLayout({
           <LocaleProvider locale={locale}>
             <AuthProvider session={session}>
               <SiteChrome skipLinkLabel={dictionary.a11y.skipToMain}>{children}</SiteChrome>
+              <PageViewTracker />
             </AuthProvider>
           </LocaleProvider>
         </ThemeProvider>

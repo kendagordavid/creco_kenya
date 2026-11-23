@@ -87,6 +87,16 @@ export function AdminAnalyticsDashboard() {
   const stats = data
     ? [
         {
+          label: t.adminAnalytics.metrics.visitors,
+          value: data.summary.visitors,
+          previous: data.previous.visitors,
+        },
+        {
+          label: t.adminAnalytics.metrics.pageViews,
+          value: data.summary.pageViews,
+          previous: data.previous.pageViews,
+        },
+        {
           label: t.adminAnalytics.metrics.newOrganisations,
           value: data.summary.newOrganisations,
           previous: data.previous.newOrganisations,
@@ -201,7 +211,7 @@ export function AdminAnalyticsDashboard() {
         </Card>
       ) : data ? (
         <div className="space-y-6">
-          <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3" aria-label={t.adminAnalytics.summaryLabel}>
+          <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4" aria-label={t.adminAnalytics.summaryLabel}>
             {stats.map((stat) => (
               <Card key={stat.label} className="border-0 shadow-sm ring-1 ring-border/60">
                 <CardHeader className="pb-2">
@@ -223,8 +233,16 @@ export function AdminAnalyticsDashboard() {
               </Card>
             ))}
           </section>
+          <p className="-mt-3 text-xs text-muted-foreground">{t.adminAnalytics.visitorsNote}</p>
 
           <div className="grid gap-4 lg:grid-cols-2">
+            <BreakdownCard title={t.adminAnalytics.topPages} rows={data.topPages} empty={t.adminAnalytics.empty} verbatim />
+            <BreakdownCard
+              title={t.adminAnalytics.topReferrers}
+              rows={data.topReferrers}
+              empty={t.adminAnalytics.empty}
+              verbatim
+            />
             <BreakdownCard title={t.adminAnalytics.byType} rows={data.submissionsByType} empty={t.adminAnalytics.empty} />
             <BreakdownCard title={t.adminAnalytics.byStatus} rows={data.submissionsByStatus} empty={t.adminAnalytics.empty} />
             <BreakdownCard title={t.adminAnalytics.byCounty} rows={data.submissionsByCounty} empty={t.adminAnalytics.empty} />
@@ -244,10 +262,13 @@ function BreakdownCard({
   title,
   rows,
   empty,
+  verbatim = false,
 }: {
   title: string;
   rows: { key: string; count: number }[];
   empty: string;
+  /** Show keys as-is (page paths, host names) instead of as status labels. */
+  verbatim?: boolean;
 }) {
   return (
     <Card className="border-0 shadow-sm ring-1 ring-border/60">
@@ -261,7 +282,13 @@ function BreakdownCard({
           <ul className="space-y-2">
             {rows.map((row) => (
               <li key={`${title}-${row.key}`} className="flex items-center justify-between gap-3 text-sm">
-                <span className="capitalize">{row.key.replaceAll("_", " ")}</span>
+                {verbatim ? (
+                  <span className="min-w-0 truncate font-mono text-xs" title={row.key}>
+                    {row.key}
+                  </span>
+                ) : (
+                  <span className="capitalize">{row.key.replaceAll("_", " ")}</span>
+                )}
                 <span className="font-semibold tabular-nums">{row.count}</span>
               </li>
             ))}

@@ -130,3 +130,16 @@ CREATE TABLE IF NOT EXISTS content_overrides (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   PRIMARY KEY (kind, slug, locale)
 );
+
+-- Visitor statistics: one row per public page view. No cookies are set. visitor_id is a
+-- keyed hash of the IP address, browser and date, so it changes every day and a visitor
+-- cannot be followed from one day to the next. The IP address itself is never stored.
+CREATE TABLE IF NOT EXISTS page_views (
+  id BIGSERIAL PRIMARY KEY,
+  viewed_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  path TEXT NOT NULL,
+  visitor_id TEXT NOT NULL,
+  referrer_host TEXT
+);
+
+CREATE INDEX IF NOT EXISTS page_views_viewed_at_idx ON page_views (viewed_at DESC);

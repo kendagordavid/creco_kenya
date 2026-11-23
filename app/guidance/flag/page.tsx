@@ -20,8 +20,6 @@ export default async function FlagFeedbackPage({ searchParams }: Props) {
         eyebrow="Guidance"
         title="Flag or feedback"
         lead="Help Mashirika Law improve guidance answers when something looks wrong or unclear."
-        backgroundImage="/images/hero/ask-a-question.jpg"
-        backgroundAlt="Black women collaborating over guidance materials at a meeting table"
       />
       <section className="creco-section">
         <div className="creco-container">

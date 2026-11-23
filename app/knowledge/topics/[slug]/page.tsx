@@ -35,8 +35,6 @@ export default async function TopicDetailPage({ params }: Props) {
       <PageHero
         eyebrow={t.knowledgeHub.metaTitle}
         title={page.title}
-        backgroundImage="/images/pages/topics-dialogue.jpg"
-        backgroundAlt={t.topics.imageAlt}
       />
       <section className="creco-section">
         <div className="creco-container max-w-3xl">

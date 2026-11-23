@@ -11,8 +11,6 @@ export default function AssessmentResultsPage() {
       <PageHero
         eyebrow="Compliance"
         title="Your assessment results"
-        backgroundImage="/images/hero/stay-compliant.jpg"
-        backgroundAlt="Black professional preparing compliance documentation"
       />
       <section className="creco-section">
         <div className="creco-container">

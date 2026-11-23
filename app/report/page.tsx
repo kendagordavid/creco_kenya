@@ -19,8 +19,6 @@ export default async function AnonymousReportPage() {
         eyebrow={t.anonymousReport.eyebrow}
         title={t.anonymousReport.title}
         lead={t.anonymousReport.lead}
-        backgroundImage="/images/pages/privacy-notes.jpg"
-        backgroundAlt={t.anonymousReport.imageAlt}
       />
       <section className="creco-section">
         <div className="creco-container grid gap-10 lg:grid-cols-2">

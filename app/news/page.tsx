@@ -28,8 +28,6 @@ export default async function NewsPage() {
         eyebrow={t.newsPage.eyebrow}
         title={t.newsPage.title}
         lead={t.newsPage.lead}
-        backgroundImage="/images/hero/civic-space.jpg"
-        backgroundAlt={t.home.hero.slides[4]?.imageAlt ?? ""}
       />
 
       <section className="creco-section creco-section--after-hero">

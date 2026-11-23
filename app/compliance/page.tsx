@@ -20,8 +20,6 @@ export default async function ComplianceHubPage() {
         eyebrow={t.complianceHub.eyebrow}
         title={t.complianceHub.title}
         lead={t.complianceHub.lead}
-        backgroundImage="/images/pages/compliance-documents.jpg"
-        backgroundAlt="Hands signing a printed compliance document"
       />
       <section className="creco-section">
         <div className="creco-container">

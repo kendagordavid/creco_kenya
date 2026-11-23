@@ -25,8 +25,6 @@ export default async function PrivacyPage() {
         eyebrow={t.privacy.eyebrow}
         title={t.privacy.title}
         lead={t.privacy.lead}
-        backgroundImage="/images/pages/privacy-notes.jpg"
-        backgroundAlt={t.privacy.imageAlt}
       />
       <section className="creco-section">
         <div className="creco-container max-w-2xl space-y-10">

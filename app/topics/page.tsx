@@ -23,9 +23,6 @@ export default async function TopicsPage() {
         eyebrow={t.topics.eyebrow}
         title={t.topics.title}
         lead={t.topics.lead}
-        backgroundImage="/images/pages/topics-dialogue.jpg"
-        backgroundAlt={t.topics.imageAlt}
-        backgroundCredit="Photo: Mark Myles Mugambi / Wikimedia Commons"
       />
       <section className="creco-section">
         <div className="creco-container">

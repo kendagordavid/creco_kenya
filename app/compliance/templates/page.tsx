@@ -13,7 +13,6 @@ export default function TemplatesPage() {
         eyebrow="Compliance"
         title="Template library"
         lead="Starting points for board resolutions, policies, and reporting — review with your counsel before use."
-        variant="light"
       />
       <section className="creco-section">
         <div className="creco-container">

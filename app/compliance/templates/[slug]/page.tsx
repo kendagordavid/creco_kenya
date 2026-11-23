@@ -19,8 +19,6 @@ export default async function TemplateDetailPage({ params }: Props) {
         eyebrow="Template"
         title={template.title}
         lead={template.summary}
-        backgroundImage="/images/pages/compliance-documents.jpg"
-        backgroundAlt="Hands signing a printed compliance document"
       />
       <section className="creco-section">
         <div className="creco-container max-w-3xl">

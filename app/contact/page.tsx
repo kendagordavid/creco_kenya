@@ -20,8 +20,6 @@ export default async function ContactPage() {
         eyebrow={t.contact.eyebrow}
         title={t.contact.title}
         lead={t.contact.lead}
-        backgroundImage="/images/pages/contact-conversation.jpg"
-        backgroundAlt={t.contact.imageAlt}
       />
       <section className="creco-section">
         <div className="creco-container grid gap-10 lg:grid-cols-2">

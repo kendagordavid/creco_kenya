@@ -20,8 +20,6 @@ export default async function ChecklistPage() {
         eyebrow="Compliance"
         title={t.complianceHub.checklist.title}
         lead={t.complianceHub.checklist.description}
-        backgroundImage="/images/hero/stay-compliant.jpg"
-        backgroundAlt="Black professional preparing compliance documentation"
       />
       <section className="creco-section">
         <div className="creco-container max-w-3xl">

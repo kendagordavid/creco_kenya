@@ -438,6 +438,50 @@ h4,
   z-index: 2;
 }
 
+/* Inner-page hero on the Mashirika Law banner (components/PageHero.tsx) */
+.creco-hero--banner {
+  background: #071a12;
+  display: flex;
+  align-items: center;
+}
+
+.creco-hero--banner::before {
+  display: none;
+}
+
+.creco-hero--banner::after {
+  z-index: 2;
+}
+
+.creco-hero-banner-img {
+  object-fit: cover;
+  object-position: left center;
+}
+
+.creco-hero--banner .creco-hero-inner {
+  width: 100%;
+}
+
+.creco-hero-copy {
+  max-width: 42rem;
+}
+
+@media (min-width: 1024px) {
+  /* Show the whole banner (1600×365) so the logo panel is never cropped. */
+  .creco-hero--banner {
+    min-height: calc(100vw * 365 / 1600);
+  }
+
+  .creco-hero-banner-img {
+    object-position: right center;
+  }
+
+  /* Keep copy clear of the white logo panel, which starts ~68% across. */
+  .creco-hero-copy {
+    max-width: min(42rem, 55vw);
+  }
+}
+
 .creco-parallax-layer {
   will-change: transform;
 }

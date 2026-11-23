@@ -23,8 +23,6 @@ export default async function FaqIndexPage({ searchParams }: Props) {
         eyebrow="Knowledge hub"
         title="Frequently asked questions"
         lead="Practical answers to help Kenyan PBOs understand their rights, meet their obligations, and strengthen transparency, accountability and good governance."
-        backgroundImage="/images/pages/knowledge-discussion.jpg"
-        backgroundAlt="A Maasai woman speaking with a microphone to a community group in Kajiado County, Kenya"
       />
       <section className="creco-section">
         <div className="creco-container">

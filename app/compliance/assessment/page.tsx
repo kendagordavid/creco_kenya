@@ -12,8 +12,6 @@ export default function AssessmentIntroPage() {
         eyebrow="Compliance"
         title="PBO self-assessment"
         lead="Eight questions across registration, governance, reporting, and operations. Takes about 5 minutes."
-        backgroundImage="/images/hero/understand-the-law.jpg"
-        backgroundAlt="Kenyan community members gathered in Kargi, Kenya"
       />
       <section className="creco-section">
         <div className="creco-container max-w-xl text-center">

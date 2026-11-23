@@ -17,8 +17,6 @@ export default async function MediaGalleryPage() {
         eyebrow={t.knowledgeHub.eyebrow}
         title={t.knowledgeHub.filters.media}
         lead={t.knowledgeHub.lead}
-        backgroundImage="/images/pages/knowledge-discussion.jpg"
-        backgroundAlt={t.knowledgeHub.imageAlt}
       />
       <section className="creco-section">
         <div className="creco-container">

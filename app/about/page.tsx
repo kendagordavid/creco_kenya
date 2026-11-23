@@ -17,9 +17,6 @@ export default async function AboutPage() {
         eyebrow={t.about.eyebrow}
         title={t.about.title}
         lead={t.about.lead}
-        backgroundImage="/images/pages/about-community.jpg"
-        backgroundAlt={t.about.imageAlt}
-        backgroundCredit="Photo: McKay Savage / Wikimedia Commons"
       />
       <section className="creco-section">
         <div className="creco-container max-w-2xl">

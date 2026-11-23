@@ -39,8 +39,6 @@ export default async function FormDetailPage({ params }: Props) {
         eyebrow={t.formsPage.eyebrow}
         title={name}
         lead={form.purpose}
-        backgroundImage="/images/pages/knowledge-discussion.jpg"
-        backgroundAlt={t.knowledgeHub.imageAlt}
       />
       <section className="creco-section">
         <div className="creco-container max-w-3xl">

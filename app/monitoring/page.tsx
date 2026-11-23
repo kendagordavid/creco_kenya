@@ -18,8 +18,6 @@ export default async function MonitoringHubPage() {
         eyebrow={t.monitoringHub.eyebrow}
         title={t.monitoringHub.title}
         lead={t.monitoringHub.lead}
-        backgroundImage="/images/hero/civic-space.jpg"
-        backgroundAlt="Black Kenyans gathered in a civic space demonstration"
       />
       <section className="creco-section">
         <div className="creco-container">

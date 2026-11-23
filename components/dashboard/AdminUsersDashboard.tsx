@@ -5,7 +5,7 @@ import { Loader2, Search, ShieldCheck, ShieldOff, UserCheck, UserX, Users } from
 import { Card, CardContent } from "@/components/ui/card";
 import { AdminShell } from "@/components/dashboard/AdminShell";
 import { useAuthQuery } from "@/hooks/useAuthQuery";
-import { authFetch, invalidateAuthCache, peekCachedJson } from "@/lib/auth-client";
+import { authFetch, invalidateAuthCache } from "@/lib/auth-client";
 import { CACHE_TTL } from "@/lib/browser-cache";
 import { useFormat, useTranslations } from "@/lib/i18n/client";
 
@@ -31,15 +31,14 @@ const API = "/api/admin/users";
 export function AdminUsersDashboard() {
   const t = useTranslations();
   const format = useFormat();
-  const cached = peekCachedJson<UsersResponse>(API);
   const { data, loading, error: queryError } = useAuthQuery<UsersResponse>(API, { ttlMs: CACHE_TTL.admin });
-  const [users, setUsers] = useState<ManagedUser[]>(() => (cached?.error ? [] : (cached?.users ?? [])));
+  const [users, setUsers] = useState<ManagedUser[]>(() => (data?.error ? [] : (data?.users ?? [])));
   const [query, setQuery] = useState("");
   const [roleFilter, setRoleFilter] = useState<"all" | ManagedUser["role"] | "disabled">("all");
   const [busyId, setBusyId] = useState<string | null>(null);
   const [notice, setNotice] = useState<{ tone: "ok" | "error"; text: string } | null>(null);
   const error = queryError ?? data?.error ?? "";
-  const currentUserId = data?.currentUserId ?? cached?.currentUserId;
+  const currentUserId = data?.currentUserId;
 
   // Adopt fresh server data during render (not in an effect) so local edits start from it.
   const [syncedData, setSyncedData] = useState(data);

@@ -12,7 +12,7 @@ import {
 import { AdminShell } from "@/components/dashboard/AdminShell";
 import { ReportListFilters, useReportListFilters } from "@/components/dashboard/ReportListFilters";
 import { useAuthQuery } from "@/hooks/useAuthQuery";
-import { authFetch, invalidateAuthCache, peekCachedJson } from "@/lib/auth-client";
+import { authFetch, invalidateAuthCache } from "@/lib/auth-client";
 import { CACHE_TTL } from "@/lib/browser-cache";
 import { useFormat, useTranslations } from "@/lib/i18n/client";
 import { inDateRange } from "@/lib/report-date";
@@ -71,18 +71,15 @@ function commentDraftsFromSubmissions(
 export function AdminReportsDashboard() {
   const t = useTranslations();
   const format = useFormat();
-  const cached = peekCachedJson<{ submissions?: AdminSubmission[]; error?: string }>(
-    "/api/admin/submissions",
-  );
   const { data, loading, error: queryError } = useAuthQuery<{
     submissions?: AdminSubmission[];
     error?: string;
   }>("/api/admin/submissions", { ttlMs: CACHE_TTL.admin });
   const [submissions, setSubmissions] = useState<AdminSubmission[]>(
-    () => (cached?.error ? [] : (cached?.submissions ?? [])),
+    () => (data?.error ? [] : (data?.submissions ?? [])),
   );
   const [commentDrafts, setCommentDrafts] = useState<Record<string, string>>(() =>
-    commentDraftsFromSubmissions(cached?.error ? [] : (cached?.submissions ?? [])),
+    commentDraftsFromSubmissions(data?.error ? [] : (data?.submissions ?? [])),
   );
   const [openCommentId, setOpenCommentId] = useState<string | null>(null);
   const filters = useReportListFilters();

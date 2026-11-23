@@ -15,9 +15,8 @@ const HEALTH_CACHE_KEY = "GET:/api/health";
 export function AiSetupNotice() {
   const t = useTranslations();
   const format = useFormat();
-  const [health, setHealth] = useState<Health | null>(() =>
-    peekBrowserCache<Health>(HEALTH_CACHE_KEY, "session"),
-  );
+  // Filled from the session cache in the effect, not here, so hydration matches the server.
+  const [health, setHealth] = useState<Health | null>(null);
 
   useEffect(() => {
     const cached = peekBrowserCache<Health>(HEALTH_CACHE_KEY, "session");

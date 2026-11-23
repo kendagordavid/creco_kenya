@@ -12,7 +12,7 @@ import {
 import { AdminShell } from "@/components/dashboard/AdminShell";
 import { ReportListFilters, useReportListFilters } from "@/components/dashboard/ReportListFilters";
 import { useAuthQuery } from "@/hooks/useAuthQuery";
-import { authFetch, invalidateAuthCache, peekCachedJson } from "@/lib/auth-client";
+import { authFetch, invalidateAuthCache } from "@/lib/auth-client";
 import { CACHE_TTL } from "@/lib/browser-cache";
 import { useFormat, useTranslations } from "@/lib/i18n/client";
 import { inDateRange } from "@/lib/report-date";
@@ -53,15 +53,12 @@ function categoryLabel(t: Dictionary, category: string): string {
 export function AdminAnonymousReportsDashboard() {
   const t = useTranslations();
   const format = useFormat();
-  const cached = peekCachedJson<{ reports?: AnonymousReport[]; error?: string }>(
-    "/api/admin/anonymous-reports",
-  );
   const { data, loading, error: queryError } = useAuthQuery<{
     reports?: AnonymousReport[];
     error?: string;
   }>("/api/admin/anonymous-reports", { ttlMs: CACHE_TTL.admin });
   const [reports, setReports] = useState<AnonymousReport[]>(
-    () => (cached?.error ? [] : (cached?.reports ?? [])),
+    () => (data?.error ? [] : (data?.reports ?? [])),
   );
   const [noteDrafts, setNoteDrafts] = useState<Record<string, string>>({});
   const [openNoteId, setOpenNoteId] = useState<string | null>(null);

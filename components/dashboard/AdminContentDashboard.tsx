@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { AdminShell } from "@/components/dashboard/AdminShell";
 import { WikiBody } from "@/components/WikiBody";
 import { useAuthQuery } from "@/hooks/useAuthQuery";
-import { authFetch, invalidateAuthCache, peekCachedJson } from "@/lib/auth-client";
+import { authFetch, invalidateAuthCache } from "@/lib/auth-client";
 import { CACHE_TTL } from "@/lib/browser-cache";
 import { useFormat, useTranslations } from "@/lib/i18n/client";
 import { cn } from "@/lib/utils";
@@ -47,11 +47,10 @@ function sameDraft(a: Fields, b: Fields) {
 export function AdminContentDashboard() {
   const t = useTranslations();
   const format = useFormat();
-  const cached = peekCachedJson<{ items?: ListItem[]; error?: string }>(LIST_API);
   const { data, loading, error: queryError } = useAuthQuery<{ items?: ListItem[]; error?: string }>(LIST_API, {
     ttlMs: CACHE_TTL.admin,
   });
-  const [items, setItems] = useState<ListItem[]>(() => (cached?.error ? [] : (cached?.items ?? [])));
+  const [items, setItems] = useState<ListItem[]>(() => (data?.error ? [] : (data?.items ?? [])));
   const [tab, setTab] = useState<Kind>("topic");
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<{ kind: Kind; slug: string } | null>(null);

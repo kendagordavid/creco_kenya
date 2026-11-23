@@ -13,7 +13,7 @@ import {
 import { AdminShell } from "@/components/dashboard/AdminShell";
 import { ReportListFilters, useReportListFilters } from "@/components/dashboard/ReportListFilters";
 import { useAuthQuery } from "@/hooks/useAuthQuery";
-import { authFetch, invalidateAuthCache, peekCachedJson } from "@/lib/auth-client";
+import { authFetch, invalidateAuthCache } from "@/lib/auth-client";
 import { CACHE_TTL } from "@/lib/browser-cache";
 import { useFormat, useTranslations } from "@/lib/i18n/client";
 import { inDateRange } from "@/lib/report-date";
@@ -67,11 +67,10 @@ function reasonLabel(t: Dictionary, reason: string): string {
 export function AdminFlagsDashboard() {
   const t = useTranslations();
   const format = useFormat();
-  const cached = peekCachedJson<FlagsResponse>(API);
   const { data, loading, error: queryError } = useAuthQuery<FlagsResponse>(API, {
     ttlMs: CACHE_TTL.admin,
   });
-  const [flags, setFlags] = useState<FlagItem[]>(() => (cached?.error ? [] : (cached?.flags ?? [])));
+  const [flags, setFlags] = useState<FlagItem[]>(() => (data?.error ? [] : (data?.flags ?? [])));
   const [noteDrafts, setNoteDrafts] = useState<Record<string, string>>({});
   const [openNoteId, setOpenNoteId] = useState<string | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);

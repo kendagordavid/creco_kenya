@@ -15,7 +15,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useAuthQuery } from "@/hooks/useAuthQuery";
-import { authFetch, invalidateAuthCache, peekCachedJson } from "@/lib/auth-client";
+import { authFetch, invalidateAuthCache } from "@/lib/auth-client";
 import { CACHE_TTL } from "@/lib/browser-cache";
 import { useCurrentLocale, useFormat, useTranslations } from "@/lib/i18n/client";
 import { NEWS_CATEGORIES, type NewsCategory } from "@/lib/news";
@@ -92,13 +92,12 @@ export function AdminNewsDashboard() {
   const t = useTranslations();
   const format = useFormat();
   const locale = useCurrentLocale();
-  const cached = peekCachedJson<NewsListResponse>("/api/admin/news");
   const { data, loading, error: queryError } = useAuthQuery<NewsListResponse>(
     "/api/admin/news",
     { ttlMs: CACHE_TTL.admin },
   );
 
-  const [posts, setPosts] = useState<NewsPostRow[]>(() => (cached?.error ? [] : (cached?.posts ?? [])));
+  const [posts, setPosts] = useState<NewsPostRow[]>(() => (data?.error ? [] : (data?.posts ?? [])));
   const [editingId, setEditingId] = useState<string | "new" | null>(null);
   const [draft, setDraft] = useState<Draft>(emptyDraft);
   const [photoFile, setPhotoFile] = useState<File | null>(null);

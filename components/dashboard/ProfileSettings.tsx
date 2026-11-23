@@ -25,7 +25,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { DashboardShell } from "@/components/dashboard/DashboardShell";
 import { useAuthQuery } from "@/hooks/useAuthQuery";
-import { authFetch, invalidateAuthCache, peekCachedJson } from "@/lib/auth-client";
+import { authFetch, invalidateAuthCache } from "@/lib/auth-client";
 import { CACHE_TTL } from "@/lib/browser-cache";
 import { useTranslations } from "@/lib/i18n/client";
 import { KENYA_COUNTIES, ORG_TYPES } from "@/lib/content/constants";
@@ -42,18 +42,13 @@ type Profile = {
 
 export function ProfileSettings() {
   const t = useTranslations();
-  const cachedProfile = peekCachedJson<Profile & { error?: string }>("/api/profile");
   const { data, loading: queryLoading, error: queryError } = useAuthQuery<Profile & { error?: string }>(
     "/api/profile",
     { ttlMs: CACHE_TTL.profile },
   );
-  const [profile, setProfile] = useState<Profile | null>(
-    cachedProfile?.error ? null : cachedProfile,
-  );
+  const [profile, setProfile] = useState<Profile | null>(data?.error ? null : data);
   const [form, setForm] = useState<Profile>(
-    cachedProfile?.error
-      ? { email: "", name: "", orgName: "", orgType: "", county: "", phone: "" }
-      : (cachedProfile ?? { email: "", name: "", orgName: "", orgType: "", county: "", phone: "" }),
+    data && !data.error ? data : { email: "", name: "", orgName: "", orgType: "", county: "", phone: "" },
   );
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");

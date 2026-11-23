@@ -57,6 +57,19 @@
   );
 }
 
+/* Mashirika Law banner pattern behind the copy (same image as the inner-page
+   hero). Anchored left so only the dark pattern shows, never the logo panel.
+   On phones it fades out upward so the slide graphic above stays visible. */
+.hero-carousel__panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/images/hero/mashirika-banner.jpg") left center / cover no-repeat;
+  -webkit-mask-image: linear-gradient(to top, #000 48%, transparent 88%);
+  mask-image: linear-gradient(to top, #000 48%, transparent 88%);
+  pointer-events: none;
+}
+
 .hero-carousel__copy {
   position: relative;
   z-index: 1;
@@ -330,6 +343,11 @@
       var(--creco-green-dark) 100%
     );
     clip-path: polygon(0 0, 100% 0, 84% 100%, 0 100%);
+  }
+
+  .hero-carousel__panel::before {
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 
   .hero-carousel__copy {

@@ -1,7 +1,10 @@
 type CacheRecord = {
   data: unknown;
+  /** Until then the entry is fresh and callers may skip the network. */
   expiresAt: number;
   storedAt: number;
+  /** Until then a stale entry is kept, so pages can paint it while they refetch. */
+  staleUntil?: number;
 };
 
 const memoryCache = new Map<string, CacheRecord>();
@@ -38,6 +41,14 @@ function writeStorageRecord(key: string, record: CacheRecord, store: BrowserStor
   }
 }
 
+function removeStorageRecord(key: string, store: BrowserStore) {
+  try {
+    getStorage(store)?.removeItem(`${STORAGE_PREFIX}${key}`);
+  } catch {
+    // Storage unavailable — nothing to remove.
+  }
+}
+
 function removeStorageRecords(prefix?: string) {
   for (const store of ["session", "local"] as const) {
     const storage = getStorage(store);
@@ -63,10 +74,21 @@ export function readBrowserCacheEntry(key: string, store: BrowserStore = "sessio
   const stored = readStorageRecord(key, store);
   if (!stored) return null;
 
+  const now = Date.now();
+  // Entries written before staleUntil existed stored their keep-until time in expiresAt,
+  // so treat them as stale rather than trusting it as a freshness deadline.
+  const legacy = stored.staleUntil === undefined;
+  const staleUntil = stored.staleUntil ?? stored.storedAt + CACHE_TTL.staleMax;
+  if (staleUntil <= now) {
+    memoryCache.delete(key);
+    removeStorageRecord(key, store);
+    return null;
+  }
+
   memoryCache.set(key, stored);
   return {
     data: stored.data,
-    fresh: stored.expiresAt > Date.now(),
+    fresh: !legacy && stored.expiresAt > now,
   };
 }
 
@@ -75,16 +97,23 @@ export function peekBrowserCache<T>(key: string, store: BrowserStore = "session"
   return entry ? (entry.data as T) : null;
 }
 
+/**
+ * Caches `data` as fresh for `ttlMs`, then keeps it as a stale copy until `keepMs`
+ * (default: CACHE_TTL.staleMax) so the next visit can paint it while refetching.
+ */
 export function writeBrowserCache(
   key: string,
   data: unknown,
   ttlMs: number,
   store: BrowserStore = "session",
+  keepMs: number = CACHE_TTL.staleMax,
 ) {
+  const now = Date.now();
   const record: CacheRecord = {
     data,
-    expiresAt: Date.now() + ttlMs,
-    storedAt: Date.now(),
+    expiresAt: now + ttlMs,
+    storedAt: now,
+    staleUntil: now + Math.max(ttlMs, keepMs),
   };
   memoryCache.set(key, record);
   writeStorageRecord(key, record, store);

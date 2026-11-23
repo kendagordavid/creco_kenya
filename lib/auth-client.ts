@@ -62,24 +62,10 @@ async function fetchAndStore<T>(
 
   if (response.ok) {
     responseCache.set(key, { data, expiresAt: Date.now() + ttlMs });
-    writeBrowserCache(key, data, CACHE_TTL.staleMax, "session");
+    writeBrowserCache(key, data, ttlMs, "session");
   }
 
   return data;
-}
-
-function revalidateInBackground<T>(
-  url: string,
-  init: RequestInit | undefined,
-  key: string,
-  ttlMs: number,
-) {
-  if (inFlight.has(key)) return;
-
-  const request = fetchAndStore<T>(url, init, key, ttlMs).finally(() => {
-    inFlight.delete(key);
-  });
-  inFlight.set(key, request);
 }
 
 export async function authFetchJson<T>(
@@ -102,15 +88,6 @@ export async function authFetchJson<T>(
 
   const browserHit = readBrowserCacheEntry(key, "session");
   if (browserHit?.fresh) {
-    responseCache.set(key, {
-      data: browserHit.data,
-      expiresAt: Date.now() + ttlMs,
-    });
-    return browserHit.data as T;
-  }
-
-  if (browserHit && !browserHit.fresh) {
-    revalidateInBackground<T>(url, init, key, ttlMs);
     return browserHit.data as T;
   }
 
@@ -118,9 +95,17 @@ export async function authFetchJson<T>(
     return inFlight.get(key) as Promise<T>;
   }
 
-  const request = fetchAndStore<T>(url, init, key, ttlMs).finally(() => {
-    inFlight.delete(key);
-  });
+  // A stale copy is not returned here: pages already paint it from peekCachedJson, and
+  // waiting for the network means they then receive the fresh data. It is only the
+  // fallback when the network fails.
+  const request = fetchAndStore<T>(url, init, key, ttlMs)
+    .catch((error: unknown) => {
+      if (browserHit) return browserHit.data as T;
+      throw error;
+    })
+    .finally(() => {
+      inFlight.delete(key);
+    });
   inFlight.set(key, request);
   return request;
 }

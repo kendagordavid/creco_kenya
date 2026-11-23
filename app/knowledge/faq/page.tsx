@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
 import { SearchForm } from "@/components/SearchForm";
-import { FAQ_CATEGORIES, FAQ_ITEMS, faqSummary, getFaqsByCategory } from "@/lib/content/faqs";
+import { FAQ_CATEGORIES, faqSummary } from "@/lib/content/faqs";
+import { getFaqs } from "@/lib/knowledge-content";
 
 export const metadata = {
   title: "FAQs",
@@ -14,7 +15,7 @@ type Props = {
 export default async function FaqIndexPage({ searchParams }: Props) {
   const params = await searchParams;
   const category = params.category;
-  const items = category ? getFaqsByCategory(category) : FAQ_ITEMS;
+  const items = await getFaqs(category);
 
   return (
     <>

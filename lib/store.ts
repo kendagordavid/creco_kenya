@@ -15,6 +15,9 @@ export type UserRecord = {
   phone?: string;
   role?: UserRole;
   createdAt: string;
+  /** Set when staff have switched the account off; it can no longer sign in. */
+  disabledAt?: string;
+  mfaEnabled: boolean;
 };
 
 export type SubmissionType = "registration" | "enabling" | "incident";
@@ -75,6 +78,9 @@ type UserRow = {
   phone: string | null;
   role: string;
   created_at: Date;
+  // Added by the staff-console migration; absent on databases that have not run it yet.
+  disabled_at?: Date | null;
+  mfa_enabled_at?: Date | null;
 };
 
 type SubmissionRow = {
@@ -128,6 +134,8 @@ function mapUser(row: UserRow): UserRecord {
     phone: row.phone ?? undefined,
     role: row.role as UserRole,
     createdAt: row.created_at.toISOString(),
+    disabledAt: row.disabled_at ? row.disabled_at.toISOString() : undefined,
+    mfaEnabled: Boolean(row.mfa_enabled_at),
   };
 }
 
@@ -199,7 +207,7 @@ export async function findUserById(id: string): Promise<UserRecord | undefined> 
 }
 
 export async function createUser(
-  input: Omit<UserRecord, "id" | "createdAt"> & { passwordHash: string },
+  input: Omit<UserRecord, "id" | "createdAt" | "disabledAt" | "mfaEnabled"> & { passwordHash: string },
 ): Promise<UserRecord> {
   if (await findUserByEmail(input.email)) {
     throw new Error("An account with this email already exists.");
@@ -238,7 +246,7 @@ export async function createUser(
 
 export async function updateUser(
   id: string,
-  patch: Partial<Omit<UserRecord, "id" | "email" | "passwordHash">>,
+  patch: Partial<Omit<UserRecord, "id" | "email" | "passwordHash" | "disabledAt" | "mfaEnabled">>,
 ): Promise<UserRecord | undefined> {
   const existing = await findUserById(id);
   if (!existing) return undefined;

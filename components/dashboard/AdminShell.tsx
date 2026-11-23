@@ -6,13 +6,17 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import {
   BarChart3,
+  BookOpenText,
   ClipboardCheck,
+  Flag,
+  KeyRound,
   LayoutDashboard,
   LogOut,
   Megaphone,
   Menu,
   Newspaper,
   ShieldCheck,
+  Users,
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -44,7 +48,11 @@ export function AdminShell({ children, title, description }: Props) {
     { href: "/admin/compliance", label: t.nav.orgProgress, icon: ClipboardCheck, exact: true },
     { href: "/admin/reports", label: t.nav.allReports, icon: ShieldCheck, exact: true },
     { href: "/admin/anonymous", label: t.nav.anonymousReports, icon: Megaphone, exact: true },
+    { href: "/admin/flags", label: t.adminConsole.nav.flags, icon: Flag, exact: true },
     { href: "/admin/news", label: t.adminConsole.nav.news, icon: Newspaper, exact: true },
+    { href: "/admin/content", label: t.adminConsole.nav.content, icon: BookOpenText, exact: true },
+    { href: "/admin/users", label: t.adminConsole.nav.users, icon: Users, exact: true },
+    { href: "/admin/security", label: t.adminConsole.nav.security, icon: KeyRound, exact: true },
   ];
 
   const initials =

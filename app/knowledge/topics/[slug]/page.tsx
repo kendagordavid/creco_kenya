@@ -4,8 +4,7 @@ import { PageHero } from "@/components/PageHero";
 import { TopicGraphics } from "@/components/TopicGraphics";
 import { WikiBody } from "@/components/WikiBody";
 import { textForSpeech } from "@/lib/a11y/text-for-speech";
-import { getCachedWikiPageBySlug } from "@/lib/cached-wiki";
-import { localizeWikiPage } from "@/lib/wiki-locale";
+import { getTopicPage } from "@/lib/knowledge-content";
 import { getServerTranslations } from "@/lib/i18n/server";
 import { splitKeyPoints } from "@/lib/topic-sections";
 import { notFound } from "next/navigation";
@@ -19,17 +18,15 @@ type Props = {
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const { locale } = await getServerTranslations();
-  const page = await getCachedWikiPageBySlug(slug);
-  if (!page) return { title: "Topic" };
-  return { title: localizeWikiPage(page, locale).title };
+  const page = await getTopicPage(slug, locale);
+  return { title: page?.title ?? "Topic" };
 }
 
 export default async function TopicDetailPage({ params }: Props) {
   const { slug } = await params;
   const { locale, t } = await getServerTranslations();
-  const rawPage = await getCachedWikiPageBySlug(slug);
-  if (!rawPage) notFound();
-  const page = localizeWikiPage(rawPage, locale);
+  const page = await getTopicPage(slug, locale);
+  if (!page) notFound();
   const showEnglish = locale === "sw" && page.englishBody && page.englishBody !== page.body;
   const { keyPoints, rest } = splitKeyPoints(page.body);
 

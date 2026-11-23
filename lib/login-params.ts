@@ -13,6 +13,7 @@ export type LoginAuthError =
   | "Callback"
   | "Configuration"
   | "MissingCSRF"
+  | "MfaUseEmail"
   | "unknown";
 
 export function parseLoginAuthError(raw: string | undefined | null): LoginAuthError | null {
@@ -24,6 +25,7 @@ export function parseLoginAuthError(raw: string | undefined | null): LoginAuthEr
     case "Callback":
     case "Configuration":
     case "MissingCSRF":
+    case "MfaUseEmail":
       return raw;
     default:
       return raw ? "unknown" : null;

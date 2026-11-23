@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
-import { getCachedSourceDocuments, getCachedWikiSummaries } from "@/lib/cached-wiki";
+import { getCachedSourceDocuments } from "@/lib/cached-wiki";
 import { getServerTranslations } from "@/lib/i18n/server";
-import { localizeWikiSummary } from "@/lib/wiki-locale";
+import { getTopicSummaries } from "@/lib/knowledge-content";
 
 export async function generateMetadata() {
   const { t } = await getServerTranslations();
@@ -12,9 +12,7 @@ export async function generateMetadata() {
 export default async function SourcesPage() {
   const { locale, t } = await getServerTranslations();
   const sources = await getCachedSourceDocuments();
-  const summaries = (await getCachedWikiSummaries()).map((page) =>
-    localizeWikiSummary(page, locale),
-  );
+  const summaries = await getTopicSummaries(locale);
 
   return (
     <>

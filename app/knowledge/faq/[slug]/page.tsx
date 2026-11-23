@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHero } from "@/components/PageHero";
 import { WikiBody } from "@/components/WikiBody";
-import { getFaqBySlug } from "@/lib/content/faqs";
+import { getFaq } from "@/lib/knowledge-content";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -10,13 +10,13 @@ type Props = {
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
-  const faq = getFaqBySlug(slug);
+  const faq = await getFaq(slug);
   return { title: faq?.question ?? "FAQ" };
 }
 
 export default async function FaqDetailPage({ params }: Props) {
   const { slug } = await params;
-  const faq = getFaqBySlug(slug);
+  const faq = await getFaq(slug);
   if (!faq) notFound();
 
   return (

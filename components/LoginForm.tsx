@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FormEvent, useState, type ReactNode } from "react";
 import {
   ArrowRight,
+  KeyRound,
   Loader2,
   LogIn,
   Mail,
@@ -44,6 +45,8 @@ function oauthErrorMessage(
     case "MissingCSRF":
     case "unknown":
       return t.auth.login.oauthSignInFailed;
+    case "MfaUseEmail":
+      return t.auth.login.mfaUseEmail;
     case "Configuration":
       return googleAuthStatus === "enabled"
         ? interpolate(t.auth.login.oauthConfigurationError, { redirectUri: googleRedirectUri })
@@ -77,16 +80,44 @@ export function LoginForm({
   const [password, setPassword] = useState("");
   const [error, setError] = useState(oauthError ?? "");
   const [loading, setLoading] = useState(false);
+  // Shown after the password checks out on an account with two-step verification.
+  const [mfaStep, setMfaStep] = useState(false);
+  const [mfaCode, setMfaCode] = useState("");
+
+  function resetMfa() {
+    setMfaStep(false);
+    setMfaCode("");
+    setPassword("");
+    setError("");
+  }
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     setError("");
     setLoading(true);
 
-    const result = await signInWithCredentials(email, password, callbackUrl);
+    const result = await signInWithCredentials(
+      email,
+      password,
+      callbackUrl,
+      mfaStep ? mfaCode : undefined,
+    );
 
     if (!result.ok) {
       setLoading(false);
+      if (result.error === "mfa_required") {
+        setMfaStep(true);
+        return;
+      }
+      if (result.error === "mfa_invalid") {
+        setMfaCode("");
+        setError(t.auth.login.mfaInvalid);
+        return;
+      }
+      if (result.error === "account_disabled") {
+        setError(t.auth.login.accountDisabled);
+        return;
+      }
       if (result.error === "configuration") {
         setError(t.auth.login.configurationError);
         return;
@@ -145,45 +176,80 @@ export function LoginForm({
             </Alert>
           )}
 
-          <div className="space-y-2">
-            <Label htmlFor="email">{t.auth.login.email}</Label>
-            <div className="relative">
-              <Mail
-                className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
-                aria-hidden
-              />
+          {mfaStep ? (
+            <div className="space-y-3">
+              <div className="flex items-start gap-3 rounded-lg bg-creco-green-muted px-4 py-3">
+                <KeyRound className="mt-0.5 size-5 shrink-0 text-creco-primary" aria-hidden />
+                <div>
+                  <p className="font-semibold text-creco-primary">{t.auth.login.mfaTitle}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-creco-primary/85">{t.auth.login.mfaLead}</p>
+                </div>
+              </div>
+              <Label htmlFor="mfa-code">{t.auth.login.mfaCode}</Label>
               <Input
-                id="email"
-                type="email"
-                autoComplete="email"
-                placeholder={t.auth.login.emailPlaceholder}
-                className="h-11 pl-9"
+                id="mfa-code"
+                inputMode="numeric"
+                autoComplete="one-time-code"
+                pattern="[0-9]{6}"
+                maxLength={6}
+                placeholder="123456"
+                className="h-11 text-center font-mono text-lg tracking-[0.4em]"
                 required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                autoFocus
+                value={mfaCode}
+                onChange={(e) => setMfaCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
               />
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <div className="flex items-center justify-between gap-2">
-              <Label htmlFor="password">{t.auth.login.password}</Label>
-              <Link
-                href="/forgot-password"
+              <button
+                type="button"
+                onClick={resetMfa}
                 className="text-sm font-medium text-[var(--creco-primary)] hover:underline"
               >
-                {t.auth.login.forgotPassword}
-              </Link>
+                {t.auth.login.mfaBack}
+              </button>
             </div>
-            <PasswordInput
-              id="password"
-              autoComplete="current-password"
-              placeholder={t.auth.login.passwordPlaceholder}
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
+          ) : (
+            <>
+              <div className="space-y-2">
+                <Label htmlFor="email">{t.auth.login.email}</Label>
+                <div className="relative">
+                  <Mail
+                    className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+                    aria-hidden
+                  />
+                  <Input
+                    id="email"
+                    type="email"
+                    autoComplete="email"
+                    placeholder={t.auth.login.emailPlaceholder}
+                    className="h-11 pl-9"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center justify-between gap-2">
+                  <Label htmlFor="password">{t.auth.login.password}</Label>
+                  <Link
+                    href="/forgot-password"
+                    className="text-sm font-medium text-[var(--creco-primary)] hover:underline"
+                  >
+                    {t.auth.login.forgotPassword}
+                  </Link>
+                </div>
+                <PasswordInput
+                  id="password"
+                  autoComplete="current-password"
+                  placeholder={t.auth.login.passwordPlaceholder}
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+            </>
+          )}
 
           <Button
             type="submit"
@@ -197,7 +263,7 @@ export function LoginForm({
               </>
             ) : (
               <>
-                {t.auth.login.submit}
+                {mfaStep ? t.auth.login.mfaVerify : t.auth.login.submit}
                 <ArrowRight aria-hidden />
               </>
             )}

@@ -22,5 +22,7 @@ declare module "next-auth/jwt" {
     id?: string;
     orgName?: string;
     role?: UserRole;
+    /** Epoch ms of the last role/disabled check against the database. */
+    checkedAt?: number;
   }
 }

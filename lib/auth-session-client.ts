@@ -5,7 +5,19 @@ import { invalidateAuthCache } from "@/lib/auth-client";
 
 export type CredentialsSignInResult =
   | { ok: true }
-  | { ok: false; error: "invalid_credentials" | "configuration" | "unknown"; message?: string };
+  | {
+      ok: false;
+      error:
+        | "invalid_credentials"
+        | "mfa_required"
+        | "mfa_invalid"
+        | "account_disabled"
+        | "configuration"
+        | "unknown";
+      message?: string;
+    };
+
+const SIGN_IN_CODES = ["mfa_required", "mfa_invalid", "account_disabled"] as const;
 
 export async function completeSignOut(callbackUrl = "/"): Promise<void> {
   invalidateAuthCache();
@@ -23,6 +35,7 @@ export async function signInWithCredentials(
   email: string,
   password: string,
   callbackUrl: string,
+  mfaCode?: string,
 ): Promise<CredentialsSignInResult> {
   const normalizedEmail = email.trim().toLowerCase();
 
@@ -30,11 +43,17 @@ export async function signInWithCredentials(
     const result = await signIn("credentials", {
       email: normalizedEmail,
       password,
+      ...(mfaCode ? { code: mfaCode } : {}),
       redirect: false,
     });
 
     if (result?.error === "Configuration") {
       return { ok: false, error: "configuration" };
+    }
+
+    const code = SIGN_IN_CODES.find((value) => value === result?.code);
+    if (result?.error && code) {
+      return { ok: false, error: code };
     }
 
     if (result?.error || result?.ok === false) {

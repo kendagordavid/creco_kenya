@@ -59,6 +59,21 @@ npx vercel          # preview
 npx vercel --prod   # production
 ```
 
+## Staff console
+
+Superusers (`role = 'superuser'`) get the staff console at `/admin`. Besides analytics, compliance and reports it has:
+
+| URL | What |
+|-----|------|
+| `/admin/flags` | Q&A flag review queue: set a status on answers people flagged and keep a staff note |
+| `/admin/users` | Every account: make someone staff or a PBO user, switch an account off/on, reset someone's two-step verification. You cannot demote, switch off or reset yourself, and the last active staff account cannot be removed. Role and switch-off changes reach signed-in sessions within about a minute. |
+| `/admin/content` | Edit topic pages (English and Kiswahili) and FAQs (English; the FAQ pages are English-only) shown in the Knowledge hub. Edits are stored in the `content_overrides` table and go live at once; **Revert** goes back to the built-in copy. Guidance Q&A and search still read the built-in wiki files. |
+| `/admin/security` | Opt-in two-step verification (TOTP, any authenticator app) for your own staff account |
+
+With two-step verification on, the login form asks for the 6-digit code after the password, each code works once, and Google sign-in is refused for that account (use email and password). Authenticator secrets are encrypted with a key derived from `AUTH_SECRET`: **changing `AUTH_SECRET` makes them unreadable**, so staff with it on must have another staff member reset it under `/admin/users`, then set it up again.
+
+The new tables and columns are in `db/schema.sql` and are also added automatically the first time a staff screen loads.
+
 ## Local development
 
 ```bash

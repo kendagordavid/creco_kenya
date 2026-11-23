@@ -104,3 +104,29 @@ CREATE TABLE IF NOT EXISTS news_posts (
 
 CREATE INDEX IF NOT EXISTS news_posts_published_at_idx ON news_posts (published_at DESC);
 CREATE INDEX IF NOT EXISTS news_posts_published_idx ON news_posts (published, published_at DESC);
+
+-- Staff console: user management and MFA
+ALTER TABLE users ADD COLUMN IF NOT EXISTS disabled_at TIMESTAMPTZ;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS mfa_secret TEXT;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS mfa_pending_secret TEXT;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS mfa_enabled_at TIMESTAMPTZ;
+ALTER TABLE users ADD COLUMN IF NOT EXISTS mfa_last_step BIGINT;
+
+-- Staff console: Q&A flag review queue
+ALTER TABLE feedback ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'open';
+ALTER TABLE feedback ADD COLUMN IF NOT EXISTS staff_note TEXT;
+ALTER TABLE feedback ADD COLUMN IF NOT EXISTS reviewed_by TEXT REFERENCES users (id) ON DELETE SET NULL;
+ALTER TABLE feedback ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW();
+
+-- Staff console: knowledge CMS. A row replaces the built-in copy of one topic or FAQ in one language.
+CREATE TABLE IF NOT EXISTS content_overrides (
+  kind TEXT NOT NULL CHECK (kind IN ('topic', 'faq')),
+  slug TEXT NOT NULL,
+  locale TEXT NOT NULL CHECK (locale IN ('en', 'sw')),
+  title TEXT NOT NULL,
+  lead TEXT,
+  body TEXT NOT NULL,
+  updated_by TEXT REFERENCES users (id) ON DELETE SET NULL,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  PRIMARY KEY (kind, slug, locale)
+);

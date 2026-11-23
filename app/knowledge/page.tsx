@@ -2,11 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ModuleCard } from "@/components/ModuleCard";
 import { PageHero } from "@/components/PageHero";
-import { getCachedWikiSummaries } from "@/lib/cached-wiki";
 import { getFaqCategories } from "@/lib/content/locale";
 import { interpolate, getDictionary, getLocale, getServerTranslations } from "@/lib/i18n/server";
 import { cardSummary } from "@/lib/topic-sections";
-import { localizeWikiSummary } from "@/lib/wiki-locale";
+import { getTopicSummaries } from "@/lib/knowledge-content";
 
 export const dynamic = "force-dynamic";
 
@@ -18,9 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function KnowledgeHubPage() {
   const { locale, t } = await getServerTranslations();
-  const topics = (await getCachedWikiSummaries()).map((topic) =>
-    localizeWikiSummary(topic, locale),
-  );
+  const topics = await getTopicSummaries(locale);
   const faqCategories = getFaqCategories(locale);
   const filters = [
     { id: "summaries", href: "/topics", label: t.nav.menu.frameworkSummaries },

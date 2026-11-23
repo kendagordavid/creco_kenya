@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
-import { getCachedWikiSummaries } from "@/lib/cached-wiki";
-import { localizeWikiSummary } from "@/lib/wiki-locale";
+import { getTopicSummaries } from "@/lib/knowledge-content";
 import { cardSummary } from "@/lib/topic-sections";
 import { getDictionary, getLocale, getServerTranslations, interpolate } from "@/lib/i18n/server";
 
@@ -16,9 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function TopicsPage() {
   const { locale, t } = await getServerTranslations();
-  const wikiPages = (await getCachedWikiSummaries()).map((page) =>
-    localizeWikiSummary(page, locale),
-  );
+  const wikiPages = await getTopicSummaries(locale);
 
   return (
     <>

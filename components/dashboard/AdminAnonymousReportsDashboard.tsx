@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Loader2, Megaphone, MessageSquare } from "lucide-react";
 import {
   Card,
@@ -68,13 +68,16 @@ export function AdminAnonymousReportsDashboard() {
   const [notice, setNotice] = useState("");
   const error = queryError ?? data?.error ?? "";
 
-  useEffect(() => {
+  // Adopt fresh server data during render (not in an effect) so local edits start from it.
+  const [syncedData, setSyncedData] = useState(data);
+  if (data !== syncedData) {
+    setSyncedData(data);
     if (data && !data.error) {
       const next = data.reports ?? [];
       setReports(next);
       setNoteDrafts(Object.fromEntries(next.map((item) => [item.id, item.staffNote ?? ""])));
     }
-  }, [data]);
+  }
 
   const filtered = useMemo(() => {
     return reports.filter((item) => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import type { LucideIcon } from "lucide-react";
 import {
   Building2,
@@ -55,20 +55,19 @@ export function ProfileSettings() {
   const [saving, setSaving] = useState(false);
   const loading = queryLoading && !data;
 
-  useEffect(() => {
+  // Adopt fresh server data during render (not in an effect) so the form starts from it.
+  const [synced, setSynced] = useState({ data, queryError });
+  if (data !== synced.data || queryError !== synced.queryError) {
+    setSynced({ data, queryError });
     if (queryError) {
       setError(queryError);
-      return;
-    }
-    if (data?.error) {
+    } else if (data?.error) {
       setError(data.error);
-      return;
-    }
-    if (data) {
+    } else if (data) {
       setProfile(data);
       setForm(data);
     }
-  }, [data, queryError]);
+  }
 
   function update(field: keyof Profile, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));

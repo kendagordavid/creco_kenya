@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { ClipboardList, Loader2, MessageSquare } from "lucide-react";
 import {
   Card,
@@ -88,13 +88,16 @@ export function AdminReportsDashboard() {
   const [notice, setNotice] = useState("");
   const error = queryError ?? data?.error ?? "";
 
-  useEffect(() => {
+  // Adopt fresh server data during render (not in an effect) so local edits start from it.
+  const [syncedData, setSyncedData] = useState(data);
+  if (data !== syncedData) {
+    setSyncedData(data);
     if (data && !data.error) {
       const next = data.submissions ?? [];
       setSubmissions(next);
       setCommentDrafts(commentDraftsFromSubmissions(next));
     }
-  }, [data]);
+  }
 
   const filtered = useMemo(() => {
     return submissions.filter((item) => {

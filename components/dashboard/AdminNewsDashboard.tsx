@@ -109,11 +109,12 @@ export function AdminNewsDashboard() {
 
   const queryLoadError = queryError ?? data?.error ?? "";
 
-  useEffect(() => {
-    if (data && !data.error) {
-      setPosts(data.posts ?? []);
-    }
-  }, [data]);
+  // Adopt fresh server data during render (not in an effect) so local edits start from it.
+  const [syncedData, setSyncedData] = useState(data);
+  if (data !== syncedData) {
+    setSyncedData(data);
+    if (data && !data.error) setPosts(data.posts ?? []);
+  }
 
   useEffect(() => {
     return () => {
